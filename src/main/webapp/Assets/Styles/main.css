@@ -146,6 +146,7 @@
   align-items: center;
   justify-content: center;
   display: flex;
+  overflow: hidden;
 }
 
 .container-input-search, .btn-primary{

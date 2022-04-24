@@ -25,9 +25,7 @@ public class UsersResource {
     public Response list() {
 
         try {
-
             List<User> users = new UserService().getUsers();
-
             return Response.ok()
                     .entity(users)
                     .build();

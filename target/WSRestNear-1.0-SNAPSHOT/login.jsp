@@ -47,7 +47,7 @@
             </select>
           </div>
   
-        <button type="submit" id="button-login" class="btn btn-primary; btn-box-sign-up" style="margin-left: 35%;" >Ingresar</button>
+        <button type="submit" class="btn btn-primary; btn-box-sign-up" style="margin-left: 35%;" >Ingresar</button>
       </form>
     </div>
 </div>
@@ -67,36 +67,5 @@
     }
 
 </script>
-<script type="text/javascript">
-
-    document.getElementById('button-login').addEventListener('click', user);
-    var a = document.getElementById("username");
-
-
-    function user(){
-        fetch(getAbsolutePath()+'api/users/'+a.value)
-        .then(res => res.json())
-        .then(data => {
-           if(data!=null){
-               localStorage.setItem("username", a.value);
-           }else {
-               localStorage.setItem("username", null);
-           }
-           console.log(a.value);
-
-        })
-
-    }
-
-   function getAbsolutePath() {
-       var loc = window.location;
-       var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
-       return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
-   }
-
-
-
-</script>
-
 </body>
 </html>

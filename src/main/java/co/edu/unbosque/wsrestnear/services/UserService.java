@@ -1,6 +1,7 @@
 package co.edu.unbosque.wsrestnear.services;
 
 import co.edu.unbosque.wsrestnear.dtos.FCoins;
+import co.edu.unbosque.wsrestnear.dtos.Likes;
 import co.edu.unbosque.wsrestnear.dtos.NFT_Picture;
 import co.edu.unbosque.wsrestnear.dtos.User;
 import com.opencsv.bean.CsvToBean;
@@ -19,6 +20,34 @@ public class UserService {
 
     private static String ruta = "";
     //Leer Usuario
+
+
+    public List<Likes> getLikes() throws IOException {
+
+        List<Likes> likesList;
+
+        try (InputStream is = UserService.class.getClassLoader()
+                .getResourceAsStream("Likes.csv")) {
+
+            HeaderColumnNameMappingStrategy<Likes> strategy = new HeaderColumnNameMappingStrategy<>();
+            strategy.setType(Likes.class);
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+
+                CsvToBean<Likes> csvToBean = new CsvToBeanBuilder<Likes>(br)
+                        .withType(Likes.class)
+                        .withMappingStrategy(strategy)
+                        .withIgnoreLeadingWhiteSpace(true)
+                        .build();
+
+                likesList = csvToBean.parse();
+            }
+        }
+
+        return likesList;
+    }
+
+
     public List<User> getUsers() throws IOException {
 
         List<User> users;
@@ -43,7 +72,6 @@ public class UserService {
 
         return users;
     }
-
 
     public static Optional<List<FCoins>> getFCoins() throws IOException {
 
@@ -106,6 +134,17 @@ public class UserService {
 
         return new User(username, name, lastname, role, password, "0");
     }
+
+    public Likes addLike(String email,String authorPictureEmail,String pictureName,int liker, String path) throws IOException {
+        String newLine =  email + "," + authorPictureEmail + ","+pictureName+ "," + liker +"\n";
+        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Likes.csv";
+        FileOutputStream os = new FileOutputStream(fullpath, true);
+        os.write(newLine.getBytes());
+        os.close();
+
+        return new Likes(email,authorPictureEmail,pictureName,liker);
+    }
+
     public void createMoney(String username,String fcoins, String path) throws IOException {
         String newLine = username + "," + fcoins + "\n";
         String fullpath = path.replace("NEArBackend-1.0-SNAPSHOT" + File.separator, "") + "classes" + File.separator + "FCoins.csv";
