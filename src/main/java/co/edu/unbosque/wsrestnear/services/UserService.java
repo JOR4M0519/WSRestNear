@@ -17,11 +17,6 @@ import java.util.Random;
 
 public class UserService {
 
-
-    private static String ruta = "";
-    //Leer Usuario
-
-
     public List<Likes> getLikes() throws IOException {
 
         List<Likes> likesList;
@@ -77,7 +72,8 @@ public class UserService {
 
         List<FCoins> fcoins;
 
-        try (InputStream is = new FileInputStream(ruta)) {
+        try (InputStream is = UserService.class.getClassLoader()
+                .getResourceAsStream("Fcoins.csv")) {
 
             if (is == null) {
                 return Optional.empty();
@@ -102,7 +98,8 @@ public class UserService {
 
         List<NFT_Picture> nft;
 
-        try (InputStream is = new FileInputStream(ruta)) {
+        try (InputStream is = UserService.class.getClassLoader()
+                .getResourceAsStream("Nfts.csv")) {
 
             if (is == null) {
                 return Optional.empty();
@@ -214,11 +211,4 @@ public class UserService {
 
     }
 
-    public String getRuta() {
-        return ruta;
-    }
-
-    public void setRuta(String ruta) {
-        this.ruta = ruta;
-    }
 }

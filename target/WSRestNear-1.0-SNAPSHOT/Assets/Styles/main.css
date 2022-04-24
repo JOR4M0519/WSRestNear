@@ -135,6 +135,39 @@
 #dropdown-item:active{
   background-color: #BA2737;
 }
+.btn-like {
+  margin: 0 10px;
+  padding: 5px;
+  background: #857979;
+  color: #fff;
+  outline: none;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  transition: 0.5s;
+}
+
+.card-body-price_likes{
+  display: grid;
+  grid-auto-flow: column; 
+  justify-content:space-between;
+}
+
+.btn-like:hover {
+  background: #be7474;
+  color: #fff;
+  transition: 0.5s;
+}
+.btn-like:focus {
+  background: #be7474;
+  box-shadow: 0 0 1px 6px rgba(214, 89, 89, 0.5)
+}
+
+.btn-liked{
+  border: none;
+  background-repeat: no-repeat, repeat;
+  background-color: transparent;
+  background-image: url("../svg/heart-fill.svg");
+}
 
 .card-dimensions{
   padding: 2%;

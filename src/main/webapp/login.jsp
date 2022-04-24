@@ -53,6 +53,7 @@
 </div>
 </div>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="Assets/js/sumarLikes.js"></script>
 <link rel="stylesheet" href="alert/dist/sweetalert.css">
 <script type="text/javascript">
 
