@@ -1,10 +1,13 @@
-document.getElementById('sumarLikes').addEventListener('click', btnLike);
-document.getElementById('restarLikes').addEventListener('click', btnLike);
+
+
+//document.getElementById('sumarLikes').addEventListener('onclick', btnLike);
+//document.getElementById('restarLikes').addEventListener('click', btnLike);
+
 
 function btnLike(){
     const urlApi = "http://localhost:8080/WSRestNear-1.0-SNAPSHOT/api/likes";
     let data = fetch(urlApi+`/email=${localStorage.getItem("username")}`).then(response => response.json());
-    
+    alert("click!");
     if(document.getElementById("sumarLikes") != null){
         sumarLikes();
         document.getElementById("sumarLikes").id ="restarLikes";
