@@ -4,6 +4,15 @@ import com.opencsv.bean.CsvBindByName;
 
 public class FCoins {
 
+    public FCoins(){
+
+    }
+
+    public FCoins(String username, String FCoins) {
+        this.username = username;
+        this.FCoins = FCoins;
+    }
+
     @CsvBindByName
     private String username;
     @CsvBindByName

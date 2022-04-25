@@ -68,7 +68,7 @@ public class UserService {
         return users;
     }
 
-    public static Optional<List<FCoins>> getFCoins() throws IOException {
+    public Optional<List<FCoins>> getFCoins() throws IOException {
 
         List<FCoins> fcoins;
 
@@ -142,13 +142,14 @@ public class UserService {
         return new Likes(email,authorPictureEmail,pictureName,liker);
     }
 
-    public void createMoney(String username,String fcoins, String path) throws IOException {
+    public FCoins createMoney(String username,String fcoins, String path) throws IOException {
         String newLine = username + "," + fcoins + "\n";
-        String fullpath = path.replace("NEArBackend-1.0-SNAPSHOT" + File.separator, "") + "classes" + File.separator + "FCoins.csv";
+        String fullpath = path.replace("WSRestNear-1.0-SNAPSHOT" + File.separator, "") + "classes" + File.separator + "FCoins.csv";
 
         FileOutputStream os = new FileOutputStream(fullpath, true);
         os.write(newLine.getBytes());
         os.close();
+        return new FCoins(username, fcoins);
     }
 
 
