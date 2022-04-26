@@ -1,6 +1,6 @@
 package co.edu.unbosque.wsrestnear.resources;
 
-import co.edu.unbosque.wsrestnear.dtos.NFT_Picture;
+import co.edu.unbosque.wsrestnear.dtos.Art_NFT;
 import co.edu.unbosque.wsrestnear.services.UserService;
 import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.GET;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-@Path("/Arts")
+@Path("/arts")
 public class NFTs_General {
     @Context
     ServletContext context;
@@ -30,7 +30,7 @@ public class NFTs_General {
 
         uService = new UserService();
 
-        List<NFT_Picture> nfts = null;
+        List<Art_NFT> nfts = null;
         try {
             nfts = uService.getNft().get();
         } catch (IOException e) {
@@ -44,14 +44,14 @@ public class NFTs_General {
 
         // Listing file names in path
         int i = 0;
-        List<NFT_Picture> files = new ArrayList<NFT_Picture>();
+        List<Art_NFT> files = new ArrayList<Art_NFT>();
 
         File[] listFiles = uploadDir.listFiles();
         Collections.reverse(Arrays.asList(listFiles));
 
         for (File file : listFiles) {
-            NFT_Picture nft = null;
-            nft = nfts.stream().filter(nft_picture -> (file.getName()).equals(nft_picture.getId())).findFirst().orElse(null);
+            Art_NFT nft = null;
+            nft = nfts.stream().filter(artNft_ -> (file.getName()).equals(artNft_.getId())).findFirst().orElse(null);
             if (nft != null) {
                 nft.setId(UPLOAD_DIRECTORY + File.separator + file.getName());
                 if (i < 6) {
