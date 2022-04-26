@@ -142,14 +142,20 @@ public class UserService {
         return new Likes(email,authorPictureEmail,pictureName,liker);
     }
 
-    public FCoins createMoney(String username,String fcoins, String path) throws IOException {
+    public FCoins createMoney(String username,String fcoins) throws NullPointerException, IOException {
         String newLine = username + "," + fcoins + "\n";
-        String fullpath = path.replace("WSRestNear-1.0-SNAPSHOT" + File.separator, "") + "classes" + File.separator + "FCoins.csv";
+        String is = UserService.class.getClassLoader().getResource("Fcoins.csv").getPath();
+        String ruta= is.replace("/WSRestNear-1.0-SNAPSHOT/WEB-INF","");
 
-        FileOutputStream os = new FileOutputStream(fullpath, true);
-        os.write(newLine.getBytes());
-        os.close();
-        return new FCoins(username, fcoins);
+           System.out.println("Usuario: "+username+" FCoins: "+fcoins+" Path: "+ruta);
+            if (is == null) {
+                return null;
+            }
+            FileOutputStream os = new FileOutputStream(ruta, true);
+            os.write(newLine.getBytes());
+            os.close();
+            return new FCoins(username, fcoins);
+
     }
 
 
@@ -165,18 +171,28 @@ public class UserService {
 
     }
 
-    public long amountMoney(String username) throws IOException {
+   //<3 -----------------------------------------------------------------
+    public FCoins amountMoney(String username) throws IOException {
 
         long amount = 0;
-        List<FCoins> fCoins = getFCoins().get();
+        boolean existe = false;
 
-        for (int i = 0; i < fCoins.size(); i++) {
-            if (fCoins.get(i).getUsername().equals(username)) {
-                amount += Long.parseLong(fCoins.get(i).getFCoins());
+        List<FCoins> fCoins = getFCoins().orElse(null);
+        if(fCoins!=null){
+            for(int i = 0; i < fCoins.size(); i++) {
+                if (fCoins.get(i).getUsername().equals(username)) {
+                    amount += Long.parseLong(fCoins.get(i).getFCoins());
+                    existe = true;
+                }
             }
         }
-        return amount;
+        if(!existe){
+            return null;
+        }
+
+        return new FCoins(username,String.valueOf(amount));
     }
+    //<3 -----------------------------------------------------------------
 
     public static void deleteFile(String URL){
          new File(URL).delete();
