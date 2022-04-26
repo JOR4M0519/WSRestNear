@@ -387,18 +387,7 @@
   </div>
 </footer>
 
-<script type="text/javascript">
 
-  var username = document.getElementById("username").value;
-  localStorage.setItem('username', username);
-
-  var Myelement = document.forms['myaccount']['usernameData'];
-  console.log(Myelement.value);
-  var user = localStorage.getItem('username');
-  Myelement.setAttribute('value',user);
-  console.log(Myelement.value);
-
-</script>
 
 <!-- BOOTSTRAP SCRIPTS -->
 <script src="Assets/js/generalCatalogue.js"></script>
