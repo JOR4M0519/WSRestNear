@@ -2,8 +2,14 @@ package co.edu.unbosque.wsrestnear.dtos;
 
 import com.opencsv.bean.CsvBindByName;
 
+
+
 public class FCoins {
 
+    @CsvBindByName
+    private String username;
+    @CsvBindByName
+    private String FCoins;
     public FCoins(){
 
     }
@@ -13,10 +19,7 @@ public class FCoins {
         this.FCoins = FCoins;
     }
 
-    @CsvBindByName
-    private String username;
-    @CsvBindByName
-    private String FCoins;
+
 
     public String getUsername() {
         return username;

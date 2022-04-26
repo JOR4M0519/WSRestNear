@@ -27,7 +27,7 @@
         
     <div class="contenedor-form-login">  
         <h1 style="margin-bottom: 15%; text-align: center;">Inicia Sesión</h1>
-        <form action="./login" method="post">
+        <form >
           
         <div class="form-group" >
           <span for="name" >Correo:</span>
@@ -47,14 +47,14 @@
             </select>
           </div>
   
-        <button type="submit" class="btn btn-primary; btn-box-sign-up" style="margin-left: 35%;" >Ingresar</button>
+        <button type="submit" id="button-user" class="btn btn-primary; btn-box-sign-up" style="margin-left: 35%;" >Ingresar</button>
       </form>
     </div>
 </div>
 </div>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="Assets/js/sumarLikes.js"></script>
-<link rel="stylesheet" href="alert/dist/sweetalert.css">
+<script src="Assets/js/login.js"></script>
+
 <script type="text/javascript">
 
     var status = document.getElementById("status").value;
@@ -68,5 +68,6 @@
     }
 
 </script>
+
 </body>
 </html>

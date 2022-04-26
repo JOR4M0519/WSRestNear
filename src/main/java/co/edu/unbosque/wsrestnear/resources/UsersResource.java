@@ -33,7 +33,28 @@ public class UsersResource {
             return Response.serverError().build();
         }
     }
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Response createForm(
+            @FormParam("username") String username,
+            @FormParam("name") String name,
+            @FormParam("lastname") String lastname,
+            @FormParam("password") String password,
+            @FormParam("role") String role
+    ) {
+        String contextPath =context.getRealPath("") + File.separator;
 
+        try {
+            User user = new UserService().createUser(username, name, lastname, password, role, "0",contextPath);
+
+            return Response.created(UriBuilder.fromResource(UsersResource.class).path(username).build())
+                    .entity(user)
+                    .build();
+        } catch (IOException e) {
+            return Response.serverError().build();
+        }
+    }
 
 
     @GET
@@ -61,26 +82,5 @@ public class UsersResource {
             return Response.serverError().build();
         }
     }
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response createForm(
-            @FormParam("username") String username,
-            @FormParam("name") String name,
-            @FormParam("lastname") String lastname,
-            @FormParam("password") String password,
-            @FormParam("role") String role
-    ) {
-        String contextPath =context.getRealPath("") + File.separator;
 
-        try {
-            User user = new UserService().createUser(username, name, lastname, password, role, "0",contextPath);
-
-            return Response.created(UriBuilder.fromResource(UsersResource.class).path(username).build())
-                    .entity(user)
-                    .build();
-        } catch (IOException e) {
-            return Response.serverError().build();
-        }
-    }
 }
