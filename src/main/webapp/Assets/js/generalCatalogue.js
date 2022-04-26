@@ -2,12 +2,11 @@ var imagesDiv = document.getElementById("card");
 
 const getData = async () => {
   let data = null;
-  const urlApi = getAbsolutePath()+"api/";
 
   if(window.location.toString().includes("account")){
-    data = await fetch(urlApi+`users/user=${localStorage.getItem("username")}//ArtNFT`).then(response => response.json());
+    data = await fetch(`./api/users/user=${localStorage.getItem("username")}/collections`).then(response => response.json());
   }else{
-    data = await fetch(urlApi+"ArtNFT").then(response => response.json());
+    data = await fetch("./api/arts").then(response => response.json());
   }
 
   data.forEach(data => {

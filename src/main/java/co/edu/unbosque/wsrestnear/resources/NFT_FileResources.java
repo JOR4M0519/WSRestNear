@@ -1,8 +1,6 @@
 package co.edu.unbosque.wsrestnear.resources;
 
-import co.edu.unbosque.wsrestnear.dtos.ExceptionMessage;
-import co.edu.unbosque.wsrestnear.dtos.Likes;
-import co.edu.unbosque.wsrestnear.dtos.NFT_Picture;
+import co.edu.unbosque.wsrestnear.dtos.Art_NFT;
 import co.edu.unbosque.wsrestnear.dtos.User;
 import co.edu.unbosque.wsrestnear.services.UserService;
 import jakarta.servlet.ServletContext;
@@ -14,43 +12,15 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import java.io.*;
 import java.util.*;
 
-@Path("/users/{username}/collections/{collection}/arts")
+@Path("/users/{username}/collections/{collection}")
 public class NFT_FileResources {
     @Context
     ServletContext context;
     private String UPLOAD_DIRECTORY = "NFTS";
     private UserService uService;
 
-    /*@PUT
-    @Path("/{email}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response updateNFT_Likes(@PathParam("email") String email) {
 
-    }*/
-
-   /* @Path("/{email}")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response userLikes(@PathParam("email") String email) {
-
-        uService = new UserService();
-        List<Likes> likesList = null;
-
-        try {
-            likesList = (List<Likes>) uService.getLikes().stream().filter(likes -> (likes.getEmail().equals(email)));
-            return Response.ok()
-                    .entity(likesList)
-                    .build();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Response.serverError().build();
-        }
-
-
-    }
-    */
-    // user/a@a/ArtNTF
-
+    @Path("/arts")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response personalListFiles(@PathParam("username") String username,@PathParam("collection") String collection) {
@@ -58,7 +28,7 @@ public class NFT_FileResources {
 
         uService = new UserService();
 
-        List<NFT_Picture> nfts = null;
+        List<Art_NFT> nfts = null;
         try {
             nfts = uService.getNft().get();
         } catch (IOException e) {
@@ -72,11 +42,11 @@ public class NFT_FileResources {
 
         // Listing file names in path
         //id,extension,title,author,price,likes,email_owner
-        List<NFT_Picture> files = new ArrayList<NFT_Picture>();
+        List<Art_NFT> files = new ArrayList<Art_NFT>();
         for (File file : uploadDir.listFiles()) {
-            NFT_Picture nft = null;
+            Art_NFT nft = null;
             String finalEmail = "";
-            nft = nfts.stream().filter(nft_picture -> (file.getName()).equals(nft_picture.getId()) && finalEmail.equals(nft_picture.getEmail_owner())).findFirst().orElse(null);
+            nft = nfts.stream().filter(artNft_ -> (file.getName()).equals(artNft_.getId()) && finalEmail.equals(artNft_.getEmail_owner())).findFirst().orElse(null);
             if (nft != null) {
                 nft.setId(UPLOAD_DIRECTORY + File.separator + file.getName());
                 files.add(nft);

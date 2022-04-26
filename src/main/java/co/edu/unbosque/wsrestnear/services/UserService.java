@@ -2,7 +2,7 @@ package co.edu.unbosque.wsrestnear.services;
 
 import co.edu.unbosque.wsrestnear.dtos.FCoins;
 import co.edu.unbosque.wsrestnear.dtos.Likes;
-import co.edu.unbosque.wsrestnear.dtos.NFT_Picture;
+import co.edu.unbosque.wsrestnear.dtos.Art_NFT;
 import co.edu.unbosque.wsrestnear.dtos.User;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -16,6 +16,8 @@ import java.util.Random;
 
 
 public class UserService {
+
+    
 
     public List<Likes> getLikes() throws IOException {
 
@@ -41,7 +43,6 @@ public class UserService {
 
         return likesList;
     }
-
 
     public List<User> getUsers() throws IOException {
 
@@ -94,9 +95,9 @@ public class UserService {
     }
 
     //Leer NFT
-    public static Optional<List<NFT_Picture>> getNft() throws IOException {
+    public static Optional<List<Art_NFT>> getNft() throws IOException {
 
-        List<NFT_Picture> nft;
+        List<Art_NFT> nft;
 
         try (InputStream is = UserService.class.getClassLoader()
                 .getResourceAsStream("Nfts.csv")) {
@@ -105,13 +106,13 @@ public class UserService {
                 return Optional.empty();
             }
 
-            HeaderColumnNameMappingStrategy<NFT_Picture> strategy = new HeaderColumnNameMappingStrategy<>();
-            strategy.setType(NFT_Picture.class);
+            HeaderColumnNameMappingStrategy<Art_NFT> strategy = new HeaderColumnNameMappingStrategy<>();
+            strategy.setType(Art_NFT.class);
 
             try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
 
-                CsvToBean<NFT_Picture> csvToBean = new CsvToBeanBuilder<NFT_Picture>(br)
-                        .withType(NFT_Picture.class)
+                CsvToBean<Art_NFT> csvToBean = new CsvToBeanBuilder<Art_NFT>(br)
+                        .withType(Art_NFT.class)
                         .withMappingStrategy(strategy)
                         .withIgnoreLeadingWhiteSpace(true)
                         .build();
@@ -151,7 +152,6 @@ public class UserService {
         os.close();
         return new FCoins(username, fcoins);
     }
-
 
     public void createNFT(String id, String extension, String title, String author, String price, String email_owner, String path) throws IOException {
         String newLine = id + "," + extension + "," + title + ","+author+ "," + price + ","+"0"+","+ email_owner +"\n";
