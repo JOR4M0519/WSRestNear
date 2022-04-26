@@ -1,9 +1,6 @@
 package co.edu.unbosque.wsrestnear.services;
 
-import co.edu.unbosque.wsrestnear.dtos.FCoins;
-import co.edu.unbosque.wsrestnear.dtos.Likes;
-import co.edu.unbosque.wsrestnear.dtos.NFT_Picture;
-import co.edu.unbosque.wsrestnear.dtos.User;
+import co.edu.unbosque.wsrestnear.dtos.*;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
@@ -16,6 +13,42 @@ import java.util.Random;
 
 
 public class UserService {
+
+    public List<Collection> getCollections() throws IOException {
+
+        List<Collection> collectionList;
+
+        try (InputStream is = UserService.class.getClassLoader()
+                .getResourceAsStream("Collections.csv")) {
+
+            HeaderColumnNameMappingStrategy<Collection> strategy = new HeaderColumnNameMappingStrategy<>();
+            strategy.setType(Collection.class);
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+
+                CsvToBean<Collection> csvToBean = new CsvToBeanBuilder<Collection>(br)
+                        .withType(Collection.class)
+                        .withMappingStrategy(strategy)
+                        .withIgnoreLeadingWhiteSpace(true)
+                        .build();
+
+                collectionList = csvToBean.parse();
+            }
+        }
+
+        return collectionList;
+    }
+
+    public void createCollection(String username,String collection,String quantity, String path) throws IOException {
+        String newLine = username + "," + collection + "," + quantity + "\n";
+
+        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Collections.csv";
+
+        FileOutputStream os = new FileOutputStream( fullpath, true);
+        os.write(newLine.getBytes());
+        os.close();
+
+    }
 
     public List<Likes> getLikes() throws IOException {
 
@@ -41,7 +74,6 @@ public class UserService {
 
         return likesList;
     }
-
 
     public List<User> getUsers() throws IOException {
 
@@ -94,9 +126,9 @@ public class UserService {
     }
 
     //Leer NFT
-    public static Optional<List<NFT_Picture>> getNft() throws IOException {
+    public static Optional<List<Art_NFT>> getNft() throws IOException {
 
-        List<NFT_Picture> nft;
+        List<Art_NFT> nft;
 
         try (InputStream is = UserService.class.getClassLoader()
                 .getResourceAsStream("Nfts.csv")) {
@@ -105,13 +137,13 @@ public class UserService {
                 return Optional.empty();
             }
 
-            HeaderColumnNameMappingStrategy<NFT_Picture> strategy = new HeaderColumnNameMappingStrategy<>();
-            strategy.setType(NFT_Picture.class);
+            HeaderColumnNameMappingStrategy<Art_NFT> strategy = new HeaderColumnNameMappingStrategy<>();
+            strategy.setType(Art_NFT.class);
 
             try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
 
-                CsvToBean<NFT_Picture> csvToBean = new CsvToBeanBuilder<NFT_Picture>(br)
-                        .withType(NFT_Picture.class)
+                CsvToBean<Art_NFT> csvToBean = new CsvToBeanBuilder<Art_NFT>(br)
+                        .withType(Art_NFT.class)
                         .withMappingStrategy(strategy)
                         .withIgnoreLeadingWhiteSpace(true)
                         .build();
@@ -158,11 +190,10 @@ public class UserService {
 
     }
 
-
     public void createNFT(String id, String extension, String title, String author, String price, String email_owner, String path) throws IOException {
         String newLine = id + "," + extension + "," + title + ","+author+ "," + price + ","+"0"+","+ email_owner +"\n";
 
-        String fullpath = path.replace("NEArBackend-1.0-SNAPSHOT"+File.separator,"")+ "classes"+File.separator+"Nfts.csv";
+        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Nfts.csv";
 
 
         FileOutputStream os = new FileOutputStream( fullpath, true);

@@ -2,14 +2,12 @@ package co.edu.unbosque.wsrestnear.dtos;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class NFT_Picture {
+public class Art_NFT {
 
     @CsvBindByName
     private String id;
     @CsvBindByName
-    private String extension;
-    @CsvBindByName
-    private String pictureLink;
+    private String collection;
     @CsvBindByName
     private String title;
     @CsvBindByName
@@ -21,17 +19,13 @@ public class NFT_Picture {
     @CsvBindByName
     private String email_owner;
 
-    public String getExtension() {return extension;}
+    public String getCollection() {return collection;}
 
-    public void setExtension(String extension) {this.extension = extension;}
+    public void setCollection(String collection) {this.collection = collection;}
 
     public String getId() {return id;}
 
     public void setId(String id) {this.id = id;}
-
-    public String getPictureLink() {return pictureLink;}
-
-    public void setPictureLink(String pictureLink) {this.pictureLink = pictureLink;}
 
     public String getTitle() {return title;}
 
@@ -57,15 +51,5 @@ public class NFT_Picture {
 
     public void setEmail_owner(String email_owner) {this.email_owner = email_owner;}
 
-    @Override
-    public String toString() {
-        return "NFT_Picture{" +
-                "id='" + id + '\'' +
-                ", pictureLink='" + pictureLink + '\'' +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", price='" + price + '\'' +
-                ", email_owner='" + email_owner + '\'' +
-                '}';
-    }
+
 }
