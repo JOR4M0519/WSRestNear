@@ -1,9 +1,6 @@
 package co.edu.unbosque.wsrestnear.services;
 
-import co.edu.unbosque.wsrestnear.dtos.FCoins;
-import co.edu.unbosque.wsrestnear.dtos.Likes;
-import co.edu.unbosque.wsrestnear.dtos.Art_NFT;
-import co.edu.unbosque.wsrestnear.dtos.User;
+import co.edu.unbosque.wsrestnear.dtos.*;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
@@ -17,7 +14,41 @@ import java.util.Random;
 
 public class UserService {
 
-    
+    public List<Collection> getCollections() throws IOException {
+
+        List<Collection> collectionList;
+
+        try (InputStream is = UserService.class.getClassLoader()
+                .getResourceAsStream("Collections.csv")) {
+
+            HeaderColumnNameMappingStrategy<Collection> strategy = new HeaderColumnNameMappingStrategy<>();
+            strategy.setType(Collection.class);
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+
+                CsvToBean<Collection> csvToBean = new CsvToBeanBuilder<Collection>(br)
+                        .withType(Collection.class)
+                        .withMappingStrategy(strategy)
+                        .withIgnoreLeadingWhiteSpace(true)
+                        .build();
+
+                collectionList = csvToBean.parse();
+            }
+        }
+
+        return collectionList;
+    }
+
+    public void createCollection(String username,String collection,String quantity, String path) throws IOException {
+        String newLine = username + "," + collection + "," + quantity + "\n";
+
+        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Collections.csv";
+
+        FileOutputStream os = new FileOutputStream( fullpath, true);
+        os.write(newLine.getBytes());
+        os.close();
+
+    }
 
     public List<Likes> getLikes() throws IOException {
 
@@ -162,7 +193,7 @@ public class UserService {
     public void createNFT(String id, String extension, String title, String author, String price, String email_owner, String path) throws IOException {
         String newLine = id + "," + extension + "," + title + ","+author+ "," + price + ","+"0"+","+ email_owner +"\n";
 
-        String fullpath = path.replace("NEArBackend-1.0-SNAPSHOT"+File.separator,"")+ "classes"+File.separator+"Nfts.csv";
+        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Nfts.csv";
 
 
         FileOutputStream os = new FileOutputStream( fullpath, true);
