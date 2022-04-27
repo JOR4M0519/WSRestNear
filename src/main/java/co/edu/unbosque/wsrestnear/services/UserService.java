@@ -1,19 +1,54 @@
 package co.edu.unbosque.wsrestnear.services;
 
 import co.edu.unbosque.wsrestnear.dtos.*;
+import co.edu.unbosque.wsrestnear.dtos.Collection;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 public class UserService {
+
+    public List<Collection> getUltimasCollections() throws IOException {
+
+        List<Collection> collectionList;
+        List<Collection> respuesta = new ArrayList<>();
+
+
+        try (InputStream is = UserService.class.getClassLoader()
+                .getResourceAsStream("Collections.csv")) {
+
+            HeaderColumnNameMappingStrategy<Collection> strategy = new HeaderColumnNameMappingStrategy<>();
+            strategy.setType(Collection.class);
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+
+                CsvToBean<Collection> csvToBean = new CsvToBeanBuilder<Collection>(br)
+                        .withType(Collection.class)
+                        .withMappingStrategy(strategy)
+                        .withIgnoreLeadingWhiteSpace(true)
+                        .build();
+                collectionList = csvToBean.parse();
+                Collections.reverse(collectionList);
+
+                int numero=6;
+                if(collectionList.size()<numero){
+                    numero=collectionList.size();
+                }
+                for(int x=0;x<numero;x++){
+                    respuesta.add(collectionList.get(x));
+                }
+
+            }
+        }
+
+        return respuesta;
+    }
 
     public List<Collection> getCollectionsPorArtista(String username) throws IOException {
 
