@@ -10,9 +10,35 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 
 public class UserService {
+
+    public List<Collection> getCollectionsPorArtista(String username) throws IOException {
+
+        List<Collection> collectionList;
+
+        try (InputStream is = UserService.class.getClassLoader()
+                .getResourceAsStream("Collections.csv")) {
+
+            HeaderColumnNameMappingStrategy<Collection> strategy = new HeaderColumnNameMappingStrategy<>();
+            strategy.setType(Collection.class);
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+
+                CsvToBean<Collection> csvToBean = new CsvToBeanBuilder<Collection>(br)
+                        .withType(Collection.class)
+                        .withMappingStrategy(strategy)
+                        .withIgnoreLeadingWhiteSpace(true)
+                        .build();
+
+                collectionList = csvToBean.parse().stream().filter(collection -> collection.getUsername().equals(username)).collect(Collectors.toList());
+            }
+        }
+
+        return collectionList;
+    }
 
     public List<Collection> getCollections() throws IOException {
 
@@ -39,15 +65,14 @@ public class UserService {
         return collectionList;
     }
 
-    public void createCollection(String username,String collection,String quantity, String path) throws IOException {
-        String newLine = username + "," + collection + "," + quantity + "\n";
 
-        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Collections.csv";
-
-        FileOutputStream os = new FileOutputStream( fullpath, true);
+    public void createCollection(String username,String collection,String quantity) throws IOException {
+        String newLine = username + "," + collection + "," + quantity+"\n";
+        String is = UserService.class.getClassLoader().getResource("Collections.csv").getPath();
+        String ruta= is.replace("/WSRestNear-1.0-SNAPSHOT/WEB-INF","");
+        FileOutputStream os = new FileOutputStream(ruta, true);
         os.write(newLine.getBytes());
         os.close();
-
     }
 
     public List<Likes> getLikes() throws IOException {
