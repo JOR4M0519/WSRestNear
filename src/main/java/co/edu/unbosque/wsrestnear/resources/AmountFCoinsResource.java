@@ -8,10 +8,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 @Path("users/{username}/FCoins")
 public class AmountFCoinsResource {

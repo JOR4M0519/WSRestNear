@@ -19,3 +19,5 @@ let sidebar = document.querySelector(".sidebar");
      closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
    }
   }
+
+  
