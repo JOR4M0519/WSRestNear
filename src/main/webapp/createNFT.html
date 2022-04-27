@@ -24,45 +24,73 @@
     
 
     <div class="box-logoc">
-    <a href="index.jsp" ><img style="height: 15vh;" src="Assets/img/logoNear2.png"  ></a>
+    <a href="index.html" ><img style="height: 15vh;" src="Assets/img/logoNear2.png"  ></a>
     </div>
     
     <div class="box-create">  
       <h2 >Crea tu NFT</h2>
 
-      <form action="./uploadNft" method="post" enctype="multipart/form-data" >
-      <% 
-        String author = request.getParameter("username");
-      %>
+      <form id="formUploadNFT" >
         
       <div class="form-group" >
-        <label for="name" >Author:</label>
-        <input class="form-control" style="pointer-events:none;" id="name" name="author" value="<%=author %>">
+        <label for="author" >Author:</label>
+        <input class="form-control" style="pointer-events:none;" id="author" name="author" value="prueba">
+      </div>  
+
+      <div class="form-group" >
+        <label for="collection" >Collection:</label>
+        <input class="form-control" style="pointer-events:none;" id="collection" name="collection" value="rata">
       </div>  
         
       <div class="form-group" >
-        <label for="name" >Titulo:</label>
-        <input class="form-control" id="name" placeholder="Titulo" name="titulo" required>
+        <label for="title" >Titulo:</label>
+        <input class="form-control" id="title" placeholder="Titulo" name="titulo" required>
       </div>
 
       <div class="form-group" style="font-family: 'Abel', sans-serif;">
-        <label for="name">Precio:</label>
-        <input class="form-control" id="name" placeholder="Precio" name="precio" required>
+        <label for="price">Precio:</label>
+        <input class="form-control" id="price" placeholder="Precio" name="precio" required>
       </div>
 
       <div class="form-group">
-        <label for="name">Subir NFT</label>
+        <label for="customFile">Subir NFT</label>
       </div>
 
      <div class="custom-file">
         <label>Subir archivo</label>
-        <input type="file" class="custom-file-input" id="customFile" name="file" >
+        <input type="file" class="custom-file-input" id="customFile">
         <label class="custom-file-label" style="font-family: 'Abel', sans-serif;" for="customFile" >Elegir Archivo</label>
       </div>
-          <input type="hidden" name="username" value="<%=author%>" >
       <button type="submit" class="btn btn-primary; btn-box-sign-up" >Subir NFT</button>
     </form>
      
   </div>
+  <script>
+    formUploadNFT.onsubmit = async (e) => {
+    e.preventDefault();
+
+    let author = document.getElementById("author").value;
+    let collection = document.getElementById("collection").value;
+    let tittle = document.getElementById("title").value;
+    let price = document.getElementById("price").value;
+    const customFile = document.getElementById("customFile");
+
+    const formData = new FormData();
+    
+    formData.append(`author`,author);
+    formData.append(`collection`,collection);
+    formData.append(`title`,tittle);
+    formData.append(`price`,price);
+    formData.append(`customFile`,customFile.files[0]);
+    
+    let response = await fetch(`./api/users/${author}/collections/${collection}/arts?title=${tittle}&price=${price}`, {
+      method: 'POST',
+      body: formData
+    }).then(response => response.json);
+    alert("Se creo?");
+
+    //window.location.href = "./artistAccount.html";
+}
+  </script>
 </body>
 </html>

@@ -1,7 +1,6 @@
 package co.edu.unbosque.wsrestnear.resources;
 
 import co.edu.unbosque.wsrestnear.dtos.Art_NFT;
-import co.edu.unbosque.wsrestnear.dtos.Collection;
 import co.edu.unbosque.wsrestnear.dtos.User;
 import co.edu.unbosque.wsrestnear.services.UserService;
 import jakarta.servlet.ServletContext;
@@ -67,13 +66,15 @@ public class NFT_FileResources {
         return Response.ok().entity(files).build();
     }
 
+    @Path("/arts")
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
     public Response uploadNFT(
-            @FormParam("author") String emailAuthor,
-            @FormParam("titulo") String tittle,
-            @FormParam("precio") String price,
+            @PathParam("username") String emailAuthor,
+            @PathParam("collection") String collection,
+            @QueryParam("title") String tittle,
+            @QueryParam("price") String price,
             MultipartFormDataInput inputData
             ) {
 
@@ -85,12 +86,6 @@ public class NFT_FileResources {
                     .findFirst().orElse(null);
             String author = userFounded.getName() + " " + userFounded.getLastname();
 
-            String uploadPath = context.getRealPath("") + File.separator + "NFTS";
-
-            /*request.setAttribute("name", userFounded.getName());
-            request.setAttribute("role", userFounded.getRole());
-            request.setAttribute("username", userFounded.getUsername());
-            */
 
             Map<String, List<InputPart>> formParts = inputData.getFormDataMap();
             List<InputPart> inputParts = formParts.get("file");
@@ -100,7 +95,6 @@ public class NFT_FileResources {
                     // Retrieving headers and reading the Content-Disposition header to file name
                     MultivaluedMap<String, String> headers = inputPart.getHeaders();
                     String randomString = uService.generateRandomString();
-                    String extension = parseFileName(headers).split(".")[1];
                     String fileName = randomString+"&"+parseFileName(headers);
 
 
@@ -109,7 +103,7 @@ public class NFT_FileResources {
 
                     saveFile(istream, fileName, context);
                     System.out.println(fileName);
-                    uService.createNFT(fileName, extension, tittle, author, price, emailAuthor, context.getRealPath("") + File.separator);
+                    uService.createNFT(fileName, collection, tittle, author, price, emailAuthor, context.getRealPath("") +File.separator);
                 } catch (IOException e) {
                     return Response.serverError().build();
                 }
@@ -142,7 +136,7 @@ public class NFT_FileResources {
 
         try {
             // Complementing servlet path with the relative path on the server
-            String uploadPath = context.getRealPath("") + UPLOAD_DIRECTORY;
+            String uploadPath = context.getRealPath("") +File.separator+ UPLOAD_DIRECTORY+File.separator;
 
             // Creating the upload folder, if not exist
             File uploadDir = new File(uploadPath);

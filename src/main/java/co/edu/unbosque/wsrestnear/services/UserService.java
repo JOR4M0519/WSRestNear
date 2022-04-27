@@ -132,6 +132,8 @@ public class UserService {
 
         try (InputStream is = UserService.class.getClassLoader()
                 .getResourceAsStream("Nfts.csv")) {
+            System.out.println("ruta cargue: "+ String.valueOf(UserService.class.getClassLoader()
+                    .getResourceAsStream("Nfts.csv")));
 
             if (is == null) {
                 return Optional.empty();
@@ -190,12 +192,10 @@ public class UserService {
 
     }
 
-    public void createNFT(String id, String extension, String title, String author, String price, String email_owner, String path) throws IOException {
-        String newLine = id + "," + extension + "," + title + ","+author+ "," + price + ","+"0"+","+ email_owner +"\n";
+    public void createNFT(String id, String collection, String title, String author, String price, String email_owner, String path) throws IOException {
+        String newLine = id + "," + collection + "," + title + ","+author+ "," + price + ","+"0"+","+ email_owner +"\n";
 
-        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Nfts.csv";
-
-
+        String fullpath = path +"WEB-INF"+File.separator+ "classes"+ File.separator+"Nfts.csv";
         FileOutputStream os = new FileOutputStream( fullpath, true);
         os.write(newLine.getBytes());
         os.close();
