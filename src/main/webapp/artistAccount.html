@@ -1,4 +1,3 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +29,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<%
+<!-- <%
     String username = request.getParameter("usernameData");
     String name = String.valueOf(request.getAttribute("name"));
     String lastname = String.valueOf(request.getAttribute("lastname"));
@@ -40,7 +39,7 @@
 
     String data = "<input type=\"hidden\" name=\"role\" value=\""+role+"\"> <input type=\"hidden\" id=\"username\"name=\"username\" value=\""+username+"\"> <input type=\"hidden\" id=\"password\"name=\"password\" value=\""+password+"\">";
     String dataName = "<input type=\"hidden\" name=\"username\" value=\""+username+"\">";
-%>
+%> -->
 
 <div class="sidebar">
     <div class="logo-details">
@@ -91,6 +90,15 @@
             </a>
             <span class="tooltip">Favoritos</span>
         </li>
+
+        <li>
+            <a href="#Colecciones">
+                <i class='bx bx-cog' ></i>
+                <span class="links_name">Colecciones</span>
+            </a>
+            <span class="tooltip">Colecciones</span>
+        </li>
+
         <li>
             <a href="#Configuraciones">
                 <i class='bx bx-cog' ></i>
@@ -106,7 +114,7 @@
                     <div class="job"><%=role%></div>
                 </div>
             </div>
-            <a href="index.jsp"><i class='bx bx-log-out' id="log_out" ></i></a>
+            <a href="index.html"><i class='bx bx-log-out' id="log_out" ></i></a>
         </li>
     </ul>
 </div>
@@ -173,6 +181,338 @@
 
         <h1 class="text">Favoritos</h1>
         <div class="info">Pronto Habilitaresmos Esta Función!</div>
+        <div class="info" style="width: 100%; height: 100%;"> </div>
+
+    </section>
+
+    <section class="contenedor" id="Favoritos">
+
+        <h1 class="text">Coleccion</h1>
+        <div class="info">
+            <!-- COLECCIÓN -->
+
+<section class="py-3" style="background-color: #E4E9F7">
+    <div class="cards">
+      <p id="ofertas" class="card_tittle">Mis colecciones:</p>
+      <!--Guia js-->
+      <div class="card-group contenedor-social" id="socialcard">
+        <section class="py-3">
+          
+          <div class="album py-3">
+            <div class="container">
+  
+              <div class="row" id="cardcol">
+                <div class="col-md-4 card-position"> 
+                  <div class="card mb-4 shadow-sm card-dimensions" data-toggle="modal" data-target=".bd-example-modal-lg">
+                    <div class="imgBx">
+                      <table>
+                        <tr>
+                          <td>
+                    <img class="collection" width="100%" height="100%" style="border-top-left-radius: 3.5%;"
+                         src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                         preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                      <title>Placeholder</title>
+                      <rect width="100%" height="100%" fill="#55595c"/>
+                    </img>
+                  </td>
+                  <td>
+                    <img class="collection" width="100%" height="100%" style="border-top-right-radius: 3.5%;"
+                    src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                    preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                 <title>Placeholder</title>
+                 <rect width="100%" height="100%" fill="#55595c"/>
+               </img>
+                  </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img class="collection" width="100%" height="100%" style="border-bottom-left-radius: 3.5%;"
+                      src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                      preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                   <title>Placeholder</title>
+                   <rect width="100%" height="100%" fill="#55595c"/>
+                 </img>
+                    </td>
+                    <td>
+                      <img class="collection" width="100%" height="100%" style="border-bottom-right-radius: 3.5%;"
+                      src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                      preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                   <title>Placeholder</title>
+                   <rect width="100%" height="100%" fill="#55595c"/>
+                 </img>
+                    </td>
+                  </tr>
+                  </table>
+                    </div>
+                    <div class="content">
+                      <div class="card-body">
+                        <h3 class="card-text">Colección: ${collection}</h3>
+                        <p class="card-text text-muted">Autor: ${author}</p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-4 card-position"> 
+                <div class="card mb-4 shadow-sm card-dimensions" data-toggle="modal" data-target=".bd-example-modal-lg">
+                  <div class="imgBx">
+                    <table>
+                      <tr>
+                        <td>
+                  <img class="collection" width="100%" height="100%" style="border-top-left-radius: 3.5%;"
+                       src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                       preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                    <title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="#55595c"/>
+                  </img>
+                </td>
+                <td>
+                  <img class="collection" width="100%" height="100%" style="border-top-right-radius: 3.5%;"
+                  src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                  preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+               <title>Placeholder</title>
+               <rect width="100%" height="100%" fill="#55595c"/>
+             </img>
+                </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img class="collection" width="100%" height="100%" style="border-bottom-left-radius: 3.5%;"
+                    src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                    preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                 <title>Placeholder</title>
+                 <rect width="100%" height="100%" fill="#55595c"/>
+               </img>
+                  </td>
+                  <td>
+                    <img class="collection" width="100%" height="100%" style="border-bottom-right-radius: 3.5%;"
+                    src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                    preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                 <title>Placeholder</title>
+                 <rect width="100%" height="100%" fill="#55595c"/>
+               </img>
+                  </td>
+                </tr>
+                </table>
+                  </div>
+                  <div class="content">
+                    <div class="card-body">
+                      <h3 class="card-text">Colección: ${collection}</h3>
+                      <p class="card-text text-muted">Autor: ${author}</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-4 card-position"> 
+              <div class="card mb-4 shadow-sm card-dimensions" data-toggle="modal" data-target=".bd-example-modal-lg">
+                <div class="imgBx">
+                  <table>
+                    <tr>
+                      <td>
+                <img class="collection" width="100%" height="100%" style="border-top-left-radius: 3.5%;"
+                     src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                     preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                  <title>Placeholder</title>
+                  <rect width="100%" height="100%" fill="#55595c"/>
+                </img>
+              </td>
+              <td>
+                <img class="collection" width="100%" height="100%" style="border-top-right-radius: 3.5%;"
+                src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+             <title>Placeholder</title>
+             <rect width="100%" height="100%" fill="#55595c"/>
+           </img>
+              </td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="collection" width="100%" height="100%" style="border-bottom-left-radius: 3.5%;"
+                  src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                  preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+               <title>Placeholder</title>
+               <rect width="100%" height="100%" fill="#55595c"/>
+             </img>
+                </td>
+                <td>
+                  <img class="collection" width="100%" height="100%" style="border-bottom-right-radius: 3.5%;"
+                  src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                  preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+               <title>Placeholder</title>
+               <rect width="100%" height="100%" fill="#55595c"/>
+             </img>
+                </td>
+              </tr>
+              </table>
+                </div>
+                <div class="content">
+                  <div class="card-body">
+                    <h3 class="card-text">Colección: ${collection}</h3>
+                    <p class="card-text text-muted">Autor: ${author}</p>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="col-md-4 card-position"> 
+            <div class="card mb-4 shadow-sm card-dimensions" data-toggle="modal" data-target=".bd-example-modal-lg">
+              <div class="imgBx">
+                <table>
+                  <tr>
+                    <td>
+              <img class="collection" width="100%" height="100%" style="border-top-left-radius: 3.5%;"
+                   src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                   preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#55595c"/>
+              </img>
+            </td>
+            <td>
+              <img class="collection" width="100%" height="100%" style="border-top-right-radius: 3.5%;"
+              src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+              preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+           <title>Placeholder</title>
+           <rect width="100%" height="100%" fill="#55595c"/>
+         </img>
+            </td>
+            </tr>
+            <tr>
+              <td>
+                <img class="collection" width="100%" height="100%" style="border-bottom-left-radius: 3.5%;"
+                src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+             <title>Placeholder</title>
+             <rect width="100%" height="100%" fill="#55595c"/>
+           </img>
+              </td>
+              <td>
+                <img class="collection" width="100%" height="100%" style="border-bottom-right-radius: 3.5%;"
+                src="https://cdn.nftsniper.net/image/63HrCNbX7rgwLzsDrymqAx5uUBbEnXeYhMVDKGcLF6v3"
+                preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+             <title>Placeholder</title>
+             <rect width="100%" height="100%" fill="#55595c"/>
+           </img>
+              </td>
+            </tr>
+            </table>
+              </div>
+              <div class="content">
+                <div class="card-body">
+                  <h3 class="card-text">Colección: ${collection}</h3>
+                  <p class="card-text text-muted">Autor: ${author}</p>
+                </div>
+              </div>
+            </div>
+        </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+  
+  <!-- MODAL -->
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <section class="py-5" style="background-color: #E4E9F7">
+          <div class="cards">
+            <h2 id="ofertas" class="card_tittle">Coleccion: ${collection} <p class="text-muted">By: ${author}</p></h2>
+            <!--Guia js-->
+            <div class="card-group contenedor-social" id="socialcard">
+              <section class="py-5">
+                
+                <div class="album py-5">
+                  <div class="container">
+        
+                    <div class="row" id="card">
+                      <div class="col-md-4 card-position "> 
+                        <div class="card mb-4 shadow-sm card-dimensions" >
+                          <div class="imgBx">
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="100%" style="border-radius: 3.5%;"
+                                 src="https://zkbveefh2iegmnw4xv4gb7j2dog2x36rxnzf4b3ak6gomsgxoy.arweave.net/yoNSEKfSCGY23L14Y_P06G42r79G7cl4HYFeM5kjXdo?ext=png"
+                                 preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                              <title>Placeholder</title>
+                              <rect width="100%" height="100%" fill="#55595c"/>
+                            </img>
+                          </div>
+                          <div class="content">
+                            <div class="card-body">
+                              <h3 class="card-text">Titulo: ${title}</h3>
+                              <p class="card-text">Autor: ${author}</p>
+                              <p class="text-muted">Precio: ${price}</p>
+                              <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group btns">
+                                  <button type="button" class="btn btn-sm btn-outline-secondary">Comprar</button>      
+                                  <button type="button" class="btn btn-sm btn-outline-secondary">Añadir al carro</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 card-position "> 
+                      <div class="card mb-4 shadow-sm card-dimensions" >
+                        <div class="imgBx">
+                          <img class="bd-placeholder-img card-img-top" width="100%" height="100%" style="border-radius: 3.5%;"
+                               src="https://www.ratbastard.io/static/media/jebus.a9c9baee.png"
+                               preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#55595c"/>
+                          </img>
+                        </div>
+                        <div class="content">
+                          <div class="card-body">
+                            <h3 class="card-text">Titulo: ${title}</h3>
+                            <p class="card-text">Autor: ${author}</p>
+                            <p class="text-muted">Precio: ${price}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="btn-group btns">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Comprar</button>      
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Añadir al carro</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-md-4 card-position "> 
+                    <div class="card mb-4 shadow-sm card-dimensions" >
+                      <div class="imgBx">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="100%" style="border-radius: 3.5%;"
+                             src="https://u22bxuukr4pslkjetawj7cqg6j3tl4rn7unle2js4r365c6c.arweave.net/prQb0oqPHyWpJJgs_n4oG8nc18i39-GrJpMuR37ovCM?ext=png"
+                             preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                          <title>Placeholder</title>
+                          <rect width="100%" height="100%" fill="#55595c"/>
+                        </img>
+                      </div>
+                      <div class="content">
+                        <div class="card-body">
+                          <h3 class="card-text">Titulo: ${title}</h3>
+                          <p class="card-text">Autor: ${author}</p>
+                          <p class="text-muted">Precio: ${price}</p>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group btns">
+                              <button type="button" class="btn btn-sm btn-outline-secondary">Comprar</button>      
+                              <button type="button" class="btn btn-sm btn-outline-secondary">Añadir al carro</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  
+        </div>
         <div class="info" style="width: 100%; height: 100%;"> </div>
 
     </section>
