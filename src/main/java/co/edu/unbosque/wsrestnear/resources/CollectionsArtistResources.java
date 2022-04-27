@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Path("users/{username}/collections/up")
-public class CollectionResources {
+public class CollectionsArtistResources {
 
     @Context
     ServletContext context;
