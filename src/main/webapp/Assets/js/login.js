@@ -1,17 +1,23 @@
 
-
-function getData() {
-    let datas = null;
-    let user = document.getElementById("username").value;
+formElem.onsubmit = async (e) => {
+     e.preventDefault();
 
 
-    fetch( `./api/users/${user}`)
-         .then(response => response.json())
-         .then(data => console.log(data))
-     ;
+   let user = document.getElementById("username").value;
+   let password = document.getElementById("password").value;
+    let role = document.getElementById("roleInput").value;
+    console.log(role);
+
+     let response = await fetch(`./api/users/${user}?role=${role}`);
+     let result = await response.json();
+
+     if (user==result.username && password==result.password && role==result.role){
+        localStorage.setItem("username",user);
+        window.location.href = "./index.jsp";
+
+     }else{
+        alert("error");
+     }
 
 
-
-}
-document.getElementById('button-user').addEventListener('click', getData);
-
+ }

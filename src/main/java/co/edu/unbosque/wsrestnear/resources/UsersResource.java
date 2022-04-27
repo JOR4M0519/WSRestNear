@@ -60,12 +60,13 @@ public class UsersResource {
     @GET
     @Path("/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@PathParam("username") String username) {
+    public Response get(@PathParam("username") String username, @QueryParam("role") String role) {
+
         try {
             List<User> users = new UserService().getUsers();
 
             User user = users.stream()
-                    .filter(u -> u.getUsername().equals(username))
+                    .filter(u -> u.getUsername().equals(username) && u.getRole().equals(role))
                     .findFirst()
                     .orElse(null);
 
