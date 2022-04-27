@@ -17,38 +17,17 @@
 </head>
 
 <body>
-<input type="hidden" id="username" value="<%= request.getParameter("username")%>">
-<!-- <%
-  String data ="";
-  String name ="";
-  String role="";
-  String fcoinsButton="";
-  String fcoins = "";
-  String percent ="85%";
 
-
-  if( request.getAttribute("name") != null) {
-    name = String.valueOf(request.getAttribute("name"));
-    role = String.valueOf(request.getAttribute("role"));
-    fcoins = String.valueOf(request.getAttribute("fcoins"));
-
-    if (role.equals("Comprador")) {
-
-      percent = "79%";
-      fcoinsButton = "<div class=\"dropdown show\" style=\"float: left;\"><a class=\"btn btn-secondary\" id=\"dropdown\"  href=\"#\" role=\"button\"  aria-haspopup=\"true\" aria-expanded=\"false\"><span  id=\"fcoins\"> FCoins: $" + fcoins + " </span></a></div>";
-    }
-    data = "<form action=\"./account\" method=\"post\" name=\"myaccount\"> <input type=\"hidden\" name=\"role\" value=\""+role+"\"> <input type=\"hidden\" id=\"usernameData\" name=\"usernameData\"> <input class=\"dropdown-item\" id=\"dropdown-item\" type=\"submit\" value=\"Mi cuenta\"> </form> <form action=\"./account\" method=\"get\"> <input type=\"hidden\" name=\"usernameData\"> <input class=\"dropdown-item \" id=\"dropdown-item\" type=\"submit\" value=\"Salir\"> </form>";
-  }else{
-    name ="Mi Cuenta";
-    data = "<a class=\"dropdown-item \" id=\"dropdown-item\" href=\"./login.jsp\"> Iniciar Sesión </a><a class=\"dropdown-item\" id=\"dropdown-item\" href=\"./sign_up.jsp\"> Crear cuenta </a>";
-  }
-%> -->
 <!-- NAVIGATION -->
 <div class=" fixed-top" style="background-color: #BA2737 ;">
 
-  <div style="display: flex; padding-bottom: 0.5%; padding-top: 0.2%;">
+  <div id ="divbuttons"; style="display: flex; padding-bottom: 0.5%; padding-top: 0.2%;">
 
-    <!-- <%=fcoinsButton%> -->
+
+    <div id="menusbtn">
+
+    </div>
+
     <div class="dropdown show" style="float: left;">
       <a class="btn btn-secondary dropdown-toggle" id="dropdown"  href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
@@ -56,12 +35,12 @@
           <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
           <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
         </svg>
-        <span  id="nameAccount"> <%= name %> </span>
+        <span  id="nameAccount"> </span>
       </a>
 
 
       <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <!-- <%=data%> -->
+
       </div>
     </div>
 
@@ -810,6 +789,8 @@
 
 <!-- BOOTSTRAP SCRIPTS -->
 <script src="Assets/js/generalCatalogue.js"></script>
+<script src="Assets/js/botonIndex.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -819,6 +800,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
         integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
-</body>
+
 
 </html>

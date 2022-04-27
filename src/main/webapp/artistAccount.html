@@ -1,4 +1,3 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,36 +29,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<%
-    String username = request.getParameter("usernameData");
-    String name = String.valueOf(request.getAttribute("name"));
-    String lastname = String.valueOf(request.getAttribute("lastname"));
-    String role = String.valueOf(request.getAttribute("role"));
-    String FCoins = String.valueOf(request.getAttribute("FCoins"));
-    String password = String.valueOf(request.getAttribute("password"));
-
-    String data = "<input type=\"hidden\" name=\"role\" value=\""+role+"\"> <input type=\"hidden\" id=\"username\"name=\"username\" value=\""+username+"\"> <input type=\"hidden\" id=\"password\"name=\"password\" value=\""+password+"\">";
-    String dataName = "<input type=\"hidden\" name=\"username\" value=\""+username+"\">";
-%>
 
 <div class="sidebar">
     <div class="logo-details">
-        <form action="./login" method="post">
-            <%=data%>
-            <button type="submit" style="border: none; background: transparent; border-color: transparent; outline: none">
-                <img class="logo icon" src="Assets\img\logoNear3.png">
-            </button>
+                <a href="./index.html"><img class="logo icon" hr src="Assets\img\logoNear3.png" ></a>
             <i class='bx bx-menu' id="btn" ></i>
-        </form>
     </div>
     <ul class="nav-list">
         <li>
-            <form action="./uploadNft" method="get">
-                <%=dataName%>
-                <input type="submit" class='links_name' id="inputCreateNft" value="Subir">
-            </form>
-
-            <span class="tooltip">NFT</span>
+            <a href="./createNFT.html">
+                <i class='bx bx-up-arrow-circle'></i>
+                <span class="links_name">Subir NFT</span>
+            </a>
+            <span class="tooltip">Subir NFT</span>
         </li>
 
         <li>
@@ -102,11 +84,11 @@
             <div class="profile-details">
                 <!--<img src="profile.jpg" alt="profileImg">-->
                 <div class="name_job">
-                    <div class="name"><%=name+" "+lastname%></div>
-                    <div class="job"><%=role%></div>
+                    <div class="name" id="listFullName"></div>
+                    <div class="job" id="listRole"></div>
                 </div>
             </div>
-            <a href="index.jsp"><i class='bx bx-log-out' id="log_out" ></i></a>
+            <a style="border-radius:10px; outline:none;" id="btnlog_out"><i class='bx bx-log-out' id="log_out" ></i></a>
         </li>
     </ul>
 </div>
@@ -122,7 +104,7 @@
                 <figure>
                     <img id="icon" src="Assets\img\avatar_driver_people_person_profile_user_icon_123374.png">
                 </figure>
-                <div id="text-icono"><%=name+" "+lastname%></div>
+                <div id="text-icono"></div>
             </section>
 
             <section id="informacion-personal">
@@ -130,20 +112,20 @@
                 <div id="Derecho">
 
                     <div class="titulos-info">Nombre</div>
-                    <div class="conten-info"><%=name%></div>
+                    <div class="conten-info" id="name"></div>
 
                     <div class="titulos-info" >Correo</div>
-                    <div class="conten-info" id="email"><%=username%></div>
+                    <div class="conten-info" id="username"></div>
 
                 </div>
 
                 <div id="izquierdo">
 
                     <div class="titulos-info" >Apellido</div>
-                    <div class="conten-info" style="margin-bottom: 8.7%;"><%=lastname%></div>
+                    <div class="conten-info" id="lastname" style="margin-bottom: 8.7%;"></div>
 
                     <div class="titulos-info" >Rol</div>
-                    <div class="conten-info"><%=role%></div>
+                    <div class="conten-info" id="role"></div>
 
                 </div>
 
@@ -204,8 +186,7 @@
         </footer>
     </section>
 </section>
-
-<script src="Assets/js/sumar.js"></script>
+<script src="Assets/js/artistAccount.js"></script>
 <script src="Assets/js/generalCatalogue.js"></script>
 <script src="Assets/js/account.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

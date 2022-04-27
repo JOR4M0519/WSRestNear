@@ -9,14 +9,14 @@ public class FCoins {
     @CsvBindByName
     private String username;
     @CsvBindByName
-    private String FCoins;
+    private String fcoins;
     public FCoins(){
 
     }
 
-    public FCoins(String username, String FCoins) {
+    public FCoins(String username, String fcoins) {
         this.username = username;
-        this.FCoins = FCoins;
+        this.fcoins = fcoins;
     }
 
 
@@ -30,18 +30,18 @@ public class FCoins {
     }
 
     public String getFCoins() {
-        return FCoins;
+        return fcoins;
     }
 
-    public void setFCoins(String FCoins) {
-        this.FCoins = FCoins;
+    public void setFCoins(String fcoins) {
+        this.fcoins = fcoins;
     }
 
     @Override
     public String toString() {
         return "FCoins{" +
                 "username='" + username + '\'' +
-                ", FCoins='" + FCoins + '\'' +
+                ", fcoins='" + fcoins + '\'' +
                 '}';
     }
 }
