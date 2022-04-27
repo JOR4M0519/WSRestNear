@@ -12,7 +12,7 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import java.io.*;
 import java.util.*;
 
-@Path("/users/{username}/collections/{collection}")
+@Path("/users/{username}/collections/{collection}/arts")
 public class NFT_FileResources {
     @Context
     ServletContext context;
@@ -20,7 +20,6 @@ public class NFT_FileResources {
     private UserService uService;
 
 
-    @Path("/arts")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response personalListFiles(@PathParam("username") String username,@PathParam("collection") String collectionName) {
@@ -66,29 +65,29 @@ public class NFT_FileResources {
         return Response.ok().entity(files).build();
     }
 
-    @Path("/arts")
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response uploadNFT(
-            @PathParam("username") String emailAuthor,
-            @PathParam("collection") String collection,
-            @QueryParam("title") String tittle,
-            @QueryParam("price") String price,
-            MultipartFormDataInput inputData
-            ) {
+    public Response uploadNFT(MultipartFormDataInput inputData) {
 
         uService = new UserService();
+
         try {
+
+            String emailAuthor = inputData.getFormDataPart("author", String.class, null);
+            String collection = inputData.getFormDataPart("collection", String.class, null);
+            String title = inputData.getFormDataPart("title", String.class, null);
+            String price = inputData.getFormDataPart("price", String.class, null);
+
+
             //Found Data author
             List<User> users = new UserService().getUsers();
             User userFounded = users.stream().filter(user -> emailAuthor.equals(user.getUsername()))
                     .findFirst().orElse(null);
             String author = userFounded.getName() + " " + userFounded.getLastname();
 
-
             Map<String, List<InputPart>> formParts = inputData.getFormDataMap();
-            List<InputPart> inputParts = formParts.get("file");
+            List<InputPart> inputParts = formParts.get("customFile");
 
             for (InputPart inputPart : inputParts) {
                 try {
@@ -102,8 +101,8 @@ public class NFT_FileResources {
                     InputStream istream = inputPart.getBody(InputStream.class,null);
 
                     saveFile(istream, fileName, context);
-                    System.out.println(fileName);
-                    uService.createNFT(fileName, collection, tittle, author, price, emailAuthor, context.getRealPath("") +File.separator);
+
+                    uService.createNFT(fileName, collection, title, author, price, emailAuthor, context.getRealPath("") +File.separator);
                 } catch (IOException e) {
                     return Response.serverError().build();
                 }

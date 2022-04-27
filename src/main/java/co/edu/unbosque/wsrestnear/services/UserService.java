@@ -132,8 +132,6 @@ public class UserService {
 
         try (InputStream is = UserService.class.getClassLoader()
                 .getResourceAsStream("Nfts.csv")) {
-            System.out.println("ruta cargue: "+ String.valueOf(UserService.class.getClassLoader()
-                    .getResourceAsStream("Nfts.csv")));
 
             if (is == null) {
                 return Optional.empty();

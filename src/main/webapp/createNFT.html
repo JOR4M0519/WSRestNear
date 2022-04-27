@@ -30,11 +30,11 @@
     <div class="box-create">  
       <h2 >Crea tu NFT</h2>
 
-      <form id="formUploadNFT" >
+      <form id="formUploadNFT" enctype="multipart/form-data">
         
       <div class="form-group" >
         <label for="author" >Author:</label>
-        <input class="form-control" style="pointer-events:none;" id="author" name="author" value="prueba">
+        <input class="form-control" style="pointer-events:none;" id="author" name="author" value="sprieto@gmail.com">
       </div>  
 
       <div class="form-group" >
@@ -44,12 +44,12 @@
         
       <div class="form-group" >
         <label for="title" >Titulo:</label>
-        <input class="form-control" id="title" placeholder="Titulo" name="titulo" required>
+        <input class="form-control" id="title" placeholder="Titulo" name="title" required>
       </div>
 
       <div class="form-group" style="font-family: 'Abel', sans-serif;">
         <label for="price">Precio:</label>
-        <input class="form-control" id="price" placeholder="Precio" name="precio" required>
+        <input class="form-control" id="price" placeholder="Precio" name="price" required>
       </div>
 
       <div class="form-group">
@@ -58,7 +58,7 @@
 
      <div class="custom-file">
         <label>Subir archivo</label>
-        <input type="file" class="custom-file-input" id="customFile">
+        <input type="file" class="custom-file-input" id="customFile" name="customFile">
         <label class="custom-file-label" style="font-family: 'Abel', sans-serif;" for="customFile" >Elegir Archivo</label>
       </div>
       <button type="submit" class="btn btn-primary; btn-box-sign-up" >Subir NFT</button>
@@ -66,31 +66,23 @@
      
   </div>
   <script>
-    formUploadNFT.onsubmit = async (e) => {
-    e.preventDefault();
+      const form = document.getElementById("formUploadNFT");
+    uploadNFT = async (e) => {
+        e.preventDefault();
 
-    let author = document.getElementById("author").value;
-    let collection = document.getElementById("collection").value;
-    let tittle = document.getElementById("title").value;
-    let price = document.getElementById("price").value;
-    const customFile = document.getElementById("customFile");
+        let author = document.getElementById("author").value;
+        let collection = document.getElementById("collection").value;
 
-    const formData = new FormData();
-    
-    formData.append(`author`,author);
-    formData.append(`collection`,collection);
-    formData.append(`title`,tittle);
-    formData.append(`price`,price);
-    formData.append(`customFile`,customFile.files[0]);
-    
-    let response = await fetch(`./api/users/${author}/collections/${collection}/arts?title=${tittle}&price=${price}`, {
-      method: 'POST',
-      body: formData
-    }).then(response => response.json);
-    alert("Se creo?");
+        const response = await fetch(`./api/users/${author}/collections/${collection}/arts`, {
+            method: 'POST',
+            body: new FormData(form)
+        });
 
-    //window.location.href = "./artistAccount.html";
-}
+        console.log("Se cargo éxitosamente el NFt");
+
+        window.location.href = "./index.html";
+    }
+    form.addEventListener("submit", uploadNFT);
   </script>
 </body>
 </html>
