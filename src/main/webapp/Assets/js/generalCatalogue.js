@@ -1,25 +1,26 @@
 var imagesDiv = document.getElementById("card");
 var imagesCol = document.getElementById("cardcol")
 
+//Obtiene información sobre el sitio al cual se quiere ingresar y se genera una respuesta
 const getData = async () => {
   let data = null;
-  let dataCollection =null;
+  let dataCollection = null;
 
 
-  if(window.location.toString().includes("account")){
+  if (window.location.toString().includes("account")) {
     data = await fetch(`./api/users/user=${localStorage.getItem("username")}/collections`).then(response => response.json());
-  }else{
+  } else {
     data = await fetch("./api/arts").then(response => response.json());
   }
 
   data.forEach(data => {
-   // let dataLike = fetch(urlApi+`users/email=${localStorage.getItem("username")}/Likes`).then(response => response.json());
+    // let dataLike = fetch(urlApi+`users/email=${localStorage.getItem("username")}/Likes`).then(response => response.json());
 
-    const {id,collectionName,title,author,price,likes,email_owner} = data;
-    let urlImage = "./"+id;
+    const { id, collectionName, title, author, price, likes, email_owner } = data;
+    let urlImage = "./" + id;
 
-   // if(dataLike.find(dataLike => dataLike.pictureName === title)){
-      imagesDiv.innerHTML += `
+    // if(dataLike.find(dataLike => dataLike.pictureName === title)){
+    imagesDiv.innerHTML += `
     <div class="col-md-4 card-position "> 
         <div class="card mb-4 shadow-sm card-dimensions" >
           <div class="imgBx">
@@ -51,40 +52,40 @@ const getData = async () => {
         </div>
     </div>
   `;
-   /* }else{
-
-    imagesDiv.innerHTML += `
-    <div class="col-md-4 card-position "> 
-        <div class="card mb-4 shadow-sm card-dimensions" >
-          <div class="imgBx">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="100%" style="border-radius: 3.5%;"
-                 src="${id}"
-                 preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-              <title>Placeholder</title>
-              <rect width="100%" height="100%" fill="#55595c"/>
-            </img>
-          </div>
-          <div class="content">
-            <div class="card-body">
-              <h3 class="card-text">Titulo: ${title}</h3>
-              <p class="card-text">Autor: ${author}</p>
-              <div class="card-body-price_likes">
-                    <span class="text-muted">Precio: ${price}</span>
-                    <span class="text-muted">Likes:<button class="btn-like" id="sumarLikes"><img src="Assets/svg/heart-unfill.svg" width="15px"></button>
-                        <span id="amountLikes" aria-valuetext="" >${likes}</span>
-                    </span>
-                </div>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group btns">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Comprar</button>      
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Añadir al carro</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-  `;}*/
+    /* }else{
+ 
+     imagesDiv.innerHTML += `
+     <div class="col-md-4 card-position "> 
+         <div class="card mb-4 shadow-sm card-dimensions" >
+           <div class="imgBx">
+             <img class="bd-placeholder-img card-img-top" width="100%" height="100%" style="border-radius: 3.5%;"
+                  src="${id}"
+                  preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+               <title>Placeholder</title>
+               <rect width="100%" height="100%" fill="#55595c"/>
+             </img>
+           </div>
+           <div class="content">
+             <div class="card-body">
+               <h3 class="card-text">Titulo: ${title}</h3>
+               <p class="card-text">Autor: ${author}</p>
+               <div class="card-body-price_likes">
+                     <span class="text-muted">Precio: ${price}</span>
+                     <span class="text-muted">Likes:<button class="btn-like" id="sumarLikes"><img src="Assets/svg/heart-unfill.svg" width="15px"></button>
+                         <span id="amountLikes" aria-valuetext="" >${likes}</span>
+                     </span>
+                 </div>
+               <div class="d-flex justify-content-between align-items-center">
+                 <div class="btn-group btns">
+                   <button type="button" class="btn btn-sm btn-outline-secondary">Comprar</button>      
+                   <button type="button" class="btn btn-sm btn-outline-secondary">Añadir al carro</button>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+     </div>
+   `;}*/
   });
 
   // if(window.location.toString().includes("account")){
@@ -108,20 +109,20 @@ const getData = async () => {
 
   //   console.log("Data: "+url_Nfts[0]);
 
-    if(window.location.toString().includes("account")){
-      dataCollection = await fetch(`./api/users/user=${localStorage.getItem("username")}/collections`).then(response => response.json());
-    }else{
-      dataCollection = await fetch("./api/collections").then(response => response.json());
-    }
-    
-  
-    for (const dataCollection1 of dataCollection) {
-      const {username,collection} = dataCollection1;
+  if (window.location.toString().includes("account")) {
+    dataCollection = await fetch(`./api/users/user=${localStorage.getItem("username")}/collections`).then(response => response.json());
+  } else {
+    dataCollection = await fetch("./api/collections").then(response => response.json());
+  }
 
-      const dataCollectionNFTs = await fetch(`./api/users/${username}/collections/${collection}/arts`).then(response => response.json());
-      const urlNfts = dataCollectionNFTs.map(collectionNft => ({id: collectionNft.id, author: collectionNft.author}))
-      // const {id,collectionName2,title,author,price,likes,email_owner} =dataCollectionNFTs;
-      // const url_NFTs = [id];
+
+  for (const dataCollection1 of dataCollection) {
+    const { username, collection } = dataCollection1;
+
+    const dataCollectionNFTs = await fetch(`./api/users/${username}/collections/${collection}/arts`).then(response => response.json());
+    const urlNfts = dataCollectionNFTs.map(collectionNft => ({ id: collectionNft.id, author: collectionNft.author }))
+    // const {id,collectionName2,title,author,price,likes,email_owner} =dataCollectionNFTs;
+    // const url_NFTs = [id];
 
 
     // let index =0;
@@ -131,10 +132,10 @@ const getData = async () => {
 
     // let dataLike = fetch(urlApi+`users/email=${localStorage.getItem("username")}/Likes`).then(response => response.json());
 
-   // const {id,collection,author,port = [urlImage]} = dataCollection;
+    // const {id,collection,author,port = [urlImage]} = dataCollection;
 
     // if(dataLike.find(dataLike => dataLike.pictureName === title)){
-       imagesCol.innerHTML = `
+    imagesCol.innerHTML = `
        <div class="col-md-4 card-position">
     <div class="card mb-4 shadow-sm card-dimensions" data-toggle="modal" data-target=".bd-example-modal-lg">
         <div class="imgBx">
@@ -220,7 +221,7 @@ const getData = async () => {
          </div>
      </div>
    `;}*/
-   }
+  }
 
   //document.getElementById('sumarLikes').addEventListener('click', btnLike);
 };

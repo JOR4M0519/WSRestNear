@@ -20,6 +20,7 @@ public class UsersResource {
     @Context
     ServletContext context;
 
+    //Responde como el método Get de la API de esta clase, obtiene la lista de los usuarios que se encuentran registrados en la página
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response list() {
@@ -34,6 +35,8 @@ public class UsersResource {
         }
     }
 
+
+//Responde como el método Post de la API de esta clase, obtienes como parámetros los datos necesarios para crear un usuario y con estos registra dicho usuario en el csv
 //    @POST
 //    @Produces(MediaType.APPLICATION_JSON)
 //    @Consumes(MediaType.APPLICATION_JSON)
@@ -74,7 +77,7 @@ public class UsersResource {
         }
     }
 
-
+    //Responde como el método Get de la API de esta clase agregándole el nombre de usuario, obtiene todas las especificaciones de únicamente el usuario solicitado a través de la API
     @GET
     @Path("/{username}")
     @Produces(MediaType.APPLICATION_JSON)

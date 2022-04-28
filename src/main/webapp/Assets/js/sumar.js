@@ -1,7 +1,7 @@
 document.getElementById('sumar').addEventListener('click', sumar);
 document.getElementById('restar').addEventListener('click', restar);
 
-
+//sumar de 100 en 100
     function sumar(){
         try {
             var inputCantidad = document.getElementById("cantidad");
@@ -12,8 +12,8 @@ document.getElementById('restar').addEventListener('click', restar);
         }
     }
 
+//restar de 100 en 100
     function restar(){
-
         var inputCantidad = document.getElementById("cantidad");
         var cantidad = parseInt(inputCantidad.value);
 

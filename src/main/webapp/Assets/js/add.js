@@ -12,7 +12,7 @@ formulario.addEventListener("submit", async (esc) => {
 
   console.log(coleccion, nickname, price, name, photo);
 
-  // atraves de una promesa url donde se van a guardar esos datos
+  //Por medio de una promesa url, va a guardar datos
   let resp = await fetch(url, {
     method: "POST",
     body: JSON.stringify({

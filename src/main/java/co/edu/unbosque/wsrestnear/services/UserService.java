@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 public class UserService {
 
+    //Retorna un array de las últimas colecciones agregadas al csv
     public List<Collection> getUltimasCollections() throws IOException {
 
         List<Collection> collectionList;
@@ -50,6 +51,7 @@ public class UserService {
         return respuesta;
     }
 
+    //Retorna un array de todas las colecciones creadas por un artista en específico
     public List<Collection> getCollectionsPorArtista(String username) throws IOException {
 
         List<Collection> collectionList;
@@ -75,6 +77,7 @@ public class UserService {
         return collectionList;
     }
 
+    //Retorna un array de todas las colecciones creadas hasta el momento
     public List<Collection> getCollections() throws IOException {
 
         List<Collection> collectionList;
@@ -96,11 +99,10 @@ public class UserService {
                 collectionList = csvToBean.parse();
             }
         }
-
         return collectionList;
     }
 
-
+    //Crea una colección de un artista y después la agrega al csv para que persista
     public void createCollection(String username,String collection,String quantity) throws IOException {
         String newLine = username + "," + collection + "," + quantity+"\n";
         String is = UserService.class.getClassLoader().getResource("Collections.csv").getPath();
@@ -110,6 +112,7 @@ public class UserService {
         os.close();
     }
 
+    //Obtiene la cantidad de likes correspondientes a las imágenes NFT que hay en la plataforma
     public List<Likes> getLikes() throws IOException {
 
         List<Likes> likesList;
@@ -135,6 +138,7 @@ public class UserService {
         return likesList;
     }
 
+    //Obtiene un array correspondiente a la lista de usuarios registrados en la plataforma
     public List<User> getUsers() throws IOException {
 
         List<User> users;
@@ -160,6 +164,7 @@ public class UserService {
         return users;
     }
 
+    //Obtiene un array correspondiente a la lista de FCoins de los usuarios registrados en la plataforma
     public Optional<List<FCoins>> getFCoins() throws IOException {
 
         List<FCoins> fcoins;
@@ -185,7 +190,7 @@ public class UserService {
         return Optional.of(fcoins);
     }
 
-    //Leer NFT
+    //Obtiene un array correspondiente a la lista de NFTs que se encuentran creados en la plataforma
     public static Optional<List<Art_NFT>> getNft() throws IOException {
 
         List<Art_NFT> nft;
@@ -213,6 +218,7 @@ public class UserService {
         return Optional.of(nft);
     }
 
+    //Se encarga de crear un nuevo usuario y de registrarlo en el csv para persistirlo
     public User createUser(String username, String name, String lastname, String password, String role, String Fcoins, String path) throws IOException {
             String newLine =  username + "," + name + ","+lastname+ "," + role + ","+ password +","+"0"+"\n";
         String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Users.csv";
@@ -224,6 +230,7 @@ public class UserService {
         return new User(username, name, lastname, role, password, "0");
     }
 
+    //Se encarga de agregar una cantidad de likes a una imagen NFT y de guardarla en el csv
     public Likes addLike(String email,String authorPictureEmail,String pictureName,int liker, String path) throws IOException {
         String newLine =  email + "," + authorPictureEmail + ","+pictureName+ "," + liker +"\n";
         String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Likes.csv";
@@ -234,6 +241,7 @@ public class UserService {
         return new Likes(email,authorPictureEmail,pictureName,liker);
     }
 
+    //Se encarga de agregar una cantidad pasada por parámetros de FCoins a un respectivo usuario y después la guarda en el csv
     public FCoins createMoney(String username,String fcoins) throws NullPointerException, IOException {
         String newLine = username + "," + fcoins + "\n";
         String is = UserService.class.getClassLoader().getResource("Fcoins.csv").getPath();
@@ -253,6 +261,7 @@ public class UserService {
     public void createNFT(String id, String collection, String title, String author, String price, String email_owner, String path) throws IOException {
         String newLine = id + "," + collection + "," + title + ","+author+ "," + price + ","+"0"+","+ email_owner +"\n";
 
+
         String fullpath = path +"WEB-INF"+File.separator+ "classes"+ File.separator+"Nfts.csv";
         FileOutputStream os = new FileOutputStream( fullpath, true);
         os.write(newLine.getBytes());
@@ -260,7 +269,7 @@ public class UserService {
 
     }
 
-   //<3 -----------------------------------------------------------------
+    //Retorna un objeto de tipo FCoins, el cual tendrá al usuario del cual se solicitan los FCoins y la cantidad total contada de FCoins correspondientes a este usuario encontradas en el csv
     public FCoins amountMoney(String username) throws IOException {
 
         long amount = 0;
@@ -278,12 +287,13 @@ public class UserService {
 
         return new FCoins(username,String.valueOf(amount));
     }
-    //<3 -----------------------------------------------------------------
 
+    //Elimina un respectivo archivo del csv
     public static void deleteFile(String URL){
          new File(URL).delete();
     }
 
+    //Genera un String de caracteres aleatorios
     public String generateRandomString() {
             int leftLimit = 48; // numeral '0'
             int rightLimit = 122; // letter 'z'

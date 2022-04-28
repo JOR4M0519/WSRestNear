@@ -20,6 +20,7 @@ public class NFT_FileResources {
     private UserService uService;
 
 
+    //Retorna los NFTs en un JSON de un usuario y una colección en específico
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response personalListFiles(@PathParam("username") String username,@PathParam("collection") String collectionName) {
@@ -50,6 +51,7 @@ public class NFT_FileResources {
         }
     }
 
+    //Crea NFTs de un usuario y una colección en específico
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
@@ -100,6 +102,7 @@ public class NFT_FileResources {
                 .build();
     }
 
+    //Retorna el nombre del archivo del header del multipartFormDataInput
     private String parseFileName(MultivaluedMap<String, String> headers) {
         String[] contentDispositionHeader = headers.getFirst("Content-Disposition").split(";");
 
@@ -113,7 +116,7 @@ public class NFT_FileResources {
         return "unknown";
     }
 
-    // Save uploaded file to a defined location on the server
+    //Guarda el archivo subido a una ruta específica en el servidor
     private void saveFile(InputStream uploadedInputStream, String fileName, ServletContext context) {
         int read = 0;
         byte[] bytes = new byte[1024];

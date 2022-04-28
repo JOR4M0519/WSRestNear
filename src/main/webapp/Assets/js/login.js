@@ -1,4 +1,5 @@
-//Este metodo se encarga de validar el -
+
+//Obtiene los String necesarios para realizar un login, se los manda al Post de la API correspondiente para verificar si puede o no iniciar sesión
 formElem.onsubmit = async (e) => {
     e.preventDefault();
 
