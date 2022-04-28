@@ -13,7 +13,7 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import java.io.*;
 import java.util.*;
 
-@Path("/users/{username}/collections/{collection}")
+@Path("/users/{username}/collections/{collection}/arts")
 public class NFT_FileResources {
     @Context
     ServletContext context;
@@ -21,7 +21,6 @@ public class NFT_FileResources {
     private UserService uService;
 
 
-    @Path("/arts")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response personalListFiles(@PathParam("username") String username,@PathParam("collection") String collectionName) {

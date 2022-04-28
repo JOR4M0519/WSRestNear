@@ -1,18 +1,79 @@
 package co.edu.unbosque.wsrestnear.services;
 
 import co.edu.unbosque.wsrestnear.dtos.*;
+import co.edu.unbosque.wsrestnear.dtos.Collection;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class UserService {
+
+    public List<Collection> getUltimasCollections() throws IOException {
+
+        List<Collection> collectionList;
+        List<Collection> respuesta = new ArrayList<>();
+
+
+        try (InputStream is = UserService.class.getClassLoader()
+                .getResourceAsStream("Collections.csv")) {
+
+            HeaderColumnNameMappingStrategy<Collection> strategy = new HeaderColumnNameMappingStrategy<>();
+            strategy.setType(Collection.class);
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+
+                CsvToBean<Collection> csvToBean = new CsvToBeanBuilder<Collection>(br)
+                        .withType(Collection.class)
+                        .withMappingStrategy(strategy)
+                        .withIgnoreLeadingWhiteSpace(true)
+                        .build();
+                collectionList = csvToBean.parse();
+                Collections.reverse(collectionList);
+
+                int numero=6;
+                if(collectionList.size()<numero){
+                    numero=collectionList.size();
+                }
+                for(int x=0;x<numero;x++){
+                    respuesta.add(collectionList.get(x));
+                }
+
+            }
+        }
+
+        return respuesta;
+    }
+
+    public List<Collection> getCollectionsPorArtista(String username) throws IOException {
+
+        List<Collection> collectionList;
+
+        try (InputStream is = UserService.class.getClassLoader()
+                .getResourceAsStream("Collections.csv")) {
+
+            HeaderColumnNameMappingStrategy<Collection> strategy = new HeaderColumnNameMappingStrategy<>();
+            strategy.setType(Collection.class);
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+
+                CsvToBean<Collection> csvToBean = new CsvToBeanBuilder<Collection>(br)
+                        .withType(Collection.class)
+                        .withMappingStrategy(strategy)
+                        .withIgnoreLeadingWhiteSpace(true)
+                        .build();
+
+                collectionList = csvToBean.parse().stream().filter(collection -> collection.getUsername().equals(username)).collect(Collectors.toList());
+            }
+        }
+
+        return collectionList;
+    }
 
     public List<Collection> getCollections() throws IOException {
 
@@ -39,15 +100,16 @@ public class UserService {
         return collectionList;
     }
 
-    public void createCollection(String username,String collection,String quantity, String path) throws IOException {
-        String newLine = username + "," + collection + "," + quantity + "\n";
 
+    public Collection createCollection(String username,String collection,String quantity,String path) throws IOException {
+        String newLine = username + "," + collection + "," + quantity+"\n";
         String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Collections.csv";
-
-        FileOutputStream os = new FileOutputStream( fullpath, true);
+        System.out.println(fullpath);
+        FileOutputStream os = new FileOutputStream(fullpath, true);
         os.write(newLine.getBytes());
         os.close();
 
+        return new Collection(username,collection,quantity);
     }
 
     public List<Likes> getLikes() throws IOException {
@@ -174,16 +236,12 @@ public class UserService {
         return new Likes(email,authorPictureEmail,pictureName,liker);
     }
 
-    public FCoins createMoney(String username,String fcoins) throws NullPointerException, IOException {
+    public FCoins createMoney(String username,String fcoins, String path) throws NullPointerException, IOException {
         String newLine = username + "," + fcoins + "\n";
-        String is = UserService.class.getClassLoader().getResource("Fcoins.csv").getPath();
-        String ruta= is.replace("/WSRestNear-1.0-SNAPSHOT/WEB-INF","");
+        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Users.csv";
+        System.out.println(fullpath);
 
-           System.out.println("Usuario: "+username+" FCoins: "+fcoins+" Path: "+ruta);
-            if (is == null) {
-                return null;
-            }
-            FileOutputStream os = new FileOutputStream(ruta, true);
+            FileOutputStream os = new FileOutputStream(fullpath, true);
             os.write(newLine.getBytes());
             os.close();
             return new FCoins(username, fcoins);
