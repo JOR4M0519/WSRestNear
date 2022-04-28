@@ -122,6 +122,8 @@ const getData = async () => {
     const dataCollectionNFTs = await fetch(`./api/users/${username}/collections/${collection}/arts`).then(response => response.json());
     console.log(dataCollectionNFTs);
     const urlNfts = dataCollectionNFTs.map(collectionNft => ({ id: collectionNft.id, author: collectionNft.author }))
+
+
     // const {id,collectionName2,title,author,price,likes,email_owner} =dataCollectionNFTs;
     // const url_NFTs = [id];
 
