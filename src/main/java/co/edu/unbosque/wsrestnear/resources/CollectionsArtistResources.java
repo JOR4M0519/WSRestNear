@@ -10,7 +10,7 @@ import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
-@Path("users/{username}/collections/up")
+@Path("/users/{username}/collections")
 public class CollectionsArtistResources {
 
     @Context

@@ -258,13 +258,11 @@ public class UserService {
 
     }
 
-    //Crea un NFT con las especificaciones solicitadas en los parámetros y después lo guarda en el csv
-    public void createNFT(String id, String extension, String title, String author, String price, String email_owner, String path) throws IOException {
-        String newLine = id + "," + extension + "," + title + ","+author+ "," + price + ","+"0"+","+ email_owner +"\n";
-
-        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Nfts.csv";
+    public void createNFT(String id, String collection, String title, String author, String price, String email_owner, String path) throws IOException {
+        String newLine = id + "," + collection + "," + title + ","+author+ "," + price + ","+"0"+","+ email_owner +"\n";
 
 
+        String fullpath = path +"WEB-INF"+File.separator+ "classes"+ File.separator+"Nfts.csv";
         FileOutputStream os = new FileOutputStream( fullpath, true);
         os.write(newLine.getBytes());
         os.close();
