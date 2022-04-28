@@ -8,6 +8,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.io.File;
 import java.io.IOException;
 
 @Path("users/{username}/fcoins")
@@ -40,8 +41,10 @@ public class AmountFCoinsResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response postFCoins(@PathParam("username") String username, @FormParam("cantidad") String fcoins) throws IOException {
+
+        String contextPath =context.getRealPath("") + File.separator;
         UserService uService =  new UserService();
-        FCoins user= uService.createMoney(username,fcoins);
+        FCoins user= uService.createMoney(username,fcoins, contextPath);
         return Response.ok().entity(user).build();
     }
 

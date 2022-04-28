@@ -35,12 +35,11 @@
       <div class="form-group" >
         <label for="author" >Author:</label>
         <input class="form-control" style="pointer-events:none;" id="author" name="author" value="sprieto@gmail.com">
-      </div>  
+      </div>
+          <label for="title" >Colección:</label>
+          <select name = "collection" class="form-control" id="roleInput" aria-describedby="role">
 
-      <div class="form-group" >
-        <label for="collection" >Collection:</label>
-        <input class="form-control" style="pointer-events:none;" id="collection" name="collection" value="rata">
-      </div>  
+          </select>
         
       <div class="form-group" >
         <label for="title" >Titulo:</label>
@@ -84,5 +83,18 @@
     }
     form.addEventListener("submit", uploadNFT);
   </script>
+      <script>
+          const getData = async () => {
+              const dataCollectionNFTs = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
+              const collectionName = dataCollectionNFTs.map(collectionNft => ({collection: collectionNft.collection}))
+              
+                  for (var i = 0; i < collectionName.length; i++) {
+                      document.getElementById("roleInput").innerHTML +=
+                          `<option style="font-family: 'Abel', sans-serif;">${collectionName[i].collection}</option>`;
+                  }
+
+          }
+          window.addEventListener("DOMContentLoaded", getData());
+      </script>
 </body>
 </html>

@@ -102,14 +102,16 @@ public class UserService {
         return collectionList;
     }
 
-    //Crea una colección de un artista y después la agrega al csv para que persista
-    public void createCollection(String username,String collection,String quantity) throws IOException {
+
+    public Collection createCollection(String username,String collection,String quantity,String path) throws IOException {
         String newLine = username + "," + collection + "," + quantity+"\n";
-        String is = UserService.class.getClassLoader().getResource("Collections.csv").getPath();
-        String ruta= is.replace("/WSRestNear-1.0-SNAPSHOT/WEB-INF","");
-        FileOutputStream os = new FileOutputStream(ruta, true);
+        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Collections.csv";
+        System.out.println(fullpath);
+        FileOutputStream os = new FileOutputStream(fullpath, true);
         os.write(newLine.getBytes());
         os.close();
+
+        return new Collection(username,collection,quantity);
     }
 
     //Obtiene la cantidad de likes correspondientes a las imágenes NFT que hay en la plataforma
@@ -241,17 +243,12 @@ public class UserService {
         return new Likes(email,authorPictureEmail,pictureName,liker);
     }
 
-    //Se encarga de agregar una cantidad pasada por parámetros de FCoins a un respectivo usuario y después la guarda en el csv
-    public FCoins createMoney(String username,String fcoins) throws NullPointerException, IOException {
+    public FCoins createMoney(String username,String fcoins, String path) throws NullPointerException, IOException {
         String newLine = username + "," + fcoins + "\n";
-        String is = UserService.class.getClassLoader().getResource("Fcoins.csv").getPath();
-        String ruta= is.replace("/WSRestNear-1.0-SNAPSHOT/WEB-INF","");
+        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Users.csv";
+        System.out.println(fullpath);
 
-           System.out.println("Usuario: "+username+" FCoins: "+fcoins+" Path: "+ruta);
-            if (is == null) {
-                return null;
-            }
-            FileOutputStream os = new FileOutputStream(ruta, true);
+            FileOutputStream os = new FileOutputStream(fullpath, true);
             os.write(newLine.getBytes());
             os.close();
             return new FCoins(username, fcoins);

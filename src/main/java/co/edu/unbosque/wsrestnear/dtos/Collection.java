@@ -10,6 +10,16 @@ public class Collection {
     @CsvBindByName
     private String quantity;
 
+    public Collection(){
+
+    }
+
+    public Collection(String username, String collection, String quantity) {
+        this.username = username;
+        this.collection = collection;
+        this.quantity = quantity;
+    }
+
     //Obtiene el valor correspondiente a la variable username
     public String getUsername() {return username;}
 
