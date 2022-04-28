@@ -245,7 +245,7 @@ public class UserService {
 
     public FCoins createMoney(String username,String fcoins, String path) throws NullPointerException, IOException {
         String newLine = username + "," + fcoins + "\n";
-        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Users.csv";
+        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "FCoins.csv";
         System.out.println(fullpath);
 
             FileOutputStream os = new FileOutputStream(fullpath, true);
