@@ -14,12 +14,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-@Path("users/{username}/collections")
+@Path("/users/{username}/collections")
 public class CollectionsArtistResources {
 
     @Context
     ServletContext context;
 
+    
+ 
+    //Responde como el método Get de la API de esta clase, recibe como parámetro el nombre del usuario para obtener las colecciones correspondientes a este
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCollections(@PathParam("username") String username) throws IOException {
@@ -28,6 +31,7 @@ public class CollectionsArtistResources {
         return Response.ok().entity(col).build();
     }
 
+    //Responde como el método Post de la API de esta clase, recibe como parámetro el nombre del usuario, el nombre de la colección y la cantidad de NFTs en la colección, bajo estos parámetros crea una colección para dicho usuario
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)

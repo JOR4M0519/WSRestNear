@@ -10,9 +10,10 @@ import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
-@Path("collections/")
+@Path("/collections")
 public class CollectionsIndexResources {
 
+    //Responde como el método Get de la API de esta clase, obtiene las últimas seis colecciones agregadas a la plataforma
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUltimasCollections() throws IOException {
