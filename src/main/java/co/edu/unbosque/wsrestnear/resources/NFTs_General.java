@@ -24,6 +24,7 @@ public class NFTs_General {
     private String UPLOAD_DIRECTORY = "NFTS";
     private UserService uService;
 
+    //Retorna los últimos seis NFTs en un JSON de un usuario y una colección en específico
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response generalListFiles() {

@@ -7,7 +7,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -17,6 +16,7 @@ public class CollectionsArtistResources {
     @Context
     ServletContext context;
 
+    //Responde como el método Post de la API de esta clase, recibe como parámetro el nombre del usuario, el nombre de la colección y la cantidad de NFTs en la colección, bajo estos parámetros crea una colección para dicho usuario
     @POST
     @Path("/form")
     @Produces(MediaType.APPLICATION_JSON)
@@ -27,6 +27,7 @@ public class CollectionsArtistResources {
         return Response.ok().entity(null).build();
     }
 
+    //Responde como el método Get de la API de esta clase, recibe como parámetro el nombre del usuario para obtener las colecciones correspondientes a este
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCollections(@PathParam("username") String username) throws IOException {
