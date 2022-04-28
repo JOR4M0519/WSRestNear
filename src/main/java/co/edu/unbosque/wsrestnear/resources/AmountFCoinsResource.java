@@ -16,7 +16,7 @@ public class AmountFCoinsResource {
     @Context
     ServletContext context;
 
-
+    //Responde como el método Get de la API de esta clase, recibe como parámetro el nombre del usuario para obtener las FCoins correspondientes a este
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserFCoins(@PathParam("username") String username) throws IOException {
@@ -29,6 +29,7 @@ public class AmountFCoinsResource {
         return Response.ok().entity(user).build();
     }
 
+    //Responde como el método Post de la API de esta clase, recibe como parámetro el nombre del usuario y los FCoins para agregar los valores actualizados al usuario especificado
     @POST
     @Path("/form")
     @Produces(MediaType.APPLICATION_JSON)

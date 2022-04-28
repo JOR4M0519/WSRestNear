@@ -1,5 +1,6 @@
 var imagesDiv = document.getElementById("card");
 
+//Obtiene información sobre el sitio al cual se quiere ingresar y se genera una respuesta
 const getData = async () => {
   let data = null;
 
@@ -88,6 +89,7 @@ const getData = async () => {
 
 window.addEventListener("DOMContentLoaded", getData());
 
+//Obtiene la ruta absoluta
 function getAbsolutePath() {
   var loc = window.location;
   var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
