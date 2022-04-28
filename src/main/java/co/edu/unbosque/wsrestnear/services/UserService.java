@@ -275,20 +275,17 @@ public class UserService {
     public FCoins amountMoney(String username) throws IOException {
 
         long amount = 0;
-        boolean existe = false;
+
 
         List<FCoins> fCoins = getFCoins().orElse(null);
         if(fCoins!=null){
             for(int i = 0; i < fCoins.size(); i++) {
                 if (fCoins.get(i).getUsername().equals(username)) {
                     amount += Long.parseLong(fCoins.get(i).getFCoins());
-                    existe = true;
                 }
             }
         }
-        if(!existe){
-            return null;
-        }
+
 
         return new FCoins(username,String.valueOf(amount));
     }

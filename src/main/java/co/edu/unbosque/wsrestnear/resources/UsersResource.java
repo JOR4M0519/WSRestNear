@@ -35,7 +35,25 @@ public class UsersResource {
         }
     }
 
-    //Responde como el método Post de la API de esta clase, obtienes como parámetros los datos necesarios para crear un usuario y con estos registra dicho usuario en el csv
+
+//Responde como el método Post de la API de esta clase, obtienes como parámetros los datos necesarios para crear un usuario y con estos registra dicho usuario en el csv
+//    @POST
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public Response create(User user) {
+//        String contextPath =context.getRealPath("") + File.separator;
+//
+//        try {
+//            user = new UserService().createUser(user.getUsername(),user.getName(),user.getLastname(), user.getPassword(),user.getRole(),"0", contextPath);
+//
+//            return Response.created(UriBuilder.fromResource(UsersResource.class).path(user.getUsername()).build())
+//                    .entity(user)
+//                    .build();
+//        } catch (IOException e) {
+//            return Response.serverError().build();
+//        }
+//    }
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)

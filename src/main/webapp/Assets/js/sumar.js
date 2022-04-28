@@ -3,9 +3,13 @@ document.getElementById('restar').addEventListener('click', restar);
 
 //sumar de 100 en 100
     function sumar(){
-        var inputCantidad = document.getElementById("cantidad");
-        var cantidad = inputCantidad.value;
-        inputCantidad.value = parseInt(cantidad) + parseInt(100);
+        try {
+            var inputCantidad = document.getElementById("cantidad");
+            var cantidad = inputCantidad.value;
+            inputCantidad.value = parseInt(cantidad) + parseInt(100);
+        }catch {
+            inputCantidad.value = 100;
+        }
     }
 
 //restar de 100 en 100

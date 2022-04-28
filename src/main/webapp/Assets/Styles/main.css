@@ -132,7 +132,10 @@
   box-shadow: 4px 4px 2px 1px rgba(2, 2, 0, 0.3);
 }
 
-#dropdown-item:active{
+#dropdown-item1:active{
+  background-color: #BA2737;
+}
+#dropdown-item2:active{
   background-color: #BA2737;
 }
 .btn-like {

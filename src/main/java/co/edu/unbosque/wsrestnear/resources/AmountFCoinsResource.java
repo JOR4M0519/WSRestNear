@@ -10,7 +10,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 
-@Path("users/{username}/FCoins")
+@Path("users/{username}/fcoins")
 public class AmountFCoinsResource {
 
     @Context
@@ -19,24 +19,29 @@ public class AmountFCoinsResource {
     //Responde como el método Get de la API de esta clase, recibe como parámetro el nombre del usuario para obtener las FCoins correspondientes a este
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUserFCoins(@PathParam("username") String username) throws IOException {
+    public Response getUserFCoins(@PathParam("username") String username, @QueryParam("role") String role) throws IOException {
 
-        UserService uService =  new UserService();
-        FCoins user = uService.amountMoney(username);
-        if(user==null){
-            return Response.status(484).entity(new ExceptionMessage(404,"User not found")).build();
-        }
-        return Response.ok().entity(user).build();
+       if (role.equals("Comprador")) {
+           UserService uService = new UserService();
+           FCoins user = uService.amountMoney(username);
+           if (user == null) {
+               return Response.status(404).entity(new ExceptionMessage(404, "User not found")).build();
+           }
+               return Response.ok().entity(user).build();
+
+       }else {
+           return Response.status(404).entity(new ExceptionMessage(404, "User not found")).build();
+       }
+
     }
 
     //Responde como el método Post de la API de esta clase, recibe como parámetro el nombre del usuario y los FCoins para agregar los valores actualizados al usuario especificado
     @POST
-    @Path("/form")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response postFCoins(@PathParam("username") String username, @FormParam("FCoins") String FCoins) throws IOException {
+    public Response postFCoins(@PathParam("username") String username, @FormParam("cantidad") String fcoins) throws IOException {
         UserService uService =  new UserService();
-        FCoins user= uService.createMoney(username,FCoins);
+        FCoins user= uService.createMoney(username,fcoins);
         return Response.ok().entity(user).build();
     }
 

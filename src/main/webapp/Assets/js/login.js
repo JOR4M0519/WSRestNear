@@ -1,23 +1,29 @@
+
 //Obtiene los String necesarios para realizar un login, se los manda al Post de la API correspondiente para verificar si puede o no iniciar sesión
 formElem.onsubmit = async (e) => {
-     e.preventDefault();
+    e.preventDefault();
 
 
-   let user = document.getElementById("username").value;
-   let password = document.getElementById("password").value;
+    let user = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
     let role = document.getElementById("roleInput").value;
-    console.log(role);
 
-     let response = await fetch(`./api/users/${user}?role=${role}`);
-     let result = await response.json();
 
-     if (user==result.username && password==result.password && role==result.role){
+    let response = await fetch(`./api/users/${user}?role=${role}`);
+    let result = await response.json();
+
+    if (user==result.username && password==result.password && role==result.role){
         localStorage.setItem("username",user);
-        window.location.href = "./index.jsp";
+        localStorage.setItem("role", role)
+        window.location.href = "./index.html";
 
-     }else{
-        alert("error");
-     }
+    }else{
+        swal({
+            title: "Usuario Incorrecto!",
+            text: "Intente Nuevamente.",
+            imageUrl: '.Assets/img/error.png'
+        });
+    }
 
 
- }
+}
