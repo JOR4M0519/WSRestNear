@@ -33,6 +33,24 @@ public class UsersResource {
             return Response.serverError().build();
         }
     }
+
+//    @POST
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public Response create(User user) {
+//        String contextPath =context.getRealPath("") + File.separator;
+//
+//        try {
+//            user = new UserService().createUser(user.getUsername(),user.getName(),user.getLastname(), user.getPassword(),user.getRole(),"0", contextPath);
+//
+//            return Response.created(UriBuilder.fromResource(UsersResource.class).path(user.getUsername()).build())
+//                    .entity(user)
+//                    .build();
+//        } catch (IOException e) {
+//            return Response.serverError().build();
+//        }
+//    }
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)

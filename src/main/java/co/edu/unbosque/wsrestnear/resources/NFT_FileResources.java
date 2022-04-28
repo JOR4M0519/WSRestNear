@@ -27,42 +27,27 @@ public class NFT_FileResources {
         uService = new UserService();
 
         Optional<List<Art_NFT>> art_nftList = null;
-        List<Art_NFT> nfts = new ArrayList<Art_NFT>();
+
 
         try {
+            List<Art_NFT> nfts = new ArrayList<Art_NFT>();
+
             art_nftList = uService.getNft();
+
             for(Art_NFT nft: art_nftList.get()){
+
                 if(nft.getEmail_owner().equals(username) && nft.getCollection().equals(collectionName)){
+                    nft.setId(UPLOAD_DIRECTORY + File.separator + nft.getId());
                     nfts.add(nft);
                 }
             }
+            return Response.ok().entity(nfts).build();
+
         } catch (IOException e) {
             e.printStackTrace();
+            return Response.serverError().build();
+
         }
-
-        // Getting an instance of the upload path
-        String uploadPath = context.getRealPath("") + File.separator + UPLOAD_DIRECTORY;
-
-        File uploadDir = new File(uploadPath);
-
-        // Listing file names in path
-
-        List<Art_NFT> files = new ArrayList<Art_NFT>();
-
-        File[] listFiles = uploadDir.listFiles();
-        Collections.reverse(Arrays.asList(listFiles));
-
-        for (File file : listFiles) {
-            Art_NFT nft = null;
-            String finalEmail = "";
-            nft = nfts.stream().filter(artNft_ -> (file.getName()).equals(artNft_.getId()) && finalEmail.equals(artNft_.getEmail_owner())).findFirst().orElse(null);
-            if (nft != null) {
-                nft.setId(UPLOAD_DIRECTORY + File.separator + file.getName());
-                files.add(nft);
-            }
-        }
-
-        return Response.ok().entity(files).build();
     }
 
     @POST
