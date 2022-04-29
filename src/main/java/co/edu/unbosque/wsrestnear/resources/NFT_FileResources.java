@@ -79,9 +79,8 @@ public class NFT_FileResources {
             for (InputPart inputPart : inputParts) {
                 try {
                     // Retrieving headers and reading the Content-Disposition header to file name
-                    MultivaluedMap<String, String> headers = inputPart.getHeaders();
                     String randomString = uService.generateRandomString();
-                    String fileName = randomString+"&"+parseFileName(headers);
+                    String fileName = randomString+"&"+title;
 
 
                     // Handling the body of the part with an InputStream
@@ -100,20 +99,6 @@ public class NFT_FileResources {
         return Response.status(201)
                 .entity("NFT successfully uploaded")
                 .build();
-    }
-
-    //Retorna el nombre del archivo del header del multipartFormDataInput
-    private String parseFileName(MultivaluedMap<String, String> headers) {
-        String[] contentDispositionHeader = headers.getFirst("Content-Disposition").split(";");
-
-        for (String name : contentDispositionHeader) {
-            if ((name.trim().startsWith("filename"))) {
-                String[] tmp = name.split("=");
-                String fileName = tmp[1].trim().replaceAll("\"","");
-                return fileName;
-            }
-        }
-        return "unknown";
     }
 
     //Guarda el archivo subido a una ruta específica en el servidor

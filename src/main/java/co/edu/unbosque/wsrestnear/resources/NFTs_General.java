@@ -38,31 +38,15 @@ public class NFTs_General {
             e.printStackTrace();
         }
 
-        // Getting an instance of the upload path
-        String uploadPath = context.getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+        List<Art_NFT> dataFiles = new ArrayList<Art_NFT>();
 
-        File uploadDir = new File(uploadPath);
-
-        // Listing file names in path
-        int i = 0;
-        List<Art_NFT> files = new ArrayList<Art_NFT>();
-
-        File[] listFiles = uploadDir.listFiles();
-        Collections.reverse(Arrays.asList(listFiles));
-
-        for (File file : listFiles) {
-            Art_NFT nft = null;
-            nft = nfts.stream().filter(artNft_ -> (file.getName()).equals(artNft_.getId())).findFirst().orElse(null);
-            if (nft != null) {
-                nft.setId(UPLOAD_DIRECTORY + File.separator + file.getName());
-                if (i < 6) {
-                    files.add(nft);
-                    i++;
-                }
-            }
+        Collections.reverse(nfts);
+        for(int j=0;j<6 && j<nfts.size();j++){
+            dataFiles.add(nfts.get(j));
+            dataFiles.get(j).setId(UPLOAD_DIRECTORY + File.separator + dataFiles.get(j).getId());
         }
 
         // Adding the data to response, parsing it to json using Gson library
-        return Response.ok().entity(files).build();
+        return Response.ok().entity(dataFiles).build();
     }
 }

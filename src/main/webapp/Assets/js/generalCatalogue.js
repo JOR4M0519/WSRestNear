@@ -16,12 +16,9 @@ const getData = async () => {
 
 
   data.forEach(data => {
-    // let dataLike = fetch(urlApi+`users/email=${localStorage.getItem("username")}/Likes`).then(response => response.json());
 
-    const { id, title, author, price, likes} = data;
-    let urlImage = "./" + id;
+    const { id, collection, title, author, price, likes} = data;
 
-    // if(dataLike.find(dataLike => dataLike.pictureName === title)){
     imagesDiv.innerHTML += `
     <div class="col-md-4 card-position "> 
         <div class="card mb-4 shadow-sm card-dimensions" >
@@ -33,10 +30,11 @@ const getData = async () => {
               <rect width="100%" height="100%" fill="#55595c"/>
             </img>
           </div>
-          <div class="content">
-            <div class="card-body">
+          <div class="content card-content">
               <h3 class="card-text">Titulo: ${title}</h3>
-              <p class="card-text">Autor: ${author}</p>
+              <p class="card-text">Autor: ${author}<br>
+              Colección: ${collection}
+              </p>
               <div class="card-body-price_likes">
                     <span class="text-muted">Precio: ${price}</span>
                     <span class="text-muted">Likes:<button class="btn-like" id="sumarLike"><img src="Assets/svg/heart-fill.svg" width="15px"></button>
@@ -49,7 +47,7 @@ const getData = async () => {
                   <button type="button" class="btn btn-sm btn-outline-secondary">Añadir al carro</button>
                 </div>
               </div>
-            </div>
+
           </div>
         </div>
     </div>
@@ -139,10 +137,10 @@ const getData = async () => {
     // const {id,collection,author,port = [urlImage]} = dataCollection;
 
     // if(dataLike.find(dataLike => dataLike.pictureName === title)){
-    let collectionName = collection+"";
+
     imagesCol.innerHTML += `
        <div class="col-md-4 card-position">
-    <div class="card mb-4 shadow-sm card-dimensions" id="modalNFTs" onclick="getDataModal()" data-toggle="modal" data-target=".bd-example-modal-lg">
+    <div class="card mb-4 shadow-sm card-dimensions" id="modalNFTs" onclick="getDataModal('${collection.toString()}')"  data-toggle="modal" data-target=".bd-example-modal-lg">
         <div class="imgBx">
             <table>
                 <tr>
@@ -232,29 +230,19 @@ const getData = async () => {
 };
 
 
-const getDataModal = async()=>{
+const getDataModal = async(collection)=>{
   //Ventana emrgente modal
-
   var imagesModal = document.getElementById("cardsCollection");
 
-  //atributos de la ventana
-  var author = document.getElementById("collectionAuthor").textContent.split(":")[1].replace(" ","");
-  var collection = document.getElementById("collectionCollection").textContent.split(":")[1].replace(" ","");
 
-  /*const collections = document.querySelectorAll('[id=collectionCollection]');
-  console.log(collections[0].innerHTML.split(":")[1].replace(" ",""));
-  const collectionName = collections.filter(collection => (collection.innerHTML.split(":")[1].replace(" ","")===collectionActual));
-  console.log(collectionName);
-*/
   //llama la lista de colecciones
   const dataCollection = await fetch(`./api/collections`).then(response => response.json());
-
   const username = dataCollection.filter(data => (data.collection===collection));
 
   const dataCollectionNFTs = await fetch(`./api/users/${username[0].username}/collections/${collection}/arts`).then(response => response.json());
   const dataNFTs = dataCollectionNFTs.map(collectionNft => ({ author: collectionNft.author }))
 
-  imagesModal.innerHTML =`<h2 id="ofertas" class="card_tittle">Coleccion: ${collection} <p class="text-muted">By: ${dataNFTs[0].author}</p></h2>
+  imagesModal.innerHTML =`<h2 id="ofertas" class="card_tittle">Colección: ${collection} <p class="text-muted">By: ${dataNFTs[0].author}</p></h2>
             <!--Guia js-->
             <div class="card-group contenedor-social" id="socialcard">
               <section class="py-5">
@@ -284,8 +272,7 @@ const getDataModal = async()=>{
                               <rect width="100%" height="100%" fill="#55595c"/>
                             </img>
                           </div>
-                          <div class="content">
-                            <div class="card-body">
+                          <div class="content card-content">
                               <h3 class="card-text">Titulo: ${title}</h3>
                               <p class="card-text">Autor: ${author}</p>
                               <div class="card-body-price_likes">
@@ -293,14 +280,7 @@ const getDataModal = async()=>{
                                 <span class="text-muted">Likes:<button class="btn-like" id="sumarLike"><img src="Assets/svg/heart-fill.svg" width="15px"></button>
                                  <span id="amountLikes" aria-valuetext="" >${likes}</span>
                                 </span>
-                                </div>
-                              <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group btns">
-                                  <button type="button" class="btn btn-sm btn-outline-secondary">Comprar</button>      
-                                  <button type="button" class="btn btn-sm btn-outline-secondary">Añadir al carro</button>
-                                </div>
                               </div>
-                            </div>
                           </div>
                         </div>
                     </div>

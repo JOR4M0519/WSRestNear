@@ -179,6 +179,10 @@
   background-image: url("../svg/heart-fill.svg");
 }
 
+.card-content {
+  padding: 1% 5%;
+}
+
 .card-dimensions {
   padding: 2%;
   background-color: #e3e3e3;
@@ -228,8 +232,8 @@ footer {
 .card_tittle {
   font-style: inherit;
   font-size: 35px;
-  color: black;
-  font-weight: 500;
+  color: #BA2737;
+  font-weight: 600;
 
 }
 
