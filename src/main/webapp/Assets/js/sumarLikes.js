@@ -1,36 +1,48 @@
-
-
 //document.getElementById('sumarLikes').addEventListener('onclick', btnLike);
 //document.getElementById('restarLikes').addEventListener('click', btnLike);
 
 //Registra cada vez que es oprimido el botón de likes de un NFT para a continuación de esto realizar la correspondiente acción solicitada
-function btnLike(){
-    const urlApi = "http://localhost:8080/WSRestNear-1.0-SNAPSHOT/api/likes";
-    let data = fetch(urlApi+`/email=${localStorage.getItem("username")}`).then(response => response.json());
-    alert("click!");
-    if(document.getElementById("sumarLikes") != null){
-        sumarLikes();
-        document.getElementById("sumarLikes").id ="restarLikes";
-        console.log(document.getElementById("restarLikes").textContent);
-    }else{
-        restarLikes();
-        document.getElementById("restarLikes").id ="sumarLikes";
+const btnLike = async (id, type) => {
+    if(!(localStorage.getItem("username") == null)) {
+        let data = await fetch(`./api/users/${localStorage.getItem("username")}/arts/${id}`).then(response => response.json());
+        console.log(data.email.toString())
+
+        if (data.email.toString() != "") {
+
+            restarLikes(id.toString(), type);
+            await fetch(`./api/users/${localStorage.getItem("username")}/arts/${id}/0`, {
+                method: "POST"
+            }).then(response => response.json());
+
+        } else {
+            sumarLikes(id.toString(), type);
+            await fetch(`./api/users/${localStorage.getItem("username")}/arts/${id}/1`, {
+                method: "POST"
+            }).then(response => response.json());
+        }
+    }else {
+        alert("Ingrese a una cuenta primero8")
     }
 }
 
 //Suma los likes que tiene cada NFT
-function sumarLikes(){
-    var inputCantidad = document.getElementById("amountLikes");
+function sumarLikes(id, type) {
+    var inputCantidad = document.getElementById("amountLikes" + type + id);
+    var imgStatus = document.getElementById("heartStatus" + type + id);
     var cantidad = inputCantidad.textContent;
+
+    imgStatus.src = "Assets/svg/heart-fill.svg";
     inputCantidad.textContent = parseInt(cantidad) + parseInt(1);
+
 }
 
 //Resta los likes que tiene cada NFT
-function restarLikes(){
-    var inputCantidad = document.getElementById("amountLikes");
-    var cantidad = parseInt(inputCantidad.value);
+function restarLikes(id, type) {
+    var inputCantidad = document.getElementById("amountLikes" + type + id);
+    var imgStatus = document.getElementById("heartStatus" + type + id);
+    var cantidad = inputCantidad.textContent;
 
-    if (cantidad>=1) {
-        inputCantidad.value = cantidad - parseInt(1);
-    }
+    imgStatus.src = "Assets/svg/heart-unfill.svg";
+    inputCantidad.textContent = parseInt(cantidad) - parseInt(1);
+
 }

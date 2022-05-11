@@ -155,28 +155,22 @@
   transition: 0.5s;
 }
 
-.card-body-price_likes {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: space-between;
-}
-
-.btn-like:hover {
+.btn-like:hover{
   background: #be7474;
   color: #fff;
-  transition: 0.5s;
+  transition: 0.25s;
 }
 
 .btn-like:focus {
   background: #be7474;
-  box-shadow: 0 0 1px 6px rgba(214, 89, 89, 0.5)
+  box-shadow: 0 0 1px 6px rgba(214, 89, 89, 0.5);
+  transition: all 0.25s;
 }
 
-.btn-liked {
-  border: none;
-  background-repeat: no-repeat, repeat;
-  background-color: transparent;
-  background-image: url("../svg/heart-fill.svg");
+.card-body-price_likes {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
 }
 
 .card-content {

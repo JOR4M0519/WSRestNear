@@ -33,7 +33,7 @@ public class NFTs_General {
 
         List<Art_NFT> nfts = null;
         try {
-            nfts = uService.getNft().get();
+            nfts = uService.getNft();
         } catch (IOException e) {
             e.printStackTrace();
         }

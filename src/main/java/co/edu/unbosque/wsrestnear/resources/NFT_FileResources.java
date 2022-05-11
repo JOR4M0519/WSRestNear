@@ -27,7 +27,7 @@ public class NFT_FileResources {
 
         uService = new UserService();
 
-        Optional<List<Art_NFT>> art_nftList = null;
+        List<Art_NFT> art_nftList = null;
 
 
         try {
@@ -35,7 +35,7 @@ public class NFT_FileResources {
 
             art_nftList = uService.getNft();
 
-            for(Art_NFT nft: art_nftList.get()){
+            for(Art_NFT nft: art_nftList){
 
                 if(nft.getEmail_owner().equals(username) && nft.getCollection().equals(collectionName)){
                     nft.setId(UPLOAD_DIRECTORY + File.separator + nft.getId());
@@ -66,7 +66,7 @@ public class NFT_FileResources {
             String title = inputData.getFormDataPart("title", String.class, null);
             String price = inputData.getFormDataPart("price", String.class, null);
 
-
+            System.out.println(title);
             //Found Data author
             List<User> users = new UserService().getUsers();
             User userFounded = users.stream().filter(user -> emailAuthor.equals(user.getUsername()))
@@ -79,8 +79,9 @@ public class NFT_FileResources {
             for (InputPart inputPart : inputParts) {
                 try {
                     // Retrieving headers and reading the Content-Disposition header to file name
+                    MultivaluedMap<String, String> headers = inputPart.getHeaders();
                     String randomString = uService.generateRandomString();
-                    String fileName = randomString+"&"+title;
+                    String fileName = randomString+"&"+title+parseFileName(headers).split("\\.")[1];
 
 
                     // Handling the body of the part with an InputStream
@@ -99,6 +100,20 @@ public class NFT_FileResources {
         return Response.status(201)
                 .entity("NFT successfully uploaded")
                 .build();
+    }
+
+    //Retorna el nombre del archivo del header del multipartFormDataInput
+    private String parseFileName(MultivaluedMap<String, String> headers) {
+        String[] contentDispositionHeader = headers.getFirst("Content-Disposition").split(";");
+
+        for (String name : contentDispositionHeader) {
+            if ((name.trim().startsWith("filename"))) {
+                String[] tmp = name.split("=");
+                String fileName = tmp[1].trim().replaceAll("\"","");
+                return fileName;
+            }
+        }
+        return "unknown";
     }
 
     //Guarda el archivo subido a una ruta específica en el servidor

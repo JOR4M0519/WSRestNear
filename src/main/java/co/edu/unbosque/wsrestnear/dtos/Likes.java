@@ -13,6 +13,9 @@ public class Likes {
     @CsvBindByName
     private int liker;
 
+    public Likes() {
+    }
+
     //Método constructor de la clase Likes y inicializa las variables declaradas con las pasadas por parámetros
     public Likes(String email, String authorPictureEmail, String pictureName, int liker) {
         this.email = email;
