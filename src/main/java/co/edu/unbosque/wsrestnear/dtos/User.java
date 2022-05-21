@@ -4,18 +4,14 @@ import com.opencsv.bean.CsvBindByName;
 
 public class User {
 
-    @CsvBindByName
+
     private String username;
-    @CsvBindByName
     private String name;
-    @CsvBindByName
+
     private String lastname;
-    @CsvBindByName
     private String role;
-    @CsvBindByName
     private String password;
-    @CsvBindByName
-    private String fcoins;
+    private int fcoins;
 
     //Método constructor de la clase User
     public User(){
@@ -23,7 +19,7 @@ public class User {
     }
 
     //Método constructor de la clase User y inicializa las variables declaradas con las pasadas por parámetros
-    public User(String username, String name, String lastname, String role, String password, String fcoins) {
+    public User(String username, String name, String lastname, String role, String password, int fcoins) {
         this.username = username;
         this.name = name;
         this.lastname = lastname;
@@ -83,13 +79,13 @@ public class User {
     }
 
     //Obtiene el valor correspondiente a la variable fcoins
-    public String getFcoins() {
+
+    public int getFcoins() {
         return fcoins;
     }
 
-    //Asigna un valor a la variable fcoins
-    public void setFcoins(String fcoins) {
-        fcoins = fcoins;
+    public void setFcoins(int fcoins) {
+        this.fcoins = fcoins;
     }
 }
 
