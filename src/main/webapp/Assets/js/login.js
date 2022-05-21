@@ -9,7 +9,7 @@ formElem.onsubmit = async (e) => {
     let role = document.getElementById("roleInput").value;
 
 
-    let response = await fetch(`./api/users/${user}?role=${role}`);
+    let response = await fetch(`./api/users/${user}`);
     let result = await response.json();
 
     if (user==result.username && password==result.password && role==result.role){

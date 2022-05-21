@@ -8,12 +8,145 @@ import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 
 public class UserService {
 
+    private Connection conn;
+
+    public UserService(){
+
+    }
+
+    public UserService(Connection conn) {
+        this.conn = conn;
+    }
+
+    public List<User> listUsers() {
+        // Object for handling SQL statement
+        Statement stmt = null;
+
+        // Data structure to map results from database
+        List<User> users = new ArrayList<User>();
+
+        try {
+            // Executing a SQL query
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM userapp";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            // Reading data from result set row by row
+            while (rs.next()) {
+                // Extracting row values by column name
+                String username = rs.getString("user_id");
+                String password = rs.getString("password");
+                String name = rs.getString("name");
+                String lastname = rs.getString("lastname");
+                String role = rs.getString("role");
+                int fcoins = rs.getInt("fcoins");
+
+
+                // Creating a new UserApp class instance and adding it to the array list
+                users.add(new User(username,name, lastname, role, password, fcoins));
+            }
+
+            // Closing resources
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+            se.printStackTrace(); // Handling errors from database
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return users;
+    }
+
+    public User getUser(String username) {
+        // Object for handling SQL statement
+        PreparedStatement stmt = null;
+
+        // Data structure to map results from database
+
+        User user = null;
+        try {
+            // Executing a SQL query
+            stmt = this.conn.prepareStatement("SELECT * FROM userapp WHERE user_id = ?");
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            // Reading data from result set row by row
+            rs.next();
+                // Extracting row values by column
+            user = new User(
+                    rs.getString("user_id"),
+                    rs.getString("name"),
+                    rs.getString("lastname"),
+                    rs.getString("role"),
+                    rs.getString("password"),
+                    rs.getInt("fcoins")
+            );
+
+            System.out.println(user.toString());
+                // Creating a new UserApp class instance and adding it to the array list
+
+
+
+            // Closing resources
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+            se.printStackTrace(); // Handling errors from database
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return user;
+    }
+
+    public User newUser(User user) {
+        // Object for handling SQL statement
+        PreparedStatement stmt = null;
+
+        // Data structure to map results from database
+
+        try {
+            // Executing a SQL query
+            stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, role, password, fcoins)\n" +
+                    "VALUES (?,?,?,?,?,0)");
+
+            stmt.setString(1,user.getUsername());
+            stmt.setString(2,user.getName());
+            stmt.setString(3,user.getLastname());
+            stmt.setString(4,user.getRole());
+            stmt.setString(5,user.getPassword());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException se) {
+            se.printStackTrace(); // Handling errors from database
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return user;
+
+    }
     //Retorna un array de las últimas colecciones agregadas al csv
     public List<Collection> getUltimasCollections() throws IOException {
 
@@ -228,7 +361,7 @@ public class UserService {
             os.write(newLine.getBytes());
             os.close();
 
-        return new User(username, name, lastname, role, password, "0");
+        return new User(username, name, lastname, role, password, 0);
     }
 
     //Se encarga de agregar una cantidad de likes a una imagen NFT y de guardarla en el csv
@@ -325,17 +458,7 @@ public class UserService {
 
     public static void main(String args[]) {
 
-        /*try {
-            Optional<List<User>> users = new UserService().getUsers();
-
-            for (User user: users.get()) {
-                System.out.println(user.toString());
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
     }
+
 
 }
