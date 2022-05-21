@@ -201,7 +201,7 @@ public class UsersResource {
             likeServices = new LikeServices(conn);
 
             userLikedArt = likeServices.likeArtUser(new Likes(username,art));
-
+            conn.close();
         }catch (ClassNotFoundException | SQLException nullPointerException){
             return Response.ok()
                     .entity(String.valueOf(0))
@@ -230,7 +230,7 @@ public class UsersResource {
                 likeServices = new LikeServices(conn);
 
                 likes = likeServices.likesArt(art);
-
+                conn.close();
             }catch (ClassNotFoundException | SQLException nullPointerException){
 
                 return Response.ok()
@@ -266,7 +266,7 @@ public class UsersResource {
             }else{
                 likeServices.removeLike(new Likes(username,art));
             }
-
+            conn.close();
             return Response.ok()
                     .entity("Se cargo exitpsamente")
                     .build();
