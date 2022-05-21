@@ -7,32 +7,24 @@ public class Likes {
     @CsvBindByName
     private String email;
     @CsvBindByName
-    private String authorPictureEmail;
-    @CsvBindByName
-    private String pictureName;
-    @CsvBindByName
-    private int liker;
+    private String art_id;
+
 
     public Likes() {
     }
 
     //Método constructor de la clase Likes y inicializa las variables declaradas con las pasadas por parámetros
-    public Likes(String email, String authorPictureEmail, String pictureName, int liker) {
+    public Likes(String email, String art_id) {
         this.email = email;
-        this.authorPictureEmail = authorPictureEmail;
-        this.pictureName = pictureName;
-        this.liker = liker;
+        this.art_id = art_id;
     }
 
     //Obtiene el valor correspondiente a la variable email
     public String getEmail() {return email;}
 
     //Obtiene el valor correspondiente a la variable authorPictureEmail
-    public String getAuthorPictureEmail() {return authorPictureEmail;}
 
     //Obtiene el valor correspondiente a la variable pictureName
-    public String getPictureName() {return pictureName;}
+    public String getArt_id() {return art_id;}
 
-    //Obtiene el valor correspondiente a la variable liker
-    public int getLiker() {return liker;}
 }

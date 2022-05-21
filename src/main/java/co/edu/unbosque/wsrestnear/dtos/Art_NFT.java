@@ -15,19 +15,16 @@ public class Art_NFT {
     @CsvBindByName
     private String price;
     @CsvBindByName
-    private String likes;
-    @CsvBindByName
-    private String email_owner;
+    private String email;
 
 
-    public Art_NFT(String id, String collection, String title, String author, String price, String likes, String email_owner) {
+    public Art_NFT(String id, String collection, String title, String author, String price, String email) {
         this.id = id;
         this.collection = collection;
         this.title = title;
         this.author = author;
         this.price = price;
-        this.likes = likes;
-        this.email_owner = email_owner;
+        this.email = email;
     }
 
     //Obtiene el valor correspondiente a la variable collection
@@ -55,25 +52,15 @@ public class Art_NFT {
     public void setAuthor(String author) {this.author = author;}
 
     //Obtiene el valor correspondiente a la variable price
-    public String getPrice() {return price;}
+    public int getPrice() {return Integer.parseInt(price);}
 
     //Asigna un valor a la variable price
     public void setPrice(String price) {this.price = price;}
 
-    //Obtiene el valor correspondiente a la variable likes
-    public String getLikes() {
-        return likes;
-    }
-
-    //Asigna un valor a la variable likes
-    public void setLikes(String likes) {
-        this.likes = likes;
-    }
-
     //Obtiene el valor correspondiente a la variable email_owner
-    public String getEmail_owner() {return email_owner;}
+    public String getEmail() {return email;}
 
     //Asigna un valor a la variable collection
-    public void setEmail_owner(String email_owner) {this.email_owner = email_owner;}
+    public void setEmail(String email) {this.email = email;}
 
 }

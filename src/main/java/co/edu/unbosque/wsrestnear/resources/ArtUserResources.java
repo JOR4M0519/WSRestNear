@@ -65,7 +65,7 @@ public class ArtUserResources {
 
             for(Art_NFT nft: art_nftList){
 
-                if(nft.getEmail_owner().equals(username) && nft.getCollection().equals(collectionName)){
+                if(nft.getEmail().equals(username) && nft.getCollection().equals(collectionName)){
                     nft.setId(UPLOAD_DIRECTORY + File.separator + nft.getId());
                     nfts.add(nft);
                 }
@@ -84,7 +84,6 @@ public class ArtUserResources {
         Connection conn = null;
 
 
-
         try {
 
             String emailAuthor = inputData.getFormDataPart("author", String.class, null);
@@ -98,8 +97,9 @@ public class ArtUserResources {
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             artServices = new ArtServices(conn);
+            UserService userService = new UserService(conn);
 
-            User user = artServices.getUserData(emailAuthor);
+            User user = userService.getUser(emailAuthor);
             String author = user.getName() + " " + user.getLastname();
 
             conn.close();
@@ -112,7 +112,7 @@ public class ArtUserResources {
                     // Retrieving headers and reading the Content-Disposition header to file name
                     MultivaluedMap<String, String> headers = inputPart.getHeaders();
                     String randomString = generateRandomString();
-                    String fileName = randomString+"&"+title+parseFileName(headers).split("\\.")[1];
+                    String fileName = randomString+"."+parseFileName(headers).split("\\.")[1];
 
 
                     // Handling the body of the part with an InputStream
@@ -120,7 +120,7 @@ public class ArtUserResources {
 
                     saveFile(istream, fileName, context);
 
-                    uService.createNFT(fileName, collection, title, author, price, emailAuthor, context.getRealPath("") +File.separator);
+                    artServices.newArt(new Art_NFT(fileName,collection,title,author,price,emailAuthor));
                 } catch (IOException e) {
                     return Response.serverError().build();
                 }
