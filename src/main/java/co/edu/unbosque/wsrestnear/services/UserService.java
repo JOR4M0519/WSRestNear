@@ -326,16 +326,16 @@ public class UserService {
     }
 
     //Obtiene un array correspondiente a la lista de NFTs que se encuentran creados en la plataforma
-    public List<Art_NFT> getNft() throws IOException {
+    /*public List<Art_NFT> getNft() throws IOException {
 
         List<Art_NFT> nft;
 
         try (InputStream is = UserService.class.getClassLoader()
                 .getResourceAsStream("Nfts.csv")) {
 
-           /* if (is == null) {
+           *//* if (is == null) {
                 return Optional.empty();
-            }*/
+            }*//*
 
             HeaderColumnNameMappingStrategy<Art_NFT> strategy = new HeaderColumnNameMappingStrategy<>();
             strategy.setType(Art_NFT.class);
@@ -351,7 +351,7 @@ public class UserService {
             }
         }
         return nft;
-    }
+    }*/
 
     //Se encarga de crear un nuevo usuario y de registrarlo en el csv para persistirlo
     public User createUser(String username, String name, String lastname, String password, String role, String Fcoins, String path) throws IOException {
@@ -364,7 +364,7 @@ public class UserService {
         return new User(username, name, lastname, role, password, 0);
     }
 
-    //Se encarga de agregar una cantidad de likes a una imagen NFT y de guardarla en el csv
+    /*//Se encarga de agregar una cantidad de likes a una imagen NFT y de guardarla en el csv
     public Likes addLike(String email,String authorPictureEmail,String pictureName,int liker, String path) throws IOException {
         String newLine =  email + "," + authorPictureEmail + ","+pictureName+ "," + liker +"\n";
         String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Likes.csv";
@@ -372,7 +372,7 @@ public class UserService {
         os.write(newLine.getBytes());
         os.close();
 
-        return new Likes(email,authorPictureEmail,pictureName,liker);
+        return new Likes(email,authorPictureEmail,pictureName);
     }
 
     public void updateLike(List<Likes> likesList,String path) throws IOException {
@@ -391,7 +391,7 @@ public class UserService {
             os.write(newLine.getBytes());
         }
         os.close();
-    }
+    }*/
 
     public FCoins createMoney(String username,String fcoins, String path) throws NullPointerException, IOException {
         String newLine = username + "," + fcoins + "\n";

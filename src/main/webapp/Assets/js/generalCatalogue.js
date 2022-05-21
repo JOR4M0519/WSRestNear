@@ -20,7 +20,7 @@ const getDataNFTCatalogue = async () => {
             dataLikes = await fetch(`./api/users/arts/${idNFT}/likes`).then(response => response.json());
             let heartLikesStatus = await fetch(`./api/users/${localStorage.getItem("username")}/arts/${idNFT}`).then(response => response.json());
 
-            if (heartLikesStatus.liker.toString() === "0") {
+            if (heartLikesStatus.toString() === "0") {
                 heartLikesStatus = "Assets/svg/heart-unfill.svg";
             } else {
                 heartLikesStatus = "Assets/svg/heart-fill.svg";

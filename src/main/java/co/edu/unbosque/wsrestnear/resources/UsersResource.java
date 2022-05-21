@@ -4,6 +4,7 @@ import co.edu.unbosque.wsrestnear.dtos.Art_NFT;
 import co.edu.unbosque.wsrestnear.dtos.ExceptionMessage;
 import co.edu.unbosque.wsrestnear.dtos.Likes;
 import co.edu.unbosque.wsrestnear.dtos.User;
+import co.edu.unbosque.wsrestnear.services.LikeServices;
 import co.edu.unbosque.wsrestnear.services.UserService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context ;
@@ -18,14 +19,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Path("/users")
 public class UsersResource {
 
     @Context
     ServletContext context;
+
+    LikeServices likeServices;
 
     static final String JDBC_DRIVER = "org.postgresql.Driver";
     static final String DB_URL = "jdbc:postgresql://35.225.50.237/near";
@@ -184,86 +185,96 @@ public class UsersResource {
 //            return Response.serverError().build();
 //        }
 //    }
-//    @GET
-//    @Path("/{username}/arts/{art}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response listLikes(@PathParam("username") String username,@PathParam("art") String art) {
-//        try {
-//            Likes likeDetailUser =  new UserService().getLikes().stream()
-//                    .filter(likes -> likes.getEmail().equals(username) && likes.getPictureName().equals(art)).findFirst().orElse(null);
-//
-//            if(likeDetailUser ==null){
-//                return Response.ok()
-//                        .entity(new Likes("","","",0))
-//                        .build();
-//            }
-//            return Response.ok()
-//                    .entity(likeDetailUser)
-//                    .build();
-//        } catch (IOException e) {
-//            return Response.serverError().build();
-//        }
-//    }
-//
-//    @GET
-//    @Path("/arts/{art}/likes")
-//    @Produces(MediaType.TEXT_PLAIN)
-//    public Response likesNFT(@PathParam("art") String art) {
-//        try {
-//            List<Likes> listLikeNFT = null;
-//            try {
-//                listLikeNFT = new UserService().getLikes().stream()
-//                        .filter(likes -> likes.getPictureName().equals(art) && (likes.getLiker() == 1)).collect(Collectors.toList());
-//
-//            }catch (NullPointerException nullPointerException){
-//
-//                return Response.ok()
-//                        .entity(String.valueOf(0))
-//                        .build();
-//            }
-//
-//            return Response.ok()
-//                    .entity(listLikeNFT.size())
-//                    .build();
-//        } catch (IOException e) {
-//            return Response.serverError().build();
-//        }
-//    }
-//
-//    @POST
-//    @Path("/{username}/arts/{art}/{idLike}")
-//    @Produces(MediaType.TEXT_PLAIN)
-//    public Response operateList(@PathParam("username") String username,@PathParam("art") String art,@PathParam("idLike") String idLike) {
-//        UserService userService = new UserService();
-//        String contextPath =context.getRealPath("") + File.separator;
-//        try {
-//            List<Likes> likesList = userService.getLikes();
-//            Likes likeDetailUser =  userService.getLikes().stream()
-//                    .filter(likes -> likes.getEmail().equals(username) && likes.getPictureName().equals(art)).findFirst().orElse(null);
-//
-//            Art_NFT art_nft = userService.getNft().stream().filter(nft -> nft.getId().equals(art)).findFirst().orElse(null);
-//
-//            if(likeDetailUser ==null){
-//                userService.addLike(username,art_nft.getAuthor(),art,Integer.parseInt(idLike),contextPath);
-//            }else{
-//                boolean exit = false;
-//                for (int i=0;i<likesList.size() && !exit;i++){
-//                    if(likesList.get(i).getEmail().equals(likeDetailUser.getEmail()) && likesList.get(i).getPictureName().equals(likeDetailUser.getPictureName())){
-//                        likesList.remove(i);
-//                        userService.updateLike(likesList,contextPath);
-//                        exit=true;
-//                    }
-//                }
-//            }
-//
-//            return Response.ok()
-//                    .entity("Se cargo exitpsamente")
-//                    .build();
-//        } catch (IOException e) {
-//            return Response.serverError().build();
-//        }
-//    }
-//
+
+    @GET
+    @Path("/{username}/arts/{art}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response listLikes(@PathParam("username") String username,@PathParam("art") String art) {
+        Connection conn = null;
+
+        int userLikedArt = 0;
+        try {
+            Class.forName(JDBC_DRIVER);
+            // Opening database connection
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            likeServices = new LikeServices(conn);
+
+            userLikedArt = likeServices.likeArtUser(new Likes(username,art));
+
+        }catch (ClassNotFoundException | SQLException nullPointerException){
+            return Response.ok()
+                    .entity(String.valueOf(0))
+                    .build();
+        }
+
+        return Response.ok()
+                .entity(userLikedArt)
+                .build();
+    }
+
+
+    @GET
+    @Path("/arts/{art}/likes")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response likesNFT(@PathParam("art") String art) {
+
+        Connection conn = null;
+
+            int likes = 0;
+            try {
+                Class.forName(JDBC_DRIVER);
+                // Opening database connection
+                System.out.println("Connecting to database...");
+                conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                likeServices = new LikeServices(conn);
+
+                likes = likeServices.likesArt(art);
+
+            }catch (ClassNotFoundException | SQLException nullPointerException){
+
+                return Response.ok()
+                        .entity(String.valueOf(0))
+                        .build();
+            }
+
+            return Response.ok()
+                    .entity(likes)
+                    .build();
+    }
+
+
+    @POST
+    @Path("/{username}/arts/{art}/{idLike}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response operateList(@PathParam("username") String username,@PathParam("art") String art,@PathParam("idLike") String idLike) {
+
+        Connection conn = null;
+
+        int likes = 0;
+        try {
+            Class.forName(JDBC_DRIVER);
+            // Opening database connection
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            likeServices = new LikeServices(conn);
+
+            likes = likeServices.likeArtUser(new Likes(username,art));
+
+            if(likes == 0){
+                likeServices.addLike(new Likes(username,art));
+            }else{
+                likeServices.removeLike(new Likes(username,art));
+            }
+
+            return Response.ok()
+                    .entity("Se cargo exitpsamente")
+                    .build();
+        } catch (SQLException | ClassNotFoundException nullPointerException) {
+            return Response.serverError().build();
+        }
+    }
+
 
 
 }
