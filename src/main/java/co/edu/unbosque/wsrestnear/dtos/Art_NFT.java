@@ -19,6 +19,17 @@ public class Art_NFT {
     @CsvBindByName
     private String email_owner;
 
+
+    public Art_NFT(String id, String collection, String title, String author, String price, String likes, String email_owner) {
+        this.id = id;
+        this.collection = collection;
+        this.title = title;
+        this.author = author;
+        this.price = price;
+        this.likes = likes;
+        this.email_owner = email_owner;
+    }
+
     //Obtiene el valor correspondiente a la variable collection
     public String getCollection() {return collection;}
 

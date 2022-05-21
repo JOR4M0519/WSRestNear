@@ -193,16 +193,16 @@ public class UserService {
     }
 
     //Obtiene un array correspondiente a la lista de NFTs que se encuentran creados en la plataforma
-    public List<Art_NFT> getNft() throws IOException {
+    /*public List<Art_NFT> getNft() throws IOException {
 
         List<Art_NFT> nft;
 
         try (InputStream is = UserService.class.getClassLoader()
                 .getResourceAsStream("Nfts.csv")) {
 
-           /* if (is == null) {
+           *//* if (is == null) {
                 return Optional.empty();
-            }*/
+            }*//*
 
             HeaderColumnNameMappingStrategy<Art_NFT> strategy = new HeaderColumnNameMappingStrategy<>();
             strategy.setType(Art_NFT.class);
@@ -218,7 +218,7 @@ public class UserService {
             }
         }
         return nft;
-    }
+    }*/
 
     //Se encarga de crear un nuevo usuario y de registrarlo en el csv para persistirlo
     public User createUser(String username, String name, String lastname, String password, String role, String Fcoins, String path) throws IOException {

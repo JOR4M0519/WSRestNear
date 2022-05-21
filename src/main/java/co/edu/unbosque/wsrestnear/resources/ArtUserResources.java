@@ -2,6 +2,7 @@ package co.edu.unbosque.wsrestnear.resources;
 
 import co.edu.unbosque.wsrestnear.dtos.Art_NFT;
 import co.edu.unbosque.wsrestnear.dtos.User;
+import co.edu.unbosque.wsrestnear.services.ArtServices;
 import co.edu.unbosque.wsrestnear.services.UserService;
 import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.*;
@@ -10,30 +11,57 @@ import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.*;
 
 @Path("/users/{username}/collections/{collection}/arts")
-public class NFT_FileResources {
+public class ArtUserResources {
     @Context
     ServletContext context;
     private String UPLOAD_DIRECTORY = "NFTS";
-    private UserService uService;
 
+    static final String JDBC_DRIVER = "org.postgresql.Driver";
+    static final String DB_URL = "jdbc:postgresql://35.225.50.237/near";
+    static final String USER = "postgres";
+    static final String PASS = "near123";
+    //private UserService uService;
+    private ArtServices artServices;
 
     //Retorna los NFTs en un JSON de un usuario y una colección en específico
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response personalListFiles(@PathParam("username") String username,@PathParam("collection") String collectionName) {
 
-        uService = new UserService();
+        Connection conn = null;
 
         List<Art_NFT> art_nftList = null;
 
-
         try {
-            List<Art_NFT> nfts = new ArrayList<Art_NFT>();
+            Class.forName(JDBC_DRIVER);
+            // Opening database connection
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            artServices = new ArtServices(conn);
+            art_nftList = artServices.listArts();
 
-            art_nftList = uService.getNft();
+            conn.close();
+
+        } catch (SQLException se) {
+            se.printStackTrace(); // Handling errors from database
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace(); // Handling errors from JDBC driver
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
+            List<Art_NFT> nfts = new ArrayList<Art_NFT>();
 
             for(Art_NFT nft: art_nftList){
 
@@ -44,11 +72,7 @@ public class NFT_FileResources {
             }
             return Response.ok().entity(nfts).build();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Response.serverError().build();
 
-        }
     }
 
     //Crea NFTs de un usuario y una colección en específico
@@ -57,7 +81,9 @@ public class NFT_FileResources {
     @Produces(MediaType.TEXT_PLAIN)
     public Response uploadNFT(MultipartFormDataInput inputData) {
 
-        uService = new UserService();
+        Connection conn = null;
+
+
 
         try {
 
@@ -66,12 +92,17 @@ public class NFT_FileResources {
             String title = inputData.getFormDataPart("title", String.class, null);
             String price = inputData.getFormDataPart("price", String.class, null);
 
-            System.out.println(title);
-            //Found Data author
-            List<User> users = new UserService().getUsers();
-            User userFounded = users.stream().filter(user -> emailAuthor.equals(user.getUsername()))
-                    .findFirst().orElse(null);
-            String author = userFounded.getName() + " " + userFounded.getLastname();
+
+            Class.forName(JDBC_DRIVER);
+            // Opening database connection
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            artServices = new ArtServices(conn);
+
+            User user = artServices.getUserData(emailAuthor);
+            String author = user.getName() + " " + user.getLastname();
+
+            conn.close();
 
             Map<String, List<InputPart>> formParts = inputData.getFormDataMap();
             List<InputPart> inputParts = formParts.get("customFile");
@@ -80,7 +111,7 @@ public class NFT_FileResources {
                 try {
                     // Retrieving headers and reading the Content-Disposition header to file name
                     MultivaluedMap<String, String> headers = inputPart.getHeaders();
-                    String randomString = uService.generateRandomString();
+                    String randomString = generateRandomString();
                     String fileName = randomString+"&"+title+parseFileName(headers).split("\\.")[1];
 
 
@@ -96,6 +127,10 @@ public class NFT_FileResources {
             }
         } catch (IOException e) {
             return Response.serverError().build();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return Response.status(201)
                 .entity("NFT successfully uploaded")
@@ -140,6 +175,21 @@ public class NFT_FileResources {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String generateRandomString() {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
+        return generatedString;
     }
 
 }
