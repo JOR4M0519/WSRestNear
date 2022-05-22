@@ -86,6 +86,7 @@
     }
     form.addEventListener("submit", uploadNFT);
   </script>
+
       <script>
           const getData = async () => {
               const dataCollectionNFTs = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
