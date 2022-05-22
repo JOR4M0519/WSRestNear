@@ -94,8 +94,6 @@ public class UserService {
                     rs.getInt("fcoins")
             );
 
-            System.out.println(user.toString());
-                // Creating a new UserApp class instance and adding it to the array list
 
 
 
@@ -120,31 +118,43 @@ public class UserService {
         PreparedStatement stmt = null;
 
         // Data structure to map results from database
+        if (user != null) {
 
-        try {
-            // Executing a SQL query
-            stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, role, password, fcoins)\n" +
-                    "VALUES (?,?,?,?,?,0)");
-
-            stmt.setString(1,user.getUsername());
-            stmt.setString(2,user.getName());
-            stmt.setString(3,user.getLastname());
-            stmt.setString(4,user.getRole());
-            stmt.setString(5,user.getPassword());
-
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException se) {
-            se.printStackTrace(); // Handling errors from database
-        } finally {
-            // Cleaning-up environment
             try {
-                if (stmt != null) stmt.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
+
+                if (user.getRole().equals("Artista")) {
+                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, fcoins)\n" +
+                            "VALUES (?,?,?,?,'Artista',0)");
+                }
+
+                else if (user.getRole().equals("Comprador")) {
+                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, fcoins)\n" +
+                            "VALUES (?,?,?,?,'Comprador',0)");
+                }
+                stmt.setString(1, user.getUsername());
+                stmt.setString(2, user.getName());
+                stmt.setString(3, user.getLastname());
+                stmt.setString(4, user.getPassword());
+
+
+                stmt.executeUpdate();
+                stmt.close();
+            } catch(SQLException se){
+                se.printStackTrace(); // Handling errors from database
+            } finally{
+                // Cleaning-up environment
+                try {
+                    if (stmt != null) stmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }
             }
+            return user;
         }
-        return user;
+        else {
+            return null;
+        }
+
 
     }
     //Retorna un array de las últimas colecciones agregadas al csv
