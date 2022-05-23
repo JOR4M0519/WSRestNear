@@ -40,8 +40,6 @@ public class ArtUserResources {
 
         try {
             Class.forName(JDBC_DRIVER);
-            // Opening database connection
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             artServices = new ArtServices(conn);
             art_nftList = artServices.listArts();

@@ -29,11 +29,11 @@ const getButtonAccount = async () => {
 
         function account(){
 
-           if(localStorage.getItem("role")=="Artista"){
-               window.location.href="./artistAccount.html"
-           }else if (localStorage.getItem("role")=="Comprador"){
-               window.location.href="./customerAccount.html"
-           }
+            if(localStorage.getItem("role")=="Artista"){
+                window.location.href="./artistAccount.html"
+            }else if (localStorage.getItem("role")=="Comprador"){
+                window.location.href="./customerAccount.html"
+            }
 
         }
         document.getElementById("dropdown-item2").addEventListener('click',logout);
@@ -46,26 +46,26 @@ const getButtonAccount = async () => {
 
         }
         divBotones.style.marginLeft="79%";
-            let responseBtn = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`);
-            let resultBtn = await responseBtn.json();
+        let responseBtn = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`);
+        let resultBtn = await responseBtn.json();
 
-            if (localStorage.getItem('role')=="Comprador"){
-                botonFCoins.innerHTML = `
+        if (localStorage.getItem('role')=="Comprador"){
+            botonFCoins.innerHTML = `
     <div class="dropdown show" style="float: left;">
         <a class="btn btn-secondary" id="dropdown"  href="./customerAccount.html#FCoins" role="button"  aria-haspopup="true" aria-expanded="false">
             <span  id="fcoins"> FCoins: ${resultBtn.fcoins} </span>
         </a>
     </div>
     `;
-            }else {
-                botonFCoins.innerHTML = `
+        }else {
+            botonFCoins.innerHTML = `
     <div class="dropdown show" style="float: left;">
         <a class="btn btn-secondary" id="dropdown"  href="" role="button"  aria-haspopup="true" aria-expanded="false">
             <span  id="fcoins"> FCoins: ${resultBtn.fcoins} </span>
         </a>
     </div>
     `;
-            }
+        }
 
 
     }
@@ -74,5 +74,3 @@ const getButtonAccount = async () => {
 
 
 window.addEventListener("DOMContentLoaded", getButtonAccount());
-
-

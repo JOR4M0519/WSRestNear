@@ -1,22 +1,14 @@
 package co.edu.unbosque.wsrestnear.dtos;
 
-import com.opencsv.bean.CsvBindByName;
 
 public class Art_NFT {
 
-    @CsvBindByName
     private String id;
-    @CsvBindByName
     private String collection;
-    @CsvBindByName
     private String title;
-    @CsvBindByName
     private String author;
-    @CsvBindByName
     private String price;
-    @CsvBindByName
     private String email;
-
 
     public Art_NFT(String id, String collection, String title, String author, String price, String email) {
         this.id = id;
