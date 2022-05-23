@@ -1,6 +1,5 @@
 package co.edu.unbosque.wsrestnear.resources;
 
-import co.edu.unbosque.wsrestnear.dtos.Art_NFT;
 import co.edu.unbosque.wsrestnear.dtos.ExceptionMessage;
 import co.edu.unbosque.wsrestnear.dtos.Likes;
 import co.edu.unbosque.wsrestnear.dtos.User;
@@ -13,8 +12,6 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriBuilder;
 import jakarta.servlet.ServletContext;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -29,7 +26,7 @@ public class UsersResource {
     LikeServices likeServices;
 
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://35.225.50.237/near";
+    static final String DB_URL = "jdbc:postgresql://199.223.235.245/near";
     static final String USER = "postgres";
     static final String PASS = "near123";
 
@@ -153,7 +150,7 @@ public class UsersResource {
             }
 
     }
-    
+
 
     @GET
     @Path("/{username}/arts/{art}")

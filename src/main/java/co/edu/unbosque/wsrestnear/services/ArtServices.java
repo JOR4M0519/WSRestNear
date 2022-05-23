@@ -1,6 +1,6 @@
 package co.edu.unbosque.wsrestnear.services;
 
-import co.edu.unbosque.wsrestnear.dtos.Art_NFT;
+import co.edu.unbosque.wsrestnear.dtos.Art;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,16 +15,12 @@ public class ArtServices {
         this.conn = conn;
     }
 
-    public List<Art_NFT> listArts() {
-        // Object for handling SQL statement
+    public List<Art> listArts() {
         Statement stmt = null;
 
-        // Data structure to map results from database
-        ArrayList<Art_NFT> artList = new ArrayList<Art_NFT>();
+        ArrayList<Art> artList = new ArrayList<Art>();
 
         try {
-            // Executing a SQL query
-            System.out.println("=> Listing arts...");
             stmt = conn.createStatement();
             String sql = "SELECT\n" +
                     "\ta.art_id,\n" +
@@ -56,12 +52,12 @@ public class ArtServices {
                 String price = rs.getString("price");
 
                 // Creating a new UserApp class instance and adding it to the array list
-                artList.add(new Art_NFT(id, collection, title, author, price, email));
+                artList.add(new Art(id, collection, title, author, price, email));
             }
 
             // Printing results
             System.out.println("id,collection,title,author,price,likes,email_owner");
-            for (Art_NFT nft : artList) {
+            for (Art nft : artList) {
                 System.out.println(nft.toString());
             }
 
@@ -84,7 +80,7 @@ public class ArtServices {
         return artList;
     }
 
-    public void newArt(Art_NFT art){
+    public void newArt(Art art){
 
         PreparedStatement stmt = null;
 
