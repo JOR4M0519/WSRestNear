@@ -1,7 +1,7 @@
 package co.edu.unbosque.wsrestnear.dtos;
 
 
-public class Art_NFT {
+public class Art {
 
     private String id;
     private String collection;
@@ -10,7 +10,7 @@ public class Art_NFT {
     private String price;
     private String email;
 
-    public Art_NFT(String id, String collection, String title, String author, String price, String email) {
+    public Art(String id, String collection, String title, String author, String price, String email) {
         this.id = id;
         this.collection = collection;
         this.title = title;

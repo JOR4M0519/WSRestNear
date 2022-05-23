@@ -27,7 +27,7 @@ public class CollectionsArtistResources {
 
 
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://35.225.50.237/near";
+    static final String DB_URL = "jdbc:postgresql://199.223.235.245/near";
     static final String USER = "postgres";
     static final String PASS = "near123";
 
