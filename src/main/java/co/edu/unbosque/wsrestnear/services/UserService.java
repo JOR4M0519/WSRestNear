@@ -294,16 +294,16 @@ public class UserService {
     }
 
 
-    public Collection createCollection(String username,String collection,String quantity,String path) throws IOException {
-        String newLine = username + "," + collection + "," + quantity+"\n";
-        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Collections.csv";
-        System.out.println(fullpath);
-        FileOutputStream os = new FileOutputStream(fullpath, true);
-        os.write(newLine.getBytes());
-        os.close();
-
-        return new Collection(username,collection,quantity);
-    }
+//    public Collection createCollection(String username,String collection,String quantity,String path) throws IOException {
+//        String newLine = username + "," + collection + "," + quantity+"\n";
+//        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Collections.csv";
+//        System.out.println(fullpath);
+//        FileOutputStream os = new FileOutputStream(fullpath, true);
+//        os.write(newLine.getBytes());
+//        os.close();
+//
+//        return new Collection(username,collection,quantity);
+//    }
 
     //Obtiene la cantidad de likes correspondientes a las imágenes NFT que hay en la plataforma
     public List<Likes> getLikes() throws IOException {

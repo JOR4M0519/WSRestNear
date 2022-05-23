@@ -3,29 +3,42 @@ package co.edu.unbosque.wsrestnear.dtos;
 import com.opencsv.bean.CsvBindByName;
 
 public class Collection {
-    @CsvBindByName
+
     private String username;
-    @CsvBindByName
     private String collection;
-    @CsvBindByName
-    private String quantity;
+
 
     public Collection(){
 
     }
 
-    public Collection(String username, String collection, String quantity) {
+    public Collection(String username, String collection) {
         this.username = username;
         this.collection = collection;
-        this.quantity = quantity;
+
     }
 
-    //Obtiene el valor correspondiente a la variable username
-    public String getUsername() {return username;}
+    public String getUsername() {
+        return username;
+    }
 
-    //Obtiene el valor correspondiente a la variable collection
-    public String getCollection() {return collection;}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    //Obtiene el valor correspondiente a la variable quantity
-    public String getQuantity() {return quantity;}
+    public String getCollection() {
+        return collection;
+    }
+
+    public void setCollection(String collection) {
+        this.collection = collection;
+    }
+
+    @Override
+    public String toString() {
+        return "Collection{" +
+                "username='" + username + '\'' +
+                ", collection='" + collection + '\'' +
+                '}';
+    }
 }
