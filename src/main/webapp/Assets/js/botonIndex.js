@@ -5,7 +5,6 @@ const getButtonAccount = async () => {
     var divBotones = document.getElementById("divbuttons");
 
     divBotones.style.marginLeft="86%";
-    console.log(localStorage.getItem("sas"));
 
     if (localStorage.getItem("username") == null || localStorage.getItem("username") == undefined) {
 
@@ -16,7 +15,7 @@ const getButtonAccount = async () => {
     <a class="dropdown-item" id="dropdown-item" href="./sign_up.html"> Crear cuenta </a>
     `;
     } else {
-        let response = await fetch(`./api/users/${localStorage.getItem("username")}?role=${localStorage.getItem("role")}`);
+        let response = await fetch(`./api/users/${localStorage.getItem("username")}`);
         let result = await response.json();
 
         var nombre = result.name;
@@ -32,7 +31,7 @@ const getButtonAccount = async () => {
 
            if(localStorage.getItem("role")=="Artista"){
                window.location.href="./artistAccount.html"
-           }else{
+           }else if (localStorage.getItem("role")=="Comprador"){
                window.location.href="./customerAccount.html"
            }
 
@@ -46,18 +45,29 @@ const getButtonAccount = async () => {
             location.reload();
 
         }
-        if(localStorage.getItem("role")=="Comprador") {
-            divBotones.style.marginLeft="79%";
-            let responseBtn = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins?role=${localStorage.getItem("role")}`);
+        divBotones.style.marginLeft="79%";
+            let responseBtn = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`);
             let resultBtn = await responseBtn.json();
-            botonFCoins.innerHTML = `
+
+            if (localStorage.getItem('role')=="Comprador"){
+                botonFCoins.innerHTML = `
     <div class="dropdown show" style="float: left;">
         <a class="btn btn-secondary" id="dropdown"  href="./customerAccount.html#FCoins" role="button"  aria-haspopup="true" aria-expanded="false">
-            <span  id="fcoins"> FCoins: ${resultBtn.FCoins} </span>
+            <span  id="fcoins"> FCoins: ${resultBtn.fcoins} </span>
         </a>
     </div>
     `;
-        }
+            }else {
+                botonFCoins.innerHTML = `
+    <div class="dropdown show" style="float: left;">
+        <a class="btn btn-secondary" id="dropdown"  href="" role="button"  aria-haspopup="true" aria-expanded="false">
+            <span  id="fcoins"> FCoins: ${resultBtn.fcoins} </span>
+        </a>
+    </div>
+    `;
+            }
+
+
     }
 };
 

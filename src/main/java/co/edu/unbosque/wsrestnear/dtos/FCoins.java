@@ -4,17 +4,16 @@ import com.opencsv.bean.CsvBindByName;
 
 public class FCoins {
 
-    @CsvBindByName
+
     private String username;
-    @CsvBindByName
-    private String fcoins;
+    private long fcoins;
     public FCoins(){
 
     }
 
 
   //Método constructor de la clase FCoins y inicializa las variables declaradas con las pasadas por parámetros
-    public FCoins(String username, String fcoins) {
+    public FCoins(String username, long fcoins) {
         this.username = username;
         this.fcoins = fcoins;
     }
@@ -30,12 +29,12 @@ public class FCoins {
     }
 
     //Obtiene el valor correspondiente a la variable FCoins
-    public String getFCoins() {
+
+    public long getFcoins() {
         return fcoins;
     }
 
-  //Asigna un valor a la variable FCoins
-    public void setFCoins(String fcoins) {
+    public void setFcoins(long fcoins) {
         this.fcoins = fcoins;
     }
 

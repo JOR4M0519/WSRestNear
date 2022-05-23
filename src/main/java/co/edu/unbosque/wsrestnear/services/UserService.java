@@ -70,21 +70,19 @@ public class UserService {
     }
 
     public User getUser(String username) {
-        // Object for handling SQL statement
+
         PreparedStatement stmt = null;
-
-        // Data structure to map results from database
-
         User user = null;
+
         try {
-            // Executing a SQL query
+
             stmt = this.conn.prepareStatement("SELECT * FROM userapp WHERE user_id = ?");
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
 
-            // Reading data from result set row by row
+
             rs.next();
-                // Extracting row values by column
+
             user = new User(
                     rs.getString("user_id"),
                     rs.getString("name"),
@@ -94,14 +92,11 @@ public class UserService {
                     rs.getInt("fcoins")
             );
 
-
-
-
-            // Closing resources
             rs.close();
             stmt.close();
+
         } catch (SQLException se) {
-            se.printStackTrace(); // Handling errors from database
+            se.printStackTrace();
         } finally {
             // Cleaning-up environment
             try {
@@ -150,6 +145,59 @@ public class UserService {
                 }
             }
             return user;
+        }
+        else {
+            return null;
+        }
+
+
+    }
+    public User updateUser(User user, long parameter) {
+
+        PreparedStatement stmt = null;
+        User updatedUser = null;
+
+        if (user != null) {
+
+            try {
+
+                stmt = this.conn.prepareStatement("UPDATE UserApp SET fcoins = ? WHERE user_id = ?");
+
+
+                stmt.setLong(1, (user.getFcoins() + parameter));
+                stmt.setString(2, user.getUsername());
+
+                stmt.executeUpdate();
+
+                stmt = this.conn.prepareStatement("SELECT * FROM userapp WHERE user_id = ?");
+                stmt.setString(1, user.getUsername());
+                ResultSet rs = stmt.executeQuery();
+
+
+                rs.next();
+
+                updatedUser = new User(
+                        rs.getString("user_id"),
+                        rs.getString("name"),
+                        rs.getString("lastname"),
+                        rs.getString("role"),
+                        rs.getString("password"),
+                        rs.getInt("fcoins")
+                );
+
+                rs.close();
+                stmt.close();
+
+            } catch(SQLException se){
+                se.printStackTrace();
+            } finally{
+                try {
+                    if (stmt != null) stmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }
+            }
+            return updatedUser;
         }
         else {
             return null;
@@ -403,17 +451,17 @@ public class UserService {
         os.close();
     }*/
 
-    public FCoins createMoney(String username,String fcoins, String path) throws NullPointerException, IOException {
-        String newLine = username + "," + fcoins + "\n";
-        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "FCoins.csv";
-        System.out.println(fullpath);
-
-            FileOutputStream os = new FileOutputStream(fullpath, true);
-            os.write(newLine.getBytes());
-            os.close();
-            return new FCoins(username, fcoins);
-
-    }
+//    public FCoins createMoney(String username,String fcoins, String path) throws NullPointerException, IOException {
+//        String newLine = username + "," + fcoins + "\n";
+//        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "FCoins.csv";
+//        System.out.println(fullpath);
+//
+//            FileOutputStream os = new FileOutputStream(fullpath, true);
+//            os.write(newLine.getBytes());
+//            os.close();
+//            return new FCoins(username, fcoins);
+//
+//    }
 
     public void createNFT(String id, String collection, String title, String author, String price, String email_owner, String path) throws IOException {
         String newLine = id + "," + collection + "," + title + ","+author+ "," + price + ","+"0"+","+ email_owner +"\n";
@@ -427,23 +475,23 @@ public class UserService {
     }
 
     //Retorna un objeto de tipo FCoins, el cual tendrá al usuario del cual se solicitan los FCoins y la cantidad total contada de FCoins correspondientes a este usuario encontradas en el csv
-    public FCoins amountMoney(String username) throws IOException {
-
-        long amount = 0;
-
-
-        List<FCoins> fCoins = getFCoins().orElse(null);
-        if(fCoins!=null){
-            for(int i = 0; i < fCoins.size(); i++) {
-                if (fCoins.get(i).getUsername().equals(username)) {
-                    amount += Long.parseLong(fCoins.get(i).getFCoins());
-                }
-            }
-        }
-
-
-        return new FCoins(username,String.valueOf(amount));
-    }
+//    public FCoins amountMoney(String username) throws IOException {
+//
+//        long amount = 0;
+//
+//
+//        List<FCoins> fCoins = getFCoins().orElse(null);
+//        if(fCoins!=null){
+//            for(int i = 0; i < fCoins.size(); i++) {
+//                if (fCoins.get(i).getUsername().equals(username)) {
+//                    amount += Long.parseLong(fCoins.get(i).getFCoins());
+//                }
+//            }
+//        }
+//
+//
+//        return new FCoins(username,String.valueOf(amount));
+//    }
 
     //Elimina un respectivo archivo del csv
     public static void deleteFile(String URL){

@@ -5,8 +5,8 @@ form.onsubmit = async (e) => {
 
     const formData = new FormData(form);
     try {
-        let response = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins?role=${localStorage.getItem("role")}`, {
-            method: "POST",
+        let response = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
