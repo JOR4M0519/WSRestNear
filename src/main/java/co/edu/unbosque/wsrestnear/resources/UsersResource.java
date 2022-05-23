@@ -51,11 +51,10 @@ public class UsersResource {
 
             conn.close();
         } catch (SQLException se) {
-            se.printStackTrace(); // Handling errors from database
+            se.printStackTrace(); //
         } catch (ClassNotFoundException e) {
-            e.printStackTrace(); // Handling errors from JDBC driver
+            e.printStackTrace(); //
         } finally {
-            // Cleaning-up environment
             try {
                 if (conn != null) conn.close();
             } catch (SQLException se) {
@@ -98,11 +97,10 @@ public class UsersResource {
 
             conn.close();
         } catch (SQLException se) {
-            se.printStackTrace(); // Handling errors from database
+            se.printStackTrace();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace(); // Handling errors from JDBC driver
+            e.printStackTrace();
         } finally {
-            // Cleaning-up environment
             try {
                 if (conn != null) conn.close();
             } catch (SQLException se) {
@@ -155,36 +153,7 @@ public class UsersResource {
             }
 
     }
-    //Responde como el método Get de la API de esta clase, obtiene la lista de los usuarios que se encuentran registrados en la página
-
-
-//    //Responde como el método Get de la API de esta clase agregándole el nombre de usuario, obtiene todas las especificaciones de únicamente el usuario solicitado a través de la API
-//    @GET
-//    @Path("/{username}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response get(@PathParam("username") String username, @QueryParam("role") String role) {
-//
-//        try {
-//            List<User> users = new UserService().getUsers();
-//
-//            User user = users.stream()
-//                    .filter(u -> u.getUsername().equals(username) && u.getRole().equals(role))
-//                    .findFirst()
-//                    .orElse(null);
-//
-//            if (user != null) {
-//                return Response.ok()
-//                        .entity(user)
-//                        .build();
-//            } else {
-//                return Response.status(404)
-//                        .entity(new ExceptionMessage(404, "User not found"))
-//                        .build();
-//            }
-//        } catch (IOException e) {
-//            return Response.serverError().build();
-//        }
-//    }
+    
 
     @GET
     @Path("/{username}/arts/{art}")

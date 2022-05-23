@@ -26,10 +26,11 @@ const getDataAccount = async () => {
 
         if(localStorage.getItem("role")=="Comprador") {
 
-            let response2 = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins?role=${localStorage.getItem("role")}`);
+            let response2 = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`);
             let result2 = await response2.json();
             console.log(result2);
-            inputFcoins.placeholder = result2.FCoins;
+            console.log(result2.fcoins);
+            inputFcoins.placeholder = result2.fcoins.toString();
         }
     }
 
