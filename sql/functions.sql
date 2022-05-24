@@ -1,6 +1,5 @@
 --- Find arts
 SELECT
-    a.art_id,
     image,
     a.title,
     price,

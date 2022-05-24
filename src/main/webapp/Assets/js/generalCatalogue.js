@@ -18,7 +18,7 @@ const getDataNFTCatalogue = async () => {
             let idNFT = id.toString().split("\\")[1];
             let type = "";
             dataLikes = await fetch(`./api/users/arts/${idNFT}/likes`).then(response => response.json());
-            let heartLikesStatus = await fetch(`./api/users/${localStorage.getItem("username")}/arts/${idNFT}`).then(response => response.json());
+            let heartLikesStatus = await fetch(`./api/users/${localStorage.getItem("username")}/arts/${idNFT}/likes/like`).then(response => response.json());
 
             if (heartLikesStatus.toString() === "0") {
                 heartLikesStatus = "Assets/svg/heart-unfill.svg";
@@ -186,7 +186,7 @@ const getDataModal = async (collection) => {
 
         let idNFT = id.toString().split("\\")[1];
         dataLikes = await fetch(`./api/users/arts/${idNFT}/likes`).then(response => response.json());
-        let heartLikesStatus = await fetch(`./api/users/${localStorage.getItem("username")}/arts/${idNFT}`).then(response => response.json());
+        let heartLikesStatus = await fetch(`./api/users/${localStorage.getItem("username")}/arts/${idNFT}/likes/like`).then(response => response.json());
         let type = "Modal";
         if (heartLikesStatus.liker.toString() === "0") {
             heartLikesStatus = "Assets/svg/heart-unfill.svg";
