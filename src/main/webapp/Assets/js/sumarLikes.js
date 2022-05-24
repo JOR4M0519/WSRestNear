@@ -21,7 +21,7 @@ const btnLike = async (id, type) => {
             }).then(response => response.json());
         }
     }else {
-        alert("Ingrese a una cuenta primero8")
+        alert("Ingrese a una cuenta primero")
     }
 }
 
