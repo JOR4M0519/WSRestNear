@@ -154,7 +154,7 @@ public class UsersResource {
     }
 
     @GET
-    @Path("/{username}/arts/{art}")
+    @Path("/{username}/collections/{collection}/arts/{art}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getArt(@PathParam("username") String username,@PathParam("art") String image){
         Connection conn = null;
