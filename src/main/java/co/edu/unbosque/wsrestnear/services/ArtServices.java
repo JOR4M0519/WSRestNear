@@ -146,6 +146,57 @@ public class ArtServices {
     return collection_id;
     }
 
+
+    public List<Art> listMostLikedArts() {
+        Statement stmt = null;
+
+        List<Art> artList = new ArrayList<Art>();
+
+        try {
+            stmt = conn.createStatement();
+            String sql = "SELECT\n" +
+                    "    image,\n" +
+                    "    a.title,\n" +
+                    "    price,\n" +
+                    "    c.user_id,\n" +
+                    "    c.title,\n" +
+                    "\tu.name,\n" +
+                    "\tu.lastname\n" +
+                    "FROM collection c\n" +
+                    "    JOIN art a\n" +
+                    "        ON a.\"collection_id\" = c.\"collection_id\"\n" +
+                    "\tJOIN userapp u\n" +
+                    "        ON u.\"user_id\" = c.\"user_id\";";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+
+
+                String email = rs.getString(4);
+                String id = rs.getString(1);
+                String collection = rs.getString(5);
+                int price = rs.getInt(3);
+                String title = rs.getString(2);
+                String author = rs.getString(6) + " " + rs.getString(7);
+
+                artList.add(new Art(id, collection, title, author, price, email));
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return artList;
+    }
+
     public void newArt(Art art) {
 
         PreparedStatement stmt = null;
