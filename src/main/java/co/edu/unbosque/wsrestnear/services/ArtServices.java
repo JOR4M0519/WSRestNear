@@ -48,7 +48,6 @@ public class ArtServices {
                 String title = rs.getString(2);
                 String author = rs.getString(6) + " " + rs.getString(7);
 
-                System.out.println(id + collection+ title+ author+ price+ email);
                 artList.add(new Art(id, collection, title, author, price, email));
             }
 
