@@ -60,4 +60,15 @@ public class Art {
     //Asigna un valor a la variable collection
     public void setEmail(String email) {this.email = email;}
 
+    @Override
+    public String toString() {
+        return "Art{" +
+                "id='" + id + '\'' +
+                ", collection='" + collection + '\'' +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", price=" + price +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

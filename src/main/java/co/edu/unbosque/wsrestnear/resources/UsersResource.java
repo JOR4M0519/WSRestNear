@@ -1,8 +1,10 @@
 package co.edu.unbosque.wsrestnear.resources;
 
+import co.edu.unbosque.wsrestnear.dtos.Art;
 import co.edu.unbosque.wsrestnear.dtos.ExceptionMessage;
 import co.edu.unbosque.wsrestnear.dtos.Likes;
 import co.edu.unbosque.wsrestnear.dtos.User;
+import co.edu.unbosque.wsrestnear.services.ArtServices;
 import co.edu.unbosque.wsrestnear.services.LikeServices;
 import co.edu.unbosque.wsrestnear.services.UserService;
 import jakarta.ws.rs.*;
@@ -151,9 +153,33 @@ public class UsersResource {
 
     }
 
+    @GET
+    @Path("/{username}/collections/{collection}/arts/{art}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getArt(@PathParam("username") String username,@PathParam("art") String image){
+        Connection conn = null;
+
+        Art art = null;
+        try {
+            Class.forName(JDBC_DRIVER);
+            // Opening database connection
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            art = new ArtServices(conn).getArt(image);
+            System.out.println(art.toString());
+            conn.close();
+        }catch (ClassNotFoundException | SQLException nullPointerException){
+            return Response.ok()
+                    .entity(String.valueOf(0))
+                    .build();
+        }
+
+        return Response.ok()
+                .entity(art)
+                .build();
+    }
 
     @GET
-    @Path("/{username}/arts/{art}")
+    @Path("/{username}/arts/{art}/likes/like")
     @Produces(MediaType.TEXT_PLAIN)
     public Response listLikes(@PathParam("username") String username,@PathParam("art") String art) {
         Connection conn = null;
@@ -183,7 +209,7 @@ public class UsersResource {
     @GET
     @Path("/arts/{art}/likes")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response likesNFT(@PathParam("art") String art) {
+    public Response likesNFT(@PathParam("art") String image) {
 
         Connection conn = null;
 
@@ -195,7 +221,7 @@ public class UsersResource {
                 conn = DriverManager.getConnection(DB_URL, USER, PASS);
                 likeServices = new LikeServices(conn);
 
-                likes = likeServices.likesArt(art);
+                likes = likeServices.likesArt(image);
                 conn.close();
             }catch (ClassNotFoundException | SQLException nullPointerException){
 
@@ -211,9 +237,9 @@ public class UsersResource {
 
 
     @POST
-    @Path("/{username}/arts/{art}/{idLike}")
+    @Path("/{username}/arts/{art}/likes/like")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response operateList(@PathParam("username") String username,@PathParam("art") String art,@PathParam("idLike") String idLike) {
+    public Response operateList(@PathParam("username") String username,@PathParam("art") String art) {
 
         Connection conn = null;
 
@@ -226,7 +252,7 @@ public class UsersResource {
             likeServices = new LikeServices(conn);
 
             likes = likeServices.likeArtUser(new Likes(username,art));
-
+            System.out.println("likes: "+ likes);
             if(likes == 0){
                 likeServices.addLike(new Likes(username,art));
             }else{
