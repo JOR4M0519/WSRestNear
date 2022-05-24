@@ -1,6 +1,5 @@
 var imagesDiv = document.getElementById("card");
 var imagesCol = document.getElementById("cardcol")
-document.getElementById('btnBuy').addEventListener('click', btnBuy());
 
 //Obtiene información sobre el sitio al cual se quiere ingresar y se genera una respuesta
 const getDataNFTCatalogue = async () => {
@@ -53,7 +52,7 @@ const getDataNFTCatalogue = async () => {
                 </div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group btns">
-                  <button type="button" id="btnBuy" onclick="btnBuy('${JSON.stringify(data1)}')" class="btn btn-sm btn-outline-secondary">Comprar</button>      
+                  <button type="button" id="btnBuy" onclick="btnBuy()" class="btn btn-sm btn-outline-secondary">Comprar</button>      
                   <button type="button" id="btnAddCart" onclick="" class="btn btn-sm btn-outline-secondary">Añadir al carro</button>
                 </div>
               </div>
