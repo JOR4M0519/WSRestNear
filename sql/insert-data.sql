@@ -1,5 +1,6 @@
--- INSERT INTO UserApp (email, password, role) VALUES ('hugo@gmail.com', '123456', 'owner');
-
+-- INSERT INTO
+insert into userapp (user_id, password, name, lastname, role, fcoins) VALUES ('sprieto@gmail.com','12345','Santiago','Prieto','Artista',0)
+insert into userapp (user_id, password, name, lastname, role, fcoins) VALUES ('lamateus@unbosque.edu.co','12345','Laura','Mateus','Artista',0)
 insert into collection (user_id, title) VALUES ('sprieto@gmail.com','ratas');
 insert into collection (user_id, title) VALUES ('lamateus@unbosque.edu.co','monkey');
 insert into art (collection_id, image, title, price) VALUES ('1','BNsLro8hTv.png','rat','200');

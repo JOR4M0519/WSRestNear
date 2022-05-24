@@ -294,16 +294,16 @@ public class UserService {
     }
 
 
-    public Collection createCollection(String username,String collection,String quantity,String path) throws IOException {
-        String newLine = username + "," + collection + "," + quantity+"\n";
-        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Collections.csv";
-        System.out.println(fullpath);
-        FileOutputStream os = new FileOutputStream(fullpath, true);
-        os.write(newLine.getBytes());
-        os.close();
-
-        return new Collection(username,collection,quantity);
-    }
+//    public Collection createCollection(String username,String collection,String quantity,String path) throws IOException {
+//        String newLine = username + "," + collection + "," + quantity+"\n";
+//        String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Collections.csv";
+//        System.out.println(fullpath);
+//        FileOutputStream os = new FileOutputStream(fullpath, true);
+//        os.write(newLine.getBytes());
+//        os.close();
+//
+//        return new Collection(username,collection,quantity);
+//    }
 
     //Obtiene la cantidad de likes correspondientes a las imágenes NFT que hay en la plataforma
     public List<Likes> getLikes() throws IOException {
@@ -413,11 +413,11 @@ public class UserService {
 
     //Se encarga de crear un nuevo usuario y de registrarlo en el csv para persistirlo
     public User createUser(String username, String name, String lastname, String password, String role, String Fcoins, String path) throws IOException {
-            String newLine =  username + "," + name + ","+lastname+ "," + role + ","+ password +","+"0"+"\n";
+        String newLine =  username + "," + name + ","+lastname+ "," + role + ","+ password +","+"0"+"\n";
         String fullpath = path + "WEB-INF"+File.separator+"classes" + File.separator+ "Users.csv";
         FileOutputStream os = new FileOutputStream(fullpath, true);
-            os.write(newLine.getBytes());
-            os.close();
+        os.write(newLine.getBytes());
+        os.close();
 
         return new User(username, name, lastname, role, password, 0);
     }
@@ -495,21 +495,21 @@ public class UserService {
 
     //Elimina un respectivo archivo del csv
     public static void deleteFile(String URL){
-         new File(URL).delete();
+        new File(URL).delete();
     }
 
     //Genera un String de caracteres aleatorios
     public String generateRandomString() {
-            int leftLimit = 48; // numeral '0'
-            int rightLimit = 122; // letter 'z'
-            int targetStringLength = 10;
-            Random random = new Random();
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
 
-            String generatedString = random.ints(leftLimit, rightLimit + 1)
-                    .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                    .limit(targetStringLength)
-                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                    .toString();
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
 
         return generatedString;
     }
