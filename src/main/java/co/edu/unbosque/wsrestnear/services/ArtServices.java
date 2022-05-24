@@ -164,7 +164,7 @@ public class ArtServices {
 
                stmt.setString(1, art.getId());
                stmt.setString(2, art.getTitle());
-               stmt.setLong(3, art.getPrice());
+               stmt.setInt(3, (int) art.getPrice());
 
                stmt.executeUpdate();
                stmt.close();
