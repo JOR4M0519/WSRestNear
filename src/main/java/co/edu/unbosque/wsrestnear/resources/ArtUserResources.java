@@ -1,6 +1,6 @@
 package co.edu.unbosque.wsrestnear.resources;
 
-import co.edu.unbosque.wsrestnear.dtos.Art_NFT;
+import co.edu.unbosque.wsrestnear.dtos.Art;
 import co.edu.unbosque.wsrestnear.dtos.User;
 import co.edu.unbosque.wsrestnear.services.ArtServices;
 import co.edu.unbosque.wsrestnear.services.UserService;
@@ -23,7 +23,7 @@ public class ArtUserResources {
     private String UPLOAD_DIRECTORY = "NFTS";
 
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://35.225.50.237/near";
+    static final String DB_URL = "jdbc:postgresql://199.223.235.245/near";
     static final String USER = "postgres";
     static final String PASS = "near123";
     //private UserService uService;
@@ -36,24 +36,21 @@ public class ArtUserResources {
 
         Connection conn = null;
 
-        List<Art_NFT> art_nftList = null;
+        List<Art> art_List = null;
 
         try {
             Class.forName(JDBC_DRIVER);
-            // Opening database connection
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             artServices = new ArtServices(conn);
-            art_nftList = artServices.listArts();
+            art_List = artServices.listArts();
 
             conn.close();
 
         } catch (SQLException se) {
-            se.printStackTrace(); // Handling errors from database
+            se.printStackTrace();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace(); // Handling errors from JDBC driver
+            e.printStackTrace();
         } finally {
-            // Cleaning-up environment
             try {
                 if (conn != null) conn.close();
             } catch (SQLException se) {
@@ -61,9 +58,9 @@ public class ArtUserResources {
             }
         }
 
-            List<Art_NFT> nfts = new ArrayList<Art_NFT>();
+            List<Art> nfts = new ArrayList<Art>();
 
-            for(Art_NFT nft: art_nftList){
+            for(Art nft: art_List){
 
                 if(nft.getEmail().equals(username) && nft.getCollection().equals(collectionName)){
                     nft.setId(UPLOAD_DIRECTORY + File.separator + nft.getId());
@@ -89,7 +86,7 @@ public class ArtUserResources {
             String emailAuthor = inputData.getFormDataPart("author", String.class, null);
             String collection = inputData.getFormDataPart("collection", String.class, null);
             String title = inputData.getFormDataPart("title", String.class, null);
-            String price = inputData.getFormDataPart("price", String.class, null);
+            int price = inputData.getFormDataPart("price", int.class, null);
 
 
             Class.forName(JDBC_DRIVER);
@@ -119,8 +116,8 @@ public class ArtUserResources {
                     InputStream istream = inputPart.getBody(InputStream.class,null);
 
                     saveFile(istream, fileName, context);
+                    artServices.newArt(new Art(fileName,collection,title,author,price,emailAuthor));
 
-                    artServices.newArt(new Art_NFT(fileName,collection,title,author,price,emailAuthor));
                 } catch (IOException e) {
                     return Response.serverError().build();
                 }

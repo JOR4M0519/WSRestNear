@@ -1,24 +1,16 @@
 package co.edu.unbosque.wsrestnear.dtos;
 
-import com.opencsv.bean.CsvBindByName;
 
-public class Art_NFT {
+public class Art {
 
-    @CsvBindByName
     private String id;
-    @CsvBindByName
     private String collection;
-    @CsvBindByName
     private String title;
-    @CsvBindByName
     private String author;
-    @CsvBindByName
-    private String price;
-    @CsvBindByName
+    private long price;
     private String email;
 
-
-    public Art_NFT(String id, String collection, String title, String author, String price, String email) {
+    public Art(String id, String collection, String title, String author, long price, String email) {
         this.id = id;
         this.collection = collection;
         this.title = title;
@@ -52,10 +44,15 @@ public class Art_NFT {
     public void setAuthor(String author) {this.author = author;}
 
     //Obtiene el valor correspondiente a la variable price
-    public int getPrice() {return Integer.parseInt(price);}
 
-    //Asigna un valor a la variable price
-    public void setPrice(String price) {this.price = price;}
+
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
 
     //Obtiene el valor correspondiente a la variable email_owner
     public String getEmail() {return email;}

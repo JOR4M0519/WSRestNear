@@ -1,8 +1,7 @@
 package co.edu.unbosque.wsrestnear.resources;
 
-import co.edu.unbosque.wsrestnear.dtos.Art_NFT;
+import co.edu.unbosque.wsrestnear.dtos.Art;
 import co.edu.unbosque.wsrestnear.services.ArtServices;
-import co.edu.unbosque.wsrestnear.services.UserService;
 import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -10,10 +9,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.w3c.dom.ls.LSOutput;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -28,7 +25,7 @@ public class ArtResources {
     private String UPLOAD_DIRECTORY = "NFTS";
 
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://35.225.50.237/near";
+    static final String DB_URL = "jdbc:postgresql://199.223.235.245/near";
     static final String USER = "postgres";
     static final String PASS = "near123";
 
@@ -38,19 +35,15 @@ public class ArtResources {
     public Response generalListFiles() {
 
         Connection conn = null;
-        List<Art_NFT> nfts = null;
+        List<Art> nfts = null;
 
         try {
 
             Class.forName(JDBC_DRIVER);
-
-            // Opening database connection
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             ArtServices artServices = new ArtServices(conn);
             nfts = artServices.listArts();
-            System.out.println(nfts.toString());
 
             conn.close();
 
@@ -67,11 +60,10 @@ public class ArtResources {
             }
         }
 
-        List<Art_NFT> dataFiles = new ArrayList<Art_NFT>();
+        List<Art> dataFiles = new ArrayList<Art>();
 
         Collections.reverse(nfts);
         for(int j=0;j<6 && j<nfts.size();j++){
-            System.out.println("pase?");
             dataFiles.add(nfts.get(j));
             dataFiles.get(j).setId(UPLOAD_DIRECTORY + File.separator + dataFiles.get(j).getId());
         }
