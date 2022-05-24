@@ -148,6 +148,23 @@
   background-color: #BA2737;
 }
 
+#cart {
+  background-color: transparent;
+  border-color: #ffffff2a;
+  box-shadow: 4px 4px 2px 1px rgba(2, 2, 0, 0.3);
+}
+
+#cart-item1:active {
+  background-color: #BA2737;
+}
+
+#cart-item2:active {
+  background-color: #BA2737;
+}
+
+.bgbanner{
+}
+
 .btn-like {
   margin: 0 10px;
   padding: 5px;
