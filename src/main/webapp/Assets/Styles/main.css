@@ -13,6 +13,10 @@
 
 }
 
+#likes_ranking{
+  background: linear-gradient(to bottom, #c7cddc, #800f2b);
+}
+
 .img_header {
   width: 100%;
 }
@@ -189,6 +193,20 @@
   display: flex;
   overflow: hidden;
 }
+
+.card-dimensionsTopLiked {
+  padding: 2%;
+  background-color: #87223970;
+  border-color: #720000;
+  border-radius: 5%;
+  height: 50.44vh;
+  width: 18.75vw;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  overflow: hidden;
+}
+
 
 .container-input-search,
 .btn-primary {
