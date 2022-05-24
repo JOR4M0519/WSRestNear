@@ -47,11 +47,10 @@ public class ArtUserResources {
             conn.close();
 
         } catch (SQLException se) {
-            se.printStackTrace(); // Handling errors from database
+            se.printStackTrace();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace(); // Handling errors from JDBC driver
+            e.printStackTrace();
         } finally {
-            // Cleaning-up environment
             try {
                 if (conn != null) conn.close();
             } catch (SQLException se) {
@@ -87,7 +86,7 @@ public class ArtUserResources {
             String emailAuthor = inputData.getFormDataPart("author", String.class, null);
             String collection = inputData.getFormDataPart("collection", String.class, null);
             String title = inputData.getFormDataPart("title", String.class, null);
-            String price = inputData.getFormDataPart("price", String.class, null);
+            int price = inputData.getFormDataPart("price", int.class, null);
 
 
             Class.forName(JDBC_DRIVER);
@@ -117,8 +116,8 @@ public class ArtUserResources {
                     InputStream istream = inputPart.getBody(InputStream.class,null);
 
                     saveFile(istream, fileName, context);
-
                     artServices.newArt(new Art(fileName,collection,title,author,price,emailAuthor));
+
                 } catch (IOException e) {
                     return Response.serverError().build();
                 }

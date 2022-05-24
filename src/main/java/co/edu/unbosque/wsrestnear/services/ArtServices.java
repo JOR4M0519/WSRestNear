@@ -1,6 +1,7 @@
 package co.edu.unbosque.wsrestnear.services;
 
 import co.edu.unbosque.wsrestnear.dtos.Art;
+import co.edu.unbosque.wsrestnear.dtos.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,60 +16,107 @@ public class ArtServices {
         this.conn = conn;
     }
 
+//    public List<Art> listArts() {
+//        // Object for handling SQL statement
+//        Statement stmt = null;
+//
+//        // Data structure to map results from database
+//        List<Art> arts = new ArrayList<Art>();
+//
+//        try {
+//            // Executing a SQL query
+//            stmt = conn.createStatement();
+//            String sql = "SELECT\n" +
+//                    "    a.art_id,\n" +
+//                    "    image,\n" +
+//                    "    a.title,\n" +
+//                    "    price,\n" +
+//                    "    c.user_id,\n" +
+//                    "    c.title,\n" +
+//                    "\tu.name,\n" +
+//                    "\tu.lastname\n" +
+//                    "FROM collection c\n" +
+//                    "    JOIN art a\n" +
+//                    "        ON a.\"collection_id\" = c.\"collection_id\"\n" +
+//                    "\tJOIN userapp u\n" +
+//                    "        ON u.\"user_id\" = c.\"user_id\";";
+//
+//
+//            ResultSet rs = stmt.executeQuery(sql);
+//
+//            // Reading data from result set row by row
+//            while (rs.next()) {
+//                // Extracting row values by column name
+//                  String id = rs.getString("image");
+//                String collection = rs.getString("c.title");
+//                String title = rs.getString("a.title");
+//                String author = rsAuthor.getString("name") + " " + rsAuthor.getString("lastname");
+//                String price = rs.getString("price");
+//
+//
+//                // Creating a new UserApp class instance and adding it to the array list
+//                users.add(new User(username,name, lastname, role, password, fcoins));
+//            }
+//
+//            // Closing resources
+//            rs.close();
+//            stmt.close();
+//        } catch (SQLException se) {
+//            se.printStackTrace(); // Handling errors from database
+//        } finally {
+//            // Cleaning-up environment
+//            try {
+//                if (stmt != null) stmt.close();
+//            } catch (SQLException se) {
+//                se.printStackTrace();
+//            }
+//        }
+//        return users;
+//    }
+
+
+
+
     public List<Art> listArts() {
         Statement stmt = null;
 
-        ArrayList<Art> artList = new ArrayList<Art>();
+        List<Art> artList = new ArrayList<Art>();
 
         try {
             stmt = conn.createStatement();
             String sql = "SELECT\n" +
-                    "\ta.art_id,\n" +
-                    "\timage,\n" +
-                    "\ta.title,\n" +
-                    "\tprice,\n" +
-                    "\tc.user_id,\n" +
-                    "\tc.title\n" +
-                    "FROM art a\n" +
-                    "JOIN collection c\n" +
-                    "\tON a.\"collection_id\" = c.\"collection_id\";\n";
+                    "    image,\n" +
+                    "    a.title,\n" +
+                    "    price,\n" +
+                    "    c.user_id,\n" +
+                    "    c.title,\n" +
+                    "\tu.name,\n" +
+                    "\tu.lastname\n" +
+                    "FROM collection c\n" +
+                    "    JOIN art a\n" +
+                    "        ON a.\"collection_id\" = c.\"collection_id\"\n" +
+                    "\tJOIN userapp u\n" +
+                    "        ON u.\"user_id\" = c.\"user_id\";";
             ResultSet rs = stmt.executeQuery(sql);
 
-            // Reading data from result set row by row
             while (rs.next()) {
-                // Extracting row values by column name
-                String email = rs.getString("c.user_id");
-                String sqlAuthor = "SELECT\n" +
-                        "\tname,\n" +
-                        "\tlastname\n" +
-                        "FROM userapp\n" +
-                        "WHERE user_id = '" + email + "';\n";
-                ResultSet rsAuthor = stmt.executeQuery(sqlAuthor);
 
-                String id = rs.getString("image");
-                String collection = rs.getString("c.title");
-                String title = rs.getString("a.title");
-                String author = rsAuthor.getString("name") + " " + rsAuthor.getString("lastname");
-                String price = rs.getString("price");
 
-                // Creating a new UserApp class instance and adding it to the array list
+                String email = rs.getString(4);
+                String id = rs.getString(1);
+                String collection = rs.getString(5);
+                int price = rs.getInt(3);
+                String title = rs.getString(2);
+                String author = rs.getString(6) + " " + rs.getString(7);
+
+                System.out.println(id + collection+ title+ author+ price+ email);
                 artList.add(new Art(id, collection, title, author, price, email));
             }
 
-            // Printing results
-            System.out.println("id,collection,title,author,price,likes,email_owner");
-            for (Art nft : artList) {
-                System.out.println(nft.toString());
-            }
-
-            // Printing total rows
-            System.out.println("Total of users retrieved: " + artList.size() + "\n");
-
-            // Closing resources
             rs.close();
             stmt.close();
         } catch (SQLException se) {
-            se.printStackTrace(); // Handling errors from database
+
         } finally {
             // Cleaning-up environment
             try {
@@ -80,39 +128,61 @@ public class ArtServices {
         return artList;
     }
 
-    public void newArt(Art art){
+    public int getIdCollection (String email, String collection){
+
+        PreparedStatement stmt = null;
+        int collection_id = 0;
+
+        try {
+            stmt = this.conn.prepareStatement("SELECT a.collection_id FROM art a JOIN collection c ON a.\"collection_id\" = c.\"collection_id\" AND c.\"user_id\" = ? AND c.\"title\" = ?;");
+            stmt.setString(1, email);
+            stmt.setString(2, collection);
+
+            ResultSet rs = stmt.executeQuery();
+
+            rs.next();
+
+            collection_id = rs.getInt("collection_id");
+
+        }catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
+    return collection_id;
+    }
+    public void newArt(Art art) {
 
         PreparedStatement stmt = null;
 
-        try {
-            Statement stmtData = conn.createStatement();;;
-            //find dataCollection
-            String sql = "SELECT \n" +
-                    "\ta.collection_id\n" +
-                    "FROM art a\n" +
-                    "JOIN collection c\n" +
-                    "\tON a.\"collection_id\" = c.\"collection_id\"\n" +
-                    "\tAND c.\"user_id\" = '"+ art.getEmail() + "'\n" +
-                    "\tAND c.\"title\" = '"+ art.getCollection() +"';";
+       if (art != null){
+           try {
+               stmt = this.conn.prepareStatement("INSERT INTO Art (collection_id, image, title, price)\n" +
+                       "VALUES (1,?,?,?)");
 
-            ResultSet rs_collection_id = stmtData.executeQuery(sql);
-            String collection_id = rs_collection_id.getString("collection_id");
-            stmtData.close();
 
-            stmt = this.conn.prepareStatement("INSERT INTO Art (collection_id, image, title, price)\n" +
-                    "VALUES (?,?,?,?)");
+               stmt.setString(1, art.getId());
+               stmt.setString(2, art.getTitle());
+               stmt.setLong(3, art.getPrice());
 
-            stmt.setInt(1, Integer.parseInt(collection_id));
-            stmt.setString(2,art.getId());
-            stmt.setString(3,art.getTitle());
-            stmt.setInt(4,art.getPrice());
-
-            stmt.executeUpdate();
-            stmt.close();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+               stmt.executeUpdate();
+               stmt.close();
+           } catch(SQLException se){
+               se.printStackTrace();
+           } finally{
+               try {
+                   if (stmt != null) stmt.close();
+               } catch (SQLException se) {
+                   se.printStackTrace();
+               }
+           }
+       }
 
     }
 }

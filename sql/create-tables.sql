@@ -21,9 +21,9 @@ create table Collection
 
 create table Art
 (
-    art_id SERIAL PRIMARY KEY,
+
+    image VARCHAR NOT NULL PRIMARY KEY,
     collection_id SERIAL,
-    image VARCHAR NOT NULL,
     title VARCHAR NOT NULL,
     price INTEGER NOT NULL,
     FOREIGN KEY (collection_id)
@@ -34,20 +34,20 @@ create table LikeArt
 (
     like_id SERIAL PRIMARY KEY,
     user_id VARCHAR NOT NULL,
-    art_id SERIAL,
+    image VARCHAR,
     FOREIGN KEY (user_id)
         REFERENCES UserApp (user_id),
-    FOREIGN KEY (art_id)
-        REFERENCES Art (art_id)
+    FOREIGN KEY (image)
+        REFERENCES Art (image)
 );
 
 create table Ownership
 (
     ownership_id SERIAL PRIMARY KEY,
     user_id VARCHAR NOT NULL,
-    art_id SERIAL,
+    image VARCHAR,
     FOREIGN KEY (user_id)
         REFERENCES UserApp (user_id),
-    FOREIGN KEY (art_id)
-        REFERENCES Art (art_id)
+    FOREIGN KEY (image)
+        REFERENCES Art (image)
 );
