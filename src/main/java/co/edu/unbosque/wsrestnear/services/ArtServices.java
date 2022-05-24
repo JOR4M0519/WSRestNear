@@ -16,11 +16,6 @@ public class ArtServices {
         this.conn = conn;
     }
 
-
-
-
-
-
     public List<Art> listArts() {
         Statement stmt = null;
 
