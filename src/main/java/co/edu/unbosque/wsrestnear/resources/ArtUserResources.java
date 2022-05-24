@@ -32,7 +32,7 @@ public class ArtUserResources {
     //Retorna los NFTs en un JSON de un usuario y una colección en específico
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response personalListFiles(@PathParam("username") String username,@PathParam("collection") String collectionName) {
+    public Response personalListFiles(@PathParam("username") String username, @PathParam("collection") String collectionName) {
 
         Connection conn = null;
 
@@ -58,16 +58,16 @@ public class ArtUserResources {
             }
         }
 
-            List<Art> nfts = new ArrayList<Art>();
+        List<Art> nfts = new ArrayList<Art>();
 
-            for(Art nft: art_List){
+        for (Art nft : art_List) {
 
-                if(nft.getEmail().equals(username) && nft.getCollection().equals(collectionName)){
-                    nft.setId(UPLOAD_DIRECTORY + File.separator + nft.getId());
-                    nfts.add(nft);
-                }
+            if (nft.getEmail().equals(username) && nft.getCollection().equals(collectionName)) {
+                nft.setId(UPLOAD_DIRECTORY + File.separator + nft.getId());
+                nfts.add(nft);
             }
-            return Response.ok().entity(nfts).build();
+        }
+        return Response.ok().entity(nfts).build();
 
 
     }
@@ -90,16 +90,13 @@ public class ArtUserResources {
 
 
             Class.forName(JDBC_DRIVER);
-            // Opening database connection
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            artServices = new ArtServices(conn);
-            UserService userService = new UserService(conn);
 
+            UserService userService = new UserService(conn);
             User user = userService.getUser(emailAuthor);
             String author = user.getName() + " " + user.getLastname();
 
-            conn.close();
+            artServices = new ArtServices(conn);
 
             Map<String, List<InputPart>> formParts = inputData.getFormDataMap();
             List<InputPart> inputParts = formParts.get("customFile");
@@ -109,14 +106,14 @@ public class ArtUserResources {
                     // Retrieving headers and reading the Content-Disposition header to file name
                     MultivaluedMap<String, String> headers = inputPart.getHeaders();
                     String randomString = generateRandomString();
-                    String fileName = randomString+"."+parseFileName(headers).split("\\.")[1];
-
+                    String fileName = randomString + "." + parseFileName(headers).split("\\.")[1];
 
                     // Handling the body of the part with an InputStream
-                    InputStream istream = inputPart.getBody(InputStream.class,null);
+                    InputStream istream = inputPart.getBody(InputStream.class, null);
 
                     saveFile(istream, fileName, context);
-                    artServices.newArt(new Art(fileName,collection,title,author,price,emailAuthor));
+                    artServices.newArt(new Art(fileName, collection, title, author, price, emailAuthor));
+                    conn.close();
 
                 } catch (IOException e) {
                     return Response.serverError().build();
@@ -141,7 +138,7 @@ public class ArtUserResources {
         for (String name : contentDispositionHeader) {
             if ((name.trim().startsWith("filename"))) {
                 String[] tmp = name.split("=");
-                String fileName = tmp[1].trim().replaceAll("\"","");
+                String fileName = tmp[1].trim().replaceAll("\"", "");
                 return fileName;
             }
         }
@@ -155,7 +152,7 @@ public class ArtUserResources {
 
         try {
             // Complementing servlet path with the relative path on the server
-            String uploadPath = context.getRealPath("") +File.separator+ UPLOAD_DIRECTORY+File.separator;
+            String uploadPath = context.getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator;
 
             // Creating the upload folder, if not exist
             File uploadDir = new File(uploadPath);

@@ -8,3 +8,4 @@ insert into art (collection_id, image, title, price) VALUES ('2','mvjJCYzK0G.web
 insert into likeart (user_id, image) VALUES ('sprieto@gmail.com', '1');
 insert into likeart (user_id, image) VALUES ('lamateus@unbosque.edu.co', '1');
 insert into likeart (user_id, image) VALUES ('lamateus@unbosque.edu.co', '2');
+DELETE from likeart WHERE user_id = 'sprieto@gmail.com' AND image = 'BNsLro8hTv.png';

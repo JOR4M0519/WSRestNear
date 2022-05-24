@@ -6,20 +6,15 @@ const btnLike = async (id, type) => {
     if(!(localStorage.getItem("username") == null)) {
         let data = await fetch(`./api/users/${localStorage.getItem("username")}/arts/${id}`).then(response => response.json());
         console.log(data.email.toString())
-
         if (data.email.toString() != "") {
-
             restarLikes(id.toString(), type);
-            await fetch(`./api/users/${localStorage.getItem("username")}/arts/${id}/0`, {
-                method: "POST"
-            }).then(response => response.json());
-
         } else {
             sumarLikes(id.toString(), type);
-            await fetch(`./api/users/${localStorage.getItem("username")}/arts/${id}/1`, {
-                method: "POST"
-            }).then(response => response.json());
         }
+
+        await fetch(`./api/users/${localStorage.getItem("username")}/arts/${id}/likes/like`, {
+            method: "POST"
+        }).then(response => response.json());
     }else {
         alert("Ingrese a una cuenta primero")
     }
