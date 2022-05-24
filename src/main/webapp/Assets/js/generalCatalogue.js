@@ -1,7 +1,6 @@
 var imagesDiv = document.getElementById("card");
 var imagesCol = document.getElementById("cardcol")
 
-
 //Obtiene información sobre el sitio al cual se quiere ingresar y se genera una respuesta
 const getDataNFTCatalogue = async () => {
 
@@ -20,7 +19,7 @@ const getDataNFTCatalogue = async () => {
             dataLikes = await fetch(`./api/users/arts/${idNFT}/likes`).then(response => response.json());
             let heartLikesStatus = await fetch(`./api/users/${localStorage.getItem("username")}/arts/${idNFT}/likes/like`).then(response => response.json());
 
-            if (heartLikesStatus.toString() === "0") {
+            if (heartLikesStatus === 0) {
                 heartLikesStatus = "Assets/svg/heart-unfill.svg";
             } else {
                 heartLikesStatus = "Assets/svg/heart-fill.svg";
@@ -53,8 +52,8 @@ const getDataNFTCatalogue = async () => {
                 </div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group btns">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Comprar</button>      
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Añadir al carro</button>
+                  <button type="button" id="btnBuy" onclick="btnBuy()" class="btn btn-sm btn-outline-secondary">Comprar</button>      
+                  <button type="button" id="btnAddCart" onclick="" class="btn btn-sm btn-outline-secondary">Añadir al carro</button>
                 </div>
               </div>
           </div>
@@ -64,6 +63,32 @@ const getDataNFTCatalogue = async () => {
         }
     }
 }
+
+function btnBuy (art){
+
+    localStorage.setItem('buys',art);
+
+
+}
+
+const btnFinalCompra = async (id, collection) => {
+    if(!(localStorage.getItem("username") == null)) {
+        let data = await fetch(`./api/users/${localStorage.getItem("username")}/collection/${collection}/arts/${id}`).then(response => response.json());
+        console.log(data.email.toString())
+        if (data.email.toString() != "") {
+            restarLikes(id.toString(), type);
+        } else {
+            sumarLikes(id.toString(), type);
+        }
+
+        await fetch(`./api/users/${localStorage.getItem("username")}/arts/${id}/likes/like`, {
+            method: "POST"
+        }).then(response => response.json());
+    }else {
+        alert("Ingrese a una cuenta primero")
+    }
+}
+
 
 
 const getDataCollection = async () => {
@@ -154,6 +179,8 @@ const getDataCollection = async () => {
     }
 };
 
+
+
 const getDataModal = async (collection) => {
     //Ventana emrgente modal
     var imagesModal = document.getElementById("cardsCollection");
@@ -188,7 +215,7 @@ const getDataModal = async (collection) => {
         dataLikes = await fetch(`./api/users/arts/${idNFT}/likes`).then(response => response.json());
         let heartLikesStatus = await fetch(`./api/users/${localStorage.getItem("username")}/arts/${idNFT}/likes/like`).then(response => response.json());
         let type = "Modal";
-        if (heartLikesStatus.liker.toString() === "0") {
+        if (heartLikesStatus === 0) {
             heartLikesStatus = "Assets/svg/heart-unfill.svg";
         } else {
             heartLikesStatus = "Assets/svg/heart-fill.svg";

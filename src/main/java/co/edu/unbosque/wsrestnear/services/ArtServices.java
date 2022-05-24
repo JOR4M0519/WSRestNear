@@ -16,11 +16,6 @@ public class ArtServices {
         this.conn = conn;
     }
 
-
-
-
-
-
     public List<Art> listArts() {
         Statement stmt = null;
 
@@ -53,7 +48,6 @@ public class ArtServices {
                 String title = rs.getString(2);
                 String author = rs.getString(6) + " " + rs.getString(7);
 
-                System.out.println(id + collection+ title+ author+ price+ email);
                 artList.add(new Art(id, collection, title, author, price, email));
             }
 
@@ -159,12 +153,12 @@ public class ArtServices {
        if (art != null){
            try {
                stmt = this.conn.prepareStatement("INSERT INTO Art (collection_id, image, title, price)\n" +
-                       "VALUES (1,?,?,?)");
+                       "VALUES (?,?,?,?)");
 
-
-               stmt.setString(1, art.getId());
-               stmt.setString(2, art.getTitle());
-               stmt.setInt(3, (int) art.getPrice());
+               stmt.setInt(1, getIdCollection(art.getEmail(), art.getCollection()));
+               stmt.setString(2, art.getId());
+               stmt.setString(3, art.getTitle());
+               stmt.setInt(4, (int) art.getPrice());
 
                stmt.executeUpdate();
                stmt.close();

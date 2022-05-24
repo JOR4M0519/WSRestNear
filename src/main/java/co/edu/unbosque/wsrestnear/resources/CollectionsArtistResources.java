@@ -2,9 +2,7 @@ package co.edu.unbosque.wsrestnear.resources;
 
 import co.edu.unbosque.wsrestnear.dtos.Collection;
 import co.edu.unbosque.wsrestnear.dtos.ExceptionMessage;
-import co.edu.unbosque.wsrestnear.dtos.User;
 import co.edu.unbosque.wsrestnear.services.CollectionServices;
-import co.edu.unbosque.wsrestnear.services.UserService;
 import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
@@ -12,7 +10,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriBuilder;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -47,7 +44,7 @@ public class CollectionsArtistResources {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             CollectionServices collectionServices = new CollectionServices(conn);
-            collections = collectionServices.listCollections(username);
+            collections = collectionServices.listUserCollections(username);
 
             conn.close();
         } catch (SQLException se) {
