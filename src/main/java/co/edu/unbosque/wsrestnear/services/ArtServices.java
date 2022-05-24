@@ -159,12 +159,12 @@ public class ArtServices {
        if (art != null){
            try {
                stmt = this.conn.prepareStatement("INSERT INTO Art (collection_id, image, title, price)\n" +
-                       "VALUES (1,?,?,?)");
+                       "VALUES (?,?,?,?)");
 
-
-               stmt.setString(1, art.getId());
-               stmt.setString(2, art.getTitle());
-               stmt.setInt(3, (int) art.getPrice());
+               stmt.setInt(1, getIdCollection(art.getEmail(), art.getCollection()));
+               stmt.setString(2, art.getId());
+               stmt.setString(3, art.getTitle());
+               stmt.setInt(4, (int) art.getPrice());
 
                stmt.executeUpdate();
                stmt.close();
