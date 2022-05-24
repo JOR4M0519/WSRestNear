@@ -17,7 +17,45 @@ public class CollectionServices {
         this.conn = conn;
     }
 
-    public List<Collection> listCollections(String username) {
+    public List<Collection> listCollections() {
+        // Object for handling SQL statement
+        Statement stmt = null;
+
+        // Data structure to map results from database
+        List<Collection> collections = new ArrayList<Collection>();
+
+        try {
+            // Executing a SQL query
+            stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM collection";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String user_id = rs.getString("user_id");
+                String title = rs.getString("title");
+
+
+                // Creating a new UserApp class instance and adding it to the array list
+                collections.add(new Collection(user_id,title));
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return collections;
+    }
+
+    public List<Collection> listUserCollections(String username) {
         // Object for handling SQL statement
         PreparedStatement stmt = null;
 
