@@ -40,14 +40,10 @@ public class ArtResources {
         try {
 
             Class.forName(JDBC_DRIVER);
-
-            // Opening database connection
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             ArtServices artServices = new ArtServices(conn);
             nfts = artServices.listArts();
-            System.out.println(nfts.toString());
 
             conn.close();
 
@@ -68,7 +64,6 @@ public class ArtResources {
 
         Collections.reverse(nfts);
         for(int j=0;j<6 && j<nfts.size();j++){
-            System.out.println("pase?");
             dataFiles.add(nfts.get(j));
             dataFiles.get(j).setId(UPLOAD_DIRECTORY + File.separator + dataFiles.get(j).getId());
         }

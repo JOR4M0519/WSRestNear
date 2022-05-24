@@ -1,14 +1,18 @@
---- Find art
+--- Find arts
 SELECT
     a.art_id,
     image,
     a.title,
     price,
     c.user_id,
-    c.title
-FROM art a
-    JOIN collection c
-        ON a."collection_id" = c."collection_id";
+    c.title,
+    u.name,
+    u.lastname
+FROM collection c
+         JOIN art a
+              ON a."collection_id" = c."collection_id"
+         JOIN userapp u
+              ON u."user_id" = c."user_id";
 
 -- Find User
 SELECT *
