@@ -1,21 +1,18 @@
 var imagesDiv = document.getElementById("card");
+var cantidad = localStorage.getItem('cantidadCompras');
 
 const getArtShopping = async () => {
 
-        var cantidad = localStorage.getItem('cantidadCompras');
-
-    
     if (cantidad != null) {
         if(cantidad != 0){
 
         var item = [];
-        for (var i = 1; i <= cantidad && !exist; i++) {
-            item.push(localStorage.getItem(`buy${i}`));
+        for (var i = 1; i <= cantidad; i++) {
+            item.push(JSON.parse(localStorage.getItem(`buy${i}`)));
         }
 
         for (const items of item) {
             const {id, collection, title, author, price} = items;
-            let idNFT = id.toString().split("\\")[1];
 
             imagesDiv.innerHTML += `<div class="card mb-3" style="max-width: 100%; border-radius: 10px;">
             <div class="row g-0">
@@ -31,7 +28,7 @@ const getArtShopping = async () => {
                         <p class="card-text"><small class="text-muted">Colección: ${collection}</small></p><br>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group btns"> 
-                              <button type="button" id="btnRemoveCart" onclick="removeItem('${id}')" class="btn btn-sm btn-outline-secondary">Remover del carro</button>
+                              <button type="button" id="btnRemoveCart" onclick="removeItem('${id.toString().split("\\")[1]}')" class="btn btn-sm btn-outline-secondary">Remover del carro</button>
                             </div>
                           </div>
                     </div>
@@ -44,8 +41,16 @@ const getArtShopping = async () => {
     }
 }
 
-const removeItem = async (idNFT) => {
+function removeItem (idNFT) {
 
+    for (var i = 1; i <= cantidad; i++) {
+        if(JSON.parse(localStorage.getItem(`buy${i}`)).id.toString().split("\\")[1] == idNFT){
+            localStorage.removeItem(`buy${i}`);
+            alert("Se eliminó correctamente");
+        }
+    }
+
+    location.reload();
 }
 
 window.addEventListener("DOMContentLoaded", getArtShopping())

@@ -223,7 +223,7 @@ const getDataCollection = async () => {
 const getDataModal = async (collection) => {
     //Ventana emrgente modal
     var imagesModal = document.getElementById("cardsCollection");
-
+    
 
     //llama la lista de colecciones
     const dataCollection = await fetch(`./api/collections`).then(response => response.json());
@@ -290,7 +290,6 @@ const getDataModal = async (collection) => {
                     </div>
                     `;
     }
-
 }
 
 const getDataRankingArts = async () => {
