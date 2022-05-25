@@ -135,7 +135,7 @@ const btnFinalCompra = async (id, collection) => {
 
 
 
-const getDataCollection = async () => {
+const getDataCollection = async () =>   {
     if (window.location.toString().includes("artistAccount")) {
         dataCollection = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
     } else {

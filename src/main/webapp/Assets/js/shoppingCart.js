@@ -48,7 +48,7 @@ const comprar = async () =>{
 
 
     var dataArts = "[";
-    var cantidad = parseInt(localStorage.getItem('cantidadCompras'));
+    var cantidad = parseFloat(localStorage.getItem('cantidadCompras'));
 
     for (var i=1; i<cantidad;i++){
         dataArts = dataArts+`${localStorage.getItem(`buy${i}`)},`;
@@ -64,22 +64,31 @@ const comprar = async () =>{
         totalPrice += price;
     }
 
+
     if (result.fcoins<totalPrice){
         alert('Fondos Insuficientes');
     }else{
         for (const data2 of dataArtsJSON) {
-            const {collection, id} = data2;
+
+            totalPrice= totalPrice * -1
+            const fcoins = JSON.stringify({ "username":localStorage.getItem('username').toString(),"fcoins": parseFloat(totalPrice)});
+            const {id} = data2;
             let idNFT = id.toString().split("\\")[1];
-            console.log(idNFT);
-            let response2 = await fetch(`users/${localStorage.getItem('username')}/collections/${collection}/arts/${idNFT}/owner`, {
+            await fetch(`./api/owners/${localStorage.getItem('username')}/arts/${idNFT}`,
+                {method: 'PUT'});
+
+            await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`, {
                 method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: fcoins
+
             });
+            alert('todo good')
+
         }
-
-
-
     }
-
 }
 
 function removeItem (idNFT) {

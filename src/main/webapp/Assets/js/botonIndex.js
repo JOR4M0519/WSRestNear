@@ -45,7 +45,7 @@ const getButtonAccount = async () => {
             location.reload();
 
         }
-        divBotones.style.marginLeft="79%";
+        divBotones.style.marginLeft="76%";
         let responseBtn = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`);
         let resultBtn = await responseBtn.json();
 

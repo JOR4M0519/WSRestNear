@@ -15,7 +15,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-@Path("users/{username}/collections/{collection}/arts/{art}/owner")
+@Path("/owners")
 public class OwnershipResources {
 
     @Context
@@ -27,6 +27,7 @@ public class OwnershipResources {
     static final String PASS = "near123";
 
     //Responde como el método Get de la API de esta clase, recibe como parámetro el nombre del usuario para obtener las FCoins correspondientes a este
+    @Path("/arts/{art}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOwnerArt(@PathParam("art") String art) throws IOException {
@@ -62,6 +63,7 @@ public class OwnershipResources {
 
     //Responde como el método Post de la API de esta clase, recibe como parámetro el nombre del usuario y los FCoins para agregar los valores actualizados al usuario especificado
 
+    @Path("/{username}/arts/{art}")
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
     public Response buyArt(@PathParam("username") String username, @PathParam("art") String art)
@@ -73,9 +75,8 @@ public class OwnershipResources {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            OwnershipServices ownershipServices = new OwnershipServices(conn);
-
-            result = ownershipServices.buyArt(username,art);
+            System.out.println("pasé1234");
+            result = new OwnershipServices(conn).buyArt(username,art);
 
             conn.close();
         } catch (SQLException se) {
@@ -93,6 +94,7 @@ public class OwnershipResources {
                 .entity(result)
                 .build();
     }
+
 
 
 }

@@ -21,11 +21,10 @@ public class OwnershipServices {
         try {
 
             stmt = this.conn.prepareStatement("SELECT user_id\n" +
-                    "\tFROM ownership\n" +
-                    "\tWHERE image = ?;");
+                    "FROM ownership\n" +
+                    "WHERE image = ?;");
 
             stmt.setString(1, image);
-            stmt.executeUpdate();
 
             ResultSet rs = stmt.executeQuery();
             rs.next();
@@ -71,14 +70,13 @@ public class OwnershipServices {
         }
         return "Se adquirió exitosamente al crearse";
     }
-
     public String buyArt(String email, String image) {
         // Object for handling SQL statement
         PreparedStatement stmt = null;
 
         // Data structure to map results from database
         try {
-
+            System.out.println("arte: "+ image);
             stmt = this.conn.prepareStatement("UPDATE ownership \n" +
                     "SET user_id = ?\n" +
                     "WHERE user_id = ?\n" +
@@ -103,5 +101,36 @@ public class OwnershipServices {
         }
         return "Se compró exitosamente";
     }
+//    public String buyArt(String email, String image) {
+//        // Object for handling SQL statement
+//        PreparedStatement stmt = null;
+//
+//        // Data structure to map results from database
+//        try {
+//            System.out.println("arte: "+ image);
+//            stmt = this.conn.prepareStatement("UPDATE ownership \n" +
+//                    "SET user_id = ?\n" +
+//                    "WHERE user_id = ?\n" +
+//                    "AND image = ?;");
+//
+//
+//            stmt.setString(1, email);
+//            stmt.setString(2, getOwnership(image));
+//            stmt.setString(3, image);
+//
+//            stmt.executeUpdate();
+//            stmt.close();
+//        } catch(SQLException se){
+//            se.printStackTrace(); // Handling errors from database
+//        } finally{
+//            // Cleaning-up environment
+//            try {
+//                if (stmt != null) stmt.close();
+//            } catch (SQLException se) {
+//                se.printStackTrace();
+//            }
+//        }
+//        return "Se compró exitosamente";
+//    }
 
 }
