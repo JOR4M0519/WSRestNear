@@ -64,6 +64,7 @@ public class OwnershipResources {
 
     @PUT
     @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response buyArt(@PathParam("username") String username, @PathParam("art") String art)
             throws IOException {
         Connection conn = null;
