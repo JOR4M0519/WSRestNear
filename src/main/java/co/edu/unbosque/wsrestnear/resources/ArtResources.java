@@ -77,7 +77,6 @@ public class ArtResources {
     @Path("/filter")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listFilesByFilter(@QueryParam("data") String data) {
-        System.out.println("hola");
         Connection conn = null;
         List<Art> nfts = null;
 

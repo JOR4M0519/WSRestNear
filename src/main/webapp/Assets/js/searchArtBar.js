@@ -1,5 +1,5 @@
 const getArtsFilter = async () => {
-
+    let innerhtml = "";
     let dataFilter = params.filter; 
 
     var imagesDiv = document.getElementById("card");
@@ -7,10 +7,10 @@ const getArtsFilter = async () => {
     let data = null;
     let dataLikes = null;
 
-        data = await fetch("./api/arts").then(response => response.json());
-
-        let innerhtml = "";
-
+        data = await fetch(`./api/arts/filter?data=${dataFilter}`).then(response => response.json());
+        
+        if(data.length != 0){
+       
         for (const data1 of data) {
             const {id, collection, title, author, price} = data1;
             let idNFT = id.toString().split("\\")[1];
@@ -60,6 +60,9 @@ const getArtsFilter = async () => {
     </div>
   `;
         }
+    }else{
+        innerhtml = `<p>No existe arte alguno por esta palabra</p>`;
+    }
         imagesDiv.innerHTML += innerhtml;
 }
 

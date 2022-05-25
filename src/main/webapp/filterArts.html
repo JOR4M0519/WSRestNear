@@ -58,23 +58,9 @@
         </a>
 
         <input class="container-input-search inputSearchBar" type="search" id="inputSearchBar" class="form-control" placeholder="Buscar arte">
-        <button type="button" id="inputSearchButton" onclick="getArtsFilter()" style="background-color: #ffffff2c" class="btn btn-primary">
+        <button type="button" id="inputSearchButton" style="background-color: #ffffff2c" class="btn btn-primary">
           <i class="fas fa-search"></i>
         </button>
-
-        <div class="navbar navbar-expand-lg" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a id="nav-a" class="nav-link" href="#info">Info</a>
-            </li>
-            <li class="nav-item">
-              <a id="nav-a" class="nav-link" href="#Artist">Artistas</a>
-            </li>
-            <li class="nav-item">
-              <a id="nav-a" class="nav-link" href="#Contact">Contáctenos</a>
-            </li>
-          </ul>
-        </div>
 
     </nav>
   </div>
@@ -114,6 +100,13 @@
     </div>
   </footer>
 </body>
+
+<script>
+    document.getElementById("inputSearchButton").addEventListener('click', function(){
+      let dataFilter = document.getElementById("inputSearchBar").value;
+      window.location = 'filterArts.html?filter='+dataFilter;
+    });
+    </script>
 
 <!-- BOOTSTRAP SCRIPTS -->
 <script src="Assets/js/searchArtBar.js"></script>

@@ -72,7 +72,7 @@ public class ArtServices {
         List<Art> artList = new ArrayList<Art>();
 
         try {
-            stmt = this.conn.prepareStatement("SELECT\n" +
+            String sql = "SELECT\n" +
                     "    image,\n" +
                     "    a.title,\n" +
                     "    price,\n" +
@@ -85,12 +85,9 @@ public class ArtServices {
                     "              ON a.\"collection_id\" = c.\"collection_id\"\n" +
                     "         JOIN userapp u\n" +
                     "              ON u.\"user_id\" = c.\"user_id\"\n" +
-                    "\t\t\t  AND a.title LIKE ?;");
-            String dataFilter = "%"+data+"%";
-            System.out.println(dataFilter);
-            stmt.setString(1, dataFilter);
-
-            stmt.executeUpdate();
+                    "\t\t\t  AND a.title LIKE ?;";
+            stmt = this.conn.prepareStatement(sql);
+            stmt.setString(1, ("%"+data+"%"));
 
             ResultSet rs = stmt.executeQuery();
 
@@ -102,7 +99,7 @@ public class ArtServices {
                 int price = rs.getInt(3);
                 String title = rs.getString(2);
                 String author = rs.getString(6) + " " + rs.getString(7);
-                System.out.println("Data: "+email+collection+price);
+
                 artList.add(new Art(id, collection, title, author, price, email));
             }
 

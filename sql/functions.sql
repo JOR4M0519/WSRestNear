@@ -74,5 +74,5 @@ FROM collection c
               ON a."collection_id" = c."collection_id"
          JOIN userapp u
               ON u."user_id" = c."user_id"
-                  AND a.title LIKE '%Rat%';
+                  AND a.title LIKE ?;
 
