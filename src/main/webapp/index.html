@@ -21,10 +21,13 @@
   <!-- NAVIGATION -->
   <div class=" fixed-top" style="background-color: #BA2737;" >
 
-    <div id="divbuttons" ; style="display: flex; padding-bottom: 0.5%; padding-top: 0.2%;">
+    <div id="divbuttons"; style="display: flex; padding-bottom: 0.5%; padding-top: 0.2%;">
       <button class="dropdown show btn" id="dropdown" style="float: left;">
-        <a style="color: white;"><i class="fa fa-shopping-cart"></i></a>
+        <a href="shoppingCart.html" style="color: white;"><i class="fa fa-shopping-cart"></i></a>
       </button>
+      <div class="dropdown" id="menusbtn">
+
+      </div>
       <div class="dropdown show" style="float: left;">
         <a class="btn btn-secondary dropdown-toggle" id="dropdown" href="#" role="button" id="dropdownMenuLink"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -217,10 +220,9 @@
   </section>
 
   <!-- CATÁLOGO -->
-
   <section class="py-3" style="background-color: #E4E9F7">
     <div class="cards">
-      <p id="ofertas" class="card_tittle">Catálogo NFTs:</p>
+      <p id="ofertas" class="card_tittle">Catálogo Recientes:</p>
       <!--Guia js-->
       <div class="card-group contenedor-social" id="socialcard">
         <div class="container">
@@ -260,6 +262,21 @@
       </div>
     </div>
   </div>
+
+  <!-- Likes Ranking -->
+  <section>
+    <div class="cards" id="likes_ranking">
+      <p id="ofertas" class="card_tittle" style="color: #a8234c">Más gustados:</p>
+      <!--Guia js-->
+      <div class="card-group contenedor-social" id="socialcard">
+        <div class="container">
+          <div class="row" id="card_LikesRanking">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- TEAM -->
   <section class="text-center team">
@@ -390,7 +407,7 @@
 </body>
 
 <!-- BOOTSTRAP SCRIPTS -->
-<script src="Assets/js/generalCatalogue.js"></script>
+<script src="Assets/js/indexCatalogue.js"></script>
 <script src="Assets/js/sumarLikes.js"></script>
 <script src="Assets/js/botonIndex.js"></script>
 

@@ -18,31 +18,41 @@
 
 <body>
 
-  <!-- NAVIGATION -->
-  <div class=" fixed-top" style="background-color: #BA2737 ;">
-
-      <div class="dropdown show" style="margin: 1.1%;">
-        <a class="btn btn-secondary dropdown-toggle" id="dropdown" href="#" role="button" id="dropdownMenuLink"
-          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: right; margin: 1%;">
-
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle"
-            viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-            <path fill-rule="evenodd"
-              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-          </svg>
-          <span id="nameAccount"> </span>
-        </a>
-
-        <a class="navbar-brand" style="margin: 1%;" href="#">
-            <img src="Assets/img/logoNear2.png" class="logo">
+    <!-- NAVIGATION -->
+    <div class="fixed-top" style="background-color: #BA2737; padding: 10px 0;" >
+      <a href="index.html">
+        <img src="Assets/img/logoNear2.png" class="logo" style="align-items: right;">
+      </a>
+      <div id="divbuttons">
+        
+        <button class="dropdown show btn" id="dropdown" style="float: left;">
+          <a style="color: white;"><i class="fa fa-shopping-cart"></i></a>
+        </button>
+        <div class="dropdown" id="menusbtn">
+  
+        </div>
+        <div class="dropdown show" style="float: left;">
+          <a class="btn btn-secondary dropdown-toggle" id="dropdown" href="#" role="button" id="dropdownMenuLink"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle"
+              viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+            </svg>
+            <span id="nameAccount"> </span>
           </a>
-
-        <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuLink">
-
+  
+  
+          <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuLink">
+  
+          </div>
         </div>
       </div>
-  </div>
+
+      
+    </div>
 
   <!-- HEADER -->
   <header class="main-header" style="margin-top: 7%;">
@@ -153,7 +163,9 @@
       <div class="card-group contenedor-social" id="socialcard">
         <div class="container">
           <div class="row" id="card">
-            <div class="card mb-3" style="max-width: 100%; border-radius: 10px;">
+
+          
+            <!-- <div class="card mb-3" style="max-width: 100%; border-radius: 10px;">
                 <div class="row g-0">
                   <div class="col-md-4">
                     <img src="https://www.arweave.net/RdDwc-VXTcmkAmAIjwgiWj8qkMPt6gqjIVcXRE3crLU?ext=png" class="img-fluid rounded-start" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;" alt="...">
@@ -174,56 +186,18 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
+
+
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section class="bg-light py-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-9" id="Contact">
-          <h3>Contáctanos</h3>
-          <p>
-            ¿Tienes alguna pregunta, sugerencia o queja? <br>
-            Consígnala aquí nosotros estaremos atendiendo tu reclamo.
-          </p>
-          <form name="hi" action="">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <i class="fas fa-user input-group-text"></i>
-              </div>
-              <input type="text" class="form-control" name="holaa" placeholder="Nombre" aria-label="Username"
-                aria-describedby="basic-addon1">
-            </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <i class="fas fa-envelope input-group-text"></i>
-              </div>
-              <input type="text" class="form-control" placeholder="Correo" aria-label="Username"
-                aria-describedby="basic-addon1">
-            </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <i class="fas fa-pencil-alt input-group-text"></i>
-              </div>
-              <textarea name="" cols="30" rows="10" placeholder="Mensaje" class="form-control"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Enviar</button>
-          </form>
-        </div>
-        <div class="col-lg-3 align-self-center">
-          <a href="#">
-            <img src="Assets/img/logoNear1.png" style=" width: 140%;">
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
+    <section>
+      <input type="submit" id="btnBuyAllArts" value="Comprar">
+    </section>
   <footer>
     <div class="container p-3">
       <div class="row text-center text-white">
@@ -241,9 +215,8 @@
 </body>
 
 <!-- BOOTSTRAP SCRIPTS -->
-<script src="Assets/js/generalCatalogue.js"></script>
-<script src="Assets/js/sumarLikes.js"></script>
 <script src="Assets/js/botonIndex.js"></script>
+<script src="Assets/js/shoppingCart.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

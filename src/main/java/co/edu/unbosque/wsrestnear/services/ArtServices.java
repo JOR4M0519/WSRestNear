@@ -146,6 +146,45 @@ public class ArtServices {
     return collection_id;
     }
 
+
+    public List<Art> listMostLikedArts() {
+        Statement stmt = null;
+
+        List<Art> artList = new ArrayList<Art>();
+
+        try {
+            stmt = conn.createStatement();
+            String sql = "SELECT\n" +
+                    "\tl.image,\n" +
+                    "    COUNT (*) AS likes\n" +
+                    "FROM likeart l\n" +
+                    "         JOIN art a\n" +
+                    "              ON a.image = l.image\n" +
+                    "GROUP BY l.image\n" +
+                    "ORDER BY COUNT(*) DESC\n" +
+                    "limit 3;";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+
+                artList.add(getArt(rs.getString("image")));
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return artList;
+    }
+
     public void newArt(Art art) {
 
         PreparedStatement stmt = null;
@@ -159,9 +198,10 @@ public class ArtServices {
                stmt.setString(2, art.getId());
                stmt.setString(3, art.getTitle());
                stmt.setInt(4, (int) art.getPrice());
-
                stmt.executeUpdate();
                stmt.close();
+
+               new OwnershipServices(conn).creatArtOwner(art.getEmail(), art.getId());
            } catch(SQLException se){
                se.printStackTrace();
            } finally{

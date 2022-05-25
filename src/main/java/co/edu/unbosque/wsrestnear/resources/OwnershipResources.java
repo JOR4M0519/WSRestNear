@@ -1,9 +1,7 @@
 package co.edu.unbosque.wsrestnear.resources;
 
-import co.edu.unbosque.wsrestnear.dtos.ExceptionMessage;
-import co.edu.unbosque.wsrestnear.dtos.FCoins;
 import co.edu.unbosque.wsrestnear.dtos.User;
-import co.edu.unbosque.wsrestnear.dtos.Art;
+import co.edu.unbosque.wsrestnear.services.OwnershipServices;
 import co.edu.unbosque.wsrestnear.services.UserService;
 import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.*;
@@ -17,8 +15,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-@Path("users/{username}/owner")
-public class OwnerResources {
+@Path("users/{username}/collections/{collection}/arts/{art}/owner")
+public class OwnershipResources {
 
     @Context
     ServletContext context;
@@ -31,7 +29,7 @@ public class OwnerResources {
     //Responde como el método Get de la API de esta clase, recibe como parámetro el nombre del usuario para obtener las FCoins correspondientes a este
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUserFCoins(@PathParam("username") String username) throws IOException {
+    public Response getOwnerArt(@PathParam("art") String art) throws IOException {
 
         Connection conn = null;
         User user = null;
@@ -39,8 +37,13 @@ public class OwnerResources {
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            UserService uService = new UserService(conn);
-            user = uService.getUser(username);
+            OwnershipServices ownershipServices = new OwnershipServices(conn);
+
+            String emailOwner = ownershipServices.getOwnership(art);
+
+            UserService userService = new UserService(conn);
+            user = userService.getUser(emailOwner);
+
             conn.close();
         } catch (SQLException se) {
             se.printStackTrace();
@@ -53,31 +56,26 @@ public class OwnerResources {
                 se.printStackTrace();
             }
         }
-        if (user == null) {
-            return Response.status(404).entity(new ExceptionMessage(404, "User not found")).build();
-        }
-        FCoins fCoinsUser = new FCoins(user.getUsername(),user.getFcoins());
-        return Response.ok().entity(fCoinsUser).build();
+
+        return Response.ok().entity(user).build();
     }
 
     //Responde como el método Post de la API de esta clase, recibe como parámetro el nombre del usuario y los FCoins para agregar los valores actualizados al usuario especificado
 
     @PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response postFCoins(@PathParam("username") String username, @FormParam("cantidad") long fcoins)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response buyArt(@PathParam("username") String username, @PathParam("art") String art)
             throws IOException {
         Connection conn = null;
-        User user = null;
-
+        String result = "";
         try {
 
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            UserService usersService = new UserService(conn);
-            user = usersService.getUser(username);
-            user = usersService.updateUser(user,fcoins);
+            OwnershipServices ownershipServices = new OwnershipServices(conn);
+
+            result = ownershipServices.buyArt(username,art);
 
             conn.close();
         } catch (SQLException se) {
@@ -92,7 +90,7 @@ public class OwnerResources {
             }
         }
         return Response.created(UriBuilder.fromResource(UsersResource.class).path(username).build())
-                .entity(user)
+                .entity(result)
                 .build();
     }
 

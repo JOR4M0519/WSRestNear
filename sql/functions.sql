@@ -43,3 +43,20 @@ SELECT
 FROM art
 WHERE image = 'BNsLro8hTv.png';
 
+--Most liked arts
+SELECT
+    l.image,
+    COUNT (*) AS likes
+FROM likeart l
+         JOIN art a
+              ON a.image = l.image
+GROUP BY l.image
+ORDER BY COUNT(*) DESC
+    limit 3;
+
+--Buy function
+UPDATE ownership
+SET user_id = 'sprieto@gmail.com'
+WHERE user_id = 'jdramoss@gmail.com'
+  AND image = 'UjJ2N60ubZ.gif';
+
