@@ -68,10 +68,19 @@ const comprar = async () =>{
         alert('Fondos Insuficientes');
     }else{
         for (const data2 of dataArtsJSON) {
-            const {collection, art} = data2;
-            let response2 = await fetch(`users/${localStorage.getItem('username')}/collections/${collection}/arts/${art}/owner`, {
-                method: "PUT",
-            });
+            const {collection, id} = data2;
+            let idNFT = id.toString().split("\\")[1];
+            let response2 = await fetch(`users/${localStorage.getItem('username')}/collections/${collection}/arts/${idNFT}/owner`, {
+                method: 'PUT',
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: localStorage.getItem('username'),
+                    image: idNFT
+                })
+
+            })
         }
 
 

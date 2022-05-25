@@ -21,11 +21,10 @@ public class OwnershipServices {
         try {
 
             stmt = this.conn.prepareStatement("SELECT user_id\n" +
-                    "\tFROM ownership\n" +
-                    "\tWHERE image = ?;");
+                    "FROM ownership\n" +
+                    "WHERE image = ?;");
 
             stmt.setString(1, image);
-            stmt.executeUpdate();
 
             ResultSet rs = stmt.executeQuery();
             rs.next();
@@ -78,7 +77,7 @@ public class OwnershipServices {
 
         // Data structure to map results from database
         try {
-
+            System.out.println("arte: "+ image);
             stmt = this.conn.prepareStatement("UPDATE ownership \n" +
                     "SET user_id = ?\n" +
                     "WHERE user_id = ?\n" +
