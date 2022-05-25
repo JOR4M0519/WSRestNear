@@ -13,6 +13,18 @@
 
 }
 
+#divbuttons{
+  display: flex;
+  padding-bottom: 0.5%;
+  padding-top: 0.2%;
+  margin-left: 74%;
+}
+
+.dropdown{
+  position: relative;
+  margin: 0 2px;
+}
+
 #likes_ranking{
   background: linear-gradient(to bottom, #c7cddc, #800f2b);
 }
@@ -669,6 +681,13 @@ input[type=submit]#login-submit {
   visibility: visible;
   background-color: rgba(255, 255, 255, 0.900);
 }
+.cardTopRankLikes:hover .content {
+  height: 210px;
+  opacity: 1;
+  visibility: visible;
+  background-color: rgb(242 211 206 / 79%);
+}
+
 
 .card:hover .content h3 {
   position: relative;

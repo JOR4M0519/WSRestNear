@@ -14,6 +14,8 @@ const getDataNFTCatalogue = async () => {
 
         data = await fetch("./api/arts").then(response => response.json());
 
+        let innerhtml = "";
+
         for (const data1 of data) {
             const {id, collection, title, author, price} = data1;
             let idNFT = id.toString().split("\\")[1];
@@ -27,7 +29,7 @@ const getDataNFTCatalogue = async () => {
                 heartLikesStatus = "Assets/svg/heart-fill.svg";
             }
 
-            imagesDiv.innerHTML += `
+            innerhtml += `
     <div class="col-md-4 card-position "> 
         <div class="card mb-4 shadow-sm card-dimensions" >
           <div class="imgBx">
@@ -63,6 +65,7 @@ const getDataNFTCatalogue = async () => {
     </div>
   `;
         }
+        imagesDiv.innerHTML += innerhtml;
     }
 }
 
@@ -264,6 +267,8 @@ const getDataRankingArts = async () => {
 
         data = await fetch("./api/arts/likes").then(response => response.json());
 
+        let innerhtml = "";
+
         for (const data1 of data) {
             const {id, collection, title, author, price} = data1;
             let idNFT = id.toString().split("\\")[1];
@@ -277,9 +282,11 @@ const getDataRankingArts = async () => {
                 heartLikesStatus = "Assets/svg/heart-fill.svg";
             }
 
-            imagesLikesRank.innerHTML += `
+
+
+            innerhtml += `
     <div class="col-md-4 card-position "> 
-        <div class="card mb-4 shadow-sm card-dimensionsTopLiked" >
+        <div class="cardTopRankLikes card mb-4 shadow-sm card-dimensionsTopLiked" >
           <div class="imgBx">
             <img class="bd-placeholder-img card-img-top" width="100%" height="100%" style="border-radius: 3.5%;"
                  src="${id}"
@@ -313,6 +320,8 @@ const getDataRankingArts = async () => {
     </div>
   `;
         }
+
+        imagesLikesRank.innerHTML += innerhtml;
     }
 }
 
