@@ -41,16 +41,60 @@ const getArtShopping = async () => {
     }
 }
 
+const comprar = async () =>{
+
+    let response = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`);
+    let result = await response.json();
+
+
+    var dataArts = "[";
+    var cantidad = parseInt(localStorage.getItem('cantidadCompras'));
+
+    for (var i=1; i<cantidad;i++){
+        dataArts = dataArts+`${localStorage.getItem(`buy${i}`)},`;
+    }
+    dataArts = dataArts+`${localStorage.getItem(`buy${cantidad}`)}]`;
+
+
+    var dataArtsJSON = JSON.parse(dataArts);
+    var totalPrice = 0;
+
+    for (const data1 of dataArtsJSON) {
+        const {price} = data1;
+        totalPrice += price;
+    }
+
+    if (result.fcoins<totalPrice){
+        alert('Fondos Insuficientes');
+    }else{
+        for (const data2 of dataArtsJSON) {
+            const {collection, art} = data2;
+            let response2 = await fetch(`users/${localStorage.getItem('username')}/collections/${collection}/arts/${art}/owner`, {
+                method: "PUT",
+            });
+        }
+
+
+
+    }
+
+}
+
 function removeItem (idNFT) {
 
     for (var i = 1; i <= cantidad; i++) {
         if(JSON.parse(localStorage.getItem(`buy${i}`)).id.toString().split("\\")[1] == idNFT){
             localStorage.removeItem(`buy${i}`);
+            if (localStorage.getItem('cantidadCompras')!=1) {
+                localStorage.setItem('cantidadCompras', parseInt(localStorage.getItem('cantidadCompras')) - parseInt(1))
+            }else {
+                localStorage.removeItem('cantidadCompras');
+            }
             alert("Se eliminó correctamente");
         }
     }
 
     location.reload();
 }
-
+document.getElementById("btnBuyAllArts").addEventListener('click', comprar);
 window.addEventListener("DOMContentLoaded", getArtShopping())

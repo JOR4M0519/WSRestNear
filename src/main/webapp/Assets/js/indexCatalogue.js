@@ -57,14 +57,8 @@ const getDataNFTCatalogue = async () => {
                 </div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group btns">
-                 <form action="#" onsubmit="btnBuy(this)" >
-                  <input type="hidden" name="dataBuy" value='${JSON.stringify(data1)}'>
-                  <input type="submit" id="btnBuy/${idNFT}"  class="btn btn-sm btn-outline-secondary" value="Comprar">     
-                </form> 
-                <form action="#" onsubmit="btnAddCart(this)" >
-                  <input type="hidden" name="dataCart" value='${JSON.stringify(data1)}'>
-                  <input type="submit" id="btnAddCart"  class="btn btn-sm btn-outline-secondary" value="Añadir al Carro">
-                </form> 
+                 <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Comprar" onclick="btnBuy(this,'buy')">     
+                 <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Añadir al Carro" onclick="btnBuy(this,'add')">
                 </div>
               </div>
           </div>
@@ -76,38 +70,48 @@ const getDataNFTCatalogue = async () => {
     }
 }
 
-function btnBuy (form){
+function btnBuy (input, condition){
 
     var cantidad = localStorage.getItem('cantidadCompras');
-    var data = form.dataBuy.value;
+    var data = input.id;
     var dataBuyJSON = JSON.parse(data);
 
-    if (dataBuyJSON.email!=localStorage.getItem('username')) {
-        if (cantidad == null) {
+    if (localStorage.getItem('username')!=null || localStorage.getItem('username') != undefined ) {
+        if (dataBuyJSON.email != localStorage.getItem('username')) {
+            if (cantidad == null) {
 
-            localStorage.setItem('cantidadCompras', 1);
-            localStorage.setItem('buy1', data);
-
-        } else {
-            let exist = false;
-            for (var i = 1; i <= cantidad && !exist; i++) {
-                if (localStorage.getItem(`buy${i}`) != form.dataBuy.value) {
-                } else {
-                    exist = true;
-                    alert("ya esta en el carrito");
+                localStorage.setItem('cantidadCompras', 1);
+                localStorage.setItem('buy1', data);
+                if (condition=='buy') {
+                    window.location.href = './shoppingCart.html';
                 }
-            }
-            if(!exist){
-                cantidad = parseInt(cantidad) + parseInt(1);
-                localStorage.setItem(`buy${cantidad}`, data);
-                localStorage.setItem('cantidadCompras', cantidad);
-            }
+            } else {
+                let exist = false;
+                for (var i = 1; i <= cantidad && !exist; i++) {
+                    if (localStorage.getItem(`buy${i}`) != data) {
+                    } else {
+                        exist = true;
+                        if (condition=='buy') {
+                            window.location.href = "./shoppingCart.html";
+                        }
+                    }
+                }
+                if (!exist) {
+                    cantidad = parseInt(cantidad) + parseInt(1);
+                    localStorage.setItem(`buy${cantidad}`, data);
+                    localStorage.setItem('cantidadCompras', cantidad);
+                    if (condition=='buy') {
+                        window.location.href = "./shoppingCart.html";
+                    }
+                }
 
+            }
+        } else {
+            alert('Este NFT ya es tuyo!')
         }
-    }else {
-        alert('este nft ya es tuyo')
+    }else{
+        alert('Inicie Sesión para comprar!');
     }
-
 
 }
 

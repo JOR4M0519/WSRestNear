@@ -63,10 +63,11 @@ public class FCoinsResource {
 
     //Responde como el método Post de la API de esta clase, recibe como parámetro el nombre del usuario y los FCoins para agregar los valores actualizados al usuario especificado
 
+
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response postFCoins(@PathParam("username") String username, @FormParam("cantidad") long fcoins)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postFCoins(@PathParam("username") String username, String fcoins)
             throws IOException {
         Connection conn = null;
         User user = null;
@@ -78,7 +79,7 @@ public class FCoinsResource {
 
             UserService usersService = new UserService(conn);
             user = usersService.getUser(username);
-            user = usersService.updateUser(user,fcoins);
+            user = usersService.updateUser(user,Long.parseLong(fcoins));
 
             conn.close();
         } catch (SQLException se) {
