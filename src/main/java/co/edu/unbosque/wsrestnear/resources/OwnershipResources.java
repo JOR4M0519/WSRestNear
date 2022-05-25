@@ -63,7 +63,7 @@ public class OwnershipResources {
     //Responde como el método Post de la API de esta clase, recibe como parámetro el nombre del usuario y los FCoins para agregar los valores actualizados al usuario especificado
 
     @PUT
-    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
     public Response buyArt(@PathParam("username") String username, @PathParam("art") String art)
             throws IOException {
         Connection conn = null;
