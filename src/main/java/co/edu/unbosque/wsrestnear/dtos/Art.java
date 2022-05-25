@@ -10,6 +10,7 @@ public class Art {
     private long price;
     private String email;
 
+
     public Art(String id, String collection, String title, String author, long price, String email) {
         this.id = id;
         this.collection = collection;

@@ -15,6 +15,8 @@ const getDataNFTCatalogue = async () => {
 
         data = await fetch("./api/arts").then(response => response.json());
 
+
+
         let innerhtml = "";
 
         for (const data1 of data) {
@@ -70,20 +72,25 @@ const getDataNFTCatalogue = async () => {
     }
 }
 
-function btnBuy (input, condition){
+const btnBuy = async (input, condition)=>{
 
     var cantidad = localStorage.getItem('cantidadCompras');
     var data = input.id;
     var dataBuyJSON = JSON.parse(data);
+    var id = dataBuyJSON.id.toString().split("\\")[1];
+    let dataOwner = await fetch(`./api/owners/arts/${id}`).then(response => response.json());
+
 
     if (localStorage.getItem('username')!=null || localStorage.getItem('username') != undefined ) {
-        if (dataBuyJSON.email != localStorage.getItem('username')) {
+        if (dataOwner.username != localStorage.getItem('username')) {
             if (cantidad == null) {
 
                 localStorage.setItem('cantidadCompras', 1);
                 localStorage.setItem('buy1', data);
                 if (condition=='buy') {
                     window.location.href = './shoppingCart.html';
+                }else {
+                    alert("Agregado al Carrito!");
                 }
             } else {
                 let exist = false;
@@ -102,6 +109,8 @@ function btnBuy (input, condition){
                     localStorage.setItem('cantidadCompras', cantidad);
                     if (condition=='buy') {
                         window.location.href = "./shoppingCart.html";
+                    }else {
+                        alert("Agregado al Carrito!");
                     }
                 }
 
@@ -114,25 +123,6 @@ function btnBuy (input, condition){
     }
 
 }
-
-const btnFinalCompra = async (id, collection) => {
-    if(!(localStorage.getItem("username") == null)) {
-        let data = await fetch(`./api/users/${localStorage.getItem("username")}/collection/${collection}/arts/${id}`).then(response => response.json());
-        console.log(data.email.toString())
-        if (data.email.toString() != "") {
-            restarLikes(id.toString(), type);
-        } else {
-            sumarLikes(id.toString(), type);
-        }
-
-        await fetch(`./api/users/${localStorage.getItem("username")}/arts/${id}/likes/like`, {
-            method: "POST"
-        }).then(response => response.json());
-    }else {
-        alert("Ingrese a una cuenta primero")
-    }
-}
-
 
 
 const getDataCollection = async () =>   {

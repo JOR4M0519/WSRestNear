@@ -68,7 +68,7 @@ public class OwnershipResources {
     @Consumes(MediaType.TEXT_PLAIN)
     public Response buyArt(@PathParam("username") String username, @PathParam("art") String art)
             throws IOException {
-        Connection conn = null;
+        Connection  conn = null;
         String result = "";
         try {
 

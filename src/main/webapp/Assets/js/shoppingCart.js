@@ -70,24 +70,30 @@ const comprar = async () =>{
     }else{
         for (const data2 of dataArtsJSON) {
 
-            totalPrice= totalPrice * -1
-            const fcoins = JSON.stringify({ "username":localStorage.getItem('username').toString(),"fcoins": parseFloat(totalPrice)});
             const {id} = data2;
             let idNFT = id.toString().split("\\")[1];
+
             await fetch(`./api/owners/${localStorage.getItem('username')}/arts/${idNFT}`,
                 {method: 'PUT'});
 
-            await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: fcoins
-
-            });
-            alert('todo good')
-
         }
+        totalPrice= totalPrice * -1
+        const fcoins = JSON.stringify({ "username":localStorage.getItem('username').toString(),"fcoins": parseFloat(totalPrice)});
+        await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: fcoins
+
+        });
+
+        alert('Compra Exitosa!')
+        for (var i=1; i<=localStorage.getItem('cantidadCompras');i++){
+            localStorage.removeItem(`buy${i}`);
+        }
+        localStorage.removeItem('cantidadCompras');
+        window.location.href="./index.html"
     }
 }
 
