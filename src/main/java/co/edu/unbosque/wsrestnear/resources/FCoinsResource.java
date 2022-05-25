@@ -67,7 +67,7 @@ public class FCoinsResource {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postFCoins(@PathParam("username") String username, String fcoins)
+    public Response postFCoins(@PathParam("username") String username, FCoins fcoins)
             throws IOException {
         Connection conn = null;
         User user = null;
@@ -79,8 +79,9 @@ public class FCoinsResource {
 
             UserService usersService = new UserService(conn);
             user = usersService.getUser(username);
-            user = usersService.updateUser(user,Long.parseLong(fcoins));
-
+            if (user.getUsername().equals(fcoins.getUsername())) {
+                user = usersService.updateUser(user, fcoins.getFcoins());
+            }
             conn.close();
         } catch (SQLException se) {
             se.printStackTrace();

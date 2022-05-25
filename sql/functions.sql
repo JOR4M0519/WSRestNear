@@ -60,3 +60,19 @@ SET user_id = 'sprieto@gmail.com'
 WHERE user_id = 'jdramoss@gmail.com'
   AND image = 'UjJ2N60ubZ.gif';
 
+--Find Arts by filter
+SELECT
+    image,
+    a.title,
+    price,
+    c.user_id,
+    c.title,
+    u.name,
+    u.lastname
+FROM collection c
+         JOIN art a
+              ON a."collection_id" = c."collection_id"
+         JOIN userapp u
+              ON u."user_id" = c."user_id"
+                  AND a.title LIKE ?;
+

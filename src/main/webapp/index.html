@@ -57,8 +57,9 @@
           <img src="Assets/img/logoNear2.png" class="logo">
         </a>
 
-        <input class="container-input-search" type="search" id="form1" class="form-control" placeholder="Buscar arte">
-        <button type="button" style="background-color: #ffffff2c" class="btn btn-primary">
+        <input class="container-input-search inputSearchBar" type="search" id="inputSearchBar" class="form-control" placeholder="Buscar arte">
+        <button type="submit" id="inputSearchButton" style="background-color: #ffffff2c" class="btn btn-primary">
+          <a href="filterArts.html"></a>
           <i class="fas fa-search"></i>
         </button>
 
@@ -405,6 +406,14 @@
     </div>
   </footer>
 </body>
+
+<!-- filter Arts SCRIPT -->
+<script>
+document.getElementById("inputSearchButton").addEventListener('click', function(){
+  let dataFilter = document.getElementById("inputSearchBar").value;
+  window.location = 'filterArts.html?filter='+dataFilter;
+});
+</script>
 
 <!-- BOOTSTRAP SCRIPTS -->
 <script src="Assets/js/indexCatalogue.js"></script>

@@ -7,7 +7,7 @@
   font-family: "Poppins", sans-serif;
 }
 
-#form1 {
+#inputSearchBar {
   width: 600px;
   padding-left: 20px;
 
@@ -172,6 +172,12 @@
 
 #cart-item2:active {
   background-color: #BA2737;
+}
+
+.catalogueFilter{
+  background-color: #E4E9F7;
+  margin-top: 7%;
+  min-height: 67vh;
 }
 
 .resumenhead{
