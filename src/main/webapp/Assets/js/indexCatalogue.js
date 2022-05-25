@@ -2,12 +2,13 @@ var imagesDiv = document.getElementById("card");
 var imagesCol = document.getElementById("cardcol")
 var imagesLikesRank = document.getElementById("card_LikesRanking");
 
-
 //Obtiene información sobre el sitio al cual se quiere ingresar y se genera una respuesta
 const getDataNFTCatalogue = async () => {
 
     let data = null;
     let dataLikes = null;
+
+
 
 
     if (!window.location.toString().includes("artistAccount")) {
@@ -54,8 +55,14 @@ const getDataNFTCatalogue = async () => {
                 </div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group btns">
-                  <button type="button" id="btnBuy" onclick="btnBuy()" class="btn btn-sm btn-outline-secondary">Comprar</button>      
-                  <button type="button" id="btnAddCart" onclick="" class="btn btn-sm btn-outline-secondary">Añadir al carro</button>
+                 <form action="#" onsubmit="btnBuy(this)" >
+                  <input type="hidden" name="dataBuy" value='${JSON.stringify(data1)}'>
+                  <input type="submit" id="btnBuy/${idNFT}"  class="btn btn-sm btn-outline-secondary" value="Comprar">     
+                </form> 
+                <form action="#" onsubmit="btnAddCart(this)" >
+                  <input type="hidden" name="dataCart" value='${JSON.stringify(data1)}'>
+                  <input type="submit" id="btnAddCart"  class="btn btn-sm btn-outline-secondary" value="Añadir al Carro">
+                </form> 
                 </div>
               </div>
           </div>
@@ -66,9 +73,37 @@ const getDataNFTCatalogue = async () => {
     }
 }
 
-function btnBuy (art){
+function btnBuy (form){
 
-    localStorage.setItem('buys',art);
+    var cantidad = localStorage.getItem('cantidadCompras');
+    var data = form.dataBuy.value;
+    var dataBuyJSON = JSON.parse(data);
+
+    if (dataBuyJSON.email!=localStorage.getItem('username')) {
+        if (cantidad == null) {
+
+            localStorage.setItem('cantidadCompras', 1);
+            localStorage.setItem('buy1', data);
+
+        } else {
+            let exist = false;
+            for (var i = 1; i <= cantidad && !exist; i++) {
+                if (localStorage.getItem(`buy${i}`) != form.dataBuy.value) {
+                } else {
+                    exist = true;
+                    alert("ya esta en el carrito");
+                }
+            }
+            if(!exist){
+                cantidad = parseInt(cantidad) + parseInt(1);
+                localStorage.setItem(`buy${cantidad}`, data);
+                localStorage.setItem('cantidadCompras', cantidad);
+            }
+
+        }
+    }else {
+        alert('este nft ya es tuyo')
+    }
 
 
 }
