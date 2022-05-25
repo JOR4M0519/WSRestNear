@@ -19,15 +19,15 @@
 <body>
 
   <!-- NAVIGATION -->
-  <div class=" fixed-top" style="background-color: #BA2737 ;">
+  <div class=" fixed-top" style="background-color: #BA2737;" >
 
-    <div id="divbuttons" ; style="display: flex; padding-bottom: 0.5%; padding-top: 0.2%;">
-
-
-      <div id="menusbtn">
+    <div id="divbuttons">
+      <button class="dropdown show btn" id="dropdown" style="float: left;">
+        <a style="color: white;"><i class="fa fa-shopping-cart"></i></a>
+      </button>
+      <div class="dropdown" id="menusbtn">
 
       </div>
-
       <div class="dropdown show" style="float: left;">
         <a class="btn btn-secondary dropdown-toggle" id="dropdown" href="#" role="button" id="dropdownMenuLink"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -264,9 +264,9 @@
   </div>
 
   <!-- Likes Ranking -->
-  <section class="py-3" style="background-color: #E4E9F7">
-    <div class="cards">
-      <p id="ofertas" class="card_tittle">Clasificaión likes:</p>
+  <section>
+    <div class="cards" id="likes_ranking">
+      <p id="ofertas" class="card_tittle" style="color: #a8234c">Más gustados:</p>
       <!--Guia js-->
       <div class="card-group contenedor-social" id="socialcard">
         <div class="container">

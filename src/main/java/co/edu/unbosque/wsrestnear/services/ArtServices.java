@@ -155,31 +155,19 @@ public class ArtServices {
         try {
             stmt = conn.createStatement();
             String sql = "SELECT\n" +
-                    "    image,\n" +
-                    "    a.title,\n" +
-                    "    price,\n" +
-                    "    c.user_id,\n" +
-                    "    c.title,\n" +
-                    "\tu.name,\n" +
-                    "\tu.lastname\n" +
-                    "FROM collection c\n" +
-                    "    JOIN art a\n" +
-                    "        ON a.\"collection_id\" = c.\"collection_id\"\n" +
-                    "\tJOIN userapp u\n" +
-                    "        ON u.\"user_id\" = c.\"user_id\";";
+                    "\tl.image,\n" +
+                    "    COUNT (*) AS likes\n" +
+                    "FROM likeart l\n" +
+                    "         JOIN art a\n" +
+                    "              ON a.image = l.image\n" +
+                    "GROUP BY l.image\n" +
+                    "ORDER BY COUNT(*) DESC\n" +
+                    "limit 3;";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
 
-
-                String email = rs.getString(4);
-                String id = rs.getString(1);
-                String collection = rs.getString(5);
-                int price = rs.getInt(3);
-                String title = rs.getString(2);
-                String author = rs.getString(6) + " " + rs.getString(7);
-
-                artList.add(new Art(id, collection, title, author, price, email));
+                artList.add(getArt(rs.getString("image")));
             }
 
             rs.close();

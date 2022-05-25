@@ -13,6 +13,22 @@
 
 }
 
+#divbuttons{
+  display: flex;
+  padding-bottom: 0.5%;
+  padding-top: 0.2%;
+  margin-left: 74%;
+}
+
+.dropdown{
+  position: relative;
+  margin: 0 2px;
+}
+
+#likes_ranking{
+  background: linear-gradient(to bottom, #c7cddc, #800f2b);
+}
+
 .img_header {
   width: 100%;
 }
@@ -144,6 +160,23 @@
   background-color: #BA2737;
 }
 
+#cart {
+  background-color: transparent;
+  border-color: #ffffff2a;
+  box-shadow: 4px 4px 2px 1px rgba(2, 2, 0, 0.3);
+}
+
+#cart-item1:active {
+  background-color: #BA2737;
+}
+
+#cart-item2:active {
+  background-color: #BA2737;
+}
+
+.bgbanner{
+}
+
 .btn-like {
   margin: 0 10px;
   padding: 5px;
@@ -189,6 +222,20 @@
   display: flex;
   overflow: hidden;
 }
+
+.card-dimensionsTopLiked {
+  padding: 2%;
+  background-color: #87223970;
+  border-color: #720000;
+  border-radius: 5%;
+  height: 50.44vh;
+  width: 18.75vw;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  overflow: hidden;
+}
+
 
 .container-input-search,
 .btn-primary {
@@ -634,6 +681,13 @@ input[type=submit]#login-submit {
   visibility: visible;
   background-color: rgba(255, 255, 255, 0.900);
 }
+.cardTopRankLikes:hover .content {
+  height: 210px;
+  opacity: 1;
+  visibility: visible;
+  background-color: rgb(242 211 206 / 79%);
+}
+
 
 .card:hover .content h3 {
   position: relative;
