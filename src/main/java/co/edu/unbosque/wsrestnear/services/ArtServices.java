@@ -66,6 +66,58 @@ public class ArtServices {
         return artList;
     }
 
+    public List<Art> getListArtsByfilter(String data) {
+        PreparedStatement stmt = null;
+
+        List<Art> artList = new ArrayList<Art>();
+
+        try {
+            String sql = "SELECT\n" +
+                    "    image,\n" +
+                    "    a.title,\n" +
+                    "    price,\n" +
+                    "    c.user_id,\n" +
+                    "    c.title,\n" +
+                    "    u.name,\n" +
+                    "    u.lastname\n" +
+                    "FROM collection c\n" +
+                    "         JOIN art a\n" +
+                    "              ON a.\"collection_id\" = c.\"collection_id\"\n" +
+                    "         JOIN userapp u\n" +
+                    "              ON u.\"user_id\" = c.\"user_id\"\n" +
+                    "\t\t\t  AND a.title LIKE ?;";
+            stmt = this.conn.prepareStatement(sql);
+            stmt.setString(1, ("%"+data+"%"));
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                String email = rs.getString(4);
+                String id = rs.getString(1);
+                String collection = rs.getString(5);
+                int price = rs.getInt(3);
+                String title = rs.getString(2);
+                String author = rs.getString(6) + " " + rs.getString(7);
+
+                artList.add(new Art(id, collection, title, author, price, email));
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return artList;
+    }
+
     public Art getArt(String image){
 
         PreparedStatement stmt = null;
