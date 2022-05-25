@@ -1,16 +1,15 @@
-const form = document.querySelector("form");
 
-form.onsubmit = async (e) => {
-    e.preventDefault();
+const add = async () =>{
 
-    const formData = new FormData(form);
+    const fcoins = JSON.stringify({ "username":localStorage.getItem('username').toString(),"fcoins": parseFloat(document.getElementById('cantidad').value)});
+    console.log(fcoins);
     try {
         let response = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
             },
-            body: new URLSearchParams(formData),
+            body: fcoins
 
         });
         let result = await response.json();
@@ -20,5 +19,7 @@ form.onsubmit = async (e) => {
     } catch (err) {
         console.log(err);
 
+
     }
 }
+document.getElementById('btnAddFCOINS').addEventListener('click',add);
