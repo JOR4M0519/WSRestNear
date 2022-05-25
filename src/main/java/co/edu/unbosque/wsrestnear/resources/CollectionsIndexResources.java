@@ -44,8 +44,8 @@ public class CollectionsIndexResources {
             CollectionServices collectionServices = new CollectionServices(conn);
             collections = collectionServices.listCollections();
 
-            if(collections.size()>5){
-                int i=6;
+            if(collections.size()>2){
+                int i=3;
                 while(collections.get(i) != null){
                     collections.remove(i);
                 }

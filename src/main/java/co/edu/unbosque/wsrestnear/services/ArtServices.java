@@ -198,9 +198,10 @@ public class ArtServices {
                stmt.setString(2, art.getId());
                stmt.setString(3, art.getTitle());
                stmt.setInt(4, (int) art.getPrice());
-
                stmt.executeUpdate();
                stmt.close();
+
+               new OwnershipServices(conn).creatArtOwner(art.getEmail(), art.getId());
            } catch(SQLException se){
                se.printStackTrace();
            } finally{

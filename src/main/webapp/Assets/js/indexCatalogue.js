@@ -201,7 +201,7 @@ const getDataCollection = async () => {
             var tableCollection = document.getElementById("tableCollections" + collection);
             var rowTable = document.getElementById("rowTable" + collection);
 
-            for (let i = 0; i < urlNfts.length; i++) {
+            for (let i = 0; i < urlNfts.length && i<=3; i++) {
                 if (i == 2) {
                     tableCollection.innerHTML += `
             <tr id="rowTable${collection}2">    
@@ -227,7 +227,7 @@ const getDataCollection = async () => {
 const getDataModal = async (collection) => {
     //Ventana emrgente modal
     var imagesModal = document.getElementById("cardsCollection");
-    
+
 
     //llama la lista de colecciones
     const dataCollection = await fetch(`./api/collections`).then(response => response.json());
