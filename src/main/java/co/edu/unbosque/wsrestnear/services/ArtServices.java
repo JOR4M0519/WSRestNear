@@ -175,7 +175,14 @@ public class ArtServices {
         int collection_id = 0;
 
         try {
-            stmt = this.conn.prepareStatement("SELECT a.collection_id FROM art a JOIN collection c ON a.\"collection_id\" = c.\"collection_id\" AND c.\"user_id\" = ? AND c.\"title\" = ?;");
+
+            String sql = "SELECT \n" +
+                    "\tcollection_id \n" +
+                    "FROM collection  \n" +
+                    "\t\tWHERE \"user_id\" = ?\n" +
+                    "\t\tAND \"title\" = ?;";
+
+            stmt = this.conn.prepareStatement(sql);
             stmt.setString(1, email);
             stmt.setString(2, collection);
 
@@ -184,7 +191,8 @@ public class ArtServices {
             rs.next();
 
             collection_id = rs.getInt("collection_id");
-
+            rs.close();
+            stmt.close();
         }catch (SQLException se) {
             se.printStackTrace();
         } finally {

@@ -44,11 +44,12 @@ public class CollectionsIndexResources {
             CollectionServices collectionServices = new CollectionServices(conn);
             collections = collectionServices.listCollections();
 
-            if(collections.size()>2){
+            if(collections.size()>3){
                 int i=3;
-                while(collections.get(i) != null){
-                    collections.remove(i);
-                }
+                    while (i<collections.size()) {
+                        collections.remove(i);
+                        i++;
+                    }
             }
 
             conn.close();
