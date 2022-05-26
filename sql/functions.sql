@@ -76,3 +76,38 @@ FROM collection c
               ON u."user_id" = c."user_id"
                   AND a.title LIKE ?;
 
+-- Find arts bought/create by someone
+SELECT
+    a.image,
+    a.title,
+    price,
+    c.user_id,
+    c.title,
+    u.name,
+    u.lastname
+FROM ownership o
+         JOIN art a
+              ON o."image" = a."image"
+         JOIN userapp u
+              ON o."user_id" = u."user_id"
+         JOIN collection c
+              ON c."collection_id" = a."collection_id"
+                  AND o."user_id" = 'santiago1@gmail.com';
+
+-- Find list arts likes of an user
+SELECT
+    a.image,
+    a.title,
+    price,
+    c.user_id,
+    c.title,
+    u.name,
+    u.lastname
+FROM likeart l
+         JOIN art a
+              ON l."image" = a."image"
+         JOIN userapp u
+              ON l."user_id" = u."user_id"
+         JOIN collection c
+              ON c."collection_id" = a."collection_id"
+                  AND l."user_id" = 'santiago1@gmail.com';

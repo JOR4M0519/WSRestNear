@@ -3,7 +3,6 @@ const getArtsFilter = async () => {
     let dataFilter = params.filter; 
 
     var imagesDiv = document.getElementById("card");
-    alert(dataFilter);
     let data = null;
     let dataLikes = null;
 

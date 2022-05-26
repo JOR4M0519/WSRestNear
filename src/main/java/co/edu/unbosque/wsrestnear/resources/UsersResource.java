@@ -6,6 +6,7 @@ import co.edu.unbosque.wsrestnear.dtos.Likes;
 import co.edu.unbosque.wsrestnear.dtos.User;
 import co.edu.unbosque.wsrestnear.services.ArtServices;
 import co.edu.unbosque.wsrestnear.services.LikeServices;
+import co.edu.unbosque.wsrestnear.services.OwnershipServices;
 import co.edu.unbosque.wsrestnear.services.UserService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context ;
@@ -14,9 +15,11 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriBuilder;
 import jakarta.servlet.ServletContext;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/users")
@@ -177,6 +180,8 @@ public class UsersResource {
                 .entity(art)
                 .build();
     }
+
+
 
     @GET
     @Path("/{username}/arts/{art}/likes/like")

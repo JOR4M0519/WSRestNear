@@ -1,17 +1,73 @@
 package co.edu.unbosque.wsrestnear.services;
 
+import co.edu.unbosque.wsrestnear.dtos.Art;
 import co.edu.unbosque.wsrestnear.dtos.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OwnershipServices {
 
     private Connection conn;
 
     public OwnershipServices(Connection conn) {this.conn = conn;}
+
+    public List<Art> getListArtsOwnership(String email) {
+        // Object for handling SQL statement
+        PreparedStatement stmt = null;
+        List<Art> artList = new ArrayList<>();
+        // Data structure to map results from database
+        try {
+            String sql = "SELECT\n" +
+                    "    a.image,\n" +
+                    "    a.title,\n" +
+                    "    price,\n" +
+                    "    c.user_id,\n" +
+                    "    c.title,\n" +
+                    "    u.name,\n" +
+                    "    u.lastname\n" +
+                    "FROM ownership o\n" +
+                    "         JOIN art a\n" +
+                    "              ON o.\"image\" = a.\"image\"\n" +
+                    "         JOIN userapp u\n" +
+                    "              ON o.\"user_id\" = u.\"user_id\"\n" +
+                    "\t\t JOIN collection c\n" +
+                    "\t\t \t  ON c.\"collection_id\" = a.\"collection_id\"\n" +
+                    "\t\t AND o.\"user_id\" = ?;";
+
+            stmt = this.conn.prepareStatement(sql);
+
+            stmt.setString(1, email);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String id = rs.getString(1);
+                String title = rs.getString(2);
+                int price = rs.getInt(3);
+                String collection = rs.getString(5);
+                String author = rs.getString(6) + " " + rs.getString(7);
+
+                artList.add(new Art(id, collection, title, author, price, email));
+            }
+
+            stmt.close();
+        } catch(SQLException se){
+            se.printStackTrace(); // Handling errors from database
+        } finally{
+            // Cleaning-up environment
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return artList;
+    }
 
     public String getOwnership(String image) {
         // Object for handling SQL statement
