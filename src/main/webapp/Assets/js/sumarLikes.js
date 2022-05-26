@@ -15,7 +15,11 @@ const btnLike = async (id, type) => {
             method: "POST"
         }).then(response => response.json());
     }else {
-        alert("Ingrese a una cuenta primero")
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Inicie Sesión para dar Like!',
+        })
     }
 }
 

@@ -137,10 +137,18 @@ const btnBuy = async (input, condition)=>{
 
             }
         } else {
-            alert('Este NFT ya es tuyo!')
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Este NFT ya es tuyo!',
+            })
         }
     }else{
-        alert('Inicie Sesión para comprar!');
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Inicie Sesión para Comprar!',
+        })
     }
 
 }
@@ -358,8 +366,8 @@ const getDataRankingArts = async () => {
                 </div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group btns">
-                  <button type="button" id="btnBuy" onclick="btnBuy()" class="btn btn-sm btn-outline-secondary">Comprar</button>      
-                  <button type="button" id="btnAddCart" onclick="" class="btn btn-sm btn-outline-secondary">Añadir al carro</button>
+                  <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Comprar" onclick="btnBuy(this,'buy')">     
+                 <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Añadir al Carro" onclick="btnBuy(this,'add')">
                 </div>
               </div>
           </div>
