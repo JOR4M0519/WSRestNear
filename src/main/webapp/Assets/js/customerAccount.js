@@ -1,36 +1,11 @@
-let sidebar = document.querySelector(".sidebar");
-  let closeBtn = document.querySelector("#btn");
-  let searchBtn = document.querySelector(".bx-search");
+var imagesOwner = document.getElementById("cardOwner");
 
-//Añade un respectivo escuchador al botón para que este pueda realizar alguna acción
-  closeBtn.addEventListener("click", ()=>{
-    sidebar.classList.toggle("open");
-    menuBtnChange();
-  });
-
-//Añade un respectivo escuchador al botón para que este pueda realizar alguna acción
-  searchBtn.addEventListener("click", ()=>{ 
-    sidebar.classList.toggle("open");
-    menuBtnChange(); 
-  });
-
-//Genera una respectiva acción dependiendo si el botón es accionado o no
-  function menuBtnChange() {
-   if(sidebar.classList.contains("open")){
-     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-   }else {
-     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");
-   }
-  }
-
-
-  const getFavoritesArts = async () => {
-var imagesfavorites = document.getElementById("cardfavorites");
+const getOwnArts = async () => {
 
     let data = null;
     let dataLikes = null;
+
 data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts`).then(response => response.json());
-data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
 
         let innerhtml = "";
 
@@ -80,11 +55,11 @@ data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`
   `;
         }
     }else{
-        innerhtml = `<p>No has dado like a ninun arte!</p>`;
+        innerhtml = `<p>No has realizado compras!</p>`;
     }
-    imagesfavorites.innerHTML += innerhtml;
+        imagesOwner.innerHTML += innerhtml;
 }
 
-window.addEventListener("DOMContentLoaded", getFavoritesArts());
 
-  
+
+window.addEventListener("DOMContentLoaded", getOwnArts())
