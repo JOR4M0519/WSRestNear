@@ -21,7 +21,7 @@ formElem.onsubmit = async (e) => {
         swal({
             title: "Usuario Incorrecto!",
             text: "Intente Nuevamente.",
-            imageUrl: '.Assets/img/error.png'
+            imageUrl: '.Assets/img/error.ico'
         });
     }
 

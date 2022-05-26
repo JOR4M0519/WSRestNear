@@ -1,9 +1,6 @@
 package co.edu.unbosque.wsrestnear.resources;
 
-import co.edu.unbosque.wsrestnear.dtos.Art;
-import co.edu.unbosque.wsrestnear.dtos.ExceptionMessage;
-import co.edu.unbosque.wsrestnear.dtos.Likes;
-import co.edu.unbosque.wsrestnear.dtos.User;
+import co.edu.unbosque.wsrestnear.dtos.*;
 import co.edu.unbosque.wsrestnear.services.ArtServices;
 import co.edu.unbosque.wsrestnear.services.LikeServices;
 import co.edu.unbosque.wsrestnear.services.UserService;
@@ -130,11 +127,10 @@ public class UsersResource {
 
             conn.close();
         } catch (SQLException se) {
-            se.printStackTrace(); // Handling errors from database
+            se.printStackTrace();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace(); // Handling errors from JDBC driver
+            e.printStackTrace();
         } finally {
-            // Cleaning-up environment
             try {
                 if (conn != null) conn.close();
             } catch (SQLException se) {
@@ -154,6 +150,39 @@ public class UsersResource {
     }
 
     @GET
+    @Path("/{username}/likes")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listTotalLikesByUser(@PathParam("username") String username) {
+
+        Connection conn = null;
+        List<Quantity> likesTotalList = null;
+
+        try {
+
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            LikeServices lServices = new LikeServices(conn);
+            likesTotalList = lServices.listTotalLikesByUser(username);
+
+            conn.close();
+
+        } catch (SQLException se) {
+            se.printStackTrace(); // Handling errors from database
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace(); // Handling errors from JDBC driver
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
+        return Response.ok().entity(likesTotalList).build();
+    }
+    @GET
     @Path("/{username}/collections/{collection}/arts/{art}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getArt(@PathParam("username") String username,@PathParam("art") String image){
@@ -162,7 +191,6 @@ public class UsersResource {
         Art art = null;
         try {
             Class.forName(JDBC_DRIVER);
-            // Opening database connection
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             art = new ArtServices(conn).getArt(image);
             System.out.println(art.toString());
@@ -178,6 +206,9 @@ public class UsersResource {
                 .build();
     }
 
+
+
+
     @GET
     @Path("/{username}/arts/{art}/likes/like")
     @Produces(MediaType.TEXT_PLAIN)
@@ -187,8 +218,6 @@ public class UsersResource {
         int userLikedArt = 0;
         try {
             Class.forName(JDBC_DRIVER);
-            // Opening database connection
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             likeServices = new LikeServices(conn);
 
@@ -216,8 +245,6 @@ public class UsersResource {
             int likes = 0;
             try {
                 Class.forName(JDBC_DRIVER);
-                // Opening database connection
-                System.out.println("Connecting to database...");
                 conn = DriverManager.getConnection(DB_URL, USER, PASS);
                 likeServices = new LikeServices(conn);
 
@@ -234,6 +261,32 @@ public class UsersResource {
                     .entity(likes)
                     .build();
     }
+    @GET
+    @Path("/arts/{art}/likes/like")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response listLikesNFT(@PathParam("art") String image) {
+
+        Connection conn = null;
+
+        int likes = 0;
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            likeServices = new LikeServices(conn);
+
+            likes = likeServices.likesArt(image);
+            conn.close();
+        }catch (ClassNotFoundException | SQLException nullPointerException){
+
+            return Response.ok()
+                    .entity(String.valueOf(0))
+                    .build();
+        }
+
+        return Response.ok()
+                .entity(likes)
+                .build();
+    }
 
 
     @POST
@@ -247,7 +300,6 @@ public class UsersResource {
         try {
             Class.forName(JDBC_DRIVER);
             // Opening database connection
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             likeServices = new LikeServices(conn);
 

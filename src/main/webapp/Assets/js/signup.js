@@ -34,7 +34,11 @@ form.onsubmit = async (e) => {
 
             }
         }else {
-            alert("ya existe este usuario");
+            swal({
+                title: "Usuario Existente!",
+                text: "Intente Nuevamente.",
+                imageUrl: '.Assets/img/error.ico'
+            });
         }
 
     }catch{

@@ -7,6 +7,7 @@ const getDataNFTCatalogue = async () => {
 
     let data = null;
     let dataLikes = null;
+    let heartLikesStatus = null;
 
 
 
@@ -14,6 +15,10 @@ const getDataNFTCatalogue = async () => {
     if (!window.location.toString().includes("artistAccount")) {
 
         data = await fetch("./api/arts").then(response => response.json());
+
+        const listTotalLikes = await fetch("./api/arts/likes/list").then(response => response.json());
+        const listTotalLikesByUser = await fetch(`./api/users/${localStorage.getItem('username')}/likes`).then(response => response.json());
+
 
 
 
@@ -23,14 +28,30 @@ const getDataNFTCatalogue = async () => {
             const {id, collection, title, author, price} = data1;
             let idNFT = id.toString().split("\\")[1];
             let type = "";
-            dataLikes = await fetch(`./api/users/arts/${idNFT}/likes`).then(response => response.json());
-            let heartLikesStatus = await fetch(`./api/users/${localStorage.getItem("username")}/arts/${idNFT}/likes/like`).then(response => response.json());
 
+            const artTotalLike = listTotalLikes.filter(data => (data.idImage === idNFT));
+
+            if (artTotalLike.length!=0) {
+                dataLikes = artTotalLike[0].likes;
+           }else {
+                dataLikes=0;
+            }
+
+            const likeByArt = listTotalLikesByUser.filter(data => (data.idImage === idNFT));
+            if (likeByArt.length!=0) {
+                heartLikesStatus = likeByArt[0].likes;
+            }else {
+                heartLikesStatus=0;
+            }
             if (heartLikesStatus === 0) {
                 heartLikesStatus = "Assets/svg/heart-unfill.svg";
             } else {
                 heartLikesStatus = "Assets/svg/heart-fill.svg";
             }
+
+            // let heartLikesStatus = await fetch(`./api/users/${localStorage.getItem("username")}/arts/${idNFT}/likes/like`).then(response => response.json());
+
+
 
             innerhtml += `
     <div class="col-md-4 card-position "> 
@@ -49,7 +70,7 @@ const getDataNFTCatalogue = async () => {
               Colección: ${collection}
               </p>
               <div class="card-body-price_likes">
-                    <span class="text-muted">Precio: ${price}</span>
+                    <span class="text-muted">Precio: $${new Intl.NumberFormat().format(price)}</span>
                     <span class="text-muted">Likes:
                         <button class="btn-like" onclick="btnLike('${idNFT}','${type}')">
                             <img id="heartStatus${idNFT}" src="${heartLikesStatus}" width="15px">
@@ -90,7 +111,7 @@ const btnBuy = async (input, condition)=>{
                 if (condition=='buy') {
                     window.location.href = './shoppingCart.html';
                 }else {
-                    alert("Agregado al Carrito!");
+                    document.getElementById("numCantCompras").innerHTML=`&nbsp;${localStorage.getItem('cantidadCompras')}`;
                 }
             } else {
                 let exist = false;
@@ -110,7 +131,7 @@ const btnBuy = async (input, condition)=>{
                     if (condition=='buy') {
                         window.location.href = "./shoppingCart.html";
                     }else {
-                        alert("Agregado al Carrito!");
+                        document.getElementById("numCantCompras").innerHTML=`&nbsp;${localStorage.getItem('cantidadCompras')}`;
                     }
                 }
 
@@ -270,7 +291,7 @@ const getDataModal = async (collection) => {
                               <h3 class="card-text">Titulo: ${title}</h3>
                               <p class="card-text">Autor: ${author}</p>
                               <div class="card-body-price_likes">
-                                 <span class="text-muted">Precio: ${price}</span>
+                                 <span class="text-muted">Precio: $${new Intl.NumberFormat().format(price)}</span>
                                  <span class="text-muted">Likes:
                                     <button class="btn-like" onclick="btnLike('${idNFT}','${type}')" >
                                         <img id="heartStatusModal${idNFT}" src="${heartLikesStatus}" width="15px">
@@ -310,8 +331,6 @@ const getDataRankingArts = async () => {
                 heartLikesStatus = "Assets/svg/heart-fill.svg";
             }
 
-
-
             innerhtml += `
     <div class="col-md-4 card-position "> 
         <div class="cardTopRankLikes card mb-4 shadow-sm card-dimensionsTopLiked" >
@@ -329,7 +348,7 @@ const getDataRankingArts = async () => {
               Colección: ${collection}
               </p>
               <div class="card-body-price_likes">
-                    <span class="text-muted">Precio: ${price}</span>
+                    <span class="text-muted">Precio: $${new Intl.NumberFormat().format(price)}</span>
                     <span class="text-muted">Likes:
                         <button class="btn-like" onclick="btnLike('${idNFT}','${type}')">
                             <img id="heartStatus${idNFT}" src="${heartLikesStatus}" width="15px">

@@ -1,6 +1,7 @@
 package co.edu.unbosque.wsrestnear.resources;
 
 import co.edu.unbosque.wsrestnear.dtos.Art;
+import co.edu.unbosque.wsrestnear.dtos.Quantity;
 import co.edu.unbosque.wsrestnear.services.ArtServices;
 import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.GET;
@@ -63,7 +64,7 @@ public class ArtResources {
         List<Art> dataFiles = new ArrayList<Art>();
 
         Collections.reverse(nfts);
-        for(int j=0;j<6 && j<nfts.size();j++){
+        for (int j = 0; j < 6 && j < nfts.size(); j++) {
             dataFiles.add(nfts.get(j));
             dataFiles.get(j).setId(UPLOAD_DIRECTORY + File.separator + dataFiles.get(j).getId());
         }
@@ -106,7 +107,7 @@ public class ArtResources {
         List<Art> dataFiles = new ArrayList<Art>();
 
         Collections.reverse(nfts);
-        for(int j=0;j<6 && j<nfts.size();j++){
+        for (int j = 0; j < 6 && j < nfts.size(); j++) {
             dataFiles.add(nfts.get(j));
             dataFiles.get(j).setId(UPLOAD_DIRECTORY + File.separator + dataFiles.get(j).getId());
         }
@@ -114,6 +115,7 @@ public class ArtResources {
         // Adding the data to response, parsing it to json using Gson library
         return Response.ok().entity(dataFiles).build();
     }
+
 
     @GET
     @Path("/likes")
@@ -146,11 +148,47 @@ public class ArtResources {
             }
         }
 
-        for(int j=0;j<6 && j<nfts.size();j++){
+        for (int j = 0; j < 6 && j < nfts.size(); j++) {
             nfts.get(j).setId(UPLOAD_DIRECTORY + File.separator + nfts.get(j).getId());
         }
 
         // Adding the data to response, parsing it to json using Gson library
         return Response.ok().entity(nfts).build();
     }
+
+    @GET
+    @Path("/likes/list")
+    @Produces(MediaType.APPLICATION_JSON)
+
+    public Response listTotalLikes() {
+
+        Connection conn = null;
+        List<Quantity> likesTotalList = null;
+
+        try {
+
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            ArtServices artServices = new ArtServices(conn);
+            likesTotalList = artServices.listTotalLikes();
+
+            conn.close();
+
+        } catch (SQLException se) {
+            se.printStackTrace(); // Handling errors from database
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace(); // Handling errors from JDBC driver
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
+        return Response.ok().entity(likesTotalList).build();
+    }
+
 }
