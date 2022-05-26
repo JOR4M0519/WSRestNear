@@ -144,10 +144,10 @@ public class OwnershipResources {
 
     @Path("/{username}/arts/{art}")
     @PUT
-    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
     public Response buyArt(@PathParam("username") String username, @PathParam("art") String art)
             throws IOException {
-        Connection conn = null;
+        Connection  conn = null;
         String result = "";
         try {
 

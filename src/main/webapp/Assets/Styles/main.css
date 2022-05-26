@@ -787,3 +787,23 @@ input[type=submit]#login-submit {
   padding-left: 38%;
   padding-top: 5%;
 }
+
+#groupArtCart{
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+  
+}
+
+#imgArtCart{
+  border-top-left-radius: 10px; 
+  border-bottom-left-radius: 10px;
+  min-width: 350px;
+  max-width: 350px;
+}
+
+#rowItemCart{
+  min-width: 80vw;
+  min-height: 40vh;
+}

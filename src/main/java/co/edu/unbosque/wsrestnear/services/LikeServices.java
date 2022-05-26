@@ -2,6 +2,7 @@ package co.edu.unbosque.wsrestnear.services;
 
 import co.edu.unbosque.wsrestnear.dtos.Art;
 import co.edu.unbosque.wsrestnear.dtos.Likes;
+import co.edu.unbosque.wsrestnear.dtos.Quantity;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ public class LikeServices {
     public LikeServices(Connection conn) {
         this.conn = conn;
     }
+
+
 
     public int likesArt(String image) {
 
@@ -197,5 +200,43 @@ public class LikeServices {
             }
         }
     }
+
+
+    public List<Quantity> listTotalLikesByUser(String username) {
+        PreparedStatement stmt = null;
+
+        List<Quantity> likeList = new ArrayList<Quantity>();
+
+        try {
+            String sql = "SELECT\n" +
+                    "l.image\n" +
+                    "FROM likeart l\n" +
+                    "JOIN art a\n" +
+                    "ON a.image = l.image\n" +
+                    "AND l.user_id = ?;";
+            stmt = this.conn.prepareStatement(sql);
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                likeList.add(new Quantity(rs.getString("image"),1));
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return likeList;
+    }
 }
+
 

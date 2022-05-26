@@ -1,6 +1,7 @@
 package co.edu.unbosque.wsrestnear.services;
 
 import co.edu.unbosque.wsrestnear.dtos.Art;
+import co.edu.unbosque.wsrestnear.dtos.Quantity;
 import co.edu.unbosque.wsrestnear.dtos.User;
 
 import java.sql.*;
@@ -265,5 +266,40 @@ public class ArtServices {
            }
        }
 
+    }
+    public List<Quantity> listTotalLikes() {
+        Statement stmt = null;
+
+        List<Quantity> likeList = new ArrayList<Quantity>();
+
+        try {
+            stmt = conn.createStatement();
+            String sql = "SELECT\n" +
+                    "\tl.image,\n" +
+                    "    COUNT (*) AS likes\n" +
+                    "FROM likeart l\n" +
+                    "         JOIN art a\n" +
+                    "              ON a.image = l.image\n" +
+                    "GROUP BY l.image\n;";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+
+                likeList.add(new Quantity(rs.getString("image"),rs.getInt("likes")));
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return likeList;
     }
 }

@@ -75,6 +75,13 @@ FROM collection c
          JOIN userapp u
               ON u."user_id" = c."user_id"
                   AND a.title LIKE ?;
+--Find Likes By Specific User
+SELECT
+    l.image
+FROM likeart l
+         JOIN art a
+              ON a.image = l.image
+                  AND l.user_id = '?';
 
 -- Find arts bought/create by someone
 SELECT

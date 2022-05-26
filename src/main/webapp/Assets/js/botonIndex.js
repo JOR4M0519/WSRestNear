@@ -3,8 +3,13 @@ const getButtonAccount = async () => {
     var botonDiv = document.getElementById("dropdown-menu");
     var botonNombre = document.getElementById("nameAccount");
     var divBotones = document.getElementById("divbuttons");
+    var supCompras = document.getElementById("numCantCompras");
 
     divBotones.style.marginLeft="86%";
+
+    if(localStorage.getItem('cantidadCompras')>0){
+        supCompras.innerHTML=`&nbsp;${localStorage.getItem('cantidadCompras')}`;
+    }
 
     if (localStorage.getItem("username") == null || localStorage.getItem("username") == undefined) {
 
@@ -45,7 +50,7 @@ const getButtonAccount = async () => {
             location.reload();
 
         }
-        divBotones.style.marginLeft="76%";
+        divBotones.style.marginLeft="73%";
         let responseBtn = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`);
         let resultBtn = await responseBtn.json();
 
@@ -53,7 +58,7 @@ const getButtonAccount = async () => {
             botonFCoins.innerHTML = `
     <div class="dropdown show" style="float: left;">
         <a class="btn btn-secondary" id="dropdown"  href="./customerAccount.html#FCoins" role="button"  aria-haspopup="true" aria-expanded="false">
-            <span  id="fcoins"> FCoins: ${resultBtn.fcoins} </span>
+            <span  id="fcoins"> FCoins: $${new Intl.NumberFormat().format(resultBtn.fcoins)} </span>
         </a>
     </div>
     `;
@@ -61,7 +66,7 @@ const getButtonAccount = async () => {
             botonFCoins.innerHTML = `
     <div class="dropdown show" style="float: left;">
         <a class="btn btn-secondary" id="dropdown"  href="" role="button"  aria-haspopup="true" aria-expanded="false">
-            <span  id="fcoins"> FCoins: ${resultBtn.fcoins} </span>
+            <span  id="fcoins"> FCoins: $${new Intl.NumberFormat().format(resultBtn.fcoins)} </span>
         </a>
     </div>
     `;
