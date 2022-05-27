@@ -211,7 +211,7 @@ const getDataCollection = async () =>   {
                 }
                 rowTable.innerHTML += `
                     <td>
-                        <img class="collection" width="100%" height="100%" style="border-top-left-radius: 3.5%;"
+                        <img class="collection" width="100%" height="100%" style="border-top-left-radius: 3.5%; min-width: 135px; max-width: 135px;"
                             src="${urlNfts[i]?.id}" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
                             aria-label="Placeholder: Thumbnail">
                         <title>Placeholder</title>
