@@ -101,15 +101,17 @@
   </footer>
 </body>
 
+<script src="Assets/js/getDataArts.js"></script>
 <script>
     document.getElementById("inputSearchButton").addEventListener('click', function(){
       let dataFilter = document.getElementById("inputSearchBar").value;
       window.location = 'filterArts.html?filter='+dataFilter;
     });
+
+    window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("card")));
     </script>
 
 <!-- BOOTSTRAP SCRIPTS -->
-<script src="Assets/js/searchArtBar.js"></script>
 <script src="Assets/js/sumarLikes.js"></script>
 <script src="Assets/js/botonIndex.js"></script>
 

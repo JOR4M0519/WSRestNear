@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 @Path("/collections")
@@ -43,12 +44,11 @@ public class CollectionsIndexResources {
 
             CollectionServices collectionServices = new CollectionServices(conn);
             collections = collectionServices.listCollections();
-
+            Collections.reverse(collections);
             if(collections.size()>3){
                 int i=3;
-                    while (i<collections.size()) {
+                    while (collections.size()>3) {
                         collections.remove(i);
-                        i++;
                     }
             }
 
