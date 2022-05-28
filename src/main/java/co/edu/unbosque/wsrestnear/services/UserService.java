@@ -1,16 +1,11 @@
 package co.edu.unbosque.wsrestnear.services;
 
 import co.edu.unbosque.wsrestnear.dtos.*;
-import co.edu.unbosque.wsrestnear.dtos.Collection;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.bean.HeaderColumnNameMappingStrategy;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class UserService {
@@ -63,6 +58,122 @@ public class UserService {
             }
         }
         return users;
+    }
+
+    public List<Integer> getArtistLikesList(){
+        Statement stmt = null;
+
+        // Data structure to map results from database
+
+        List<Integer> artistLikesList = new ArrayList<>();
+        try {
+            stmt = conn.createStatement();
+            // Executing a SQL query
+            String sql = "SELECT\n" +
+                    "\tu.user_id,\n" +
+                    "\tCOUNT (l) AS likes\n" +
+                    "FROM userapp u\n" +
+                    "\tJOIN collection c\n" +
+                    "\t\tON c.user_id = u.user_id\n" +
+                    "\tJOIN art a\n" +
+                    "\t\tON a.collection_id = c.collection_id\n" +
+                    "\tJOIN likeart l\n" +
+                    "\t\tON l.image = a.image\n" +
+                    "\tGROUP BY u.user_id\n" +
+                    ";";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                artistLikesList.add(rs.getInt("likes"));
+            }
+
+        // Closing resources
+        rs.close();
+        stmt.close();
+    } catch (SQLException se) {
+        se.printStackTrace(); // Handling errors from database
+    } finally {
+        // Cleaning-up environment
+        try {
+            if (stmt != null) stmt.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+    }
+        return artistLikesList;
+    }
+
+    public JSONArray listPersonalDataUsers() {
+        // Object for handling SQL statement
+        Statement stmt = null;
+
+        // Data structure to map results from database
+        List<String> artist = new ArrayList<>();
+
+
+        JSONArray artistList = new JSONArray();
+        try {
+            // Executing a SQL query
+
+
+            stmt = conn.createStatement();
+
+            String sql = "SELECT\n" +
+                    "\tu.user_id,\n" +
+                    "\tu.name,\n" +
+                    "\tu.lastname,\n" +
+                    "\tCOUNT (a) AS arts,\n" +
+                    "\tCOUNT (DISTINCT c) filter (where c.collection_id = a.collection_id) AS collections\n" +
+                    "FROM userapp u\n" +
+                    "\tJOIN collection c\n" +
+                    "\t\tON c.user_id = u.user_id\n" +
+                    "\tJOIN art a\n" +
+                    "\t\tON a.collection_id = c.collection_id\n" +
+                    "\tAND u.role = 'Artista'\n" +
+                    "\tGROUP BY u.user_id;";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            // Reading data from result set row by row
+            int i=0;
+            List<Integer> artistLikesList = getArtistLikesList();
+
+
+            while (rs.next()) {
+                // Extracting row values by column name
+                String name = rs.getString("name")+" "+rs.getString("lastname");
+                int collections = rs.getInt("collections");
+                int arts = rs.getInt("arts");
+                int likes = artistLikesList.get(i);
+
+                    String str = "{\"name\":\""+name+"\"," +
+                                  "\"collections\":\""+collections+"\","+
+                                  "\"arts\":\""+arts+"\","+
+                                  "\"likes\":\""+likes+"\""+
+                                  "}";
+                    JSONObject jsonListUser = new JSONObject();
+                jsonListUser.put("name", name);
+                jsonListUser.put("collections", collections);
+                jsonListUser.put("arts", arts);
+                jsonListUser.put("likes", likes);
+
+                artistList.put(jsonListUser.toMap());
+            i++;
+            }
+
+            // Closing resources
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+            se.printStackTrace(); // Handling errors from database
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return artistList;
     }
 
     public User getUser(String username) {

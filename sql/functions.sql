@@ -118,3 +118,31 @@ FROM likeart l
          JOIN userapp u
               ON c."user_id" = u."user_id"
                   AND l."user_id" = 'santiago1@gmail.com';
+
+-- Call number collections & arts all artists
+SELECT
+    u.user_id,
+    u.name,
+    u.lastname,
+    COUNT (a) AS arts,
+    COUNT (DISTINCT c) filter (where c.collection_id = a.collection_id) AS collections
+FROM userapp u
+         JOIN collection c
+              ON c.user_id = u.user_id
+         JOIN art a
+              ON a.collection_id = c.collection_id
+                  AND u.role = 'Artista'
+GROUP BY u.user_id;
+
+--call number likes arts from an artist
+SELECT
+    u.user_id,
+    COUNT (l) AS likes
+FROM userapp u
+         JOIN collection c
+              ON c.user_id = u.user_id
+         JOIN art a
+              ON a.collection_id = c.collection_id
+         JOIN likeart l
+              ON l.image = a.image
+GROUP BY u.user_id

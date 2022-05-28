@@ -226,6 +226,56 @@
   padding: 1% 5%;
 }
 
+#artistsTeam{
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardArtists{
+  background-color: rgba(255, 255, 255, 0.925);
+  color: rgb(31, 31, 31);
+  border-radius: 2%;
+  min-height: 400px;
+  padding: 1rem;
+  display: inherit;
+  align-items: center;
+}
+
+.group-infoArtist{
+  border-radius: 2%;
+  width: 90%;
+  color: #9a0f0f;
+  font-weight: 600;
+  display: grid;
+  grid-gap: 10%;
+  row-gap: 0.5%;
+  grid-template-columns: 50% 50% ;
+  justify-items: start;
+}
+
+#item1{
+  justify-self: center;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+#item3{
+margin-left: 8%;
+grid-column-start: 1;
+grid-column-end: 3;
+}
+
+#item4{
+  color: rgb(67, 67, 67);
+  text-align: center;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
 .card-dimensions {
   padding: 2%;
   background-color: #e3e3e3;
@@ -237,19 +287,6 @@
   justify-content: center;
   display: flex;
   overflow: hidden;
-}
-
-.cardArtists{
-  background-color: rgba(255, 255, 255, 0.925);
-  color: rgb(31, 31, 31);
-  border-radius: 2%;
-  min-height: 350px;
-  align-items: center;
-  justify-items: center;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  padding: 1.25rem;
-  display: grid;
 }
 
 .card-dimensionsTopLiked {

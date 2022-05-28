@@ -1,8 +1,38 @@
-// var imagesDiv = document.getElementById("card");
-// var imagesCol = document.getElementById("cardcol")
-// var imagesLikesRank = document.getElementById("card_LikesRanking");
 
-//Obtiene información sobre el sitio al cual se quiere ingresar y se genera una respuesta
+const getArtistsData = async ()=>{
+    var artistTeamDiv = document.getElementById("artistsTeam");
+
+    var artistsData = JSON.parse(await fetch(`./api/users/data`).then(response => response.text()));
+    
+
+    artistsData.sort(function (a, b) {
+        return a.likes-b.likes;
+      });
+      artistsData.reverse();
+
+    let innerHtml = "";
+
+    for(const artistData of artistsData){
+
+        const {name, collections, arts, likes} = artistData;
+
+        innerHtml += `
+        <div class="col-lg-3 cardArtists">
+          <div class="group-infoArtist">
+            <img id="item1"  src="https://yt3.ggpht.com/ytc/AKedOLRYkj_Jh5coL9ljmJgpPudg6g4UzsjQPeQ1jc7L2w=s900-c-k-c0x00ffffff-no-rj"class="img-fluid rounded-circle w-50">
+            <h3 id="item4" style="color: black; justify-self: center;"> ${name}</h3>
+            <p id="item3">Collecciones: ${collections}</p>
+            <p style="margin-left: 16%;">Artes: ${arts}</p>
+            <p style="margin-left: 16%;">Likes: ${likes}</p>
+            <p id="item4">
+              Artista visual, videojockey, diseñador gráfico, artista y NFT artist
+            </p>
+          </div>   
+        </div> `;
+        
+    }
+    artistTeamDiv.innerHTML+=innerHtml;
+}
 
 const btnBuy = async (input, condition)=>{
 
@@ -64,6 +94,6 @@ const btnBuy = async (input, condition)=>{
 
 }
 
-window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("card")), getDataCollection());
+window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("card")), getDataCollection(), getArtistsData());
 
 

@@ -11,6 +11,8 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriBuilder;
 import jakarta.servlet.ServletContext;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.sql.Connection;
@@ -63,6 +65,41 @@ public class UsersResource {
         return Response.ok().entity(users).build();
 
     }
+
+    @GET
+    @Path("/data")
+    @Produces (MediaType.TEXT_PLAIN)
+    public Response listPersonalDataArtist() {
+
+        // Objects for handling connection
+        Connection conn = null;
+        JSONArray artistList = null;
+
+        try {
+
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            UserService usersService = new UserService(conn);
+
+            artistList = usersService.listPersonalDataUsers();
+
+            conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace(); //
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace(); //
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return Response.ok().entity(artistList).build();
+
+    }
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
