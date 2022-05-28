@@ -229,6 +229,7 @@
 #artistsTeam{
   display: flex;
   flex-wrap: wrap;
+  padding: 0 5%;
   margin-right: -15px;
   margin-left: -15px;
   justify-content: center;

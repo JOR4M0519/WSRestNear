@@ -11,7 +11,7 @@ const getArtistsData = async ()=>{
     artistsData.reverse();
     
       //Toma solo los ultimos 4 artistas dependiendo de su numero de likes
-    while(artistsData.length>5 ){
+    while(artistsData.length>4 ){
         artistsData.length = artistsData.length - 1;
     }
 

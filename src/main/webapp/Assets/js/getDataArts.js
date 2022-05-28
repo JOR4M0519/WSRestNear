@@ -153,7 +153,7 @@ const getDataCollection = async () =>   {
         if (urlNfts.length == 0 && window.location.toString().includes("artistAccount")){
             imagesCol.innerHTML += `
        <div class="col-md-4 card-position">
-    <div class="card mb-4 shadow-sm card-dimensions" id="modalNFTs" onclick="getDataModal('${collection.toString()}')"  data-toggle="modal" data-target=".bd-example-modal-lg">
+    <div class="card mb-4 shadow-sm card-dimensions" style="padding: 50%" id="modalNFTs" onclick="getDataModal('${collection.toString()}')"  data-toggle="modal" data-target=".bd-example-modal-lg">
         <div class="imgBx">
             <table>
                 <tbody id="tableCollections${collection}">
