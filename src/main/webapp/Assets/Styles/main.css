@@ -239,6 +239,19 @@
   overflow: hidden;
 }
 
+.cardArtists{
+  background-color: rgba(255, 255, 255, 0.925);
+  color: rgb(31, 31, 31);
+  border-radius: 2%;
+  min-height: 350px;
+  align-items: center;
+  justify-items: center;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1.25rem;
+  display: grid;
+}
+
 .card-dimensionsTopLiked {
   padding: 2%;
   background-color: #87223970;
@@ -806,4 +819,8 @@ input[type=submit]#login-submit {
 #rowItemCart{
   min-width: 80vw;
   min-height: 40vh;
+}
+
+#personalDescription{
+  margin-top: 70px;
 }

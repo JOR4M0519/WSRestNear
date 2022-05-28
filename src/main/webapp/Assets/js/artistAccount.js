@@ -28,9 +28,7 @@ const getDataAccount = async () => {
 
             let response2 = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`);
             let result2 = await response2.json();
-            console.log(result2);
-            console.log(result2.fcoins);
-            inputFcoins.placeholder = result2.fcoins.toString();
+            inputFcoins.placeholder = "$" + new Intl.NumberFormat().format(result2.fcoins.toString());
         }
     }
 
