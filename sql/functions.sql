@@ -147,4 +147,5 @@ FROM userapp u
               ON a.collection_id = c.collection_id
          JOIN likeart l
               ON l.image = a.image
-GROUP BY u.user_id
+                  AND u.user_id = 'kevin@gmail.com'
+GROUP BY u.user_id;

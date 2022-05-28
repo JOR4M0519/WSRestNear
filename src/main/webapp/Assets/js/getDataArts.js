@@ -153,7 +153,7 @@ const getDataCollection = async () =>   {
         if (urlNfts.length == 0 && window.location.toString().includes("artistAccount")){
             imagesCol.innerHTML += `
        <div class="col-md-4 card-position">
-    <div class="card mb-4 shadow-sm card-dimensions" style="padding: 50%" id="modalNFTs" onclick="getDataModal('${collection.toString()}')"  data-toggle="modal" data-target=".bd-example-modal-lg">
+        <div class="card mb-4 shadow-sm card-dimensions" style="padding: 50%" id="modalNFTs" onclick="getDataModal('${collection.toString()}')"  data-toggle="modal" data-target=".bd-example-modal-lg">
         <div class="imgBx">
             <table>
                 <tbody id="tableCollections${collection}">
@@ -237,7 +237,7 @@ const getDataModal = async (collection,username) => {
     imagesModal.innerHTML = `<h2 id="ofertas" class="card_tittle">Colección: ${collection} <p class="text-muted">By: ${dataNFTs[0].author}</p></h2>
             <!--Guia js-->
             <div class="card-group contenedor-social" id="socialcard">
-              <section class="py-5">
+              <section class="py-5" style="width: 100%;">
                 <div class="album py-5">
                   <div class="container">
                     <div class="row" id="cardNftCatologue">
@@ -294,9 +294,8 @@ const getDataModal = async (collection,username) => {
                               <rect width="100%" height="100%" fill="#55595c"/>
                             </img>
                           </div>
-                          <div class="content card-content">
-                              <h3 class="card-text">Titulo: ${title}</h3>
-                              <p class="card-text">Autor: ${author}</p>
+                          <div class="collectionCardsContent content card-content">
+                              <h3 class="card-text style="font-size: 140%;">Titulo: ${title}</h3>
                               <div class="card-body-price_likes">
                                  <span class="text-muted">Precio: $${new Intl.NumberFormat().format(price)}</span>
                                  <span class="text-muted">Likes:
@@ -307,6 +306,10 @@ const getDataModal = async (collection,username) => {
                                     </span>
                                 </span>
                               </div>
+                            <div class="btnCollection btn-group btns" id="btnsShopping${idNFT}">
+                                <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary" value="Comprar" onclick="btnBuy(this,'buy')">     
+                                <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary" value="Añadir al Carro" onclick="btnBuy(this,'add')">        
+                            </div>
                           </div>
                         </div>
                     </div>

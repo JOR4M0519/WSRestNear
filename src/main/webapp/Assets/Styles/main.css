@@ -196,22 +196,22 @@
 .btn-like {
   margin: 0 10px;
   padding: 5px;
-  background: #857979;
+  background: #e7d5d5;
   color: #fff;
   outline: none;
   border-radius: 2px;
-  border: 1px solid transparent;
+  border: 1px solid #686868;
   transition: 0.5s;
 }
 
 .btn-like:hover{
-  background: #be7474;
+  background: #ef6464;
   color: #fff;
   transition: 0.25s;
 }
 
 .btn-like:focus {
-  background: #be7474;
+  background: #ef6464;
   box-shadow: 0 0 1px 6px rgba(214, 89, 89, 0.5);
   transition: all 0.25s;
 }
@@ -229,7 +229,6 @@
 #artistsTeam{
   display: flex;
   flex-wrap: wrap;
-  padding: 0 5%;
   margin-right: -15px;
   margin-left: -15px;
   justify-content: center;
@@ -316,6 +315,20 @@
   overflow: hidden;
 }
 
+.collectionCardsContent {
+  padding: 0 3%;
+  bottom: auto;
+}
+
+.btnCollection{
+  margin-top: 10px;
+  padding: 0 15%;
+  row-gap: 10px;
+  display: flex;
+  grid-template-columns: 50%;
+  flex-direction: column;
+  justify-content: center;
+}
 
 .container-input-search,
 .btn-primary {
@@ -748,7 +761,7 @@ input[type=submit]#login-submit {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 100%;
+  transform: scaleX(-20px);
   transition: 1s;
   z-index: 10;
   opacity: 0;
@@ -756,13 +769,16 @@ input[type=submit]#login-submit {
 }
 
 .card:hover .content {
-  height: 210px;
+  height: fit-content;
+  margin-bottom: 2%;
   opacity: 1;
   visibility: visible;
   background-color: rgba(255, 255, 255, 0.900);
 }
+
 .cardTopRankLikes:hover .content {
-  height: 210px;
+  height: fit-content;
+  margin-bottom: 2%;
   opacity: 1;
   visibility: visible;
   background-color: rgb(242 211 206 / 79%);

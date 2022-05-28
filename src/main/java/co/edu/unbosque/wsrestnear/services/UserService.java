@@ -60,31 +60,37 @@ public class UserService {
         return users;
     }
 
-    public List<Integer> getArtistLikesList(){
-        Statement stmt = null;
+    public Integer getArtistLikesList(String artistEmail){
+        PreparedStatement stmt = null;
 
         // Data structure to map results from database
-
+        int likesArtist =0;
         List<Integer> artistLikesList = new ArrayList<>();
         try {
-            stmt = conn.createStatement();
+
             // Executing a SQL query
             String sql = "SELECT\n" +
-                    "\tu.user_id,\n" +
-                    "\tCOUNT (l) AS likes\n" +
+                    "    u.user_id,\n" +
+                    "    COUNT (l) AS likes\n" +
                     "FROM userapp u\n" +
-                    "\tJOIN collection c\n" +
-                    "\t\tON c.user_id = u.user_id\n" +
-                    "\tJOIN art a\n" +
-                    "\t\tON a.collection_id = c.collection_id\n" +
-                    "\tJOIN likeart l\n" +
-                    "\t\tON l.image = a.image\n" +
-                    "\tGROUP BY u.user_id\n" +
-                    ";";
-            ResultSet rs = stmt.executeQuery(sql);
+                    "         JOIN collection c\n" +
+                    "              ON c.user_id = u.user_id\n" +
+                    "         JOIN art a\n" +
+                    "              ON a.collection_id = c.collection_id\n" +
+                    "         JOIN likeart l\n" +
+                    "              ON l.image = a.image\n" +
+                    "\t\t\t  AND u.user_id = ?\n" +
+                    "GROUP BY u.user_id;";
+            stmt = conn.prepareStatement(sql);
 
-            while (rs.next()) {
-                artistLikesList.add(rs.getInt("likes"));
+            stmt.setString(1, artistEmail);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if(!rs.next()){
+                likesArtist = 0;
+            }else{
+                likesArtist = rs.getInt("likes");
             }
 
         // Closing resources
@@ -100,7 +106,7 @@ public class UserService {
             se.printStackTrace();
         }
     }
-        return artistLikesList;
+        return likesArtist;
     }
 
     public JSONArray listPersonalDataUsers() {
@@ -136,9 +142,6 @@ public class UserService {
             ResultSet rs = stmt.executeQuery(sql);
 
             // Reading data from result set row by row
-            int i=0;
-            List<Integer> artistLikesList = getArtistLikesList();
-
 
             while (rs.next()) {
                 // Extracting row values by column name
@@ -147,7 +150,7 @@ public class UserService {
                 String description = rs.getString("description");
                 int collections = rs.getInt("collections");
                 int arts = rs.getInt("arts");
-                int likes = artistLikesList.get(i);
+                int likes = getArtistLikesList(rs.getString(1));
 
 
                 JSONObject jsonListUser = new JSONObject();
@@ -160,7 +163,6 @@ public class UserService {
                 jsonListUser.put("likes", likes);
 
                 artistList.put(jsonListUser.toMap());
-            i++;
             }
 
             // Closing resources
