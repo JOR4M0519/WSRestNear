@@ -171,7 +171,7 @@ public class ArtUserResources {
         }
     }
 
-    public String generateRandomString() {
+    public static String generateRandomString() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 10;
@@ -184,6 +184,10 @@ public class ArtUserResources {
                 .toString();
 
         return generatedString;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(generateRandomString());
     }
 
 }

@@ -124,6 +124,8 @@ SELECT
     u.user_id,
     u.name,
     u.lastname,
+    u.profileImage,
+    u.description,
     COUNT (a) AS arts,
     COUNT (DISTINCT c) filter (where c.collection_id = a.collection_id) AS collections
 FROM userapp u

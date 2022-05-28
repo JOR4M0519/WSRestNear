@@ -119,18 +119,20 @@ public class UserService {
             stmt = conn.createStatement();
 
             String sql = "SELECT\n" +
-                    "\tu.user_id,\n" +
-                    "\tu.name,\n" +
-                    "\tu.lastname,\n" +
-                    "\tCOUNT (a) AS arts,\n" +
-                    "\tCOUNT (DISTINCT c) filter (where c.collection_id = a.collection_id) AS collections\n" +
+                    "    u.user_id,\n" +
+                    "    u.name,\n" +
+                    "    u.lastname,\n" +
+                    "\tu.profileImage,\n" +
+                    "\tu.description,\n" +
+                    "    COUNT (a) AS arts,\n" +
+                    "    COUNT (DISTINCT c) filter (where c.collection_id = a.collection_id) AS collections\n" +
                     "FROM userapp u\n" +
-                    "\tJOIN collection c\n" +
-                    "\t\tON c.user_id = u.user_id\n" +
-                    "\tJOIN art a\n" +
-                    "\t\tON a.collection_id = c.collection_id\n" +
-                    "\tAND u.role = 'Artista'\n" +
-                    "\tGROUP BY u.user_id;";
+                    "         JOIN collection c\n" +
+                    "              ON c.user_id = u.user_id\n" +
+                    "         JOIN art a\n" +
+                    "              ON a.collection_id = c.collection_id\n" +
+                    "                  AND u.role = 'Artista'\n" +
+                    "GROUP BY u.user_id;";
             ResultSet rs = stmt.executeQuery(sql);
 
             // Reading data from result set row by row
@@ -141,17 +143,18 @@ public class UserService {
             while (rs.next()) {
                 // Extracting row values by column name
                 String name = rs.getString("name")+" "+rs.getString("lastname");
+                String profileImage = rs.getString("profileImage");
+                String description = rs.getString("description");
                 int collections = rs.getInt("collections");
                 int arts = rs.getInt("arts");
                 int likes = artistLikesList.get(i);
 
-                    String str = "{\"name\":\""+name+"\"," +
-                                  "\"collections\":\""+collections+"\","+
-                                  "\"arts\":\""+arts+"\","+
-                                  "\"likes\":\""+likes+"\""+
-                                  "}";
-                    JSONObject jsonListUser = new JSONObject();
+
+                JSONObject jsonListUser = new JSONObject();
+
                 jsonListUser.put("name", name);
+                jsonListUser.put("profileImage", profileImage);
+                jsonListUser.put("description", description);
                 jsonListUser.put("collections", collections);
                 jsonListUser.put("arts", arts);
                 jsonListUser.put("likes", likes);

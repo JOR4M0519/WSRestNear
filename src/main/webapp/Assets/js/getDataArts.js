@@ -9,18 +9,9 @@ const getDataArts = async (artsDiv) => {
 
       //let url = window.location.href.split('/')[4].split('.')[0];
       let url = window.location.href
-      console.log(artsDiv);
       
       //Realiza el llamado fetch de las artes dependiendo de la ubicación de la pagina
-      if(url.includes("index")){
-          data = await fetch("./api/arts").then(response => response.json());
-          if(artsDiv.id != "card_LikesRanking"){
-              getDataArts(document.getElementById("card_LikesRanking"));
-          }else{
-              styleClassCardTopRankLikes = "cardTopRankLikes card-dimensionsTopLiked";
-              data = await fetch("./api/arts/likes").then(response => response.json());
-          }
-      }else if(url.includes("customerAccount")){
+       if(url.includes("customerAccount")){
           data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts`).then(response => response.json());
           if(artsDiv.id != "cardfavorites"){
               getDataArts(document.getElementById("cardfavorites"));
@@ -31,8 +22,15 @@ const getDataArts = async (artsDiv) => {
           data = await fetch(`./api/arts/filter?data=${params.filter}`).then(response => response.json());
              
       }else if(url.includes("artistAccount")){
-          data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
-             
+          data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());  
+      } else{
+        data = await fetch("./api/arts").then(response => response.json());
+        if(artsDiv.id != "card_LikesRanking"){
+            getDataArts(document.getElementById("card_LikesRanking"));
+        }else{
+            styleClassCardTopRankLikes = "cardTopRankLikes card-dimensionsTopLiked";
+            data = await fetch("./api/arts/likes").then(response => response.json());
+        }
       }
 
       // switch (url) {
