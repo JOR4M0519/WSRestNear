@@ -30,14 +30,14 @@ public class OwnershipServices {
                     "    c.title,\n" +
                     "    u.name,\n" +
                     "    u.lastname\n" +
-                    "FROM likeart l\n" +
+                    "FROM ownership o\n" +
                     "         JOIN art a\n" +
-                    "              ON l.\"image\" = a.\"image\"\n" +
-                    "          JOIN collection c\n" +
+                    "              ON o.\"image\" = a.\"image\"\n" +
+                    "         JOIN collection c\n" +
                     "              ON c.\"collection_id\" = a.\"collection_id\"\n" +
-                    "\t\t JOIN userapp u\n" +
+                    "         JOIN userapp u\n" +
                     "              ON c.\"user_id\" = u.\"user_id\"\n" +
-                    "                  AND l.\"user_id\" = ?;";
+                    "                  AND o.\"user_id\" = ?;";
 
             stmt = this.conn.prepareStatement(sql);
 
