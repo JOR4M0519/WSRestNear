@@ -83,50 +83,43 @@ const getDataArts = async (artsDiv) => {
 
 
           innerhtml += `
-  <div class="col-md-4 card-position "> 
-      <div class=" ${styleClassCardTopRankLikes} card mb-4 shadow-sm card-dimensions" >
+
+<div class="col-md-4 card-position "> 
+    <div class=" ${styleClassCardTopRankLikes} card mb-4 shadow-sm card-dimensions">
         <div class="imgBx">
-          <img class="bd-placeholder-img card-img-top" width="100%" height="100%" style="border-radius: 3.5%;"
-               src="${id}"
-               preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#55595c"/>
-          </img>
+            <img class="bd-placeholder-img card-img-top" width="100%" height="100%" style="border-radius: 3.5%;" src="${id}" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
         </div>
+
         <div class="content card-content">
-            <h3 class="card-text">Titulo: ${title}</h3>
-            <p class="card-text">Autor: ${author}<br>
+            <h3 class="card-text" id="item1">Titulo: ${title}</h3>
+            <p class="card-text" id="item1">
+            Autor: ${author}
+            <br>
             Colección: ${collection}
             </p>
-            <div class="card-body-price_likes">
-                  <span class="text-muted">Precio: $${new Intl.NumberFormat().format(price)}</span>
-                  <span class="text-muted">Likes:
-                      <button class="btn-like" onclick="btnLike('${idNFT}','${type}')">
-                          <img id="heartStatus${idNFT}" src="${heartLikesStatus}" width="15px">
-                      </button>
-                      <span id="amountLikes${idNFT}" aria-valuetext="" >${dataLikes}</span>
-                  </span>
-              </div>
-
-`;
+            <p class="text-muted">Precio: $${new Intl.NumberFormat().format(price)}</p>
+            <p class="text-muted">Likes:
+                <button class="btn-like" onclick="btnLike('${idNFT}','${type}')">
+                    <img id="heartStatusModal${idNFT}"" src="${heartLikesStatus}" width="15px">
+                </button>
+                <span id="amountLikesModal${idNFT}" aria-valuetext="">${dataLikes}</span>
+            </p>`;
+        
   //No agrega los botones de compra y carrito de compras
   if(url.includes("customerAccount") && (artsDiv.id ==="cardOwner")|| url.includes("artistAccount")){
-      innerhtml += `          
-          </div>
+      innerhtml += `
       </div>
-  </div>`;
+    </div>
+</div>`;
   }
   //Agrega los botones de compra y carrito de compras
   else{
       innerhtml += `
-          <div class="d-flex justify-content-between align-items-center" id="btnsShopping${idNFT}">
-              <div class="btn-group btns" >
-                  <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Comprar" onclick="btnBuy(this,'buy')">     
-                  <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Añadir al Carro" onclick="btnBuy(this,'add')">
-              </div>
-          </div>
+      <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Comprar" onclick="btnBuy(this,'buy')">     
+      <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Añadir al Carro" onclick="btnBuy(this,'add')">        
+  
       </div>
-  </div>
+    </div>
 </div>`;
   }
       }
@@ -174,19 +167,20 @@ const getDataCollection = async () =>   {
    `;
         } else {
 
+            //Get number arts from the collection
+            let imgsArts ="";
+            for(let i = 0; i < urlNfts.length && i<=3; i++){
+                imgsArts+=`<img class="imageCollection" width="100%" height="100%" src="${urlNfts[i]?.id}" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">`
+            }
+
             imagesCol.innerHTML += `
        <div class="col-md-4 card-position">
     <div class="card mb-4 shadow-sm card-dimensions" id="modalNFTs" onclick="getDataModal('${collection.toString()}','${username.toString()}')"  data-toggle="modal" data-target=".bd-example-modal-lg">
-        <div class="imgBx">
-            <table>
-                <tbody id="tableCollections${collection}">
-                    <tr id="rowTable${collection}">
-                    </tr>
-                </table>
-            </tbody>
+        <div class="imgBx collectionCatalogue">
+            ${imgsArts}
         </div>
         <div class="content">
-            <div class="card-body">
+            <div class="card-body" id="item1">
                 <h3 class="card-text" id="collectionCollection">Colección: ${collection}</h3>
                 <p class="card-text text-muted" id="collectionAuthor">Autor: ${urlNfts[0]?.author}</p>
             </div>
@@ -194,30 +188,6 @@ const getDataCollection = async () =>   {
     </div>
 </div>
    `;
-        }
-
-        if (urlNfts.length != 0) {
-            var tableCollection = document.getElementById("tableCollections" + collection);
-            var rowTable = document.getElementById("rowTable" + collection);
-
-            for (let i = 0; i < urlNfts.length && i<=3; i++) {
-                if (i == 2) {
-                    tableCollection.innerHTML += `
-            <tr id="rowTable${collection}2">    
-            </tr>`
-                    rowTable = document.getElementById("rowTable" + collection + "2");
-                }
-                rowTable.innerHTML += `
-                    <td>
-                        <img class="collection" width="100%" height="100%" style="border-top-left-radius: 3.5%; min-width: 135px; max-width: 135px;"
-                            src="${urlNfts[i]?.id}" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
-                            aria-label="Placeholder: Thumbnail">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#55595c" />
-                        </img>
-                    </td>`;
-
-            }
         }
     }
 };
@@ -257,9 +227,7 @@ const getDataModal = async (collection,username) => {
         const {id, title, author, price} = dataCollectionNFTs1;
 
         let idNFT = id.toString().split("\\")[1];
-        //dataLikes = await fetch(`./api/users/arts/${idNFT}/likes`).then(response => response.json());
-        //let heartLikesStatus = await fetch(`./api/users/${localStorage.getItem("username")}/arts/${idNFT}/likes/like`).then(response => response.json());
-        let type = "Modal";
+       let type = "Modal";
 
         const artTotalLike = listTotalLikes.filter(data => (data.idImage === idNFT));
 
@@ -284,35 +252,27 @@ const getDataModal = async (collection,username) => {
         var cardNftCatalogue = document.getElementById("cardNftCatologue");
 
         cardNftCatalogue.innerHTML += `
-                      <div class="col-md-4 card-position "> 
-                        <div class="card mb-4 shadow-sm card-dimensions" >
-                          <div class="imgBx">
-                            <img class="bd-placeholder-img card-img-top" width="100%" height="100%" style="border-radius: 3.5%;"
-                                 src="${id}"
-                                 preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                              <title>Placeholder</title>
-                              <rect width="100%" height="100%" fill="#55595c"/>
-                            </img>
-                          </div>
-                          <div class="collectionCardsContent content card-content">
-                              <h3 class="card-text style="font-size: 140%;">Titulo: ${title}</h3>
-                              <div class="card-body-price_likes">
-                                 <span class="text-muted">Precio: $${new Intl.NumberFormat().format(price)}</span>
-                                 <span class="text-muted">Likes:
-                                    <button class="btn-like" onclick="btnLike('${idNFT}','${type}')" >
-                                        <img id="heartStatusModal${idNFT}" src="${heartLikesStatus}" width="15px">
-                                    </button>
-                                    <span id="amountLikesModal${idNFT}" aria-valuetext="" >${dataLikes}
-                                    </span>
-                                </span>
-                              </div>
-                            <div class="btnCollection btn-group btns" id="btnsShopping${idNFT}">
-                                <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary" value="Comprar" onclick="btnBuy(this,'buy')">     
-                                <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary" value="Añadir al Carro" onclick="btnBuy(this,'add')">        
-                            </div>
-                          </div>
-                        </div>
-                    </div>
+
+
+        <div class="col-md-4 card-position "> 
+            <div class="  card mb-4 shadow-sm card-dimensions">
+            <div class="imgBx">
+                <img class="bd-placeholder-img card-img-top" width="100%" height="100%" style="border-radius: 3.5%;" src="${id}" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+            </div>
+
+            <div class="content card-content">
+                <h4 class="card-text" id="item1">Titulo: ${title}</h4>
+                <p class="text-muted" style="">Precio: $${new Intl.NumberFormat().format(price)}</p>
+                <p class="text-muted">Likes:
+                    <button class="btn-like" onclick="btnLike('${idNFT}','${type}')">
+                        <img id="heartStatusModal${idNFT}"" src="${heartLikesStatus}" width="15px">
+                    </button>
+                    <span id="amountLikesModal${idNFT}" aria-valuetext="">${dataLikes}</span>
+                </p>
+                <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Comprar" onclick="btnBuy(this,'buy')">     
+                <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Añadir al Carro" onclick="btnBuy(this,'add')">        
+            </div>
+        </div>
                     `;
     }
 }

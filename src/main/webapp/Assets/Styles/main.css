@@ -268,6 +268,12 @@
   justify-items: center;
 }
 
+.item1{
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin: 1px 0;
+}
+
 #item1{
   grid-column-start: 1;
   grid-column-end: 3;
@@ -303,16 +309,25 @@
 }
 
 .card-dimensionsTopLiked {
-  padding: 2%;
   background-color: #87223970;
   border-color: #720000;
-  border-radius: 5%;
-  height: 50.44vh;
-  width: 18.75vw;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  overflow: hidden;
+}
+
+#modalNFTs{
+  width: 22vw;
+}
+
+.imageCollection{
+  border-radius: 3.5%; 
+  max-width: fit-content; 
+}
+
+.collectionCatalogue{
+  display: grid;
+  padding: 10%;
+  column-gap: 5px;
+  row-gap: 5px;
+  grid-template-columns: auto auto;
 }
 
 .collectionCardsContent {
@@ -338,8 +353,7 @@
   margin-top: 0.5%;
 }
 
-.team,
-footer {
+.team, footer {
   background: #BA2737;
 }
 
@@ -756,6 +770,15 @@ input[type=submit]#login-submit {
   vertical-align: middle;
   padding: 3%;
 }
+
+.content{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  
+}
+
+
 
 .card .content {
   position: absolute;
