@@ -100,9 +100,9 @@ const getDataArts = async (artsDiv) => {
             <p class="text-muted">Precio: $${new Intl.NumberFormat().format(price)}</p>
             <p class="text-muted">Likes:
                 <button class="btn-like" onclick="btnLike('${idNFT}','${type}')">
-                    <img id="heartStatusModal${idNFT}"" src="${heartLikesStatus}" width="15px">
+                    <img id="heartStatus${idNFT}"" src="${heartLikesStatus}" width="15px">
                 </button>
-                <span id="amountLikesModal${idNFT}" aria-valuetext="">${dataLikes}</span>
+                <span id="amountLikes${idNFT}" aria-valuetext="">${dataLikes}</span>
             </p>`;
         
   //No agrega los botones de compra y carrito de compras
@@ -252,8 +252,6 @@ const getDataModal = async (collection,username) => {
         var cardNftCatalogue = document.getElementById("cardNftCatologue");
 
         cardNftCatalogue.innerHTML += `
-
-
         <div class="col-md-4 card-position "> 
             <div class="  card mb-4 shadow-sm card-dimensions">
             <div class="imgBx">
@@ -263,7 +261,7 @@ const getDataModal = async (collection,username) => {
             <div class="content card-content">
                 <h4 class="card-text" id="item1">Titulo: ${title}</h4>
                 <p class="text-muted" style="">Precio: $${new Intl.NumberFormat().format(price)}</p>
-                <p class="text-muted">Likes:
+                <p class="text-muted" style="text-align: center;">Likes:
                     <button class="btn-like" onclick="btnLike('${idNFT}','${type}')">
                         <img id="heartStatusModal${idNFT}"" src="${heartLikesStatus}" width="15px">
                     </button>
