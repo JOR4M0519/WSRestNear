@@ -6,27 +6,29 @@ import co.edu.unbosque.wsrestnear.services.LikeServices;
 import co.edu.unbosque.wsrestnear.services.OwnershipServices;
 import co.edu.unbosque.wsrestnear.services.UserService;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Context ;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.*;
 import jakarta.servlet.ServletContext;
+import org.jboss.resteasy.plugins.providers.multipart.InputPart;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.File;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
 
 @Path("/users")
 public class UsersResource {
 
     @Context
     ServletContext context;
-
+    private String UPLOAD_DIRECTORY = "profileImages";
     LikeServices likeServices;
 
     static final String JDBC_DRIVER = "org.postgresql.Driver";
@@ -101,6 +103,61 @@ public class UsersResource {
     }
 
     @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createForm(MultipartFormDataInput inputData) {
+        String username = "";
+        Connection conn = null;
+        User user = null;
+
+        try {
+            username = inputData.getFormDataPart("username", String.class, null);
+            String name = inputData.getFormDataPart("name", String.class, null);
+            String lastname = inputData.getFormDataPart("lastname", String.class, null);
+            String password = inputData.getFormDataPart("password", String.class, null);
+            String role = inputData.getFormDataPart("role", String.class, null);
+
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            UserService userService = new UserService(conn);
+
+
+            Map<String, List<InputPart>> formParts = inputData.getFormDataMap();
+            List<InputPart> inputParts = formParts.get("formFile");
+
+            for (InputPart inputPart : inputParts) {
+                try {
+                    // Retrieving headers and reading the Content-Disposition header to file name
+                    MultivaluedMap<String, String> headers = inputPart.getHeaders();
+                    String randomString = generateRandomString();
+                    String profileImage = "Profile&"+randomString + "." + parseFileName(headers).split("\\.")[1];
+
+                    // Handling the body of the part with an InputStream
+                    InputStream istream = inputPart.getBody(InputStream.class, null);
+
+                    saveFile(istream, profileImage, context);
+                    user = new User(username,name,lastname,role,password,profileImage,"",0);
+                    userService.newUser(user);
+                    conn.close();
+
+                } catch (IOException e) {
+                    return Response.serverError().build();
+                }
+            }
+        } catch (IOException e) {
+            return Response.serverError().build();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return Response.created(UriBuilder.fromResource(UsersResource.class).path(username).build())
+                .entity(user)
+                .build();
+    }
+    /*
+    @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response createForm(
@@ -111,7 +168,7 @@ public class UsersResource {
             @FormParam("role") String role
     ) {
         Connection conn = null;
-        List<User> users = null;
+
         User user = null;
 
         try {
@@ -146,7 +203,7 @@ public class UsersResource {
         return Response.created(UriBuilder.fromResource(UsersResource.class).path(username).build())
                 .entity(user)
                 .build();
-    }
+    }*/
 
     @GET
     @Path("/{username}")
@@ -359,6 +416,95 @@ public class UsersResource {
         }
     }
 
+    @PUT
+    @Path("/{username}/edit")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateUserDescription(@PathParam("username") String username, String description)
+            throws IOException {
+        Connection conn = null;
+        User user = null;
 
+        try {
+
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            UserService usersService = new UserService(conn);
+            user = usersService.getUser(username);
+
+            user = usersService.updateUserDescription(user, description);
+
+            conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return Response.created(UriBuilder.fromResource(UsersResource.class).path(username).build())
+                .entity(user)
+                .build();
+    }
+
+    //Retorna el nombre del archivo del header del multipartFormDataInput
+    private String parseFileName(MultivaluedMap<String, String> headers) {
+        String[] contentDispositionHeader = headers.getFirst("Content-Disposition").split(";");
+
+        for (String name : contentDispositionHeader) {
+            if ((name.trim().startsWith("filename"))) {
+                String[] tmp = name.split("=");
+                String fileName = tmp[1].trim().replaceAll("\"", "");
+                return fileName;
+            }
+        }
+        return "unknown";
+    }
+
+    //Guarda el archivo subido a una ruta específica en el servidor
+    private void saveFile(InputStream uploadedInputStream, String fileName, ServletContext context) {
+        int read = 0;
+        byte[] bytes = new byte[1024];
+
+        try {
+            // Complementing servlet path with the relative path on the server
+            String uploadPath = context.getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator;
+
+            // Creating the upload folder, if not exist
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) uploadDir.mkdir();
+
+            // Persisting the file by output stream
+            OutputStream outpuStream = new FileOutputStream(uploadPath + fileName);
+            while ((read = uploadedInputStream.read(bytes)) != -1) {
+                outpuStream.write(bytes, 0, read);
+            }
+
+            outpuStream.flush();
+            outpuStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String generateRandomString() {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
+        return generatedString;
+    }
 
 }

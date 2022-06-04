@@ -7,8 +7,9 @@
     <link rel="shortcut icon" href="Assets/img/logo.ico" />
    
       <!-- BOOTSTRAP CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-  integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" 
+rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
   integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
@@ -21,16 +22,15 @@
 
 <body style="background-color: #BA2737; font-family: 'Abel', sans-serif;">
 
+  <div class="signUpAccount">
 
-  <div>
-
-    <div style="float: left; "><img src="Assets/img/sign_up.jpg" height="100%" width="108%"></div>
+    <img src="Assets/img/sign_up.jpg" class="signUpAccount-image" height="100%" width="108%">
     
 
     <div class="box-logo"><a href="index.html"> <img  src="Assets/img/logoNear2.png" height="100px"></a></div>
     
     <div class="box-sign-up">  
-      <h2 >Crear Cuenta Nombre</h2>
+      <h2 style="text-align: center;">Crear Cuenta Nombre</h2>
 
       <form id="signup">
       <div class="form-group">
@@ -60,7 +60,13 @@
         <label for="exampleInputPassword1">Contraseña</label>
         <input type="password" name="password" class="form-control" id="exampleInputPassword1">
       </div>
-      <input type="submit" class="btn btn-primary; btn-box-sign-up" style="font-family: 'Abel', sans-serif;" value="Crear Cuenta">
+
+      <div class="custom-file">
+        <label for="formFile" class="form-label">Subir Foto de Perfil</label>
+        <input class="form-control" type="file" id="formFile" name="formFile">
+      </div>
+      
+      <input type="submit" class="btn btn-primary; btn-box-sign-up" style=" margin-top: 20px; font-family: 'Abel', sans-serif;" value="Crear Cuenta">
       </form>
     
       <div style="margin-top: 20px;font-family: 'Abel', sans-serif;"><h2> Únete a esta nueva aventura</h2>

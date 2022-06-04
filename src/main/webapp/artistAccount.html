@@ -109,7 +109,7 @@
 
             <section>
                 <figure>
-                    <img id="icon" src="Assets\img\avatar_driver_people_person_profile_user_icon_123374.png">
+                    <img id="profileImage" class="profileImage" style="width: 15%; height: 15%;" src="Assets\img\avatar_driver_people_person_profile_user_icon_123374.png">
                 </figure>
                 <div id="text-icono"></div>
             </section>
@@ -137,9 +137,9 @@
 
                 <div id="personalDescription">
                     <div class="titulos-info" >Sobre ti:</div>
-                    <div class="conten-info" id="resumeDescripcionPersonal">
-                        Man will always be subjugated to the root of his name and the social environment that surrounds him.
+                    <div class="conten-info" contenteditable="true" id="resumeDescripcionPersonal">
                     </div>
+                    <button type="button" id="editDescription" class="btn btn-outline-danger">Editar descripción</button>
                 </div>
             </section>
         </div>
@@ -222,7 +222,10 @@
 <script src="Assets/js/getDataArts.js"></script>
 <script src="Assets/js/account.js"></script>
 <script>
-    window.addEventListener("DOMContentLoaded", getDataCollection());
+
+
+
+    window.addEventListener("DOMContentLoaded", getDataCollection(), editUser());
 </script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

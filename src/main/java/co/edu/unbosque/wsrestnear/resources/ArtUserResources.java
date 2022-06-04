@@ -99,7 +99,7 @@ public class ArtUserResources {
             artServices = new ArtServices(conn);
 
             Map<String, List<InputPart>> formParts = inputData.getFormDataMap();
-            List<InputPart> inputParts = formParts.get("customFile");
+            List<InputPart> inputParts = formParts.get("formFile");
 
             for (InputPart inputPart : inputParts) {
                 try {

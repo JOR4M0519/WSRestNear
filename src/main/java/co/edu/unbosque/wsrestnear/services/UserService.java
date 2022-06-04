@@ -36,12 +36,14 @@ public class UserService {
                 String password = rs.getString("password");
                 String name = rs.getString("name");
                 String lastname = rs.getString("lastname");
+                String profileimage =rs.getString("profileimage");
+                String description = rs.getString("description");
                 String role = rs.getString("role");
                 int fcoins = rs.getInt("fcoins");
 
 
                 // Creating a new UserApp class instance and adding it to the array list
-                users.add(new User(username,name, lastname, role, password, fcoins));
+                users.add(new User(username,name, lastname, role, password, profileimage, description, fcoins));
             }
 
             // Closing resources
@@ -193,17 +195,20 @@ public class UserService {
             ResultSet rs = stmt.executeQuery();
 
 
-            rs.next();
 
-            user = new User(
-                    rs.getString("user_id"),
-                    rs.getString("name"),
-                    rs.getString("lastname"),
-                    rs.getString("role"),
-                    rs.getString("password"),
-                    rs.getInt("fcoins")
-            );
+            if(rs.next()) {
 
+                user = new User(
+                        rs.getString("user_id"),
+                        rs.getString("name"),
+                        rs.getString("lastname"),
+                        rs.getString("role"),
+                        rs.getString("password"),
+                        rs.getString("profileimage"),
+                        rs.getString("description"),
+                        rs.getInt("fcoins")
+                );
+            }
             rs.close();
             stmt.close();
 
@@ -230,19 +235,19 @@ public class UserService {
             try {
 
                 if (user.getRole().equals("Artista")) {
-                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, fcoins)\n" +
-                            "VALUES (?,?,?,?,'Artista',0)");
+                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, profileimage, description, fcoins)\n" +
+                            "VALUES (?,?,?,?,'Artista',?,'',0)");
                 }
 
                 else if (user.getRole().equals("Comprador")) {
-                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, fcoins)\n" +
-                            "VALUES (?,?,?,?,'Comprador',0)");
+                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, profileimage, description, fcoins)\n" +
+                            "VALUES (?,?,?,?,'Comprador',?,'',0)");
                 }
                 stmt.setString(1, user.getUsername());
                 stmt.setString(2, user.getName());
                 stmt.setString(3, user.getLastname());
                 stmt.setString(4, user.getPassword());
-
+                stmt.setString(5, user.getProfileImage());
 
                 stmt.executeUpdate();
                 stmt.close();
@@ -294,6 +299,63 @@ public class UserService {
                         rs.getString("lastname"),
                         rs.getString("role"),
                         rs.getString("password"),
+                        rs.getString("profileimage"),
+                        rs.getString("description"),
+                        rs.getInt("fcoins")
+                );
+
+                rs.close();
+                stmt.close();
+
+            } catch(SQLException se){
+                se.printStackTrace();
+            } finally{
+                try {
+                    if (stmt != null) stmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }
+            }
+            return updatedUser;
+        }
+        else {
+            return null;
+        }
+
+    }
+
+    public User updateUserDescription(User user, String description) {
+
+        PreparedStatement stmt = null;
+        User updatedUser = null;
+
+        if (user != null) {
+
+            try {
+
+                stmt = this.conn.prepareStatement("UPDATE UserApp SET description = ? WHERE user_id = ?");
+
+
+                stmt.setString(1, description);
+                stmt.setString(2, user.getUsername());
+
+                stmt.executeUpdate();
+
+                stmt = this.conn.prepareStatement("SELECT * FROM userapp WHERE user_id = ?");
+                stmt.setString(1, user.getUsername());
+                ResultSet rs = stmt.executeQuery();
+
+
+                rs.next();
+
+                updatedUser = new User(
+                        rs.getString("user_id"),
+                        rs.getString("name"),
+                        rs.getString("lastname"),
+                        rs.getString("role"),
+                        rs.getString("password"),
+                        rs.getString("profileimage"),
+                        rs.getString("description"),
                         rs.getInt("fcoins")
                 );
 
@@ -317,7 +379,6 @@ public class UserService {
 
 
     }
-
 
 
 }

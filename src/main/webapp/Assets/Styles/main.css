@@ -56,7 +56,8 @@
   border-radius: 5%;
   float: left;
   margin-top: 1%;
-  margin-left: 20.5%;
+  height: min-content;
+  margin-left: 42vw;
   background-color: rgb(192, 62, 79);
   box-shadow: 4px 4px 2px 1px rgba(0, 0, 0, 0.2);
 }
@@ -65,8 +66,9 @@
 .box-logoc {
   border-radius: 5%;
   float: left;
-  margin-top: 1%;
-  margin-left: 16%;
+  margin: 3% 0;
+  align-self: center;
+  max-width: fit-content;
   background-color: rgb(192, 62, 79);
   box-shadow: 4px 4px 2px 1px rgba(0, 0, 0, 0.2);
 }
@@ -88,7 +90,7 @@
   margin-top: 1%;
   float: left;
   padding: 1%;
-  margin-left: 18%;
+  margin-left: 3%;
   background-color: #ffffffd7;
   border-radius: 1%;
   font-family: 'Abel', sans-serif;
@@ -98,7 +100,7 @@
   margin-top: 1%;
   float: left;
   padding: 1%;
-  margin-left: 9%;
+ 
   background-color: #ffffffd7;
   border-radius: 1%;
   font-family: 'Abel', sans-serif;
@@ -913,4 +915,41 @@ input[type=submit]#login-submit {
 
 #personalDescription{
   margin-top: 70px;
+}
+#resumeDescripcionPersonal{
+padding: 1.5%;
+}
+
+#resumeDescripcionPersonal:hover{
+  background-color: #ffffff42;
+  border-bottom: 2px solid #911e1e;
+  box-shadow: 4px 4px 2px 1px rgba(1, 1, 1, 0.3);
+}
+
+.signUpAccount{
+  font-family: 'Abel', sans-serif !important; 
+  display: flex;
+}
+
+.signUpAccount-image{
+  position: fixed;
+  max-width: 40vw;
+}
+
+.contentCreateNFT{
+  font-family: 'Abel', sans-serif !important; 
+  padding: 3%;
+  margin-left: 50vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.contentCreateNFT-image{
+  position: fixed;
+  max-width: 45vw;
+}
+
+* h2, label{
+  font-weight: 800;
+  font-family: 'Abel', sans-serif !important; 
 }

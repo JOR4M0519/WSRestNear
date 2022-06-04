@@ -4,7 +4,7 @@ const form = document.querySelector("form");
 form.onsubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(form);
+    
     let user = document.getElementById("exampleInputEmail1").value;
     let role = document.getElementById("roleInput").value;
 
@@ -12,15 +12,12 @@ form.onsubmit = async (e) => {
         let responseData = await fetch(`./api/users/${user}?role=${role}`);
         let resultData = await responseData.json();
 
-
+        console.log(resultData,"no paso, cierto?")
         if (resultData.username == null && resultData.role ==null ) {
             try {
                 let response = await fetch("./api/users", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: new URLSearchParams(formData),
+                    method: 'POST',
+                    body: new FormData(form)
 
                 });
                 let result = await response.json();
