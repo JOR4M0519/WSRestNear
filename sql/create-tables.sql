@@ -51,3 +51,17 @@ create table Ownership
     FOREIGN KEY (image)
         REFERENCES Art (image)
 );
+
+CREATE TYPE wallet_type AS ENUM('Recarga', 'Venta', 'Compra');
+
+CREATE TABLE wallet_history(
+	wallet_id SERIAL PRIMARY KEY,
+    user_id VARCHAR NOT NULL,
+	wtype wallet_type,
+    fcoins INTEGER NOT NULL,
+	image VARCHAR,
+    FOREIGN KEY (user_id)
+        REFERENCES UserApp (user_id),
+	FOREIGN KEY (image)
+        REFERENCES Art (image)
+);
