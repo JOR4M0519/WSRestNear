@@ -13,4 +13,4 @@ DELETE from likeart WHERE user_id = 'sprieto@gmail.com' AND image = 'BNsLro8hTv.
 DELETE FROM ownership WHERE image = '8lcJl4kVQC.jpg';
 DELETE from art WHERE image = '8lcJl4kVQC.jpg';
 DELETE from collection WHERE collection_id = 3;
-DELETE from userapp WHERE user_id = 'lalo@gmail.com';
+DELETE from userapp WHERE user_id = 'lalo1@gmail.com';
