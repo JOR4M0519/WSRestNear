@@ -137,7 +137,7 @@ public class UsersResource {
                     InputStream istream = inputPart.getBody(InputStream.class, null);
 
                     saveFile(istream, profileImage, context);
-                    user = new User(username,name,lastname,role,password,profileImage,"",0);
+                    user = new User(username,name,lastname,role,password,profileImage,"");
                     userService.newUser(user);
                     conn.close();
 

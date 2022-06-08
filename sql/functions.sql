@@ -6,7 +6,8 @@ SELECT
     c.user_id,
     c.title,
     u.name,
-    u.lastname
+    u.lastname,
+    a.forsale
 FROM collection c
          JOIN art a
               ON a."collection_id" = c."collection_id"
@@ -68,10 +69,12 @@ SELECT
     c.user_id,
     c.title,
     u.name,
-    u.lastname
+    u.lastname,
+    a.forsale
 FROM collection c
          JOIN art a
               ON a."collection_id" = c."collection_id"
+                  AND a."forsale" = true
          JOIN userapp u
               ON u."user_id" = c."user_id"
                   AND a.title LIKE ?;
@@ -91,7 +94,8 @@ SELECT
     c.user_id,
     c.title,
     u.name,
-    u.lastname
+    u.lastname,
+    a.forsale
 FROM ownership o
          JOIN art a
               ON o."image" = a."image"
@@ -109,7 +113,8 @@ SELECT
     c.user_id,
     c.title,
     u.name,
-    u.lastname
+    u.lastname,
+    a.forsale
 FROM likeart l
          JOIN art a
               ON l."image" = a."image"
@@ -149,3 +154,20 @@ FROM userapp u
               ON l.image = a.image
                   AND u.user_id = 'kevin@gmail.com'
 GROUP BY u.user_id;
+
+--find art by i
+SELECT
+    image,
+    a.title,
+    price,
+    c.user_id,
+    c.title,
+    u.name,
+    u.lastname,
+    a.forsale
+FROM collection c
+         JOIN art a
+              ON a."collection_id" = c."collection_id"
+         JOIN userapp u
+              ON u."user_id" = c."user_id"
+                  AND a.image = 'BFY4dpVhk4.png';

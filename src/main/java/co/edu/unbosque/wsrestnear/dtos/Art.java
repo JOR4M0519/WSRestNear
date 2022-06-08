@@ -10,14 +10,21 @@ public class Art {
     private long price;
     private String email;
 
+    private boolean forSale;
 
-    public Art(String id, String collection, String title, String author, long price, String email) {
+    public Art(){
+
+    }
+
+
+    public Art(String id, String collection, String title, String author, long price, String email, boolean forSale) {
         this.id = id;
         this.collection = collection;
         this.title = title;
         this.author = author;
         this.price = price;
         this.email = email;
+        this.forSale = forSale;
     }
 
     //Obtiene el valor correspondiente a la variable collection
@@ -59,7 +66,16 @@ public class Art {
     public String getEmail() {return email;}
 
     //Asigna un valor a la variable collection
+
     public void setEmail(String email) {this.email = email;}
+
+    public boolean isForSale() {
+        return forSale;
+    }
+
+    public void setForSale(boolean forSale) {
+        this.forSale = forSale;
+    }
 
     @Override
     public String toString() {
@@ -70,6 +86,7 @@ public class Art {
                 ", author='" + author + '\'' +
                 ", price=" + price +
                 ", email='" + email + '\'' +
+                ", forSale=" + forSale +
                 '}';
     }
 }

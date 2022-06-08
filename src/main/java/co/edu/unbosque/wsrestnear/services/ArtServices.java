@@ -24,19 +24,21 @@ public class ArtServices {
 
         try {
             stmt = conn.createStatement();
-            String sql = "SELECT\n" +
-                    "    image,\n" +
+            String sql = "SELECT   \n" +
+                    "   image,\n" +
                     "    a.title,\n" +
                     "    price,\n" +
                     "    c.user_id,\n" +
                     "    c.title,\n" +
-                    "\tu.name,\n" +
-                    "\tu.lastname\n" +
+                    "    u.name,\n" +
+                    "    u.lastname,\n" +
+                    "\ta.forsale\n" +
                     "FROM collection c\n" +
-                    "    JOIN art a\n" +
-                    "        ON a.\"collection_id\" = c.\"collection_id\"\n" +
-                    "\tJOIN userapp u\n" +
-                    "        ON u.\"user_id\" = c.\"user_id\";";
+                    "         JOIN art a\n" +
+                    "              ON a.\"collection_id\" = c.\"collection_id\"\n" +
+                    "                   AND a.\"forsale\" = true \n"+
+                    "         JOIN userapp u\n" +
+                    "              ON u.\"user_id\" = c.\"user_id\";";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -48,8 +50,61 @@ public class ArtServices {
                 int price = rs.getInt(3);
                 String title = rs.getString(2);
                 String author = rs.getString(6) + " " + rs.getString(7);
+                boolean forSale = rs.getBoolean(8);;
 
-                artList.add(new Art(id, collection, title, author, price, email));
+                artList.add(new Art(id, collection, title, author, price, email, forSale));
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return artList;
+    }
+
+    public List<Art> listArts2() {
+        Statement stmt = null;
+
+        List<Art> artList = new ArrayList<Art>();
+
+        try {
+            stmt = conn.createStatement();
+            String sql = "SELECT   \n" +
+                    "   image,\n" +
+                    "    a.title,\n" +
+                    "    price,\n" +
+                    "    c.user_id,\n" +
+                    "    c.title,\n" +
+                    "    u.name,\n" +
+                    "    u.lastname,\n" +
+                    "\ta.forsale\n" +
+                    "FROM collection c\n" +
+                    "         JOIN art a\n" +
+                    "              ON a.\"collection_id\" = c.\"collection_id\"\n" +
+                    "         JOIN userapp u\n" +
+                    "              ON u.\"user_id\" = c.\"user_id\";";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+
+
+                String email = rs.getString(4);
+                String id = rs.getString(1);
+                String collection = rs.getString(5);
+                int price = rs.getInt(3);
+                String title = rs.getString(2);
+                String author = rs.getString(6) + " " + rs.getString(7);
+                boolean forSale = rs.getBoolean(8);;
+
+                artList.add(new Art(id, collection, title, author, price, email, forSale));
             }
 
             rs.close();
@@ -80,13 +135,14 @@ public class ArtServices {
                     "    c.user_id,\n" +
                     "    c.title,\n" +
                     "    u.name,\n" +
-                    "    u.lastname\n" +
+                    "    u.lastname,\n" +
+                    "\ta.forsale\n" +
                     "FROM collection c\n" +
                     "         JOIN art a\n" +
                     "              ON a.\"collection_id\" = c.\"collection_id\"\n" +
                     "         JOIN userapp u\n" +
                     "              ON u.\"user_id\" = c.\"user_id\"\n" +
-                    "\t\t\t  AND a.title LIKE ?;";
+                    "                  AND a.title LIKE ?;";
             stmt = this.conn.prepareStatement(sql);
             stmt.setString(1, ("%"+data+"%"));
 
@@ -100,8 +156,9 @@ public class ArtServices {
                 int price = rs.getInt(3);
                 String title = rs.getString(2);
                 String author = rs.getString(6) + " " + rs.getString(7);
+                boolean forSale = rs.getBoolean(8);
 
-                artList.add(new Art(id, collection, title, author, price, email));
+                artList.add(new Art(id, collection, title, author, price, email, forSale));
             }
 
             rs.close();
@@ -129,17 +186,18 @@ public class ArtServices {
             String sql = "SELECT\n" +
                     "    image,\n" +
                     "    a.title,\n" +
-                    "    price,\n" +
-                    "    c.user_id,\n" +
+                    "\tprice,\n" +
+                    "\tc.user_id,\n" +
                     "    c.title,\n" +
                     "    u.name,\n" +
-                    "    u.lastname\n" +
-                    "FROM collection c\n" +
-                    "         JOIN art a\n" +
-                    "              ON a.\"collection_id\" = c.\"collection_id\"\n" +
-                    "         JOIN userapp u\n" +
-                    "              ON u.\"user_id\" = c.\"user_id\"\n" +
-                    "\t\tAND a.image = ?;";
+                    "    u.lastname,\n" +
+                    "\ta.forsale\n" +
+                    "    \tFROM collection c\n" +
+                    "        JOIN art a\n" +
+                    "        \tON a.\"collection_id\" = c.\"collection_id\"\n" +
+                    "        JOIN userapp u \n" +
+                    "        \tON u.\"user_id\" = c.\"user_id\"\n" +
+                    "\t\t\t\tAND a.image = ?;";
             stmt = this.conn.prepareStatement(sql);
             stmt.setString(1, image);
             ResultSet rs = stmt.executeQuery();
@@ -151,8 +209,9 @@ public class ArtServices {
             int price = rs.getInt(3);
             String title = rs.getString(2);
             String author = rs.getString(6) + " " + rs.getString(7);
+            boolean forSale = rs.getBoolean(8);
 
-            art = new Art(image,collection,title,author,price,email);
+            art = new Art(image,collection,title,author,price,email,forSale);
             rs.close();
             stmt.close();
         } catch (SQLException se) {
@@ -166,6 +225,50 @@ public class ArtServices {
             }
         }
         return art;
+    }
+
+    public Art changeForSale(Art art) {
+
+        PreparedStatement stmt = null;
+        Art updatedArt = null;
+
+        if (art != null) {
+
+            try {
+
+                stmt = this.conn.prepareStatement("UPDATE art SET forsale = ? WHERE image = ?;");
+
+
+                stmt.setBoolean(1, (!art.isForSale()));
+                stmt.setString(2, art.getId());
+
+                stmt.executeUpdate();
+
+                stmt = this.conn.prepareStatement("SELECT * FROM art WHERE image = ?;");
+                stmt.setString(1, art.getId());
+                ResultSet rs = stmt.executeQuery();
+
+
+                rs.next();
+
+                updatedArt = getArt(art.getId());
+
+                rs.close();
+                stmt.close();
+
+            } catch (SQLException se) {
+                se.printStackTrace();
+            } finally {
+                try {
+                    if (stmt != null) stmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }
+            }
+            return updatedArt;
+        } else {
+            return null;
+        }
     }
 
 

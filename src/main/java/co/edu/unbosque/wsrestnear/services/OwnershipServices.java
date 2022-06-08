@@ -29,7 +29,8 @@ public class OwnershipServices {
                     "    c.user_id,\n" +
                     "    c.title,\n" +
                     "    u.name,\n" +
-                    "    u.lastname\n" +
+                    "    u.lastname,\n" +
+                    "\ta.forsale\n" +
                     "FROM ownership o\n" +
                     "         JOIN art a\n" +
                     "              ON o.\"image\" = a.\"image\"\n" +
@@ -51,8 +52,9 @@ public class OwnershipServices {
                 int price = rs.getInt(3);
                 String collection = rs.getString(5);
                 String author = rs.getString(6) + " " + rs.getString(7);
+                boolean forSale = rs.getBoolean(8);
 
-                artList.add(new Art(id, collection, title, author, price, email));
+                artList.add(new Art(id, collection, title, author, price, email, forSale));
             }
 
             stmt.close();

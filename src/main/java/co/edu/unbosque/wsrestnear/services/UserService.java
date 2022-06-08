@@ -39,11 +39,10 @@ public class UserService {
                 String profileimage =rs.getString("profileimage");
                 String description = rs.getString("description");
                 String role = rs.getString("role");
-                int fcoins = rs.getInt("fcoins");
 
 
                 // Creating a new UserApp class instance and adding it to the array list
-                users.add(new User(username,name, lastname, role, password, profileimage, description, fcoins));
+                users.add(new User(username,name, lastname, role, password, profileimage, description));
             }
 
             // Closing resources
@@ -205,8 +204,7 @@ public class UserService {
                         rs.getString("role"),
                         rs.getString("password"),
                         rs.getString("profileimage"),
-                        rs.getString("description"),
-                        rs.getInt("fcoins")
+                        rs.getString("description")
                 );
             }
             rs.close();
@@ -269,7 +267,7 @@ public class UserService {
 
 
     }
-    public User updateUser(User user, long parameter) {
+ /*   public User updateUser(User user, long parameter) {
 
         PreparedStatement stmt = null;
         User updatedUser = null;
@@ -322,7 +320,7 @@ public class UserService {
             return null;
         }
 
-    }
+    }*/
 
     public User updateUserDescription(User user, String description) {
 
@@ -355,8 +353,7 @@ public class UserService {
                         rs.getString("role"),
                         rs.getString("password"),
                         rs.getString("profileimage"),
-                        rs.getString("description"),
-                        rs.getInt("fcoins")
+                        rs.getString("description")
                 );
 
                 rs.close();

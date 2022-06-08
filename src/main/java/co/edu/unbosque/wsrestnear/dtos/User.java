@@ -14,7 +14,7 @@ public class User {
     private String profileImage;
 
     private String description;
-    private int fcoins;
+
 
     //Método constructor de la clase User
     public User(){
@@ -24,7 +24,7 @@ public class User {
     //Método constructor de la clase User y inicializa las variables declaradas con las pasadas por parámetros
 
 
-    public User(String username, String name, String lastname, String role, String password, String profileImage, String description, int fcoins) {
+    public User(String username, String name, String lastname, String role, String password, String profileImage, String description) {
         this.username = username;
         this.name = name;
         this.lastname = lastname;
@@ -32,7 +32,6 @@ public class User {
         this.password = password;
         this.profileImage = profileImage;
         this.description = description;
-        this.fcoins = fcoins;
     }
 
     public String getProfileImage() {return profileImage;}
@@ -91,12 +90,5 @@ public class User {
 
     //Obtiene el valor correspondiente a la variable fcoins
 
-    public int getFcoins() {
-        return fcoins;
-    }
-
-    public void setFcoins(int fcoins) {
-        this.fcoins = fcoins;
-    }
 }
 
