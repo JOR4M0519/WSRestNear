@@ -1,19 +1,21 @@
 package co.edu.unbosque.wsrestnear.resources;
 
 import co.edu.unbosque.wsrestnear.dtos.Art;
+import co.edu.unbosque.wsrestnear.dtos.FCoins;
 import co.edu.unbosque.wsrestnear.dtos.Quantity;
+import co.edu.unbosque.wsrestnear.dtos.User;
 import co.edu.unbosque.wsrestnear.services.ArtServices;
+import co.edu.unbosque.wsrestnear.services.UserService;
 import jakarta.servlet.ServletContext;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriBuilder;
 import org.jboss.resteasy.annotations.Query;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -115,7 +117,39 @@ public class ArtResources {
         // Adding the data to response, parsing it to json using Gson library
         return Response.ok().entity(dataFiles).build();
     }
+    @PUT
+    @Path("/forsale")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateForSale(Art art)
+            throws IOException {
+        Connection conn = null;
+        Art updateArt = null;
 
+        try {
+
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            ArtServices artServices = new ArtServices(conn);
+            updateArt = artServices.changeForSale(art);
+
+            conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return Response.ok()
+                .entity(updateArt)
+                .build();
+    }
 
     @GET
     @Path("/likes")

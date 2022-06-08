@@ -57,7 +57,7 @@ public class FCoinsResource {
            if (user == null) {
                return Response.status(404).entity(new ExceptionMessage(404, "User not found")).build();
            }
-            FCoins fCoinsUser = new FCoins(user.getUsername(),user.getFcoins());
+            FCoins fCoinsUser = new FCoins(user.getUsername(),0);
                return Response.ok().entity(fCoinsUser).build();
     }
 
@@ -79,7 +79,7 @@ public class FCoinsResource {
             UserService usersService = new UserService(conn);
             user = usersService.getUser(username);
             if (user.getUsername().equals(fcoins.getUsername())) {
-                user = usersService.updateUser(user, fcoins.getFcoins());
+//                user = usersService.updateUser(user, fcoins.getFcoins());
             }
             conn.close();
         } catch (SQLException se) {

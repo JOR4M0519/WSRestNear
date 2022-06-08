@@ -1,6 +1,7 @@
 package co.edu.unbosque.wsrestnear.resources;
 
 import co.edu.unbosque.wsrestnear.dtos.Art;
+import co.edu.unbosque.wsrestnear.dtos.FCoins;
 import co.edu.unbosque.wsrestnear.dtos.User;
 import co.edu.unbosque.wsrestnear.services.ArtServices;
 import co.edu.unbosque.wsrestnear.services.UserService;
@@ -42,7 +43,7 @@ public class ArtUserResources {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             artServices = new ArtServices(conn);
-            art_List = artServices.listArts();
+            art_List = artServices.listArts2();
 
             conn.close();
 
@@ -112,7 +113,7 @@ public class ArtUserResources {
                     InputStream istream = inputPart.getBody(InputStream.class, null);
 
                     saveFile(istream, fileName, context);
-                    artServices.newArt(new Art(fileName, collection, title, author, price, emailAuthor));
+                    artServices.newArt(new Art(fileName, collection, title, author, price, emailAuthor, true));
                     conn.close();
 
                 } catch (IOException e) {
@@ -130,6 +131,13 @@ public class ArtUserResources {
                 .entity("NFT successfully uploaded")
                 .build();
     }
+
+
+
+
+
+
+
 
     //Retorna el nombre del archivo del header del multipartFormDataInput
     private String parseFileName(MultivaluedMap<String, String> headers) {

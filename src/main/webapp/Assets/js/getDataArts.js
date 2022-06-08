@@ -57,7 +57,7 @@ const getDataArts = async (artsDiv) => {
       let innerhtml = "";
 
       for (const data1 of data) {
-          const {id, collection, title, author, price} = data1;
+          const {id, collection, title, author, price, forSale} = data1;
           let idNFT = id.toString().split("\\")[1];
           let type = "";
 
@@ -224,24 +224,24 @@ const getDataModal = async (collection,username) => {
 
     
     for (const dataCollectionNFTs1 of dataCollectionNFTs) {
-        const {id, title, author, price} = dataCollectionNFTs1;
+        const {id, title, author, price, forSale} = dataCollectionNFTs1;
 
         let idNFT = id.toString().split("\\")[1];
-       let type = "Modal";
+        let type = "Modal";
 
         const artTotalLike = listTotalLikes.filter(data => (data.idImage === idNFT));
 
-        if (artTotalLike.length!=0) {
+        if (artTotalLike.length != 0) {
             dataLikes = artTotalLike[0].likes;
-       }else {
-            dataLikes=0;
+        } else {
+            dataLikes = 0;
         }
 
         const likeByArt = listTotalLikesByUser.filter(data => (data.idImage === idNFT));
-        if (likeByArt.length!=0) {
+        if (likeByArt.length != 0) {
             heartLikesStatus = likeByArt[0].likes;
-        }else {
-            heartLikesStatus=0;
+        } else {
+            heartLikesStatus = 0;
         }
         if (heartLikesStatus === 0) {
             heartLikesStatus = "Assets/svg/heart-unfill.svg";
@@ -249,9 +249,44 @@ const getDataModal = async (collection,username) => {
             heartLikesStatus = "Assets/svg/heart-fill.svg";
         }
 
-        var cardNftCatalogue = document.getElementById("cardNftCatologue");
 
-        cardNftCatalogue.innerHTML += `
+        var buyButtons = "";
+
+        if (window.location.toString().includes("artistAccount")) {
+
+            if (forSale == true) {
+                buyButtons = ` 
+ 
+            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Deshabilitar Compra" onclick="">
+            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">`;
+            } else {
+                buyButtons = ` 
+            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Deshabilitar Compra" onclick="">
+            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">\`;
+            `;
+            }
+        }
+
+            else {
+
+
+            if (forSale == true) {
+                buyButtons = ` 
+ 
+            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Comprar" onclick="btnBuy(this,'buy')">
+            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Añadir al Carro" onclick="btnBuy(this,'add')">`;
+            } else {
+                buyButtons = ` 
+            <span class="btn btn-sm btn-outline-secondary item1 d-inline-block" tabindex="0" data-toggle="tooltip" title="El Artista deshabilitó la venta de este arte o ya fue vendida">
+            No Disponible
+            <span>
+            `;
+            }
+        }
+
+            var cardNftCatalogue = document.getElementById("cardNftCatologue");
+
+            cardNftCatalogue.innerHTML += `
         <div class="col-md-4 card-position "> 
             <div class="  card mb-4 shadow-sm card-dimensions">
             <div class="imgBx">
@@ -267,11 +302,11 @@ const getDataModal = async (collection,username) => {
                     </button>
                     <span id="amountLikesModal${idNFT}" aria-valuetext="">${dataLikes}</span>
                 </p>
-                <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Comprar" onclick="btnBuy(this,'buy')">     
-                <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Añadir al Carro" onclick="btnBuy(this,'add')">        
+               ${buyButtons}    
             </div>
         </div>
                     `;
+
     }
 }
 

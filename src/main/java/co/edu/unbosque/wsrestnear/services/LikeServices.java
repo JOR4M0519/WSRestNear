@@ -109,13 +109,14 @@ public class LikeServices {
                     "    c.user_id,\n" +
                     "    c.title,\n" +
                     "    u.name,\n" +
-                    "    u.lastname\n" +
+                    "    u.lastname,\n" +
+                    "\ta.forsale\n" +
                     "FROM likeart l\n" +
                     "         JOIN art a\n" +
                     "              ON l.\"image\" = a.\"image\"\n" +
-                    "          JOIN collection c\n" +
+                    "         JOIN collection c\n" +
                     "              ON c.\"collection_id\" = a.\"collection_id\"\n" +
-                    "\t\t JOIN userapp u\n" +
+                    "         JOIN userapp u\n" +
                     "              ON c.\"user_id\" = u.\"user_id\"\n" +
                     "                  AND l.\"user_id\" = ?;";
 
@@ -131,8 +132,9 @@ public class LikeServices {
                 int price = rs.getInt(3);
                 String collection = rs.getString(5);
                 String author = rs.getString(6) + " " + rs.getString(7);
+                boolean forSale = rs.getBoolean(8);
 
-                artList.add(new Art(id, collection, title, author, price, email));
+                artList.add(new Art(id, collection, title, author, price, email,forSale));
             }
 
             stmt.close();
