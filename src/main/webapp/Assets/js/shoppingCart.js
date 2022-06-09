@@ -147,30 +147,50 @@ const comprar = async () =>{
     }else{
         for (const data2 of dataArtsJSON) {
 
-            const {id} = data2;
+            const {id,price} = data2;
             let idNFT = id.toString().split("\\")[1];
 
+            //Propietario viejo del arte
+            let {username} =  await fetch(`./api/owners/arts/${idNFT}`).then(response => response.json());
+
+            //Cambia de propietario la pieza
             await fetch(`./api/owners/${localStorage.getItem('username')}/arts/${idNFT}`,
                 {method: 'PUT'});
 
+            //JSON Vendedor
+            var historySeller = {  "username": username.toString(),
+                "walletType": "Venta",
+                "fcoins": price,
+                "art": idNFT,
+                "registeredAt": new Date()};
+            historySeller = JSON.stringify(historySeller);
+
+            //JSON Customer
+            var historyCustomer = {  "username":localStorage.getItem('username').toString(),
+                "walletType": "Compra",
+                "fcoins": (price * -1),
+                "art": idNFT,
+                "registeredAt": new Date()};
+            historyCustomer = JSON.stringify(historyCustomer);
+
+            //Se añade la compra al historial
+            await fetch(`./api/users/${localStorage.getItem("username")}/wallet`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: historyCustomer
+            });
+
+            //Se añade la compra al historial del viejo propietario
+            await fetch(`./api/users/${username}/wallet`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: historySeller
+            });
         }
-        totalPrice= totalPrice * -1
-
-
-        var fcoins = {  "username":localStorage.getItem('username').toString(),
-                        "walletType": "Recarga",
-                        "fcoins": parseFloat(totalPrice),
-                        "registeredAt": new Date()};
-
-        fcoins = JSON.stringify(fcoins);
-        await fetch(`./api/users/${localStorage.getItem("username")}/wallet`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: fcoins
-
-        });
 
 
         for (var i=1; i<=localStorage.getItem('cantidadCompras');i++){

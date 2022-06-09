@@ -64,7 +64,7 @@ public class WalletServices {
     public JSONObject getFcoinsUser(String username){
 
         PreparedStatement stmt = null;
-        JSONObject fcoins = new JSONObject();
+        JSONObject fcoins = null;
 
         if (username != null) {
             try {
@@ -86,13 +86,21 @@ public class WalletServices {
                 ResultSet rs = stmt.executeQuery();
 
 
-                rs.next();
 
-                fcoins.put("username", username);
-                fcoins.put("fcoins",rs.getString("fcoins"));
+                while(rs.next()) {
+                    fcoins = new JSONObject();
+                    fcoins.put("username", username);
+                    fcoins.put("fcoins", rs.getString("fcoins"));
+                }
+
+                if(fcoins == null){
+                    fcoins = new JSONObject();
+                    fcoins.put("username", username);
+                    fcoins.put("fcoins", 0);
+                }
+
                 rs.close();
                 stmt.close();
-
             } catch(SQLException se){
                 se.printStackTrace();
             } finally{
@@ -115,7 +123,6 @@ public class WalletServices {
         if (invoice != null) {
 
             try {
-                System.out.println(invoice.getWalletType());
 
                 if(invoice.getWalletType().equals("Recarga")) {
                     stmt = this.conn.prepareStatement("INSERT INTO wallet_history(user_id, wtype, fcoins, image, registeredat)\n" +

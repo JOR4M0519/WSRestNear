@@ -292,7 +292,6 @@ public class UsersResource {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             art = new ArtServices(conn).getArt(image);
-            System.out.println(art.toString());
             conn.close();
         }catch (ClassNotFoundException | SQLException nullPointerException){
             return Response.ok()
@@ -403,7 +402,6 @@ public class UsersResource {
             likeServices = new LikeServices(conn);
 
             likes = likeServices.likeArtUser(new Likes(username,art));
-            System.out.println("likes: "+ likes);
             if(likes == 0){
                 likeServices.addLike(new Likes(username,art));
             }else{

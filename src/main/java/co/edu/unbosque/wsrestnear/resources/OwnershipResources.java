@@ -154,7 +154,6 @@ public class OwnershipResources {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            System.out.println("pasé1234");
             result = new OwnershipServices(conn).buyArt(username,art);
 
             conn.close();

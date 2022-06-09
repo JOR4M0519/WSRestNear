@@ -73,7 +73,6 @@ public class WalletHistoryResources {
     public Response createInvoice(@PathParam("username") String username, WalletHistory invoice)
             throws IOException {
         Connection conn = null;
-        System.out.println(invoice);
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
