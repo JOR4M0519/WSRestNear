@@ -2,8 +2,6 @@ package co.edu.unbosque.wsrestnear.resources;
 
 import co.edu.unbosque.wsrestnear.dtos.ExceptionMessage;
 import co.edu.unbosque.wsrestnear.dtos.WalletHistory;
-import co.edu.unbosque.wsrestnear.dtos.User;
-import co.edu.unbosque.wsrestnear.services.UserService;
 import co.edu.unbosque.wsrestnear.services.WalletServices;
 import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.*;
@@ -18,7 +16,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @Path("users/{username}/wallet")
 public class WalletHistoryResources {

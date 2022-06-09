@@ -7,7 +7,7 @@ const add = async () =>{
             "walletType": "Recarga",
             "fcoins": parseFloat(document.getElementById('cantidad').value),
             "registeredAt": new Date(),
-            "origin_product:": "Banco"};
+            "originProduct": document.getElementById('bank').value.toString()};
 
         reloadFcoins = JSON.stringify(reloadFcoins);
 

@@ -12,7 +12,7 @@ public class WalletHistory {
     private String art;
     private Date registeredAt;
 
-    private String origin_product;
+    private String originProduct;
 
     public WalletHistory() {
     }
@@ -25,7 +25,7 @@ public class WalletHistory {
         this.fcoins = fcoins;
         this.art = art;
         this.registeredAt = registeredAt;
-        this.origin_product = origin_product;
+        this.originProduct = origin_product;
     }
 
     public int getWallet_id() {
@@ -76,8 +76,12 @@ public class WalletHistory {
         this.registeredAt = registeredAt;
     }
 
-    public String getOrigin_product() {
-        return origin_product;
+    public void setOriginProduct(String originProduct) {
+        this.originProduct = originProduct;
+    }
+
+    public String getOriginProduct() {
+        return originProduct;
     }
 
     @Override
@@ -89,7 +93,7 @@ public class WalletHistory {
                 ", fcoins=" + fcoins +
                 ", art='" + art + '\'' +
                 ", registeredAt=" + registeredAt +
-                ", origin_product='" + origin_product + '\'' +
+                ", origin_product='" + originProduct + '\'' +
                 '}';
     }
 }

@@ -163,7 +163,7 @@ const comprar = async () =>{
                 "fcoins": price,
                 "art": idNFT,
                 "registeredAt": new Date(),
-                "origin_product:": localStorage.getItem("username") };
+                "originProduct:": localStorage.getItem("username") };
             historySeller = JSON.stringify(historySeller);
 
             //JSON Customer
@@ -172,7 +172,7 @@ const comprar = async () =>{
                 "fcoins": (price * -1),
                 "art": idNFT,
                 "registeredAt": new Date(),
-                "origin_product:": username};
+                "originProduct:": username};
 
             historyCustomer = JSON.stringify(historyCustomer);
 

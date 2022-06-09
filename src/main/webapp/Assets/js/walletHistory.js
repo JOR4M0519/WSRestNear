@@ -8,20 +8,20 @@ const getWalletHistory = async () => {
 
         const listUsers = await fetch(`./api/users`).then(response => response.json());
         const listArts = await fetch(`./api/arts`).then(response => response.json());
-        //console.log(listArts,listUsers)
 
         historyWallet.map(function (element) {
-                let {walletType, art, origin_product, fcoins, registeredAt} = element
+                let {walletType, art, originProduct, fcoins, registeredAt} = element
                 registeredAt = registeredAt.toString().replace('Z', '');
 
                 //Cargar datos en caso que sea una recarga de Fcoins
                 if (walletType == "Recarga") {
                     divWallet.innerHTML +=
                         `<div class="cresumen">
-                            <p class="itemLeft" style="grid-column-start: 1; grid-column-end: 3;">Recarga</p>
+                            <p class="itemLeft">Recarga</p>
+                            <p>Fcoins</p>
                 
                             <p class="itemLeft">Banco</p>
-                            <p>Fcoins</p>
+                            <p>${originProduct}</p>
                               
                             <p class="itemLeft">Fecha</p>
                             <p>${registeredAt}</p>
@@ -37,7 +37,7 @@ const getWalletHistory = async () => {
                     let sum = "";
 
                     const artNFT = listArts.filter(data => (data.id === art));
-                    const user = listUsers.filter(data => (data.username === origin_product));
+                    const user = listUsers.filter(data => (data.username === originProduct));
 
                     //Especificaciones en casos que sea venta o compra
                     if (walletType == "Venta") {
