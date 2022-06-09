@@ -171,3 +171,13 @@ FROM collection c
          JOIN userapp u
               ON u."user_id" = c."user_id"
                   AND a.image = 'BFY4dpVhk4.png';
+
+--Count Fcoins
+SELECT
+    u.user_id,
+    SUM (fcoins) AS fcoins
+FROM wallet_history w
+         JOIN userapp u
+              ON u.user_id = w.user_id
+                  AND w.user_id = 'santiago1@gmail.com'
+GROUP BY u.user_id;
