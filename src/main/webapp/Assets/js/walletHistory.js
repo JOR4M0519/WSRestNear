@@ -1,4 +1,4 @@
-divWallet = document.getElementById("walletHistory");
+divWallet = document.getElementById("walletContent");
 
 const getWalletHistory = async () => {
     const historyWallet = await fetch(`./api/users/${localStorage.getItem("username")}/wallet`).then(response => response.json());
