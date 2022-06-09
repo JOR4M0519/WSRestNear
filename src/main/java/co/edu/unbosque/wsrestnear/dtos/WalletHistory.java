@@ -12,17 +12,20 @@ public class WalletHistory {
     private String art;
     private Date registeredAt;
 
+    private String origin_product;
+
     public WalletHistory() {
     }
 
     //Método constructor de la clase FCoins y inicializa las variables declaradas con las pasadas por parámetros
-    public WalletHistory(int wallet_id, String username, String walletType, long fcoins, String art, Date registeredAt) {
+    public WalletHistory(int wallet_id, String username, String walletType, long fcoins, String art, Date registeredAt, String origin_product) {
         this.wallet_id = wallet_id;
         this.username = username;
         this.walletType = walletType;
         this.fcoins = fcoins;
         this.art = art;
         this.registeredAt = registeredAt;
+        this.origin_product = origin_product;
     }
 
     public int getWallet_id() {
@@ -73,6 +76,10 @@ public class WalletHistory {
         this.registeredAt = registeredAt;
     }
 
+    public String getOrigin_product() {
+        return origin_product;
+    }
+
     @Override
     public String toString() {
         return "WalletHistory{" +
@@ -81,7 +88,8 @@ public class WalletHistory {
                 ", walletType='" + walletType + '\'' +
                 ", fcoins=" + fcoins +
                 ", art='" + art + '\'' +
-                ", registeredAt='" + registeredAt + '\'' +
+                ", registeredAt=" + registeredAt +
+                ", origin_product='" + origin_product + '\'' +
                 '}';
     }
 }

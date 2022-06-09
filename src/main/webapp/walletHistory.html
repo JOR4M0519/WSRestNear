@@ -36,6 +36,62 @@
       
       </div>
 
+    <section class="contenedor">
+        <h1 class="text"> Mis Fcoins </h1>
+        <div class="info">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">$</span>
+                </div>
+                    <input type="text" id="cantidad" name="cantidad" class="form-control form-control-lg" value="0">
+            </div>  
+        </div>
+    </section>
+      
+    <section class="contenedor" id="FCoins">
+        <h1 class="text">Fcoins</h1>
+        <div class="info">
+            <div class="col-md-4">
+                <div class="card mb-3 shadow-sm" id="fcoins">
+                    <div class="imgBx">
+                        <img class="bd-placeholder-img card-img-top" width="100%" height="100%" src="Assets/img/1494.jpg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/></img>
+                    </div>
+                    <div class="coin">
+                        <img src="Assets/img/Fcoins Icon2.png" alt="" style="width: 40%;">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-text">Recarga Fcoins!</h3>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control"id="amountFcoins" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">Fcoins</span>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">$</span>
+                            </div>
+                                <input type="text" id="cantidad" name="cantidad" class="form-control" value="0">
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                              <div>
+                                <button type="button" id="sumar" class="btn btn-sm btn-outline-secondary"><i class="fas fa-plus"></i></button>
+                                <button type="button" id="restar" class="btn btn-sm btn-outline-secondary"><i class="fas fa-minus"></i></button>
+                                <button type="submit" id="btnAddFCOINS" class="btn btn-sm btn-outline-secondary" style="float: right;">Cargar FCoins</button>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contenedor" id="walletHistory" style="padding: 5%; margin-bottom: 10%;">
+        <div class="resumenhead" id="walletContent">
+            <h4 style="padding: 1.5%;"><b> Actividad </b></h4>
+        </div>
+    </section>
     
   <footer>
     <div class="container p-3">
@@ -56,10 +112,8 @@
 <!-- BOOTSTRAP SCRIPTS -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="Assets/js/getDataArts.js"></script>
-<script src="Assets/js/index.js"></script>
-<script src="Assets/js/sumarLikes.js"></script>
-<script src="Assets/js/botonIndex.js"></script>
+<script src="Assets/js/walletHistory.js"></script>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
