@@ -79,10 +79,6 @@ public class WalletHistoryResources {
             WalletServices walletService = new WalletServices(conn);
             walletHistory = walletService.getWalletHistoryUser(username);
 
-            for (WalletHistory w: walletHistory) {
-                System.out.println(w.toString());
-            }
-
 
             conn.close();
         } catch (SQLException se) {

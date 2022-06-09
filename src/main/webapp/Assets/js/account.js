@@ -27,6 +27,11 @@ let sidebar = document.querySelector(".sidebar");
 if(window.location.href.includes("artistAccount")){
   window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("cardfavorites")));
 }else{
+
+  let divMisFcoins = document.getElementById("cantidadFcoins");
+  let reloadFcoins = document.getElementById("amountFcoins");
+  
+
   window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("cardOwner")));
 }
 

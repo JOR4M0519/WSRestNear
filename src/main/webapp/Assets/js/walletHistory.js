@@ -12,9 +12,7 @@ const getWalletHistory = async () => {
 
         historyWallet.map(function (element) {
                 let {walletType, art, origin_product, fcoins, registeredAt} = element
-                console.log(registeredAt)
                 registeredAt = registeredAt.toString().replace('Z', '');
-                console.log(registeredAt)
 
                 //Cargar datos en caso que sea una recarga de Fcoins
                 if (walletType == "Recarga") {
@@ -28,8 +26,8 @@ const getWalletHistory = async () => {
                             <p class="itemLeft">Fecha</p>
                             <p>${registeredAt}</p>
                               
-                            <h3 class="itemLeft"><b> Valor </b></h3>
-                            <h3><b style="color: green;" >$+${new Intl.NumberFormat().format(fcoins)} </b></h3>
+                            <h5 class="itemLeft"><b> Valor </b></h5>
+                            <h5><b style="color: green;" >$+${new Intl.NumberFormat().format(fcoins)} </b></h5>
                         </div>`;
 
                 //Cargar datos en caso sea una venta o compra
@@ -62,8 +60,8 @@ const getWalletHistory = async () => {
                             <p class="itemLeft">Fecha</p>
                             <p>${registeredAt}</p>
                               
-                            <h3 class="itemLeft"><b> Valor </b></h3>
-                            <h3><b ${styleMoney}>$${sum} ${new Intl.NumberFormat().format(fcoins)} </b></h3>
+                            <h5 class="itemLeft"><b> Valor </b></h5>
+                            <h5><b ${styleMoney}>$${sum} ${new Intl.NumberFormat().format(fcoins)} </b></h5>
                         </div>`;
                 }
             }
@@ -73,7 +71,7 @@ const getWalletHistory = async () => {
     } else {
         divWallet.innerHTML +=
             `<div class="cresumen">  
-                <h3 class="itemLeft" style="grid-column-start: 1; grid-column-end: 3;"><b> No has realizado compras </b></h3>
+                <h4 class="itemLeft" style="grid-column-start: 1; grid-column-end: 3;"><b> No has realizado compras </b></h4>
             </div>`;
     }
 }
