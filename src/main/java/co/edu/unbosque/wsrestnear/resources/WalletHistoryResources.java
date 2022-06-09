@@ -1,25 +1,25 @@
 package co.edu.unbosque.wsrestnear.resources;
 
 import co.edu.unbosque.wsrestnear.dtos.ExceptionMessage;
-import co.edu.unbosque.wsrestnear.dtos.FCoins;
+import co.edu.unbosque.wsrestnear.dtos.WalletHistory;
 import co.edu.unbosque.wsrestnear.dtos.User;
 import co.edu.unbosque.wsrestnear.services.UserService;
+import co.edu.unbosque.wsrestnear.services.WalletServices;
 import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriBuilder;
+import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 
-@Path("users/{username}/fcoins")
-public class FCoinsResource {
+@Path("users/{username}/wallet")
+public class WalletHistoryResources {
 
     @Context
     ServletContext context;
@@ -31,17 +31,21 @@ public class FCoinsResource {
 
     //Responde como el método Get de la API de esta clase, recibe como parámetro el nombre del usuario para obtener las FCoins correspondientes a este
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/fcoins")
+    @Produces(MediaType.TEXT_PLAIN)
     public Response getUserFCoins(@PathParam("username") String username) throws IOException {
 
         Connection conn = null;
-        User user = null;
+        JSONObject fcoins = null;
 
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            UserService uService = new UserService(conn);
-            user = uService.getUser(username);
+            WalletServices walletService = new WalletServices(conn);
+            fcoins = walletService.getFcoinsUser(username);
+
+
+
             conn.close();
         } catch (SQLException se) {
             se.printStackTrace();
@@ -54,33 +58,28 @@ public class FCoinsResource {
                 se.printStackTrace();
             }
         }
-           if (user == null) {
+           if (fcoins == null) {
                return Response.status(404).entity(new ExceptionMessage(404, "User not found")).build();
            }
-            FCoins fCoinsUser = new FCoins(user.getUsername(),0);
-               return Response.ok().entity(fCoinsUser).build();
+               return Response.ok().entity(fcoins).build();
     }
 
     //Responde como el método Post de la API de esta clase, recibe como parámetro el nombre del usuario y los FCoins para agregar los valores actualizados al usuario especificado
+    //PUT -> POST (ACT)
+    @POST
 
-    @PUT
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postFCoins(@PathParam("username") String username, FCoins fcoins)
+    public Response createInvoice(@PathParam("username") String username, WalletHistory invoice)
             throws IOException {
         Connection conn = null;
-        User user = null;
-
+        System.out.println(invoice);
         try {
-
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            UserService usersService = new UserService(conn);
-            user = usersService.getUser(username);
-            if (user.getUsername().equals(fcoins.getUsername())) {
-//                user = usersService.updateUser(user, fcoins.getFcoins());
-            }
+            new WalletServices(conn).createInvoice(invoice);
+
             conn.close();
         } catch (SQLException se) {
             se.printStackTrace();
@@ -94,7 +93,7 @@ public class FCoinsResource {
             }
         }
         return Response.created(UriBuilder.fromResource(UsersResource.class).path(username).build())
-                .entity(user)
+                .entity("Invoice succesfully created")
                 .build();
     }
 

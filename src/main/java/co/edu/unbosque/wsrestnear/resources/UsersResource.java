@@ -156,6 +156,8 @@ public class UsersResource {
                 .entity(user)
                 .build();
     }
+
+   //Metodo viejo sin guardar imagen
     /*
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -409,7 +411,7 @@ public class UsersResource {
             }
             conn.close();
             return Response.ok()
-                    .entity("Se cargo exitpsamente")
+                    .entity("Se cargo exitosamente")
                     .build();
         } catch (SQLException | ClassNotFoundException nullPointerException) {
             return Response.serverError().build();

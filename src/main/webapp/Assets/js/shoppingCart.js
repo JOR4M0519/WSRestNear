@@ -51,8 +51,9 @@ const addData = async () =>{
     var fcoins = 0;
 
     if((localStorage.getItem('username')!=null || localStorage.getItem('username')!=undefined) && localStorage.getItem('cantidadCompras')>0 ){
-    let response = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`);
-    let result = await response.json();
+    let response = await fetch(`./api/users/${localStorage.getItem("username")}/wallet/fcoins`);
+    let result = JSON.parse(await response.text());
+
 
    fcoins = result.fcoins;
 
@@ -120,9 +121,8 @@ const addData = async () =>{
 
 const comprar = async () =>{
 
-    let response = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`);
-    let result = await response.json();
-
+    let response = await fetch(`./api/users/${localStorage.getItem("username")}/wallet/fcoins`);
+    let result = JSON.parse(await response.text());
 
     var dataArts = "[";
     var cantidad = parseFloat(localStorage.getItem('cantidadCompras'));
@@ -155,9 +155,16 @@ const comprar = async () =>{
 
         }
         totalPrice= totalPrice * -1
-        const fcoins = JSON.stringify({ "username":localStorage.getItem('username').toString(),"fcoins": parseFloat(totalPrice)});
-        await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`, {
-            method: "PUT",
+
+
+        var fcoins = {  "username":localStorage.getItem('username').toString(),
+                        "walletType": "Recarga",
+                        "fcoins": parseFloat(totalPrice),
+                        "registeredAt": new Date()};
+
+        fcoins = JSON.stringify(fcoins);
+        await fetch(`./api/users/${localStorage.getItem("username")}/wallet`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
