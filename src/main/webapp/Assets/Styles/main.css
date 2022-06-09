@@ -239,11 +239,8 @@
 
 
 .profileImage{
-  margin-bottom: 5%;
-  width: 100px;
-  height: 100px;
-  position: relative;
-  overflow: hidden;
+width: 80%;
+height: 80%;
   border-radius: 50%;
 }
 .cardArtists{
@@ -926,6 +923,17 @@ padding: 1.5%;
   box-shadow: 4px 4px 2px 1px rgba(1, 1, 1, 0.3);
 }
 
+.inputEditable{
+  padding: 1.5%;
+  }
+  
+  .inputEditable:hover{
+    background-color: #ffffff42;
+    border-bottom: 2px solid #911e1e;
+    box-shadow: 4px 4px 2px 1px rgba(1, 1, 1, 0.3);
+  }
+
+
 .signUpAccount{
   font-family: 'Abel', sans-serif !important; 
   display: flex;
@@ -952,4 +960,13 @@ padding: 1.5%;
 * h2, label{
   font-weight: 800;
   font-family: 'Abel', sans-serif !important; 
+}
+.hdsad{
+  height: 45vh;
+  width: 70vw;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  flex-direction: row;
 }

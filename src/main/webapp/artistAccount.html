@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Near</title>
     <link rel="shortcut icon" href="Assets/img/logo.ico" />
     <!-- BOOTSTRAP CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- CUSTOM CSS -->
     <link rel="stylesheet" href="Assets/Styles/main.css">
 
@@ -17,211 +18,235 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
 
 
-<div class="sidebar">
-    <div class="logo-details">
-                <a href="./index.html"><img class="logo icon" hr src="Assets\img\logoNear3.png" ></a>
-            <i class='bx bx-menu' id="btn" ></i>
-    </div>
-    <ul class="nav-list">
-      <li>
-        <a href="./createCollection.html">
-          <i class='bx bxs-folder-minus'></i>
-            <span class="links_name">Crear Colección</span>
-        </a>
-        <span class="tooltip">Crear Colección</span>
-      </li>
-      <li>
-            <a href="./createNFT.html">
-                <i class='bx bx-up-arrow-circle'></i>
-                <span class="links_name">Subir NFT</span>
-            </a>
-            <span class="tooltip">Subir NFT</span>
-      </li>
-
-        <li>
-            <i class='bx bx-search' ></i>
-            <input type="text" placeholder="Buscar...">
-            <span class="tooltip">Buscar</span>
-        </li>
-        <li>
-            <a href="#Cuenta">
-                <i class='bx bx-user' ></i>
-                <span class="links_name">Cuenta</span>
-            </a>
-            <span class="tooltip">Cuenta</span>
-        </li>
-        <li>
-            <span class="tooltip">Files</span>
-        </li>
-        <li>
-            <a href="#publicaciones">
-                <i class='bx bx-label'></i>
-                <span class="links_name">Publicaciones</span>
-            </a>
-            <span class="tooltip">Publicaciones</span>
-        </li>
-        <li>
-            <a href="walletHistory.html">
-                <i class='bx bx-wallet-alt'></i>
-                <span class="links_name">Billetera</span>
-            </a>
-            <span class="tooltip">Billetera</span>
-        </li>
-        <li>
-            <a href="#Favoritos">
-                <i class='bx bx-heart' ></i>
-                <span class="links_name">Favoritos</span>
-            </a>
-            <span class="tooltip">Favoritos</span>
-        </li>
-
-        <li>
-            <a href="#Colecciones">
-                <i class='bx bx-folder-plus'></i>
-                <span class="links_name">Colecciones</span>
-            </a>
-            <span class="tooltip">Colecciones</span>
-        </li>
-
-        <li>
-            <a href="#Configuraciones">
-                <i class='bx bx-cog' ></i>
-                <span class="links_name">Configuraciones</span>
-            </a>
-            <span class="tooltip">Configuraciones</span>
-        </li>
-        <li class="profile">
-            <div class="profile-details">
-                <!--<img src="profile.jpg" alt="profileImg">-->
-                <div class="name_job">
-                    <div class="name" id="listFullName"></div>
-                    <div class="job" id="listRole"></div>
-                </div>
-            </div>
-            <a style="border-radius:10px; outline:none;" id="btnlog_out"><i class='bx bx-log-out' id="log_out" ></i></a>
-
-        </li>
-    </ul>
-</div>
-
-<section class="home-section">
-
-    <section class="contenedor" id="Cuenta">
-
-        <h1 class="text">Tu cuenta</h1>
-        <div class="info">
-
-            <section>
-                <figure>
-                    <img id="profileImage" class="profileImage" style="width: 15%; height: 15%;" src="Assets\img\avatar_driver_people_person_profile_user_icon_123374.png">
-                </figure>
-                <div id="text-icono"></div>
-            </section>
-
-            <section id="informacion-personal">
-                <div id="Derecho">
-
-                    <div class="titulos-info">Nombre</div>
-                    <div class="conten-info" id="name"></div>
-
-                    <div class="titulos-info" >Correo</div>
-                    <div class="conten-info" id="username"></div>
-
-                </div>
-
-                <div id="izquierdo">
-
-                    <div class="titulos-info" >Apellido</div>
-                    <div class="conten-info" id="lastname" style="margin-bottom: 8.7%;"></div>
-
-                    <div class="titulos-info" >Rol</div>
-                    <div class="conten-info" id="role"></div>
-
-                </div>
-
-                <div id="personalDescription">
-                    <div class="titulos-info" >Sobre ti:</div>
-                    <div class="conten-info" contenteditable="true" id="resumeDescripcionPersonal">
-                    </div>
-                    <button type="button" id="editDescription" class="btn btn-outline-danger">Editar descripción</button>
-                </div>
-            </section>
+    <div class="sidebar">
+        <div class="logo-details">
+            <a href="./index.html"><img class="logo icon" hr src="Assets\img\logoNear3.png"></a>
+            <i class='bx bx-menu' id="btn"></i>
         </div>
-    </section>
+        <ul class="nav-list">
+            <li>
+                <a href="./createCollection.html">
+                    <i class='bx bxs-folder-minus'></i>
+                    <span class="links_name">Crear Colección</span>
+                </a>
+                <span class="tooltip">Crear Colección</span>
+            </li>
+            <li>
+                <a href="./createNFT.html">
+                    <i class='bx bx-up-arrow-circle'></i>
+                    <span class="links_name">Subir NFT</span>
+                </a>
+                <span class="tooltip">Subir NFT</span>
+            </li>
 
-    <section class="contenedor" id="Colecciones">
-        <h1 class="text">Colecciones</h1>
-            <!-- COLECCIÓN -->
-                    <!--Guia js-->
-                    <div class="card-group contenedor-social" id="socialcard">
-                        <div class="container">
-                            <div id="cardcol">
+            <li>
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Buscar...">
+                <span class="tooltip">Buscar</span>
+            </li>
+            <li>
+                <a href="#Cuenta">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Cuenta</span>
+                </a>
+                <span class="tooltip">Cuenta</span>
+            </li>
+            <li>
+                <span class="tooltip">Files</span>
+            </li>
+            <li>
+                <a href="#publicaciones">
+                    <i class='bx bx-label'></i>
+                    <span class="links_name">Publicaciones</span>
+                </a>
+                <span class="tooltip">Publicaciones</span>
+            </li>
+            <li>
+                <a href="walletHistory.html">
+                    <i class='bx bx-wallet-alt'></i>
+                    <span class="links_name">Billetera</span>
+                </a>
+                <span class="tooltip">Billetera</span>
+            </li>
+            <li>
+                <a href="#Favoritos">
+                    <i class='bx bx-heart'></i>
+                    <span class="links_name">Favoritos</span>
+                </a>
+                <span class="tooltip">Favoritos</span>
+            </li>
 
+            <li>
+                <a href="#Colecciones">
+                    <i class='bx bx-folder-plus'></i>
+                    <span class="links_name">Colecciones</span>
+                </a>
+                <span class="tooltip">Colecciones</span>
+            </li>
+
+            <li>
+                <a href="#Configuraciones">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Configuraciones</span>
+                </a>
+                <span class="tooltip">Configuraciones</span>
+            </li>
+            <li class="profile">
+                <div class="profile-details">
+                    <!--<img src="profile.jpg" alt="profileImg">-->
+                    <div class="name_job">
+                        <div class="name" id="listFullName"></div>
+                        <div class="job" id="listRole"></div>
+                    </div>
+                </div>
+                <a style="border-radius:10px; outline:none;" id="btnlog_out"><i class='bx bx-log-out'
+                        id="log_out"></i></a>
+
+            </li>
+        </ul>
+    </div>
+
+    <section class="home-section">
+
+        <section class="contenedor" id="Cuenta">
+
+            <h1 class="text">Tu cuenta</h1>
+            <div class="info">
+
+                <div class="hdsad"  >
+                    <section style="width: 30%; height:100%; flex-direction: column;align-items: center; justify-content: center;">
+                       <div >
+                        <figure style=" display: flex; justify-content: center;">
+                            <img id="profileImage" class="profileImage"                                 
+                            src="Assets\img\avatar_driver_people_person_profile_user_icon_123374.png">
+                        </figure>
+                    </div>
+                        <h5 style= "text-align: center; width: 100%;">nombre</h5>
+                    
+                    </section >
+
+                    <section style="width: 30%; height:100%; flex-direction: column;align-items: center; justify-content: center; padding-left: 8%;" >
+                        
+                        <div>
+                            <h4 class="titulos-info">Nombre</h4>
+                            <div class="conten-info inputEditable" contenteditable="false" id="nombre">
+                            
                             </div>
                         </div>
-                    </div>
+                        <div style="padding-top: 35%;">
+                            <h4 class="titulos-info">Correo</h4>
+                            <div class="conten-info inputEditable" contenteditable="false" id="username">
+                                
+                                </div>
+                        </div>
+                        
 
+                    </section>
+                    <section style="width: 30%; height:100%; flex-direction: column;align-items: center; justify-content: center;padding-left: 8%">
 
+                        <div>
 
-    </section>
+                            <h4 class="titulos-info">Apellido</h4>
+                            <div class="conten-info inputEditable" contenteditable="false" id="lastname">
+                                
+                                </div>
+                        </div>
+                        <div style="padding-top: 35%;">
+                            <h4 class="titulos-info">Rol</h4>
+                            <div class="conten-info inputEditable" contenteditable="false" id="role">
+                                
+                                </div>
+                        </div>
+                        
+                    </section>
 
-    <section class="contenedor" id="Favoritos">
-
-        <h1 class="text">Favoritos</h1>
-
-              <!--Guia js-->
-              <div class="card-group contenedor-social" id="socialcard">
-                <div class="container">
-                  <div class="row" id="cardfavorites">
-        
-                  </div>
                 </div>
-              </div>
 
-    </section>
+                <div>
+                    <div class="titulos-info">Sobre ti:</div>
+                    <div class="conten-info" contenteditable="true" id="resumeDescripcionPersonal">
+                    </div>
+                    <button type="button" id="editDescription" class="btn btn-outline-danger">Editar
+                        descripción</button>
+                </div>
 
+            </div>
+        </section>
 
+        <section class="contenedor" id="Colecciones">
+            <h1 class="text">Colecciones</h1>
+            <!-- COLECCIÓN -->
+            <!--Guia js-->
+            <div class="card-group contenedor-social" id="socialcard">
+                <div class="container">
+                    <div id="cardcol">
 
-    <section class="contenedor" id="Configuraciones">
-        <h1 class="text">Configuraciones</h1>
-        <div class="info">Pronto Habilitaresmos Esta Función!</div>
-        <div class="info" style="width: 100%; height: 100%;"> </div>
-    </section>
-
-    <section class="contenedor" >
-        <footer>
-            <div class="container p-3">
-                <div class="row text-center text-white">
-                    <div class="col ml-auto">
-                        <p>Copyright &copy; 2022 <br>
-                            Kevin García <br>
-                            Laura Mateus <br>
-                            Santiago Prieto <br>
-                            Jeanpier Ramos
-                        </p>
                     </div>
                 </div>
             </div>
-        </footer>
-    </section>
-</section>
 
-<!-- MODAL -->
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <section class="py-5" style="background-color: #E4E9F7">
-                <div class="cards" id="cardsCollection">
 
+
+        </section>
+
+        <section class="contenedor" id="Favoritos">
+
+            <h1 class="text">Favoritos</h1>
+
+            <!--Guia js-->
+            <div class="card-group contenedor-social" id="socialcard">
+                <div class="container">
+                    <div class="row" id="cardfavorites">
+
+                    </div>
                 </div>
-            </section>
+            </div>
+
+        </section>
+
+
+
+        <section class="contenedor" id="Configuraciones">
+            <h1 class="text">Configuraciones</h1>
+            <div class="info">Pronto Habilitaresmos Esta Función!</div>
+            <div class="info" style="width: 100%; height: 100%;"> </div>
+        </section>
+
+        <section class="contenedor">
+            <footer>
+                <div class="container p-3">
+                    <div class="row text-center text-white">
+                        <div class="col ml-auto">
+                            <p>Copyright &copy; 2022 <br>
+                                Kevin García <br>
+                                Laura Mateus <br>
+                                Santiago Prieto <br>
+                                Jeanpier Ramos
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </section>
+
+    <!-- MODAL -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <section class="py-5" style="background-color: #E4E9F7">
+                    <div class="cards" id="cardsCollection">
+
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
-</div>
 </body>
 <!-- BOOTSTRAP SCRIPTS -->
 <script src="Assets/js/artistAccount.js"></script>
@@ -238,10 +263,13 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
 
 </html>

@@ -204,7 +204,10 @@ const getDataModal = async (collection,username) => {
     const dataCollectionNFTs = await fetch(`./api/users/${username}/collections/${collection}/arts`).then(response => response.json());
     const dataNFTs = dataCollectionNFTs.map(collectionNft => ({author: collectionNft.author}))
 
-    imagesModal.innerHTML = `<h2 id="ofertas" class="card_tittle">Colección: ${collection} <p class="text-muted">By: ${dataNFTs[0].author}</p></h2>
+    imagesModal.innerHTML = `
+
+            
+            <h2 id="ofertas" class="card_tittle">Colección: ${collection} <p class="text-muted">By: ${dataNFTs[0].author}</p></h2>
             <!--Guia js-->
             <div class="card-group contenedor-social" id="socialcard">
               <section class="py-5" style="width: 100%;">
