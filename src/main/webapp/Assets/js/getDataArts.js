@@ -251,20 +251,22 @@ const getDataModal = async (collection,username) => {
 
 
         var buyButtons = "";
+        var habilitar ="";
 
         if (window.location.toString().includes("artistAccount")) {
 
             if (forSale == true) {
-                buyButtons = ` 
- 
-            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Deshabilitar Compra" onclick="">
-            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">`;
+
+                habilitar="Deshabilitar";
+
             } else {
-                buyButtons = ` 
-            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Deshabilitar Compra" onclick="">
-            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">\`;
-            `;
+                habilitar="Habilitar";
             }
+
+            buyButtons = ` 
+            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="${habilitar} Compra" onclick="btnDeshabilitar(this)">
+            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">
+            `;
         }
 
             else {
@@ -309,6 +311,71 @@ const getDataModal = async (collection,username) => {
 
     }
 }
+
+function btnDeshabilitar(btn)
+{
+    var text ="";
+    if (btn.value=="Deshabilitar Compra") {
+        text = "Deshabilitar";
+    }else{
+        text="Habilitar";
+    }
+
+    Swal.fire({
+        title: `¿Está Seguro en ${text} la Compra?`,
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: `Si, ${text}!`
+    }).then((result) => {
+        if (result.isConfirmed) {
+            actualizarVenta(btn)
+        }
+    })
+
+}
+const actualizarVenta = async (btn) => {
+
+    var data = btn.id;
+    var art = JSON.parse(data);
+    art.id = art.id.split('\\')[1];
+    console.log(art);
+
+    try {
+
+
+        let response = await fetch(`./api/arts/forsale`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(art)
+
+        });
+        let result = await response.json();
+
+        result.id = "NFTS\\"+result.id;
+        btn.id = JSON.stringify(result);
+        document.getElementById(data).id=JSON.stringify(result);
+
+        if (btn.value=="Deshabilitar Compra"){
+            btn.value="Habilitar Compra";
+        }else {
+            btn.value="Deshabilitar Compra";
+        }
+
+    } catch (err) {
+        console.log(err);
+
+    }
+
+
+
+
+}
+
 
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
