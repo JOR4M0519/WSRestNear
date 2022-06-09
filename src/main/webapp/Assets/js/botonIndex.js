@@ -51,8 +51,8 @@ const getButtonAccount = async () => {
 
         }
         divBotones.style.marginLeft="73%";
-        let responseBtn = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`);
-        let resultBtn = await responseBtn.json();
+        let responseBtn = await fetch(`./api/users/${localStorage.getItem("username")}/wallet/fcoins`);
+        let resultBtn = JSON.parse(await responseBtn.text());
 
         if (localStorage.getItem('role')=="Comprador"){
             botonFCoins.innerHTML = `

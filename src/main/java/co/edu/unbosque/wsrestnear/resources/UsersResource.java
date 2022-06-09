@@ -156,6 +156,8 @@ public class UsersResource {
                 .entity(user)
                 .build();
     }
+
+   //Metodo viejo sin guardar imagen
     /*
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -290,7 +292,6 @@ public class UsersResource {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             art = new ArtServices(conn).getArt(image);
-            System.out.println(art.toString());
             conn.close();
         }catch (ClassNotFoundException | SQLException nullPointerException){
             return Response.ok()
@@ -401,7 +402,6 @@ public class UsersResource {
             likeServices = new LikeServices(conn);
 
             likes = likeServices.likeArtUser(new Likes(username,art));
-            System.out.println("likes: "+ likes);
             if(likes == 0){
                 likeServices.addLike(new Likes(username,art));
             }else{
@@ -409,7 +409,7 @@ public class UsersResource {
             }
             conn.close();
             return Response.ok()
-                    .entity("Se cargo exitpsamente")
+                    .entity("Se cargo exitosamente")
                     .build();
         } catch (SQLException | ClassNotFoundException nullPointerException) {
             return Response.serverError().build();

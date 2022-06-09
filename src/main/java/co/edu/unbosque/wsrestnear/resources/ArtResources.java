@@ -1,18 +1,13 @@
 package co.edu.unbosque.wsrestnear.resources;
 
 import co.edu.unbosque.wsrestnear.dtos.Art;
-import co.edu.unbosque.wsrestnear.dtos.FCoins;
 import co.edu.unbosque.wsrestnear.dtos.Quantity;
-import co.edu.unbosque.wsrestnear.dtos.User;
 import co.edu.unbosque.wsrestnear.services.ArtServices;
-import co.edu.unbosque.wsrestnear.services.UserService;
 import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriBuilder;
-import org.jboss.resteasy.annotations.Query;
 
 import java.io.File;
 import java.io.IOException;

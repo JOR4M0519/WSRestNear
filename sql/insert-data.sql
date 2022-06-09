@@ -8,9 +8,10 @@ insert into art (collection_id, image, title, price) VALUES ('2','mvjJCYzK0G.web
 insert into likeart (user_id, image) VALUES ('sprieto@gmail.com', '1');
 insert into likeart (user_id, image) VALUES ('lamateus@unbosque.edu.co', '1');
 insert into likeart (user_id, image) VALUES ('lamateus@unbosque.edu.co', '2');
+INSERT INTO public.wallet_history(user_id, wtype, fcoins, image, registeredat) VALUES ('santiago1@gmail.com', 'Recarga', 500, null, '8/06/2022');
 
 DELETE from likeart WHERE user_id = 'sprieto@gmail.com' AND image = 'BNsLro8hTv.png';
 DELETE FROM ownership WHERE image = '8lcJl4kVQC.jpg';
 DELETE from art WHERE image = '8lcJl4kVQC.jpg';
 DELETE from collection WHERE collection_id = 3;
-DELETE from userapp WHERE user_id = 'lalo@gmail.com';
+DELETE from userapp WHERE user_id = 'lalo1@gmail.com';

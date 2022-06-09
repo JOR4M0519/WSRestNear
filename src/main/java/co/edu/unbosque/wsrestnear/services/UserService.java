@@ -233,13 +233,13 @@ public class UserService {
             try {
 
                 if (user.getRole().equals("Artista")) {
-                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, profileimage, description, fcoins)\n" +
-                            "VALUES (?,?,?,?,'Artista',?,'',0)");
+                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, profileimage, description)\n" +
+                            "VALUES (?,?,?,?,'Artista',?,'')");
                 }
 
                 else if (user.getRole().equals("Comprador")) {
-                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, profileimage, description, fcoins)\n" +
-                            "VALUES (?,?,?,?,'Comprador',?,'',0)");
+                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, profileimage, description)\n" +
+                            "VALUES (?,?,?,?,'Comprador',?,'')");
                 }
                 stmt.setString(1, user.getUsername());
                 stmt.setString(2, user.getName());
@@ -267,60 +267,6 @@ public class UserService {
 
 
     }
- /*   public User updateUser(User user, long parameter) {
-
-        PreparedStatement stmt = null;
-        User updatedUser = null;
-
-        if (user != null) {
-
-            try {
-
-                stmt = this.conn.prepareStatement("UPDATE UserApp SET fcoins = ? WHERE user_id = ?");
-
-
-                stmt.setLong(1, (user.getFcoins() + parameter));
-                stmt.setString(2, user.getUsername());
-
-                stmt.executeUpdate();
-
-                stmt = this.conn.prepareStatement("SELECT * FROM userapp WHERE user_id = ?");
-                stmt.setString(1, user.getUsername());
-                ResultSet rs = stmt.executeQuery();
-
-
-                rs.next();
-
-                updatedUser = new User(
-                        rs.getString("user_id"),
-                        rs.getString("name"),
-                        rs.getString("lastname"),
-                        rs.getString("role"),
-                        rs.getString("password"),
-                        rs.getString("profileimage"),
-                        rs.getString("description"),
-                        rs.getInt("fcoins")
-                );
-
-                rs.close();
-                stmt.close();
-
-            } catch(SQLException se){
-                se.printStackTrace();
-            } finally{
-                try {
-                    if (stmt != null) stmt.close();
-                } catch (SQLException se) {
-                    se.printStackTrace();
-                }
-            }
-            return updatedUser;
-        }
-        else {
-            return null;
-        }
-
-    }*/
 
     public User updateUserDescription(User user, String description) {
 

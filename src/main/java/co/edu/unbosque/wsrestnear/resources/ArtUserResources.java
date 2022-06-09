@@ -1,7 +1,6 @@
 package co.edu.unbosque.wsrestnear.resources;
 
 import co.edu.unbosque.wsrestnear.dtos.Art;
-import co.edu.unbosque.wsrestnear.dtos.FCoins;
 import co.edu.unbosque.wsrestnear.dtos.User;
 import co.edu.unbosque.wsrestnear.services.ArtServices;
 import co.edu.unbosque.wsrestnear.services.UserService;
