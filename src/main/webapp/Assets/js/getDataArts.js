@@ -251,20 +251,22 @@ const getDataModal = async (collection,username) => {
 
 
         var buyButtons = "";
+        var habilitar ="";
 
         if (window.location.toString().includes("artistAccount")) {
 
             if (forSale == true) {
-                buyButtons = ` 
- 
-            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Deshabilitar Compra" onclick="">
-            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">`;
+
+                habilitar="Deshabilitar";
+
             } else {
-                buyButtons = ` 
-            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Deshabilitar Compra" onclick="">
-            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">\`;
-            `;
+                habilitar="Habilitar";
             }
+
+            buyButtons = ` 
+            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="${habilitar} Compra" onclick="btnDeshabilitar(this)">
+            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">
+            `;
         }
 
             else {
