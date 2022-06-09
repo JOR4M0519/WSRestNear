@@ -351,10 +351,20 @@
 
 <!-- filter Arts SCRIPT -->
 <script>
-document.getElementById("inputSearchButton").addEventListener('click', function(){
+
+function filter(){
   let dataFilter = document.getElementById("inputSearchBar").value;
   window.location = 'filterArts.html?filter='+dataFilter;
+}
+
+document.getElementById("inputSearchBar").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    console.log("pase")
+    filter();
+  }
 });
+document.getElementById("inputSearchButton").addEventListener('click', filter);
 </script>
 
 <!-- BOOTSTRAP SCRIPTS -->

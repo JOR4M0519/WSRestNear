@@ -1,16 +1,11 @@
 package co.edu.unbosque.wsrestnear.services;
 
-import co.edu.unbosque.wsrestnear.dtos.User;
 import co.edu.unbosque.wsrestnear.dtos.WalletHistory;
 import org.json.JSONObject;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.*;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class WalletServices {
@@ -132,7 +127,7 @@ public class WalletServices {
                     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");//2015-05-11 18:26:55
                     formatter.format(invoice.getRegisteredAt().getTime());
                     stmt.setTimestamp(3, new Timestamp(invoice.getRegisteredAt().getTime()));
-                    stmt.setString(4, "Banco");
+                    stmt.setString(4, invoice.getOriginProduct());
 
                 } else if (invoice.getWalletType().equals("Venta")) {
                     stmt = this.conn.prepareStatement("INSERT INTO wallet_history(user_id, wtype, fcoins, image, registeredat, origin_product)\n" +
@@ -142,7 +137,7 @@ public class WalletServices {
                     formatter.format(invoice.getRegisteredAt().getTime());
                     stmt.setString(3, invoice.getArt());
                     stmt.setTimestamp(4, new Timestamp(invoice.getRegisteredAt().getTime()));
-                    stmt.setString(5, invoice.getOrigin_product());
+                    stmt.setString(5, invoice.getOriginProduct());
 
                 }else if (invoice.getWalletType().equals("Compra")){
                     stmt = this.conn.prepareStatement("INSERT INTO wallet_history(user_id, wtype, fcoins, image, registeredat, origin_product)\n" +
@@ -152,7 +147,7 @@ public class WalletServices {
                     formatter.format(invoice.getRegisteredAt().getTime());
                     stmt.setString(3, invoice.getArt());
                     stmt.setTimestamp(4, new Timestamp(invoice.getRegisteredAt().getTime()));
-                    stmt.setString(5, invoice.getOrigin_product());
+                    stmt.setString(5, invoice.getOriginProduct());
                 }
 
                 stmt.setString(1, invoice.getUsername());
