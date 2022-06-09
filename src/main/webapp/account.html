@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Near</title>
+    <link rel="shortcut icon" href="Assets/img/logo.ico" />
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+        integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="Assets/Styles/main.css">
+
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="background-color: #E4E9F7;">
+    <section class="contenedor" style="margin-left: 3%;" id="Cuenta">
+
+        <h1 class="text">Tu cuenta</h1>
+        <div class="info">
+
+            <div style="border-bottom: 1.8px solid #dee2e6;
+                width: 90%;   border-width: 2px;">
+                <div class="hdsad">
+                    <section
+                        style="width: 30%; height:100%; flex-direction: column;align-items: center; justify-content: center;">
+                        <div>
+                            <figure style=" display: flex; justify-content: center;">
+                                <img id="profileImage" class="profileImage"
+                                    src="Assets\img\avatar_driver_people_person_profile_user_icon_123374.png">
+                            </figure>
+                        </div>
+                        <h5 style="text-align: center; width: 100%;"></h5>
+
+                    </section>
+
+                    <section
+                        style="border-left: 2px solid #dee2e6; width: 35%; height:100%; flex-direction: column;align-items: center; justify-content: center; padding-left: 3%;">
+
+                        <div>
+                            <h4 class="titulos-info">Nombre</h4>
+                            <div class="conten-info inputEditable" contenteditable="false" id="nombre">
+
+                            </div>
+                        </div>
+                        <div style="padding-top: 35%;">
+                            <h4 class="titulos-info">Correo</h4>
+                            <div class="conten-info inputEditable" contenteditable="false" id="username">
+
+                            </div>
+                        </div>
+
+
+                    </section>
+                    <section
+                        style="border-left: 1.9px solid #dee2e6; width: 35%; height:100%; flex-direction: column;align-items: center; justify-content: center;padding-left: 3%">
+
+                        <div>
+
+                            <h4 class="titulos-info">Apellido</h4>
+                            <div class="conten-info inputEditable" contenteditable="false" id="lastname">
+
+                            </div>
+                        </div>
+                        <div style="padding-top: 35%;">
+                            <h4 class="titulos-info">Rol</h4>
+                            <div class="conten-info inputEditable" contenteditable="false" id="role">
+
+                            </div>
+                        </div>
+
+                    </section>
+
+                </div>
+                <br>
+            </div>
+            <div>
+                <br>
+                <h5 class="titulos-info">Sobre ti:</h5>
+                <div style="display: flex">
+                    <div style="width: 90%;" class="conten-info" contenteditable="true" id="resumeDescripcionPersonal">
+                    </div>
+
+                </div>
+            </div>
+            <br>
+
+        </div>
+
+    </section>
+
+</body>
+
+<script src="Assets/js/artistAccount.js"></script>
+<script src="Assets/js/sumarLikes.js"></script>
+<script src="Assets/js/getDataArts.js"></script>
+<script src="Assets/js/account.js"></script>
+<script>
+
+
+
+    window.addEventListener("DOMContentLoaded", getDataCollection(), editUser());
+</script>
+<script src="./Assets/js/botonDeshabilitar.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+    integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+
+</html>
