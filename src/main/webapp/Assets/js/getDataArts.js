@@ -25,6 +25,20 @@ const getDataArts = async (artsDiv) => {
           data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());  
       } else{
         data = await fetch("./api/arts").then(response => response.json());
+
+        //invierte la lista tomando los últimos creados
+        data.reverse();
+
+        //Toma solo las primeras 6 artes
+       while(data.length>6 ){
+           data.length = data.length - 1;
+       }
+       //modifica el id por la ruta de la imagen
+
+       data.map(function(element) {
+         element.id = "NFTS\\"+element.id;
+       })
+
         if(artsDiv.id != "card_LikesRanking"){
             getDataArts(document.getElementById("card_LikesRanking"));
         }else{

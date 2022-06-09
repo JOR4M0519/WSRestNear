@@ -162,7 +162,8 @@ const comprar = async () =>{
                 "walletType": "Venta",
                 "fcoins": price,
                 "art": idNFT,
-                "registeredAt": new Date()};
+                "registeredAt": new Date(),
+                "origin_product:": localStorage.getItem("username") };
             historySeller = JSON.stringify(historySeller);
 
             //JSON Customer
@@ -170,7 +171,9 @@ const comprar = async () =>{
                 "walletType": "Compra",
                 "fcoins": (price * -1),
                 "art": idNFT,
-                "registeredAt": new Date()};
+                "registeredAt": new Date(),
+                "origin_product:": username};
+
             historyCustomer = JSON.stringify(historyCustomer);
 
             //Se añade la compra al historial

@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Path("users/{username}/wallet")
 public class WalletHistoryResources {
@@ -66,7 +67,7 @@ public class WalletHistoryResources {
     }
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getUserInvoices(@PathParam("username") String username) throws IOException {
 
         Connection conn = null;
@@ -78,6 +79,9 @@ public class WalletHistoryResources {
             WalletServices walletService = new WalletServices(conn);
             walletHistory = walletService.getWalletHistoryUser(username);
 
+            for (WalletHistory w: walletHistory) {
+                System.out.println(w.toString());
+            }
 
 
             conn.close();
