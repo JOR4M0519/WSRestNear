@@ -47,7 +47,14 @@ const getButtonAccount = async () => {
 
             localStorage.removeItem("username");
             localStorage.removeItem("role");
-            location.reload();
+            localStorage.removeItem("cantidad");
+
+
+            for (let i=1; localStorage.getItem(`buy${i}`) != null;i++){
+                localStorage.removeItem(`buy${i}`);
+            }
+
+            window.location.href= "./index.html";
 
         }
         divBotones.style.marginLeft="73%";

@@ -77,7 +77,19 @@ FROM collection c
                   AND a."forsale" = true
          JOIN userapp u
               ON u."user_id" = c."user_id"
-                  AND a.title LIKE ?;
+                  AND a.title ILIKE ?;
+
+--Find collections by filter
+SELECT
+    c.user_id,
+    c.title,
+    u.name,
+    u.lastname
+FROM collection c
+         JOIN userapp u
+              ON u."user_id" = c."user_id"
+                  AND c.title ILIKE '%rat%';
+
 --Find Likes By Specific User
 SELECT
     l.image

@@ -1,5 +1,6 @@
 package co.edu.unbosque.wsrestnear.services;
 
+import co.edu.unbosque.wsrestnear.dtos.Art;
 import co.edu.unbosque.wsrestnear.dtos.Collection;
 import java.sql.*;
 import java.util.ArrayList;
@@ -166,6 +167,50 @@ public class CollectionServices {
             }
         }
         return collection1;
+    }
+
+    public List<Collection> getListCollectionsByfilter(String data) {
+        PreparedStatement stmt = null;
+
+        List<Collection> collections = new ArrayList<Collection>();
+
+        try {
+            String sql = "SELECT\n" +
+                    "    c.user_id,\n" +
+                    "    c.title,\n" +
+                    "    u.name,\n" +
+                    "    u.lastname\n" +
+                    "FROM collection c\n" +
+                    "         JOIN userapp u\n" +
+                    "              ON u.\"user_id\" = c.\"user_id\"\n" +
+                    "                  AND c.title ILIKE ?";
+            stmt = this.conn.prepareStatement(sql);
+            stmt.setString(1, ("%"+data+"%"));
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                String user_id = rs.getString("user_id");
+                String title = rs.getString("title");
+
+                // Creating a new UserApp class instance and adding it to the array list
+                collections.add(new Collection(user_id,title));
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+
+        } finally {
+            // Cleaning-up environment
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return collections;
     }
 
 }
