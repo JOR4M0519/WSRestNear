@@ -69,7 +69,7 @@ document.getElementById("btnlog_out").addEventListener('click', logout);
 function logout(){
     localStorage.removeItem("username");
     localStorage.removeItem("role");
-    localStorage.removeItem("cantidad");
+    localStorage.removeItem("cantidadCompras");
     for (let i=1; localStorage.getItem(`buy${i}`) != null;i++){
         console.log(localStorage.getItem(`buy${i}`) != null)
     }

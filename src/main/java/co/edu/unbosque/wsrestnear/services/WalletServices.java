@@ -118,6 +118,8 @@ public class WalletServices {
         // Data structure to map results from database
         if (invoice != null) {
 
+            System.out.println(invoice.toString());
+
             try {
 
                 if(invoice.getWalletType().equals("Recarga")) {

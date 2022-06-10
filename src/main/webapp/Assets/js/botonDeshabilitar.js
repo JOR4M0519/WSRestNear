@@ -28,7 +28,6 @@ const actualizarVenta = async (btn) => {
     var data = btn.id;
     var art = JSON.parse(data);
     art.id = art.id.split('\\')[1];
-    console.log(art);
 
     try {
 

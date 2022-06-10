@@ -47,7 +47,7 @@ const getButtonAccount = async () => {
 
             localStorage.removeItem("username");
             localStorage.removeItem("role");
-            localStorage.removeItem("cantidad");
+            localStorage.removeItem("cantidadCompras");
 
 
             for (let i=1; localStorage.getItem(`buy${i}`) != null;i++){

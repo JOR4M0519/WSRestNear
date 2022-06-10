@@ -1,10 +1,12 @@
 divWallet = document.getElementById("walletContent");
 
 const getWalletHistory = async () => {
-    const historyWallet = await fetch(`./api/users/${localStorage.getItem("username")}/wallet`).then(response => response.json());
+    var historyWallet = await fetch(`./api/users/${localStorage.getItem("username")}/wallet`).then(response => response.json());
 
 
     if (historyWallet.length != 0) {
+
+        historyWallet.reverse();
 
         const listUsers = await fetch(`./api/users`).then(response => response.json());
         const listArts = await fetch(`./api/arts`).then(response => response.json());
@@ -70,8 +72,8 @@ const getWalletHistory = async () => {
     //Cargar anuncio en caso que no tenga ningun registro
     } else {
         divWallet.innerHTML +=
-            `<div class="cresumen">  
-                <h4 class="itemLeft" style="grid-column-start: 1; grid-column-end: 3;"><b> No has realizado compras </b></h4>
+            `<div class="cresumen" style="border: none; margin-left: 2%">  
+                <h5 class="itemLeft" style="grid-column-start: 1; grid-column-end: 3;"><b> No has realizado ninguna transacción </b></h5>
             </div>`;
     }
 }

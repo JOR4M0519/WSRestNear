@@ -136,6 +136,7 @@ const comprar = async () =>{
     }
 
 
+
     if (result.fcoins<totalPrice){
         alert('Fondos Insuficientes');
     }else{
@@ -157,7 +158,8 @@ const comprar = async () =>{
                 "fcoins": price,
                 "art": idNFT,
                 "registeredAt": new Date(),
-                "originProduct:": localStorage.getItem("username") };
+                "originProduct": localStorage.getItem('username').toString() };
+
             historySeller = JSON.stringify(historySeller);
 
             //JSON Customer
@@ -166,7 +168,7 @@ const comprar = async () =>{
                 "fcoins": (price * -1),
                 "art": idNFT,
                 "registeredAt": new Date(),
-                "originProduct:": username};
+                "originProduct": username.toString()};
 
             historyCustomer = JSON.stringify(historyCustomer);
 
@@ -194,6 +196,7 @@ const comprar = async () =>{
             localStorage.removeItem(`buy${i}`);
         }
         localStorage.removeItem('cantidadCompras');
+
         Swal.fire('Compra Exitosa!').then((result) =>{
             if (result.isConfirmed){
                 window.location.href="./index.html"
@@ -203,6 +206,12 @@ const comprar = async () =>{
     }
 }
 
+const test = async () =>{
+    /*for (let i=0;i<100000;i++) {
+    }*/
+        setTimeout(5000);
+
+}
 function removeItem (idNFT) {
 
     for (var i = 1; i <= cantidad; i++) {
@@ -232,5 +241,18 @@ function removeItem (idNFT) {
 
 
 }
-document.getElementById("btnBuyAllArts").addEventListener('click', comprar);
+document.getElementById("btnBuyAllArts").addEventListener('click',  function () {
+
+   /* Swal.fire({
+        title: 'Please Wait !',
+        html: 'data uploading',// add html attribute if you want or remove
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        },
+    });*/
+    btnBuy()
+
+    });
+
 window.addEventListener("DOMContentLoaded", getArtShopping(), addData());

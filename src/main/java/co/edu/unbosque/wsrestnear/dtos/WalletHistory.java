@@ -93,7 +93,7 @@ public class WalletHistory {
                 ", fcoins=" + fcoins +
                 ", art='" + art + '\'' +
                 ", registeredAt=" + registeredAt +
-                ", origin_product='" + originProduct + '\'' +
+                ", originProduct='" + originProduct + '\'' +
                 '}';
     }
 }
