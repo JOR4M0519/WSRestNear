@@ -23,20 +23,20 @@
 
     <div id="divbuttons"; style="display: flex; padding-bottom: 0.5%; padding-top: 0.2%;">
       <button class="dropdown show btn" id="dropdown" style="float: left;">
-        <a href="shoppingCart.html" style="color: white;"><i class="fa fa-shopping-cart"></i></a>
+        <a href="shoppingCart.html" style="color: white;"><i class="fa fa-shopping-cart"></i><sup id="numCantCompras">&nbsp0</sup></a>
       </button>
       <div class="dropdown" id="menusbtn">
 
       </div>
       <div class="dropdown show" style="float: left;">
         <a class="btn btn-secondary dropdown-toggle" id="dropdown" href="#" role="button" id="dropdownMenuLink"
-          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle"
-            viewBox="0 0 16 16">
+               viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
             <path fill-rule="evenodd"
-              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
           </svg>
           <span id="nameAccount"> </span>
         </a>
@@ -82,7 +82,34 @@
     </div>
   </section>
 
+  <!-- COLECCIÓN -->
+  <section class="py-3" style="background-color: #cad1e2">
+    <div class="cards">
+      <p id="ofertas" class="card_tittle">Últimas Colecciones:</p>
+      <!--Guia js-->
+      <div class="card-group contenedor-social" id="socialcard">
+        <div class="container">
+          <div id="cardcol">
 
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <section class="py-5" style="background-color: #E4E9F7">
+          <div class="cards" id="cardsCollection">
+
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
 
 
   <footer>
@@ -102,18 +129,28 @@
 </body>
 
 <script src="Assets/js/getDataArts.js"></script>
-<script>
-    document.getElementById("inputSearchButton").addEventListener('click', function(){
-      let dataFilter = document.getElementById("inputSearchBar").value;
-      window.location = 'filterArts.html?filter='+dataFilter;
-    });
-
-    window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("card")));
-    </script>
-
-<!-- BOOTSTRAP SCRIPTS -->
 <script src="Assets/js/sumarLikes.js"></script>
 <script src="Assets/js/botonIndex.js"></script>
+
+<!-- filter Arts SCRIPT -->
+<script>
+  function filter(){
+    let dataFilter = document.getElementById("inputSearchBar").value;
+    window.location = 'filterArts.html?filter='+dataFilter;
+  }
+  document.getElementById("inputSearchBar").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      console.log("pase")
+      filter();
+    }
+  });
+  document.getElementById("inputSearchButton").addEventListener('click', filter);
+
+  window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("card")), getDataCollection());
+</script>
+
+<!-- BOOTSTRAP SCRIPTS -->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

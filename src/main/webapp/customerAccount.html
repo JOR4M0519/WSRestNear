@@ -19,74 +19,6 @@
 </head>
 <body>
 
-<div class="sidebar">
-    <div class="logo-details">
-        <a href="index.html"><img class="logo icon" src="Assets\img\logoNear3.png"></a>
-        <i class='bx bx-menu' id="btn" ></i>
-    </div>
-    <ul class="nav-list">
-        <li>
-            <i class='bx bx-search' ></i>
-            <input type="text" placeholder="Buscar...">
-            <span class="tooltip">Buscar</span>
-        </li>
-        <li>
-            <a href="#Cuenta">
-                <i class='bx bx-user' ></i>
-                <span class="links_name">Cuenta</span>
-            </a>
-            <span class="tooltip">Cuenta</span>
-        </li>
-        <li>
-            <a href="#FCoins">
-                <i class='bx bx-coin'></i>
-                <span class="links_name">FCoins</span>
-            </a>
-            <span class="tooltip">FCoins</span>
-        </li>
-        <li>
-            <span class="tooltip">Files</span>
-        </li>
-        <li>
-            <a href="#Compras">
-                <i class='bx bx-cart-alt' ></i>
-                <span class="links_name">Compras</span>
-            </a>
-            <span class="tooltip">Compras</span>
-        </li>
-        <li>
-            <a href="#Favoritos">
-                <i class='bx bx-heart' ></i>
-                <span class="links_name">Favoritos</span>
-            </a>
-            <span class="tooltip">Favoritos</span>
-        </li>
-        <li>
-            <a href="#wallet">
-                <i class='bx bx-wallet-alt'></i>
-                <span class="links_name">Billetera</span>
-            </a>
-            <span class="tooltip">Billetera</span>
-        </li>
-        <li>
-            <a href="#Configuraciones">
-                <i class='bx bx-cog' ></i>
-                <span class="links_name">Configuraciones</span>
-            </a>
-            <span class="tooltip">Configuraciones</span>
-        </li>
-        <li class="profile">
-            <div class="profile-details">
-                <!--<img src="profile.jpg" alt="profileImg">-->
-                <div class="name_job">
-                    <div class="name" id="listFullName" ></div>
-                    <div class="job" id="listRole"></div>
-                </div>
-            </div>
-            <a href="index.html" id="btnlog_out"><i class='bx bx-log-out' id="log_out" ></i></a>
-        </li>
-    </ul>
-</div>
 
 <section class="home-section">
     <section class="contenedor" id="Cuenta">
@@ -96,7 +28,7 @@
 
             <section>
                 <figure>
-                    <img id="profileImage" class="profileImage" style="width: 150px; height: 150px;" src="Assets\img\avatar_driver_people_person_profile_user_icon_123374.png">
+                    <img id="profileImage" class="profileImage" style="width: 150px; height: 150px;" src="">
                 </figure>
                 <div id="text-icono"></div>
             </section>
@@ -133,50 +65,52 @@
         <h1 class="text"> Mis Fcoins </h1>
         <div class="info">
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">$</span>
+                <div class="input-group-prepend" style="width: 100%; height: 20%;">
+                        <img class="input-group-text" id="basic-addon1" style="width: 10%;padding: 1%;justify-content: center;" src="Assets/img/Fcoins_IconB.png" style="height: 20px;">
+                   
+                    <input type="text" id="amountFcoins" name="cantidad" class="form-control form-control-lg" disabled>
                 </div>
-                    <input type="text" id="cantidad" name="cantidad" class="form-control form-control-lg" value="0">
             </div>  
         </div>
     </section>
+
+
       
     <section class="contenedor" id="FCoins">
-        <h1 class="text">Fcoins</h1>
+        <h1 class="text">Recargar Fcoins</h1>
         <div class="info">
-          <div class="card mb-3" style="width: 100%;">
-            <div class="row g-0">
-              <div class="col-md-4 bg-danger" style="background-image: linear-gradient(to bottom right,#49070f ,#BA2737 , black);
-              ">
-                <img src="Assets/img/Fcoins Icon2.png" class="img-fluid rounded-start" alt="..." style="padding: 5%; border-top-left-radius: 20%; border-bottom-left-radius: 2%;">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body" style="padding-top: 6%;">
-                  <h3 class="card-text">Recarga Fcoins!</h3><br>
-                  <div class="input-group mb-3">
-                      <input type="text" class="form-control"id="amountFcoins" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled>
-                      <div class="input-group-append">
-                          <span class="input-group-text" id="basic-addon2">Fcoins</span>
-                      </div>
-                  </div><br>
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">$</span>
-                      </div>
-                          <input type="text" id="cantidad" name="cantidad" class="form-control" value="0">
-                  </div><br>
-                  <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <button type="button" id="sumar" class="btn btn-sm btn-outline-secondary"><i class="fas fa-plus"></i></button>
-                          <button type="button" id="restar" class="btn btn-sm btn-outline-secondary"><i class="fas fa-minus"></i></button>
-                          <button type="submit" id="btnAddFCOINS" class="btn btn-sm btn-outline-secondary" style="float: right;">Cargar FCoins</button>
+
+            <div class="card mb-3" style="width: 100%;">
+                <div class="row g-0" style="margin: 0;">
+                    <div class="col-md-4 bg-danger" style="background-image: linear-gradient(to bottom right,#49070f ,#BA2737 , black); border-radius: 1%; display: flex; align-items: center;">
+                        <img src="Assets/img/Fcoins Icon2.png" class="img-fluid rounded-start" alt="..." style="padding: 5%; border-top-left-radius: 20%; border-bottom-left-radius: 2%;">
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card-body" style="padding-top: 6%;">
+                            <h3 class="card-text">Recarga Fcoins!</h3><br>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="bank" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">Banco</span>
+                                </div>
+                            </div><br>
+                                <div class="input-group mb-3">
+                                    <img class="input-group-text" id="basic-addon1" src="Assets/img/Fcoins_IconB.png" alt="" width="10%">
+                                    <input type="text" id="cantidad" name="cantidad" class="form-control" value="0">
+                                </div><br>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <button type="button" id="sumar" class="btn btn-sm btn-outline-secondary"><i class="fas fa-plus"></i></button>
+                                        <button type="button" id="restar" class="btn btn-sm btn-outline-secondary"><i class="fas fa-minus"></i></button>
+                                        <button type="submit" id="btnAddFCOINS" class="btn btn-sm btn-outline-secondary" style="float: right;">Cargar FCoins</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div id="calc"></div>
-          </div>
         </div>
     </section>
 
@@ -195,73 +129,14 @@
 
     </section>
 
-    <section class="contenedor" id="Favoritos">
 
-        <h1 class="text">Favoritos</h1>
-
-              <!--Guia js-->
-              <div class="card-group contenedor-social" id="socialcard">
-                <div class="container">
-                  <div class="row" id="cardfavorites">
-        
-                  </div>
-                </div>
-              </div>
-
-    </section>
-
-    <section class="contenedor" style="padding: 5%; margin-bottom: 10%;" id="wallet">
-        <div class="resumenhead">
-            <h4 style="padding: 1.5%;"><b> Actividad </b></h4>
-          </div>
-          <div class="cresumen">
-            <div style="position: absolute; padding-top: 2.5%; left: 5%;">
-              <p>NFT</p>
-              <p>Comprado a</p>
-              <p>Fecha</p>
-              <h3><b> Valor </b></h3>
-            </div>
-            <div style="position: absolute; padding-top: 2.5%; right: 5%; text-align: right;">
-              <p>Sapo jeanpo</p>
-              <p>Jeanpier sapohpta</p>
-              <p>12/02/2022</p>
-              <h3><b> $77.000 </b></h3>
-            </div>
-          </div>
-    </section>
-
-    <section class="contenedor" id="Configuraciones">
-
-        <h1 class="text">Configuraciones</h1>
-        <div class="info">Pronto Habilitaresmos Esta Función!</div>
-        <div class="info" style="width: 100%; height: 100%;"> </div>
-
-
-
-    </section>
-
-    <section class="contenedor" >
-        <footer>
-            <div class="container p-3">
-                <div class="row text-center text-white">
-                    <div class="col ml-auto">
-                        <p>Copyright &copy; 2022 <br>
-                            Kevin García <br>
-                            Laura Mateus <br>
-                            Santiago Prieto <br>
-                            Jeanpier Ramos
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </section>
 </section>
 <script src="Assets/js/artistAccount.js"></script>
 <script src="Assets/js/sumarLikes.js"></script>
 <script src="Assets/js/sumar.js"></script>
 <script src="Assets/js/getDataArts.js"></script>
 <script src="Assets/js/account.js"></script>
+<script src="Assets/js/walletHistory.js"></script>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

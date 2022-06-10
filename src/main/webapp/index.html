@@ -26,12 +26,11 @@
         <a href="shoppingCart.html" style="color: white;"><i class="fa fa-shopping-cart"></i><sup id="numCantCompras">&nbsp0</sup></a>
       </button>
       <div class="dropdown" id="menusbtn">
-
+        <!-- JS LOAD -->
       </div>
       <div class="dropdown show" style="float: left;">
         <a class="btn btn-secondary dropdown-toggle" id="dropdown" href="#" role="button" id="dropdownMenuLink"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle"
             viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -40,15 +39,11 @@
           </svg>
           <span id="nameAccount"> </span>
         </a>
-
-
         <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuLink">
-
+          <!-- JS LOAD -->
         </div>
       </div>
-
     </div>
-
 
     <nav class="navbar" style=" display: inline-block; width: 100%; background-color: #BA2737;">
       <div class="input-group">
@@ -76,7 +71,7 @@
             </li>
           </ul>
         </div>
-
+      </div>
     </nav>
   </div>
 
@@ -351,15 +346,25 @@
 
 <!-- filter Arts SCRIPT -->
 <script>
-document.getElementById("inputSearchButton").addEventListener('click', function(){
+
+function filter(){
   let dataFilter = document.getElementById("inputSearchBar").value;
   window.location = 'filterArts.html?filter='+dataFilter;
+}
+
+document.getElementById("inputSearchBar").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    filter();
+  }
 });
+document.getElementById("inputSearchButton").addEventListener('click', filter);
 </script>
 
 <!-- BOOTSTRAP SCRIPTS -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="Assets/js/getDataArts.js"></script>
 <script src="Assets/js/index.js"></script>
 <script src="Assets/js/sumarLikes.js"></script>

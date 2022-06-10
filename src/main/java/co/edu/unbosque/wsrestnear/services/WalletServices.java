@@ -1,16 +1,11 @@
 package co.edu.unbosque.wsrestnear.services;
 
-import co.edu.unbosque.wsrestnear.dtos.User;
 import co.edu.unbosque.wsrestnear.dtos.WalletHistory;
 import org.json.JSONObject;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.*;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class WalletServices {
@@ -25,7 +20,7 @@ public class WalletServices {
     public ArrayList<WalletHistory> getWalletHistoryUser(String username) {
 
         PreparedStatement stmt = null;
-        ArrayList<WalletHistory> walletHistory = null;
+        ArrayList<WalletHistory> walletHistory = new ArrayList<>();
 
         try {
             stmt = this.conn.prepareStatement("SELECT * FROM wallet_history WHERE user_id = ?");
@@ -33,7 +28,7 @@ public class WalletServices {
             ResultSet rs = stmt.executeQuery();
 
 
-            if(rs.next()) {
+            while(rs.next()) {
 
                 walletHistory.add( new WalletHistory(
                         rs.getInt(1),
@@ -41,7 +36,8 @@ public class WalletServices {
                         rs.getString(3),
                         rs.getLong(4),
                         rs.getString(5),
-                        rs.getDate(6)
+                        rs.getDate(6),
+                        rs.getString(7)
                 ));
             }
             rs.close();
@@ -122,31 +118,38 @@ public class WalletServices {
         // Data structure to map results from database
         if (invoice != null) {
 
+            System.out.println(invoice.toString());
+
             try {
 
                 if(invoice.getWalletType().equals("Recarga")) {
-                    stmt = this.conn.prepareStatement("INSERT INTO wallet_history(user_id, wtype, fcoins, image, registeredat)\n" +
-                            "\tVALUES (?, 'Recarga', ?, null, ?);");
+                    stmt = this.conn.prepareStatement("INSERT INTO wallet_history(user_id, wtype, fcoins, image, registeredat, origin_product)\n" +
+                            "\tVALUES (?, 'Recarga', ?, null, ?, ?);");
 
                     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");//2015-05-11 18:26:55
                     formatter.format(invoice.getRegisteredAt().getTime());
                     stmt.setTimestamp(3, new Timestamp(invoice.getRegisteredAt().getTime()));
+                    stmt.setString(4, invoice.getOriginProduct());
 
                 } else if (invoice.getWalletType().equals("Venta")) {
-                    stmt = this.conn.prepareStatement("INSERT INTO wallet_history(user_id, wtype, fcoins, image, registeredat)\n" +
-                            "\tVALUES (?, 'Venta', ?, ?, ?);");
+                    stmt = this.conn.prepareStatement("INSERT INTO wallet_history(user_id, wtype, fcoins, image, registeredat, origin_product)\n" +
+                            "\tVALUES (?, 'Venta', ?, ?, ?, ?);");
 
                     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");//2015-05-11 18:26:55
                     formatter.format(invoice.getRegisteredAt().getTime());
                     stmt.setString(3, invoice.getArt());
                     stmt.setTimestamp(4, new Timestamp(invoice.getRegisteredAt().getTime()));
+                    stmt.setString(5, invoice.getOriginProduct());
+
                 }else if (invoice.getWalletType().equals("Compra")){
-                    stmt = this.conn.prepareStatement("INSERT INTO wallet_history(user_id, wtype, fcoins, image, registeredat)\n" +
-                            "\tVALUES (?, 'Compra', ?, ?, ?);");
+                    stmt = this.conn.prepareStatement("INSERT INTO wallet_history(user_id, wtype, fcoins, image, registeredat, origin_product)\n" +
+                            "\tVALUES (?, 'Compra', ?, ?, ?, ?);");
+
                     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");//2015-05-11 18:26:55
                     formatter.format(invoice.getRegisteredAt().getTime());
                     stmt.setString(3, invoice.getArt());
                     stmt.setTimestamp(4, new Timestamp(invoice.getRegisteredAt().getTime()));
+                    stmt.setString(5, invoice.getOriginProduct());
                 }
 
                 stmt.setString(1, invoice.getUsername());

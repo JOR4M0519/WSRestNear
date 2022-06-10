@@ -218,7 +218,7 @@ const getDataAccount = async () => {
 
         if (localStorage.getItem("role") == "Comprador") {
 
-            let response2 = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`);
+            let response2 = await fetch(`./api/users/${localStorage.getItem("username")}/wallet/fcoins`);
             let result2 = await response2.json();
             inputFcoins.placeholder = "$" + new Intl.NumberFormat().format(result2.fcoins.toString());
         } else {
@@ -259,7 +259,12 @@ const getDataAccount = async () => {
 function logout() {
     localStorage.removeItem("username");
     localStorage.removeItem("role");
-    window.location.href = "./index.html";
+    localStorage.removeItem("cantidadCompras");
+    for (let i=1; localStorage.getItem(`buy${i}`) != null;i++){
+        console.log(localStorage.getItem(`buy${i}`) != null)
+    }
+
+    window.location.href= "./index.html";
 }
 
 
