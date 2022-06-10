@@ -1,28 +1,39 @@
-const getDataArts = async (artsDiv) => {
+const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
 
-  let data = null;
+  let data = dataFetch;
   let dataLikes = null;
   let heartLikesStatus = null;
   
   let styleClassCardTopRankLikes = "";
 
-      //let url = window.location.href.split('/')[4].split('.')[0];
+
       let url = window.location.href
-    console.log(url);
-      
       //Realiza el llamado fetch de las artes dependiendo de la ubicación de la pagina
-       if(url.includes("customerAccount")){
+
+    //puesto
+    /*if(url.includes("customerAccount")){
           data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts`).then(response => response.json());
           if(artsDiv.id != "cardfavorites"){
               getDataArts(document.getElementById("cardfavorites"));
           }else{
               data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());    
-          }    
-      }else if(url.includes("filterArts")){
+          }
+          //puesto
+      }else*/
+
+    //Puesto
+    /*if(url.includes("filterArts")){
           data = await fetch(`./api/arts/filter?data=${params.filter}`).then(response => response.json());
-      }else if(url.includes("artistAccount")){
-          data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());  
-      } else{
+    }
+    else*/
+
+    /*if(url.includes("artistAccount")){
+            //puesto
+          data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
+      } else{*/
+
+    //puesto index
+/*
         data = await fetch("./api/arts").then(response => response.json());
 
         //invierte la lista tomando los últimos creados
@@ -37,49 +48,48 @@ const getDataArts = async (artsDiv) => {
        data.map(function(element) {
          element.id = "NFTS\\"+element.id;
        })
+*/
 
-        if(artsDiv.id != "card_LikesRanking"){
-            getDataArts(document.getElementById("card_LikesRanking"));
-        }else{
+        if(artsDiv.id == "card_LikesRanking"){
             styleClassCardTopRankLikes = "cardTopRankLikes card-dimensionsTopLiked";
-            data = await fetch("./api/arts/likes").then(response => response.json());
         }
-      }
-      
+      //}
+
+      //Get Likes Data of all images
       const listTotalLikes = await fetch("./api/arts/likes/list").then(response => response.json());
       const listTotalLikesByUser = await fetch(`./api/users/${localStorage.getItem('username')}/likes`).then(response => response.json());
+      const listArtsOwner = await fetch(`./api/owners/${localStorage.getItem('username')}/arts`).then(response => response.json());
 
+    let innerhtml = "";
 
-      let innerhtml = "";
-
+      //Recorre cada arte
       for (const data1 of data) {
           const {id, collection, title, author, price, forSale} = data1;
           let idNFT = id.toString().split("\\")[1];
           let type = "";
 
-          const artTotalLike = listTotalLikes.filter(data => (data.idImage === idNFT));
-
+          //Busca el numero de likes que posea el arte
+          let artTotalLike = listTotalLikes.filter(data => (data.idImage === idNFT));
           if (artTotalLike.length!=0) {
               dataLikes = artTotalLike[0].likes;
-         }else {
-              dataLikes=0;
-          }
+         }else {dataLikes=0;}
 
-          const likeByArt = listTotalLikesByUser.filter(data => (data.idImage === idNFT));
+          //Busca si el usuario le dió click al Arte
+          let likeByArt = listTotalLikesByUser.filter(data => (data.idImage === idNFT));
           if (likeByArt.length!=0) {
-              heartLikesStatus = likeByArt[0].likes;
-          }else {
-              heartLikesStatus=0;
-          }
-          if (heartLikesStatus === 0) {
-              heartLikesStatus = "Assets/svg/heart-unfill.svg";
-          } else {
               heartLikesStatus = "Assets/svg/heart-fill.svg";
+          }else {
+              heartLikesStatus="Assets/svg/heart-unfill.svg";
           }
 
+          /*
+          if (heartLikesStatus === 0) {
+              heartLikesStatus = ;
+          } else {
+              heartLikesStatus = ;
+          }*/
 
           innerhtml += `
-
 <div class="col-md-4 card-position "> 
     <div class=" ${styleClassCardTopRankLikes} card mb-4 shadow-sm card-dimensions">
         <div class="imgBx">
@@ -100,10 +110,27 @@ const getDataArts = async (artsDiv) => {
                 </button>
                 <span id="amountLikes${idNFT}" aria-valuetext="">${dataLikes}</span>
             </p>`;
-        
+          let habilitar="";
+
+          //
+          let ownerArt = listArtsOwner.filter(art => art.id === id);
+          ownerArt = (ownerArt.length != 0);
+
   //No agrega los botones de compra y carrito de compras
   if(url.includes("customerAccount") && (artsDiv.id ==="cardOwner")|| url.includes("artistAccount")){
+
+
+      if (forSale == true) {
+
+          habilitar="Deshabilitar";
+
+      } else {
+          habilitar="Habilitar";
+      }
+
       innerhtml += `
+            <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary item1" value="${habilitar} Compra" onclick="btnDeshabilitar(this)">
+            <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">
       </div>
     </div>
 </div>`;
@@ -118,8 +145,45 @@ const getDataArts = async (artsDiv) => {
     </div>
 </div>`;
   }
-      }
+  if(localStorage.getItem("role") === "Artista"){
+      getBtnCallBack(data1,habilitar)
+  } else{
+      getBtnCallBack(data1,habilitar)
+  }
       artsDiv.innerHTML += innerhtml;
+}
+
+const groupBtnsArts = async ()=>{
+
+}
+
+function getArtSale(dataArt,sellStatus){
+
+    if(){
+          }
+          return `
+            <input class="btn btn-sm btn-outline-secondary item1" value="${sellStatus}" >
+      </div>
+    </div>
+</div>`;
+}
+
+function getEnableArtBtn(dataArt,enable){
+    return `
+            <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btn-outline-secondary item1" value="${enable} Compra" onclick="btnDeshabilitar(this)">
+            <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">
+      </div>
+    </div>
+</div>`;
+}
+
+function getBuyBtn(dataArt, innecesary){
+    return `
+      <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btn-outline-secondary" value="Comprar" onclick="btnBuy(this,'buy')">     
+      <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btn-outline-secondary" value="Añadir al Carro" onclick="btnBuy(this,'add')">        
+      </div>
+    </div>
+</div>`;
 }
 
 const getDataCollection = async () =>   {
@@ -223,6 +287,7 @@ const getDataModal = async (collection,username) => {
     let dataLikes = null;
     const listTotalLikes = await fetch("./api/arts/likes/list").then(response => response.json());
     const listTotalLikesByUser = await fetch(`./api/users/${localStorage.getItem('username')}/likes`).then(response => response.json());
+    const listArtsOwner = await fetch(`./api/owners/${localStorage.getItem('username')}/arts`).then(response => response.json());
 
     
     for (const dataCollectionNFTs1 of dataCollectionNFTs) {
@@ -251,14 +316,14 @@ const getDataModal = async (collection,username) => {
             heartLikesStatus = "Assets/svg/heart-fill.svg";
         }
 
+        let ownerArt = listArtsOwner.filter(art => art.id === id);
 
         var buyButtons = "";
         var habilitar ="";
 
-        if (window.location.toString().includes("artistAccount")) {
+        if (window.location.toString().includes("artistAccount") && ownerArt.length !=0) {
 
-            if (forSale == true) {
-
+            if (forSale) {
                 habilitar="Deshabilitar";
 
             } else {
@@ -269,9 +334,7 @@ const getDataModal = async (collection,username) => {
             <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="${habilitar} Compra" onclick="btnDeshabilitar(this)">
             <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">
             `;
-        }
-
-            else {
+        }else {
 
 
             if (forSale == true) {
