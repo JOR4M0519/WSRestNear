@@ -16,273 +16,62 @@
 
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>
+<body style="background-color: #E4E9F7;">
 
 
-    <div class="sidebar">
-        <div class="logo-details">
-            <a href="./index.html"><img class="logo icon" hr src="Assets\img\logoNear3.png"></a>
-            <i class='bx bx-menu' id="btn"></i>
-        </div>
-        <ul class="nav-list">
-            <li>
-                <a href="./createCollection.html">
-                    <i class='bx bxs-folder-minus'></i>
-                    <span class="links_name">Crear Colección</span>
-                </a>
-                <span class="tooltip">Crear Colección</span>
-            </li>
-            <li>
-                <a href="./createNFT.html">
-                    <i class='bx bx-up-arrow-circle'></i>
-                    <span class="links_name">Subir NFT</span>
-                </a>
-                <span class="tooltip">Subir NFT</span>
-            </li>
 
-            <li>
-                <i class='bx bx-search'></i>
-                <input type="text" placeholder="Buscar...">
-                <span class="tooltip">Buscar</span>
-            </li>
-            <li>
-                <a href="#Cuenta">
-                    <i class='bx bx-user'></i>
-                    <span class="links_name">Cuenta</span>
-                </a>
-                <span class="tooltip">Cuenta</span>
-            </li>
-            <li>
-                <span class="tooltip">Files</span>
-            </li>
-            <li>
-                <a href="#publicaciones">
-                    <i class='bx bx-label'></i>
-                    <span class="links_name">Publicaciones</span>
-                </a>
-                <span class="tooltip">Publicaciones</span>
-            </li>
-            <li>
-                <a href="walletHistory.html">
-                    <i class='bx bx-wallet-alt'></i>
-                    <span class="links_name">Billetera</span>
-                </a>
-                <span class="tooltip">Billetera</span>
-            </li>
-            <li>
-                <a href="#Favoritos">
-                    <i class='bx bx-heart'></i>
-                    <span class="links_name">Favoritos</span>
-                </a>
-                <span class="tooltip">Favoritos</span>
-            </li>
-
-            <li>
-                <a href="#Colecciones">
-                    <i class='bx bx-folder-plus'></i>
-                    <span class="links_name">Colecciones</span>
-                </a>
-                <span class="tooltip">Colecciones</span>
-            </li>
-
-            <li>
-                <a href="#Configuraciones">
-                    <i class='bx bx-cog'></i>
-                    <span class="links_name">Configuraciones</span>
-                </a>
-                <span class="tooltip">Configuraciones</span>
-            </li>
-            <li class="profile">
-                <div class="profile-details">
-                    <!--<img src="profile.jpg" alt="profileImg">-->
-                    <div class="name_job">
-                        <div class="name" id="listFullName"></div>
-                        <div class="job" id="listRole"></div>
-                    </div>
-                </div>
-                <a style="border-radius:10px; outline:none;" id="btnlog_out"><i class='bx bx-log-out'
-                        id="log_out"></i></a>
-
-            </li>
-        </ul>
-    </div>
-
-    <section class="home-section" style="height: 100vh;">
-        <li>
-            <i class='bx bx-search' ></i>
-            <input type="text" placeholder="Buscar...">
-            <span class="tooltip">Buscar</span>
-        </li>
-        <li>
-            <a href="#Cuenta">
-                <i class='bx bx-user' ></i>
-                <span class="links_name">Cuenta</span>
-            </a>
-            <span class="tooltip">Cuenta</span>
-        </li>
-        <li>
-            <span class="tooltip">Files</span>
-        </li>
-        <li>
-            <a href="#publicaciones">
-                <i class='bx bx-label'></i>
-                <span class="links_name">Publicaciones</span>
-            </a>
-            <span class="tooltip">Publicaciones</span>
-        </li>
-        <li>
-            <a href="#wallet">
-                <i class='bx bx-wallet-alt'></i>
-                <span class="links_name">Billetera</span>
-            </a>
-            <span class="tooltip">Billetera</span>
-        </li>
-        <li>
-            <a href="#Favoritos">
-                <i class='bx bx-heart' ></i>
-                <span class="links_name">Favoritos</span>
-            </a>
-            <span class="tooltip">Favoritos</span>
-        </li>
-
-        <section class="contenedor" style="height: 79vh;">
-
-            <iframe src="./account.html" frameborder="0"></iframe>
-           
-
-        </section>
-        <!-- <section class="contenedor" id="Colecciones">
+        <section class="contenedor" id="Colecciones">
             <h1 class="text">Colecciones</h1>
-            <div class="card-group contenedor-social" id="socialcard">
-                <div class="container">
-                    <div id="cardcol">
-
-                    </div>
-                </div>
-            </div>
-
-
-
-        </section> -->
-
-        <!-- <section class="contenedor" id="Favoritos">
-
-            <h1 class="text">Favoritos</h1>
-
-            <div class="card-group contenedor-social" id="socialcard">
-                <div class="container">
-                    <div class="row" id="cardfavorites">
-
-                    </div>
-                </div>
-            </div>
-
-        </section> -->
-
-
-
-         <!-- <section class="contenedor" id="Configuraciones">
-            <h1 class="text">Configuraciones</h1>
-
-        </section> -->
-
-        <section class="contenedor" style="height: 20vh;">
-            <footer>
-                <div class="container p-3" style="height: 100%;">
-                    <div class="row text-center text-white">
-                        <div class="col ml-auto">
-                            <p>Copyright &copy; 2022 <br>
-                                Kevin García <br>
-                                Laura Mateus <br>
-                                Santiago Prieto <br>
-                                Jeanpier Ramos
-                            </p>
+                <!-- COLECCIÓN -->
+                        <!--Guia js-->
+                        <div class="card-group contenedor-social" id="socialcard">
+                            <div class="container">
+                                <div id="cardcol">
+    
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </footer>
+    
+    
+    
         </section>
-    </section> 
 
+    
+
+    
     <!-- MODAL -->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true">
+         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <section class="py-5" style="background-color: #E4E9F7">
                     <div class="cards" id="cardsCollection">
-
-<<<<<<< HEAD
-=======
-    <section class="contenedor" style="padding: 5%; margin-bottom: 10%;" id="wallet">
-        <div class="resumenhead">
-            <h4 style="padding: 1.5%;"><b> Actividad </b></h4>
-          </div>
-          <div class="cresumen">
-            <div style="position: absolute; padding-top: 2.5%; left: 5%;">
-              <p>NFT</p>
-              <p>Comprado a</p>
-              <p>Fecha</p>
-              <h3><b> Valor </b></h3>
-            </div>
-            <div style="position: absolute; padding-top: 2.5%; right: 5%; text-align: right;">
-              <p>Sapo jeanpo</p>
-              <p>Jeanpier sapohpta</p>
-              <p>12/02/2022</p>
-              <h3><b> $77.000 </b></h3>
-            </div>
-          </div>
-    </section>
-
-    <section class="contenedor" id="Configuraciones">
-        <h1 class="text">Configuraciones</h1>
-        <div class="info">Pronto Habilitaresmos Esta Función!</div>
-        <div class="info" style="width: 100%; height: 100%;"> </div>
-    </section>
-
-    <section class="contenedor" >
-        <footer>
-            <div class="container p-3">
-                <div class="row text-center text-white">
-                    <div class="col ml-auto">
-                        <p>Copyright &copy; 2022 <br>
-                            Kevin García <br>
-                            Laura Mateus <br>
-                            Santiago Prieto <br>
-                            Jeanpier Ramos
-                        </p>
->>>>>>> 3b1617e3629ba80c38bcb91fa87ad6dd068d632b
+    
                     </div>
                 </section>
             </div>
         </div>
     </div>
-</body>
-<!-- BOOTSTRAP SCRIPTS -->
-<script src="Assets/js/artistAccount.js"></script>
-<script src="Assets/js/sumarLikes.js"></script>
-<script src="Assets/js/getDataArts.js"></script>
-<script src="Assets/js/account.js"></script>
-<script>
+    </body>
 
-
-
-    window.addEventListener("DOMContentLoaded", getDataCollection(), editUser());
-</script>
-<script src="./Assets/js/botonDeshabilitar.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-    integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-    crossorigin="anonymous"></script>
-
-</html>
+    <!-- BOOTSTRAP SCRIPTS -->
+    <script src="Assets/js/sumarLikes.js"></script>
+    <script src="Assets/js/getDataArts.js"></script>
+    <script>    
+        window.addEventListener("DOMContentLoaded", getDataCollection());
+    </script>
+    <script src="./Assets/js/botonDeshabilitar.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    
+    </html> 

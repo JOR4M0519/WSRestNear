@@ -12,7 +12,6 @@ form.onsubmit = async (e) => {
         let responseData = await fetch(`./api/users/${user}?role=${role}`);
         let resultData = await responseData.json();
 
-        console.log(resultData,"no paso, cierto?")
         if (resultData.username == null && resultData.role ==null ) {
             try {
                 let response = await fetch("./api/users", {

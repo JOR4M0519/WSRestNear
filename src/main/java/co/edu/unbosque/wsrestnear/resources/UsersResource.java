@@ -157,6 +157,111 @@ public class UsersResource {
                 .build();
     }
 
+    @PUT
+    @Path("/photo")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updatePhoto(MultipartFormDataInput inputData) {
+        String fileName = "";
+
+        try {
+            fileName = inputData.getFormDataPart("fileName", String.class, null);
+
+
+        Map<String, List<InputPart>> formParts = inputData.getFormDataMap();
+            List<InputPart> inputParts = formParts.get("formFile");
+
+            for (InputPart inputPart : inputParts) {
+                try {
+                    // Retrieving headers and reading the Content-Disposition header to file name
+                    MultivaluedMap<String, String> headers = inputPart.getHeaders();
+
+                    // Handling the body of the part with an InputStream
+                    InputStream istream = inputPart.getBody(InputStream.class, null);
+
+                    saveFile(istream, fileName, context);
+
+
+                } catch (IOException e) {
+                    return Response.serverError().build();
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return Response.ok()
+                    .entity("New Photo")
+                    .build();
+        }
+
+    @PUT
+    @Path("/password")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updatePassword(User user)
+            throws IOException {
+        Connection conn = null;
+
+        try {
+
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            UserService usersService = new UserService(conn);
+            user = usersService.updateUserPassword(user);
+            conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return Response.ok()
+                .entity(user)
+                .build();
+    }
+
+    @PUT
+    @Path("/update")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateUserData(User user)
+            throws IOException {
+        Connection conn = null;
+
+        try {
+
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            UserService usersService = new UserService(conn);
+            user = usersService.updateUser(user);
+            conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return Response.ok()
+                .entity(user)
+                .build();
+    }
+
+
    //Metodo viejo sin guardar imagen
     /*
     @POST

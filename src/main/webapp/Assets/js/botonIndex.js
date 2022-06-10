@@ -35,7 +35,7 @@ const getButtonAccount = async () => {
         function account(){
 
             if(localStorage.getItem("role")=="Artista"){
-                window.location.href="./artistAccount.html"
+                window.location.href="./account.html"
             }else if (localStorage.getItem("role")=="Comprador"){
                 window.location.href="./customerAccount.html"
             }

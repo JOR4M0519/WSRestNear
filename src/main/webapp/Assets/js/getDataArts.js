@@ -1,4 +1,3 @@
-
 const getDataArts = async (artsDiv) => {
 
   let data = null;
@@ -9,6 +8,7 @@ const getDataArts = async (artsDiv) => {
 
       //let url = window.location.href.split('/')[4].split('.')[0];
       let url = window.location.href
+    console.log(url);
       
       //Realiza el llamado fetch de las artes dependiendo de la ubicación de la pagina
        if(url.includes("customerAccount")){

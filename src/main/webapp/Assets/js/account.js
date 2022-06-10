@@ -25,7 +25,6 @@ let sidebar = document.querySelector(".sidebar");
 
 
 if(window.location.href.includes("artistAccount")){
-  console.log("entre")
   window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("cardfavorites")));
 }else{
   window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("cardOwner")));

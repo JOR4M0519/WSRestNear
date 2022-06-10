@@ -242,7 +242,44 @@
 width: 80%;
 height: 80%;
   border-radius: 50%;
+
 }
+
+.profileImageEdit{
+  width: 80%;
+  height: 80%;
+    border-radius: 50%;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    opacity: 1;
+  display: block;
+  }
+  .middle {
+    display: flex;
+    align-items: center;
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    transform: translate(0%,250%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .container:hover .profileImageEdit {
+    opacity: 0.3;
+  }
+  
+  .container:hover .middle {
+    opacity: 1;
+  }
+  
+  .textImg {
+    background-color: #BA2737;
+    color: white;
+    font-size: 16px;
+    padding: 8px 30px;
+  }
+
 .cardArtists{
   background-color: rgba(255, 255, 255, 0.925);
   color: rgb(31, 31, 31);
@@ -665,7 +702,7 @@ footer{
 
 .home-section {
   position: relative;
-  background: #BA2737;
+  background: #E4E9F7;
   min-height: 100vh;
   top: 0;
   left: 78px;
@@ -682,6 +719,12 @@ footer{
 .home-section .text {
   display: inline-block;
   color: #BA2737;
+  font-size: 25px;
+  font-weight: 500;
+  margin: 18px
+}
+
+.titleAccount{
   font-size: 25px;
   font-weight: 500;
   margin: 18px
@@ -869,9 +912,7 @@ input[type=submit]#login-submit {
   border-left: 1.9px solid #dee2e6;
 }
 
-#Cuenta {
-  margin-bottom: 7.8%;
-}
+
 
 .contenedor #informacion-personal .conten-info {
   margin-bottom: 5%;
@@ -905,6 +946,26 @@ input[type=submit]#login-submit {
 #rowItemCart{
   min-width: 80vw;
   min-height: 40vh;
+}
+.editButton{
+  width: 3%; 
+  height: 3%; 
+  border-radius:10px; 
+  border-color: #fff; 
+  outline: none; 
+  background-color: #BA2737;
+}
+
+.editButton:hover{
+  background-color: #fff;
+}
+.logoButtonEdit{
+  width: 100%;
+  height: 100%;
+  color: #fff;
+}
+.logoButtonEdit:hover{
+  color: #BA2737;
 }
 
 #personalDescription{
@@ -971,4 +1032,8 @@ padding: 1.5%;
 }
 iframe{
   width: 100%; height: 100%;
+}
+
+.image-upload>input {
+  display: none;
 }

@@ -1,7 +1,3 @@
-//document.getElementById('sumarLikes').addEventListener('onclick', btnLike);
-//document.getElementById('restarLikes').addEventListener('click', btnLike);
-
-//Registra cada vez que es oprimido el botón de likes de un NFT para a continuación de esto realizar la correspondiente acción solicitada
 const btnLike = async (id, type) => {
     if(!(localStorage.getItem("username") == null)) {
         let data = await fetch(`./api/users/${localStorage.getItem("username")}/arts/${id}/likes/like`).then(response => response.json());
