@@ -142,7 +142,7 @@ public class ArtServices {
                     "              ON a.\"collection_id\" = c.\"collection_id\"\n" +
                     "         JOIN userapp u\n" +
                     "              ON u.\"user_id\" = c.\"user_id\"\n" +
-                    "                  AND a.title LIKE ?;";
+                    "                  AND a.title ILIKE ?;";
             stmt = this.conn.prepareStatement(sql);
             stmt.setString(1, ("%"+data+"%"));
 

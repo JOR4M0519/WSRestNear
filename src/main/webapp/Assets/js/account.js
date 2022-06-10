@@ -1,6 +1,6 @@
 let sidebar = document.querySelector(".sidebar");
   let closeBtn = document.querySelector("#btn");
-  let searchBtn = document.querySelector(".bx-search");
+  //let searchBtn = document.querySelector(".bx-search");
 
 //Añade un respectivo escuchador al botón para que este pueda realizar alguna acción
   closeBtn.addEventListener("click", ()=>{
@@ -9,10 +9,10 @@ let sidebar = document.querySelector(".sidebar");
   });
 
 //Añade un respectivo escuchador al botón para que este pueda realizar alguna acción
-  searchBtn.addEventListener("click", ()=>{ 
+  /*searchBtn.addEventListener("click", ()=>{
     sidebar.classList.toggle("open");
     menuBtnChange(); 
-  });
+  });*/
 
 //Genera una respectiva acción dependiendo si el botón es accionado o no
   function menuBtnChange() {
@@ -27,10 +27,6 @@ let sidebar = document.querySelector(".sidebar");
 if(window.location.href.includes("artistAccount")){
   window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("cardfavorites")));
 }else{
-
-  let divMisFcoins = document.getElementById("cantidadFcoins");
-  let reloadFcoins = document.getElementById("amountFcoins");
-  
 
   window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("cardOwner")));
 }

@@ -6,6 +6,7 @@ import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -51,6 +52,37 @@ public class CollectionsIndexResources {
                         collections.remove(i);
                     }
             }
+
+            conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace(); //
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace(); //
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return Response.ok().entity(collections).build();
+    }
+
+    @GET
+    @Path("/filter")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFilterCollections(@QueryParam("data") String data) throws IOException {
+        // Objects for handling connection
+        Connection conn = null;
+        List<Collection> collections = null;
+
+        try {
+
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            CollectionServices collectionServices = new CollectionServices(conn);
+            collections = collectionServices.getListCollectionsByfilter(data);
 
             conn.close();
         } catch (SQLException se) {

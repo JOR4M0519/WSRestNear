@@ -15,26 +15,27 @@ const getArtShopping = async () => {
         for (const items of item) {
             const {id, collection, title, author, price} = items;
 
-            imagesDiv.innerHTML += `<div class="card mb-3" style="max-width: 100%; border-radius: 10px;">
+            imagesDiv.innerHTML += `
+        <div class="card mb-3" style="max-width: 100%; border-radius: 10px;">
             <div class="row g-0" id="rowItemCart">
-              <div class="col-md-4" id="groupArtCart">
-                <img src="${id}" class="img-fluid rounded-start" alt="..." id="imgArtCart">
-              </div>
-              <div class="col-md-8 bgbanner">
-                <div class="card-body" style="position: relative;">
-                    <div style="margin-left: 10%; position: relaltive;">
-                        <h3 class="card-title">${title}</h3><br>
-                        <p class="card-text">$${new Intl.NumberFormat().format(price)} Fcoins</p><br>
-                        <p class="card-text"><span class="text-muted">By: ${author}</span></p><br>
-                        <p class="card-text"><small class="text-muted">Colección: ${collection}</small></p><br>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group btns"> 
-                              <button type="button" id="btnRemoveCart" onclick="removeItem('${id.toString().split("\\")[1]}')" class="btn btn-sm btn-outline-secondary">Remover del carro</button>
+                <div class="col-md-4" id="groupArtCart">
+                    <img src="${id}" class="img-fluid rounded-start" alt="..." id="imgArtCart">
+                </div>
+                <div class="col-md-8 bgbanner">
+                    <div class="card-body" style="position: relative;">
+                        <div style="margin-left: 10%; position: relative;">
+                            <h3 class="card-title">${title}</h3><br>
+                            <p class="card-text">$${new Intl.NumberFormat().format(price)} Fcoins</p><br>
+                            <p class="card-text"><span class="text-muted">By: ${author}</span></p><br>
+                            <p class="card-text"><small class="text-muted">Colección: ${collection}</small></p><br>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group btns"> 
+                                  <button type="button" id="btnRemoveCart" onclick="removeItem('${id.toString().split("\\")[1]}')" class="btn btn-sm btn-outline-secondary">Remover del carro</button>
+                                </div>
                             </div>
-                          </div>
+                        </div>
                     </div>
                 </div>
-              </div>
             </div>
           </div>
   `;
@@ -87,36 +88,29 @@ const addData = async () =>{
     
 
 
-    dataDiv.innerHTML =`<div class="resumenhead">
-    <h4 style="padding: 1.5%;"><b> Tu Orden </b></h4>
-  </div>
-  <div class="cresumen">
-    <div style="position: absolute; padding-top: 2.5%; left: 5%;">
-      
-      <p>Subtotal</p>
-      <p>Descuentos</p>
-      <h4><b> FCoins </b></h4>
-      <h4 style="color: #BA2737;"><b> -</b></h4>
-      <br>
-      <h3><b> ${restaFCoinsText} </b></h3>
-      
-      
+    dataDiv.innerHTML =`
+    <div class="resumenhead">
+        <h4 style="padding: 1.5%;"><b> Tu Orden </b></h4>
     </div>
-    <div style="position: absolute; padding-top: 2.5%; right: 5%; text-align: right;">
-      
-      <p>$${new Intl.NumberFormat().format(totalPrice)}</p>
-      <p>$0</p>
-      <h4 ><b> $${new Intl.NumberFormat().format(fcoins)} </b></h4>
-      <h4 style="color: #BA2737;"><b> -$${new Intl.NumberFormat().format(totalPrice)} </b></h4>
-      <br>
-      <h3><b> $${new Intl.NumberFormat().format(restaFCoins)} </b></h3>
+    <div class="cresumen" style="row-gap: 10%; height: 40vh; border: none;">
+        
+            <p class="itemLeft">Subtotal</p>
+            <p>$${new Intl.NumberFormat().format(totalPrice)}</p>
+            
+            <p class="itemLeft" >Descuentos</p>
+            <p>$0</p>
+            
+            <h4 class="itemLeft"><b> FCoins </b></h4>
+            <h4 ><b> $${new Intl.NumberFormat().format(fcoins)} </b></h4>
+            
+            <h4><b></b></h4>
+            <h4 style="color: #BA2737;"><b> -$${new Intl.NumberFormat().format(totalPrice)} </b></h4>
+            
+            <h3 class="itemLeft"><b> ${restaFCoinsText} </b></h3>
+            <h3><b> $${new Intl.NumberFormat().format(restaFCoins)} </b></h3>
 
-      
-    </div>
-    
-  </div>`;
+    </div>`;
 }
-
 
 
 const comprar = async () =>{
@@ -142,6 +136,7 @@ const comprar = async () =>{
     }
 
 
+
     if (result.fcoins<totalPrice){
         alert('Fondos Insuficientes');
     }else{
@@ -163,7 +158,8 @@ const comprar = async () =>{
                 "fcoins": price,
                 "art": idNFT,
                 "registeredAt": new Date(),
-                "originProduct:": localStorage.getItem("username") };
+                "originProduct": localStorage.getItem('username').toString() };
+
             historySeller = JSON.stringify(historySeller);
 
             //JSON Customer
@@ -172,7 +168,7 @@ const comprar = async () =>{
                 "fcoins": (price * -1),
                 "art": idNFT,
                 "registeredAt": new Date(),
-                "originProduct:": username};
+                "originProduct": username.toString()};
 
             historyCustomer = JSON.stringify(historyCustomer);
 
@@ -200,6 +196,7 @@ const comprar = async () =>{
             localStorage.removeItem(`buy${i}`);
         }
         localStorage.removeItem('cantidadCompras');
+
         Swal.fire('Compra Exitosa!').then((result) =>{
             if (result.isConfirmed){
                 window.location.href="./index.html"
@@ -209,6 +206,12 @@ const comprar = async () =>{
     }
 }
 
+const test = async () =>{
+    /*for (let i=0;i<100000;i++) {
+    }*/
+        setTimeout(5000);
+
+}
 function removeItem (idNFT) {
 
     for (var i = 1; i <= cantidad; i++) {
@@ -238,6 +241,18 @@ function removeItem (idNFT) {
 
 
 }
-document.getElementById("btnBuyAllArts").addEventListener('click', comprar);
-window.addEventListener("DOMContentLoaded", getArtShopping())
-window.addEventListener("DOMContentLoaded", addData())
+document.getElementById("btnBuyAllArts").addEventListener('click',  function () {
+
+   /* Swal.fire({
+        title: 'Please Wait !',
+        html: 'data uploading',// add html attribute if you want or remove
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        },
+    });*/
+    btnBuy()
+
+    });
+
+window.addEventListener("DOMContentLoaded", getArtShopping(), addData());

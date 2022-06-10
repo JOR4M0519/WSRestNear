@@ -20,7 +20,6 @@ const getDataArts = async (artsDiv) => {
           }    
       }else if(url.includes("filterArts")){
           data = await fetch(`./api/arts/filter?data=${params.filter}`).then(response => response.json());
-             
       }else if(url.includes("artistAccount")){
           data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());  
       } else{
@@ -46,23 +45,6 @@ const getDataArts = async (artsDiv) => {
             data = await fetch("./api/arts/likes").then(response => response.json());
         }
       }
-
-      // switch (url) {
-      //     case "index":
-      //         data = await fetch("./api/arts").then(response => response.json());
-      //         break;
-      //     case "customerAccount":
-      //         data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts`).then(response => response.json());
-      //         data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());    
-      //         break;
-      //     case "filterArts":
-      //         data = await fetch(`./api/arts/filter?data=${dataFilter}`).then(response => response.json());
-      //         break;
-      //     case "artistAccount":
-      //         data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
-      //         break;
-      // }
-
       
       const listTotalLikes = await fetch("./api/arts/likes/list").then(response => response.json());
       const listTotalLikesByUser = await fetch(`./api/users/${localStorage.getItem('username')}/likes`).then(response => response.json());
@@ -142,9 +124,12 @@ const getDataArts = async (artsDiv) => {
 
 const getDataCollection = async () =>   {
     var imagesCol = document.getElementById("cardcol")
+
     if (window.location.toString().includes("artistAccount")) {
         dataCollection = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
-    } else {
+    } else if(window.location.toString().includes("filterArts")){
+        dataCollection = await fetch(`./api/collections/filter?data=${params.filter}`).then(response => response.json());
+    } else{
         dataCollection = await fetch("./api/collections").then(response => response.json());
     }
 
@@ -326,6 +311,65 @@ const getDataModal = async (collection,username) => {
     }
 }
 
+const btnBuy = async (input, condition)=>{
+
+    var cantidad = localStorage.getItem('cantidadCompras');
+    var data = input.id;
+    var dataBuyJSON = JSON.parse(data);
+    var id = dataBuyJSON.id.toString().split("\\")[1];
+    let dataOwner = await fetch(`./api/owners/arts/${id}`).then(response => response.json());
+
+
+    if (localStorage.getItem('username')!=null || localStorage.getItem('username') != undefined ) {
+        if (dataOwner.username != localStorage.getItem('username')) {
+            if (cantidad == null) {
+
+                localStorage.setItem('cantidadCompras', 1);
+                localStorage.setItem('buy1', data);
+                if (condition=='buy') {
+                    window.location.href = './shoppingCart.html';
+                }else {
+                    document.getElementById("numCantCompras").innerHTML=`&nbsp;${localStorage.getItem('cantidadCompras')}`;
+                }
+            } else {
+                let exist = false;
+                for (var i = 1; i <= cantidad && !exist; i++) {
+                    if (localStorage.getItem(`buy${i}`) != data) {
+                    } else {
+                        exist = true;
+                        if (condition=='buy') {
+                            window.location.href = "./shoppingCart.html";
+                        }
+                    }
+                }
+                if (!exist) {
+                    cantidad = parseInt(cantidad) + parseInt(1);
+                    localStorage.setItem(`buy${cantidad}`, data);
+                    localStorage.setItem('cantidadCompras', cantidad);
+                    if (condition=='buy') {
+                        window.location.href = "./shoppingCart.html";
+                    }else {
+                        document.getElementById("numCantCompras").innerHTML=`&nbsp;${localStorage.getItem('cantidadCompras')}`;
+                    }
+                }
+
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Este NFT ya es tuyo!',
+            })
+        }
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Inicie Sesión para Comprar!',
+        })
+    }
+
+}
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),

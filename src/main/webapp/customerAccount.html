@@ -25,11 +25,11 @@
         <i class='bx bx-menu' id="btn" ></i>
     </div>
     <ul class="nav-list">
-        <li>
+<!--        <li>
             <i class='bx bx-search' ></i>
             <input type="text" placeholder="Buscar...">
             <span class="tooltip">Buscar</span>
-        </li>
+        </li>-->
         <li>
             <a href="#Cuenta">
                 <i class='bx bx-user' ></i>
@@ -44,16 +44,11 @@
             </a>
             <span class="tooltip">FCoins</span>
         </li>
-        <li>
+
+        <!--<li>
             <span class="tooltip">Files</span>
-        </li>
-        <li>
-            <a href="#Compras">
-                <i class='bx bx-cart-alt' ></i>
-                <span class="links_name">Compras</span>
-            </a>
-            <span class="tooltip">Compras</span>
-        </li>
+        </li>-->
+
         <li>
             <a href="#Favoritos">
                 <i class='bx bx-heart' ></i>
@@ -61,6 +56,15 @@
             </a>
             <span class="tooltip">Favoritos</span>
         </li>
+
+        <li>
+            <a href="#Compras">
+                <i class='bx bx-cart-alt' ></i>
+                <span class="links_name">Compras</span>
+            </a>
+            <span class="tooltip">Compras</span>
+        </li>
+
         <li>
             <a href="#walletHistory">
                 <i class='bx bx-wallet-alt'></i>
@@ -68,13 +72,15 @@
             </a>
             <span class="tooltip">Billetera</span>
         </li>
-        <li>
+
+        <!--<li>
             <a href="#Configuraciones">
                 <i class='bx bx-cog' ></i>
                 <span class="links_name">Configuraciones</span>
             </a>
             <span class="tooltip">Configuraciones</span>
-        </li>
+        </li>-->
+
         <li class="profile">
             <div class="profile-details">
                 <!--<img src="profile.jpg" alt="profileImg">-->
@@ -134,10 +140,10 @@
         <div class="info">
             <div class="input-group mb-3">
                 <div class="input-group-prepend" style="width: 100%; height: 20%;">
-                    <span class="input-group-text" id="basic-addon1" style="width: 20%; padding: 1%;"><img src="Assets/img/Fcoins_IconB.png" alt="" width="100%"/></span>
-                    <input type="text" id="cantidad" name="cantidad" class="form-control form-control-lg" value="134" disabled>
+                        <img class="input-group-text" id="basic-addon1" style="width: 10%;padding: 1%;justify-content: center;" src="Assets/img/Fcoins_IconB.png" style="height: 20px;">
+                   
+                    <input type="text" id="amountFcoins" name="cantidad" class="form-control form-control-lg" disabled>
                 </div>
-                    <input type="text" readonly="false" id="amountFcoins" class="form-control form-control-lg">
             </div>  
         </div>
     </section>
@@ -164,9 +170,7 @@
                                 </div>
                             </div><br>
                                 <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1" style="justify-content: center;"><img src="Assets/img/Fcoins_IconB.png" alt="" width="15%"></span>
-                                    </div>
+                                    <img class="input-group-text" id="basic-addon1" src="Assets/img/Fcoins_IconB.png" alt="" width="10%">
                                     <input type="text" id="cantidad" name="cantidad" class="form-control" value="0">
                                 </div><br>
                                 <div class="d-flex justify-content-between align-items-center">
