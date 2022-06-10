@@ -62,7 +62,7 @@
             <span class="tooltip">Favoritos</span>
         </li>
         <li>
-            <a href="#wallet">
+            <a href="#walletHistory">
                 <i class='bx bx-wallet-alt'></i>
                 <span class="links_name">Billetera</span>
             </a>
@@ -96,7 +96,7 @@
 
             <section>
                 <figure>
-                    <img id="profileImage" class="profileImage" style="width: 150px; height: 150px;" src="Assets\img\avatar_driver_people_person_profile_user_icon_123374.png">
+                    <img id="profileImage" class="profileImage" style="width: 150px; height: 150px;" src="">
                 </figure>
                 <div id="text-icono"></div>
             </section>
@@ -137,46 +137,50 @@
                     <span class="input-group-text" id="basic-addon1" style="width: 20%; padding: 1%;"><img src="Assets/img/Fcoins_IconB.png" alt="" width="100%"/></span>
                     <input type="text" id="cantidad" name="cantidad" class="form-control form-control-lg" value="134" disabled>
                 </div>
+                    <input type="text" readonly="false" id="amountFcoins" class="form-control form-control-lg">
             </div>  
         </div>
     </section>
+
+
       
     <section class="contenedor" id="FCoins">
-        <h1 class="text">Fcoins</h1>
+        <h1 class="text">Recargar Fcoins</h1>
         <div class="info">
-          <div class="card mb-3" style="width: 100%;">
-            <div class="row g-0">
-              <div class="col-md-4 bg-danger" style="background-image: linear-gradient(to bottom right,#49070f ,#BA2737 , black);
-              ">
-                <img src="Assets/img/Fcoins Icon2.png" class="img-fluid rounded-start" alt="..." style="padding: 5%; border-top-left-radius: 20%; border-bottom-left-radius: 2%;">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body" style="padding-top: 6%;">
-                  <h3 class="card-text">Recarga Fcoins!</h3><br>
-                  <div class="input-group mb-3">
-                      <input type="text" class="form-control"id="amountFcoins" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled>
-                      <div class="input-group-append">
-                          <span class="input-group-text" id="basic-addon2">Fcoins</span>
-                      </div>
-                  </div><br>
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1" style="justify-content: center;"><img src="Assets/img/Fcoins_IconB.png" alt="" width="15%"></span>
-                      </div>
-                          <input type="text" id="cantidad" name="cantidad" class="form-control" value="0">
-                  </div><br>
-                  <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <button type="button" id="sumar" class="btn btn-sm btn-outline-secondary"><i class="fas fa-plus"></i></button>
-                          <button type="button" id="restar" class="btn btn-sm btn-outline-secondary"><i class="fas fa-minus"></i></button>
-                          <button type="submit" id="btnAddFCOINS" class="btn btn-sm btn-outline-secondary" style="float: right;">Cargar FCoins</button>
+
+            <div class="card mb-3" style="width: 100%;">
+                <div class="row g-0" style="margin: 0;">
+                    <div class="col-md-4 bg-danger" style="background-image: linear-gradient(to bottom right,#49070f ,#BA2737 , black); border-radius: 1%; display: flex; align-items: center;">
+                        <img src="Assets/img/Fcoins Icon2.png" class="img-fluid rounded-start" alt="..." style="padding: 5%; border-top-left-radius: 20%; border-bottom-left-radius: 2%;">
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card-body" style="padding-top: 6%;">
+                            <h3 class="card-text">Recarga Fcoins!</h3><br>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="bank" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">Banco</span>
+                                </div>
+                            </div><br>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                    </div>
+                                    <input type="text" id="cantidad" name="cantidad" class="form-control" value="0">
+                                </div><br>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <button type="button" id="sumar" class="btn btn-sm btn-outline-secondary"><i class="fas fa-plus"></i></button>
+                                        <button type="button" id="restar" class="btn btn-sm btn-outline-secondary"><i class="fas fa-minus"></i></button>
+                                        <button type="submit" id="btnAddFCOINS" class="btn btn-sm btn-outline-secondary" style="float: right;">Cargar FCoins</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div id="calc"></div>
-          </div>
         </div>
     </section>
 
@@ -210,24 +214,10 @@
 
     </section>
 
-    <section class="contenedor" style="padding: 5%; margin-bottom: 10%;" id="wallet">
-        <div class="resumenhead">
-            <h4 style="padding: 1.5%;"><b> Actividad </b></h4>
-          </div>
-          <div class="cresumen">
-            <div style="position: absolute; padding-top: 2.5%; left: 5%;">
-              <p>NFT</p>
-              <p>Comprado a</p>
-              <p>Fecha</p>
-              <h3><b> Valor </b></h3>
-            </div>
-            <div style="position: absolute; padding-top: 2.5%; right: 5%; text-align: right;">
-              <p>Sapo jeanpo</p>
-              <p>Jeanpier sapohpta</p>
-              <p>12/02/2022</p>
-              <h3><b> $77.000 </b></h3>
-            </div>
-          </div>
+    <section class="contenedor" id="walletHistory">
+        <h1 class="text">Historial de Actividades</h1>
+        <div style="padding: 0 5%" id="walletContent">
+        </div>
     </section>
 
     <section class="contenedor" id="Configuraciones">
@@ -262,6 +252,7 @@
 <script src="Assets/js/sumar.js"></script>
 <script src="Assets/js/getDataArts.js"></script>
 <script src="Assets/js/account.js"></script>
+<script src="Assets/js/walletHistory.js"></script>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

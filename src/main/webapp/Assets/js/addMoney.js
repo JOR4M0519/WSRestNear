@@ -1,15 +1,23 @@
 
 const add = async () =>{
 
-    const fcoins = JSON.stringify({ "username":localStorage.getItem('username').toString(),"fcoins": parseFloat(document.getElementById('cantidad').value)});
     try {
-        await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`, {
-            method: "PUT",
+        //JSON user
+        var reloadFcoins = {  "username":localStorage.getItem('username').toString(),
+            "walletType": "Recarga",
+            "fcoins": parseFloat(document.getElementById('cantidad').value),
+            "registeredAt": new Date(),
+            "originProduct": document.getElementById('bank').value.toString()};
+
+        reloadFcoins = JSON.stringify(reloadFcoins);
+
+        //Se añade la recarga al historial
+        await fetch(`./api/users/${localStorage.getItem("username")}/wallet`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: fcoins
-
+            body: reloadFcoins
         });
 
         window.location.href = "./index.html";

@@ -58,16 +58,8 @@ public class ArtResources {
             }
         }
 
-        List<Art> dataFiles = new ArrayList<Art>();
-
-        Collections.reverse(nfts);
-        for (int j = 0; j < 6 && j < nfts.size(); j++) {
-            dataFiles.add(nfts.get(j));
-            dataFiles.get(j).setId(UPLOAD_DIRECTORY + File.separator + dataFiles.get(j).getId());
-        }
-
         // Adding the data to response, parsing it to json using Gson library
-        return Response.ok().entity(dataFiles).build();
+        return Response.ok().entity(nfts).build();
     }
 
 

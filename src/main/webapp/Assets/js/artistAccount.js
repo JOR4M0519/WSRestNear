@@ -25,11 +25,10 @@ const getDataAccount = async () => {
         divListRole.innerHTML = `${result.role}`;
         divListFullname.innerHTML = `${result.name} ${result.lastname}`;
         imgProfileImage.src = "profileImages/"+result.profileImage;
-        console.log(imgProfileImage)
         
         if(localStorage.getItem("role")=="Comprador") {
 
-            let response2 = await fetch(`./api/users/${localStorage.getItem("username")}/fcoins`);
+            let response2 = await fetch(`./api/users/${localStorage.getItem("username")}/wallet/fcoins`);
             let result2 = await response2.json();
             inputFcoins.placeholder = "$" + new Intl.NumberFormat().format(result2.fcoins.toString());
         }else{

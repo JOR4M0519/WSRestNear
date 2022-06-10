@@ -118,6 +118,8 @@ const btnBuy = async (input, condition)=>{
 
 }
 
+
+
 window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("card")), getDataCollection(), getArtistsData());
 
 

@@ -2,8 +2,6 @@ package co.edu.unbosque.wsrestnear.resources;
 
 import co.edu.unbosque.wsrestnear.dtos.ExceptionMessage;
 import co.edu.unbosque.wsrestnear.dtos.WalletHistory;
-import co.edu.unbosque.wsrestnear.dtos.User;
-import co.edu.unbosque.wsrestnear.services.UserService;
 import co.edu.unbosque.wsrestnear.services.WalletServices;
 import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.*;
@@ -17,6 +15,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @Path("users/{username}/wallet")
 public class WalletHistoryResources {
@@ -64,10 +63,42 @@ public class WalletHistoryResources {
                return Response.ok().entity(fcoins).build();
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserInvoices(@PathParam("username") String username) throws IOException {
+
+        Connection conn = null;
+        ArrayList<WalletHistory> walletHistory = null;
+
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            WalletServices walletService = new WalletServices(conn);
+            walletHistory = walletService.getWalletHistoryUser(username);
+
+
+            conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        if (walletHistory == null) {
+            return Response.status(404).entity(new ExceptionMessage(404, "User not found")).build();
+        }
+        return Response.ok().entity(walletHistory).build();
+    }
+
+
     //Responde como el método Post de la API de esta clase, recibe como parámetro el nombre del usuario y los FCoins para agregar los valores actualizados al usuario especificado
     //PUT -> POST (ACT)
     @POST
-
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createInvoice(@PathParam("username") String username, WalletHistory invoice)
