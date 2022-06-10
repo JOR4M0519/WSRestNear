@@ -147,7 +147,8 @@
   });
   document.getElementById("inputSearchButton").addEventListener('click', filter);
 
-  window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("card")), getDataCollection());
+  const data = await fetch(`./api/arts/filter?data=${params.filter}`).then(response => response.json());
+  window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("card"),data), getDataCollection());
 </script>
 
 <!-- BOOTSTRAP SCRIPTS -->
