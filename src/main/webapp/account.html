@@ -28,55 +28,8 @@
             <a href="./index.html"><img class="logo icon" hr src="Assets\img\logoNear3.png"></a>
             <i class='bx bx-menu' id="btn"></i>
         </div>
-        <ul class="nav-list">
-            <li>
-                <a id="account" href="#Cuenta">
-                    <i class='bx bx-user'></i>
-                    <span class="links_name">Cuenta</span>
-                </a>
-                <span class="tooltip">Cuenta</span>
-            </li>
-            <li>
-                <a id="createCollection" href="#createCollection">
-                    <i class='bx bxs-folder-minus'></i>
-                    <span class="links_name">Crear Colección</span>
-                </a>
-                <span class="tooltip">Crear Colección</span>
-            </li>
-            <li>
-                <a id="createNFT" href="#createNFT">
-                    <i class='bx bx-up-arrow-circle'></i>
-                    <span class="links_name">Subir NFT</span>
-                </a>
-                <span class="tooltip">Subir NFT</span>
-            </li>
-
-            
-            <li>
-                <a id="publicaciones" href="#publicaciones">
-                    <i class='bx bx-label'></i>
-                    <span class="links_name">Publicaciones</span>
-                </a>
-                <span class="tooltip">Publicaciones</span>
-            </li>
-            <li>
-                <a id="favoritos" href="#Favoritos">
-                    <i class='bx bx-heart'></i>
-                    <span class="links_name">Favoritos</span>
-                </a>
-                <span class="tooltip">Favoritos</span>
-            </li>
-
-            <li>
-                <a id="wallet" href="#Colecciones">
-                    <i class='bx bx-wallet'></i>
-                    <span class="links_name">Wallet</span>
-                </a>
-                <span class="tooltip">Wallet</span>
-            </li>
-            
-
-            
+        <ul id="nav-list" class="nav-list">
+           
         </ul>
     </div>
 
@@ -127,16 +80,72 @@
      );
 
 </script>
+<script>
 
-<!-- BOOTSTRAP SCRIPTS -->
+if(localStorage.getItem('role')=="Artista"){
+
+    var text = 
+`
+     <li>
+                <a id="account" href="#Cuenta">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Cuenta</span>
+                </a>
+                <span class="tooltip">Cuenta</span>
+            </li>
+            <li>
+                <a id="createCollection" href="#createCollection">
+                    <i class='bx bxs-folder-minus'></i>
+                    <span class="links_name">Crear Colección</span>
+                </a>
+                <span class="tooltip">Crear Colección</span>
+            </li>
+            <li>
+                <a id="createNFT" href="#createNFT">
+                    <i class='bx bx-up-arrow-circle'></i>
+                    <span class="links_name">Subir NFT</span>
+                </a>
+                <span class="tooltip">Subir NFT</span>
+            </li>
+
+            
+            <li>
+                <a id="publicaciones" href="#publicaciones">
+                    <i class='bx bx-label'></i>
+                    <span class="links_name">Publicaciones</span>
+                </a>
+                <span class="tooltip">Publicaciones</span>
+            </li>
+            <li>
+                <a id="favoritos" href="#Favoritos">
+                    <i class='bx bx-heart'></i>
+                    <span class="links_name">Favoritos</span>
+                </a>
+                <span class="tooltip">Favoritos</span>
+            </li>
+
+            <li>
+                <a id="wallet" href="#Colecciones">
+                    <i class='bx bx-wallet'></i>
+                    <span class="links_name">Wallet</span>
+                </a>
+                <span class="tooltip">Wallet</span>
+            </li>
+  `;          
+
+  document.getElementById('nav-list').innerHTML = text;
+
+
+    window.addEventListener("DOMContentLoaded", getDataCollection());   
+
+
+}
+
+
+</script>
 
 <script src="Assets/js/account.js"></script>
-<!-- <script>
 
-
-
-        window.addEventListener("DOMContentLoaded", getDataCollection(), editUser());
-    </script> -->
 <script src="./Assets/js/botonDeshabilitar.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
