@@ -155,8 +155,13 @@
     } else {
       getDataArts(document.getElementById("card"), data, getBuyBtn)
     }
+
+    const dataCollection = await fetch(`./api/collections/filter?data=${params.filter}`).then(response => response.json());
+    //enableEdit False al estar en index
+    getDataCollection(dataCollection, false)
+
   }
-  window.addEventListener("DOMContentLoaded", this.loadData, getDataCollection());
+  window.addEventListener("DOMContentLoaded", this.loadData);
 </script>
 
 <!-- BOOTSTRAP SCRIPTS -->

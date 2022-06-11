@@ -257,6 +257,22 @@
   align-items: center;
 }
 
+.btnEdit {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-weight: 800;
+  color: black;
+  box-shadow: 0px -2px 5px 2px #3f3f3f;
+  border-radius: 2%;
+  border: 2px solid #ffffff;
+  background-color: #c6c6c682;
+}
+
+.btnEdit:hover {
+  background-color: rgba(198, 198, 198, 0.22);
+  color: white;
+}
+
 #btnSold{
   grid-column-start: 1;
   grid-column-end: 3;
@@ -277,6 +293,21 @@
   border-radius: 2%;
   border: 2px solid #37850485;
   background-color: #b2dba782;
+}
+
+.btnSell {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-weight: 800;
+  color: black;
+  box-shadow: 0px -2px 5px 2px #313830;
+  border-radius: 2%;
+  border: 2px solid #37850485;
+  background-color: #b2dba782;
+}
+.btnSell:hover{
+  color: #10560d;
+  background-color: rgba(214, 241, 210, 0.51);
 }
 
 .profileImage{

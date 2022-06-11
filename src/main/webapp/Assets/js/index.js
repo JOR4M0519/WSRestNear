@@ -89,9 +89,12 @@ const getArtDataSection = async ()=>{
         getDataArts(document.getElementById("card_LikesRanking"), dataTopLikes, getBuyBtn);
     }
 
+    const dataCollection = await fetch("./api/collections").then(response => response.json());
+    //enableEdit False al estar en index
+    getDataCollection(dataCollection,false)
 }
 
 window.addEventListener("DOMContentLoaded",
-    getArtDataSection(), getDataCollection(), getArtistsData());
+    getArtDataSection(), getArtistsData());
 
 
