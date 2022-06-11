@@ -58,10 +58,15 @@
 <script src="Assets/js/getDataArts.js"></script>
 <script>
     async function loadData() {
-        const dataLikes = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
-        getDataArts(document.getElementById("cardfavorites"),dataLikes,getArtSale)
+        if(localStorage.getItem("role") === "Artista"){
+            const dataLikes = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
+            getDataArts(document.getElementById("cardfavorites"),dataLikes,getArtSale)
+        }else{
+            const dataLikes = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
+            console.log(dataLikes)
+            getDataArts(document.getElementById("cardfavorites"),dataLikes,getBuyBtn)
+        }
     }
-
     window.addEventListener("DOMContentLoaded", this.loadData);
 </script>
 

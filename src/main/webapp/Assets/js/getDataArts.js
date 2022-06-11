@@ -150,7 +150,7 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
         if(localStorage.getItem("role") === "Artista"){
             innerhtml += getBtnCallBack(data1,forSale,ownerArt,email)
         } else{
-            innerhtml += getBtnCallBack(data1,ownerArt)
+            innerhtml += getBtnCallBack(data1,forSale,ownerArt)
         }
 
 
@@ -190,7 +190,7 @@ function getEnableArtBtn(dataArt,enable){
 }
 
 //Funciones del Customer
-function getBuyBtn(dataArt, owner, selling) {
+function getBuyBtn(dataArt, selling, owner) {
     if(!selling){
         return getBtnNotEnable();
     }
@@ -219,6 +219,7 @@ function getBtnNotEnable(){
     </div>
 </div>`;
 }
+
 
 const getDataCollection = async () =>   {
     var imagesCol = document.getElementById("cardcol")
