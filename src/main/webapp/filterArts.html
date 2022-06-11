@@ -145,10 +145,18 @@
       filter();
     }
   });
-  document.getElementById("inputSearchButton").addEventListener('click', filter);
+  async function loadData() {
+    document.getElementById("inputSearchButton").addEventListener('click', filter);
 
-  const data = await fetch(`./api/arts/filter?data=${params.filter}`).then(response => response.json());
-  window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("card"),data), getDataCollection());
+    const data = await fetch(`./api/arts/filter?data=${params.filter}`).then(response => response.json());
+
+    if (localStorage.getItem("role") === "Artista") {
+      getDataArts(document.getElementById("card"), data, getArtSale)
+    } else {
+      getDataArts(document.getElementById("card"), data, getBuyBtn)
+    }
+  }
+  window.addEventListener("DOMContentLoaded", this.loadData, getDataCollection());
 </script>
 
 <!-- BOOTSTRAP SCRIPTS -->

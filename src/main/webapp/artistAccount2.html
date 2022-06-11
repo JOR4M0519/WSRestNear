@@ -17,6 +17,7 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body style="background-color: #E4E9F7;">
 
 
@@ -56,10 +57,14 @@
 <script src="Assets/js/sumarLikes.js"></script>
 <script src="Assets/js/getDataArts.js"></script>
 <script>
-    const data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
-    window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("cardfavorites"),data));
-    window.addEventListener("DOMContentLoaded", getDataCollection());
+    async function loadData() {
+        const dataLikes = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
+        getDataArts(document.getElementById("cardfavorites"),dataLikes,getArtSale)
+    }
+
+    window.addEventListener("DOMContentLoaded", this.loadData);
 </script>
+
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
