@@ -1,4 +1,3 @@
-
 function btnDeshabilitar(btn)
 {
     var text ="";

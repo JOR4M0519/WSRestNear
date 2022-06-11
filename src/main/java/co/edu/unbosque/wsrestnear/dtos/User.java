@@ -90,5 +90,13 @@ public class User {
 
     //Obtiene el valor correspondiente a la variable fcoins
 
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
 

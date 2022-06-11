@@ -1,4 +1,3 @@
-
 const getArtistsData = async ()=>{
     var artistTeamDiv = document.getElementById("artistsTeam");
 
@@ -58,7 +57,44 @@ const getArtistsData = async ()=>{
     artistTeamDiv.innerHTML+=innerHtml;
 }
 
+const getArtDataSection = async ()=>{
+    /*
+    * Catalogo de Artes Resientes
+    */
+    const dataRecents = await fetch("./api/arts").then(response => response.json());
+    //invierte la lista tomando los últimos creados
+    dataRecents.reverse();
 
-window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("card")), getDataCollection(), getArtistsData());
+    //Toma solo las primeras 6 artes
+    while(dataRecents.length>6 ){
+        dataRecents.length = dataRecents.length - 1;
+    }
+    //modifica el id por la ruta de la imagen
+    dataRecents.map(function(element) {
+        element.id = "NFTS\\"+element.id;
+    })
+
+    /*
+    * Catalogo de TopLikes
+    */
+    const dataTopLikes = await fetch("./api/arts/likes").then(response => response.json());
+
+
+    if(localStorage.getItem("role") === "Artista"){
+
+        getDataArts(document.getElementById("card"),dataRecents,getArtSale)
+        getDataArts(document.getElementById("card_LikesRanking"), dataTopLikes, getArtSale);
+    }else{
+        getDataArts(document.getElementById("card"),dataRecents,getBuyBtn)
+        getDataArts(document.getElementById("card_LikesRanking"), dataTopLikes, getBuyBtn);
+    }
+
+    const dataCollection = await fetch("./api/collections").then(response => response.json());
+    //enableEdit False al estar en index
+    getDataCollection(dataCollection,false)
+}
+
+window.addEventListener("DOMContentLoaded",
+    getArtDataSection(), getArtistsData());
 
 

@@ -23,13 +23,17 @@ let sidebar = document.querySelector(".sidebar");
    }
   }
 
+/*async function loadData() {
+    if (window.location.href.includes("artistAccount")) {
+        const dataLikes = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
+        getDataArts(document.getElementById("cardfavorites"), dataLikes, getArtSale);
 
-if(window.location.href.includes("artistAccount")){
-  window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("cardfavorites")));
-}else{
-
-  window.addEventListener("DOMContentLoaded", getDataArts(document.getElementById("cardOwner")));
-}
+    } else {
+        const dataOwner = await fetch(`./api/owners/${localStorage.getItem("username")}/arts`).then(response => response.json());
+       getDataArts(document.getElementById("cardOwner"), dataOwner, null);
+    }
+    window.addEventListener("DOMContentLoaded", this.loadData);
+}*/
 
 
   

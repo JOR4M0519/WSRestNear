@@ -61,6 +61,11 @@ public class UserService {
         return users;
     }
 
+    public void newPassword(User user){
+
+
+    }
+
     public Integer getArtistLikesList(String artistEmail){
         PreparedStatement stmt = null;
 
@@ -282,6 +287,122 @@ public class UserService {
 
                 stmt.setString(1, description);
                 stmt.setString(2, user.getUsername());
+
+                stmt.executeUpdate();
+
+                stmt = this.conn.prepareStatement("SELECT * FROM userapp WHERE user_id = ?");
+                stmt.setString(1, user.getUsername());
+                ResultSet rs = stmt.executeQuery();
+
+
+                rs.next();
+
+                updatedUser = new User(
+                        rs.getString("user_id"),
+                        rs.getString("name"),
+                        rs.getString("lastname"),
+                        rs.getString("role"),
+                        rs.getString("password"),
+                        rs.getString("profileimage"),
+                        rs.getString("description")
+                );
+
+                rs.close();
+                stmt.close();
+
+            } catch(SQLException se){
+                se.printStackTrace();
+            } finally{
+                try {
+                    if (stmt != null) stmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }
+            }
+            return updatedUser;
+        }
+        else {
+            return null;
+        }
+
+
+    }
+
+    public User updateUserPassword(User user) {
+
+        PreparedStatement stmt = null;
+        User updatedUser = null;
+
+        if (user != null) {
+
+            try {
+
+                stmt = this.conn.prepareStatement("UPDATE UserApp SET password = ? WHERE user_id = ?");
+
+
+                stmt.setString(1, user.getPassword());
+                stmt.setString(2, user.getUsername());
+
+                stmt.executeUpdate();
+
+                stmt = this.conn.prepareStatement("SELECT * FROM userapp WHERE user_id = ?");
+                stmt.setString(1, user.getUsername());
+                ResultSet rs = stmt.executeQuery();
+
+
+                rs.next();
+
+                updatedUser = new User(
+                        rs.getString("user_id"),
+                        rs.getString("name"),
+                        rs.getString("lastname"),
+                        rs.getString("role"),
+                        rs.getString("password"),
+                        rs.getString("profileimage"),
+                        rs.getString("description")
+                );
+
+                rs.close();
+                stmt.close();
+
+            } catch(SQLException se){
+                se.printStackTrace();
+            } finally{
+                try {
+                    if (stmt != null) stmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }
+            }
+            return updatedUser;
+        }
+        else {
+            return null;
+        }
+
+
+    }
+
+    public User updateUser(User user) {
+
+        PreparedStatement stmt = null;
+        User updatedUser = null;
+
+        if (user != null) {
+
+            try {
+
+                stmt = this.conn.prepareStatement("UPDATE userapp \n" +
+                        "\tSET name = ?,\n" +
+                        "\t lastname = ?,\n" +
+                        "\t description = ?\n" +
+                        "\tWHERE user_id = ?");
+
+
+                stmt.setString(1, user.getName());
+                stmt.setString(2, user.getLastname());
+                stmt.setString(3, user.getDescription());
+                stmt.setString(4, user.getUsername());
 
                 stmt.executeUpdate();
 

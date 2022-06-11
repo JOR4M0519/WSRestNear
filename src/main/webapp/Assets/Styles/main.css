@@ -131,7 +131,7 @@
 .form-control,
 .btn {
   border-radius: 0;
-  font-family: 'Abel', sans-serif;
+
 }
 
 #navbarNav {
@@ -257,15 +257,101 @@
   align-items: center;
 }
 
+.btnEdit {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-weight: 800;
+  color: black;
+  box-shadow: 0px -2px 5px 2px #3f3f3f;
+  border-radius: 2%;
+  border: 2px solid #ffffff;
+  background-color: #c6c6c682;
+}
+
+.btnEdit:hover {
+  background-color: rgba(198, 198, 198, 0.22);
+  color: white;
+}
+
+#btnSold{
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-weight: 800;
+  color: black;
+  box-shadow: 0px -2px 5px 2px #5e2222;
+  border-radius: 2%;
+  border: 4px solid #da171785;
+  background-color: #dba7a782;
+}
+
+#btnSell {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-weight: 800;
+  color: black;
+  box-shadow: 0px -2px 5px 2px #313830;
+  border-radius: 2%;
+  border: 2px solid #37850485;
+  background-color: #b2dba782;
+}
+
+.btnSell {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-weight: 800;
+  color: black;
+  box-shadow: 0px -2px 5px 2px #313830;
+  border-radius: 2%;
+  border: 2px solid #37850485;
+  background-color: #b2dba782;
+}
+.btnSell:hover{
+  color: #10560d;
+  background-color: rgba(214, 241, 210, 0.51);
+}
 
 .profileImage{
-  margin-bottom: 5%;
-  width: 100px;
-  height: 100px;
-  position: relative;
-  overflow: hidden;
+  width: 150px;
+  max-height: 150px;
+  margin: 10% 0;
   border-radius: 50%;
 }
+
+.profileImageEdit{
+  width: 80%;
+  height: 80%;
+    border-radius: 50%;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    opacity: 1;
+  display: block;
+  }
+  .middle {
+    display: flex;
+    align-items: center;
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    transform: translate(0%,250%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .container:hover .profileImageEdit {
+    opacity: 0.3;
+  }
+  
+  .container:hover .middle {
+    opacity: 1;
+  }
+  
+  .textImg {
+    background-color: #BA2737;
+    color: white;
+    font-size: 16px;
+    padding: 8px 30px;
+  }
+
 .cardArtists{
   background-color: rgba(255, 255, 255, 0.925);
   color: rgb(31, 31, 31);
@@ -375,6 +461,9 @@
   margin-top: 0.5%;
 }
 
+footer{
+  height: 20vh;
+}
 .team, footer {
   background: #BA2737;
 }
@@ -707,6 +796,12 @@
   margin: 18px
 }
 
+.titleAccount{
+  font-size: 25px;
+  font-weight: 500;
+  margin: 18px
+}
+
 @media (max-width: 420px) {
   .sidebar li .tooltip {
     display: none;
@@ -854,15 +949,13 @@ input[type=submit]#login-submit {
   color: #BA2737;
   border-bottom: 1.8px solid #dee2e6;
   width: 90%;
-  margin-left: 8%;
   border-width: 2px;
   font-size: 27px;
 }
 
 .contenedor .info {
   margin-top: 1%;
-  margin-left: 10%;
-  margin-right: 3%;
+
 }
 
 .contenedor .info #icon {
@@ -878,10 +971,6 @@ input[type=submit]#login-submit {
   text-align: center;
 }
 
-.contenedor #informacion-personal {
-  margin-left: 23%;
-  margin-top: -18.5%;
-}
 
 .contenedor #informacion-personal .titulos-info {
   font-size: 130%;
@@ -895,9 +984,7 @@ input[type=submit]#login-submit {
   border-left: 1.9px solid #dee2e6;
 }
 
-#Cuenta {
-  margin-bottom: 7.8%;
-}
+
 
 .contenedor #informacion-personal .conten-info {
   margin-bottom: 5%;
@@ -932,6 +1019,26 @@ input[type=submit]#login-submit {
   min-width: 80vw;
   min-height: 40vh;
 }
+.editButton{
+  width: 3%; 
+  height: 3%; 
+  border-radius:10px; 
+  border-color: #fff; 
+  outline: none; 
+  background-color: #BA2737;
+}
+
+.editButton:hover{
+  background-color: #fff;
+}
+.logoButtonEdit{
+  width: 100%;
+  height: 100%;
+  color: #fff;
+}
+.logoButtonEdit:hover{
+  color: #BA2737;
+}
 
 #personalDescription{
   margin-top: 70px;
@@ -945,6 +1052,18 @@ padding: 1.5%;
   border-bottom: 2px solid #911e1e;
   box-shadow: 4px 4px 2px 1px rgba(1, 1, 1, 0.3);
 }
+
+.inputEditable{
+  padding: 1.5%;
+  margin-right: 10%;
+  }
+  
+  .inputEditable:hover{
+    background-color: #ffffff42;
+    border-bottom: 2px solid #911e1e;
+    box-shadow: 4px 4px 2px 1px rgba(1, 1, 1, 0.3);
+  }
+
 
 .signUpAccount{
   font-family: 'Abel', sans-serif !important; 
@@ -972,4 +1091,21 @@ padding: 1.5%;
 * h2, label{
   font-weight: 800;
   font-family: 'Abel', sans-serif !important; 
+}
+.hdsad{
+  height: 45vh;
+  width: 70vw;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  flex-direction: row;
+
+}
+iframe{
+  width: 100%; height: 100%;
+}
+
+.image-upload>input {
+  display: none;
 }
