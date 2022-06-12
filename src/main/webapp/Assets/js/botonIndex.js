@@ -33,12 +33,7 @@ const getButtonAccount = async () => {
         document.getElementById("dropdown-item1").addEventListener('click',account);
 
         function account(){
-
-            if(localStorage.getItem("role")=="Artista"){
                 window.location.href="./account.html"
-            }else if (localStorage.getItem("role")=="Comprador"){
-                window.location.href="./customerAccount.html"
-            }
 
         }
         document.getElementById("dropdown-item2").addEventListener('click',logout);

@@ -28,8 +28,34 @@
             <a href="./index.html"><img class="logo icon" hr src="Assets\img\logoNear3.png"></a>
             <i class='bx bx-menu' id="btn"></i>
         </div>
-        <ul class="nav-list">
-            <li>
+        <ul id="nav-list" class="nav-list">
+           
+        </ul>
+    </div>
+
+    <section id="home" class="home-section" style="height: 100vh;">
+
+        <section class="contenedor" style="height: 100vh;overflow: hidden;">
+
+            <iframe id="frame" src="walletHistoryArtist.html" frameborder="0"></iframe>
+
+
+        </section>
+
+
+    </section>
+
+
+</body>
+<script>
+
+    var listSideBar ="";
+
+if(localStorage.getItem('role')=="Artista"){
+
+    listSideBar = 
+`
+     <li>
                 <a id="account" href="#Cuenta">
                     <i class='bx bx-user'></i>
                     <span class="links_name">Cuenta</span>
@@ -74,26 +100,23 @@
                 </a>
                 <span class="tooltip">Wallet</span>
             </li>
+  `;
             
 
-            
-        </ul>
-    </div>
-
-    <section id="home" class="home-section" style="height: 100vh;">
-
-        <section class="contenedor" style="height: 100vh;overflow: hidden;">
-
-            <iframe id="frame" src="walletHistoryArtist.html" frameborder="0"></iframe>
+}else{
 
 
-        </section>
+    
+}
+
+  document.getElementById('nav-list').innerHTML = listSideBar;
 
 
-    </section>
 
 
-</body>
+
+
+</script>
 <script>
      $('#createCollection').click(
       function () {
@@ -128,15 +151,9 @@
 
 </script>
 
-<!-- BOOTSTRAP SCRIPTS -->
 
 <script src="Assets/js/account.js"></script>
-<!-- <script>
 
-
-
-        window.addEventListener("DOMContentLoaded", getDataCollection(), editUser());
-    </script> -->
 <script src="./Assets/js/botonDeshabilitar.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
