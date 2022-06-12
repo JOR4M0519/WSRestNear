@@ -65,7 +65,6 @@
 
         async function loadData() {
             const dataCollection = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
-            console.log(dataCollection)
             //enableEdit true ya que se encuentra en las colecciones del artista
             getDataCollection(dataCollection,true)
         }

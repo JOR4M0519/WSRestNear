@@ -153,6 +153,7 @@ public class ArtResources {
 
             ArtServices artServices = new ArtServices(conn);
             nfts = artServices.listMostLikedArts();
+            System.out.println(nfts);
 
             conn.close();
 

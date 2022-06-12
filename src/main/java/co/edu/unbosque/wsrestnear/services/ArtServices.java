@@ -32,6 +32,7 @@ public class ArtServices {
                     "    c.title,\n" +
                     "    u.name,\n" +
                     "    u.lastname,\n" +
+                    "    a.art_id,\n" +
                     "\ta.forsale\n" +
                     "FROM collection c\n" +
                     "         JOIN art a\n" +
@@ -50,9 +51,10 @@ public class ArtServices {
                 int price = rs.getInt(3);
                 String title = rs.getString(2);
                 String author = rs.getString(6) + " " + rs.getString(7);
-                boolean forSale = rs.getBoolean(8);;
+                boolean forSale = rs.getBoolean(9);
+                int counter = rs.getInt(8);
 
-                artList.add(new Art(id, collection, title, author, price, email, forSale));
+                artList.add(new Art(id, collection, title, author, price, email, counter, forSale));
             }
 
             rs.close();
@@ -85,6 +87,7 @@ public class ArtServices {
                     "    c.title,\n" +
                     "    u.name,\n" +
                     "    u.lastname,\n" +
+                    "    a.art_id,\n" +
                     "\ta.forsale\n" +
                     "FROM collection c\n" +
                     "         JOIN art a\n" +
@@ -102,9 +105,10 @@ public class ArtServices {
                 int price = rs.getInt(3);
                 String title = rs.getString(2);
                 String author = rs.getString(6) + " " + rs.getString(7);
-                boolean forSale = rs.getBoolean(8);;
+                boolean forSale = rs.getBoolean(9);
+                int counter = rs.getInt(8);
 
-                artList.add(new Art(id, collection, title, author, price, email, forSale));
+                artList.add(new Art(id, collection, title, author, price, email, counter, forSale));
             }
 
             rs.close();
@@ -136,6 +140,7 @@ public class ArtServices {
                     "    c.title,\n" +
                     "    u.name,\n" +
                     "    u.lastname,\n" +
+                    "    a.art_id,\n" +
                     "\ta.forsale\n" +
                     "FROM collection c\n" +
                     "         JOIN art a\n" +
@@ -156,9 +161,10 @@ public class ArtServices {
                 int price = rs.getInt(3);
                 String title = rs.getString(2);
                 String author = rs.getString(6) + " " + rs.getString(7);
-                boolean forSale = rs.getBoolean(8);
+                boolean forSale = rs.getBoolean(9);
+                int counter = rs.getInt(8);
 
-                artList.add(new Art(id, collection, title, author, price, email, forSale));
+                artList.add(new Art(id, collection, title, author, price, email, counter, forSale));
             }
 
             rs.close();
@@ -191,6 +197,7 @@ public class ArtServices {
                     "    c.title,\n" +
                     "    u.name,\n" +
                     "    u.lastname,\n" +
+                    "    a.art_id,\n" +
                     "\ta.forsale\n" +
                     "    \tFROM collection c\n" +
                     "        JOIN art a\n" +
@@ -209,9 +216,11 @@ public class ArtServices {
             int price = rs.getInt(3);
             String title = rs.getString(2);
             String author = rs.getString(6) + " " + rs.getString(7);
-            boolean forSale = rs.getBoolean(8);
+            boolean forSale = rs.getBoolean(9);
+            int counter = rs.getInt(8);
 
-            art = new Art(image,collection,title,author,price,email,forSale);
+            art = new Art(image, collection, title, author, price, email, counter, forSale);
+
             rs.close();
             stmt.close();
         } catch (SQLException se) {
@@ -332,6 +341,7 @@ public class ArtServices {
             while (rs.next()) {
 
                 artList.add(getArt(rs.getString("image")));
+                System.out.println(getArt(rs.getString("image").toString()));
             }
 
             rs.close();

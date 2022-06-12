@@ -178,7 +178,7 @@ function getArtSale(dataArt,selling,owner,email){
 }
 
 //Funcion Artista habilitar/Deshabilitar
-function getEnableArtBtn(dataArt,selling,owner,email){
+function getEnableArtBtnArtist(dataArt,selling,owner,email){
     let enable;
 
     if (selling) {enable = "Deshabilitar";}
@@ -222,7 +222,7 @@ function getBuyBtn(dataArt, selling, owner) {
 }
 
 //Funcion customer habilitar/Deshabilitar
-function getEnableArtBtn(dataArt,selling,owner){
+function getEnableArtBtnCustomer(dataArt,selling,owner){
     let enable;
 
     if (selling) {enable = "Deshabilitar";}
@@ -358,17 +358,17 @@ const getDataModal = async (collection,username,enableEdit) => {
     if(localStorage.getItem("role") === "Artista"){
         //Ingresa a la opción de editar del artista
         if(enableEdit){
-            getDataArts(document.getElementById("cardNftCatologue"),dataCollectionNFTs,getEnableArtBtn).then(function (){
+            getDataArts(document.getElementById("cardNftCatologue"),dataCollectionNFTs,getEnableArtBtnArtist).then(function (){
                 //Borra la información del autor y colección
                 document.querySelectorAll(".infoArt").forEach(el => el.remove())});
         }
         //Muestra solo las artes
         else{
-
             getDataArts(document.getElementById("cardNftCatologue"),dataCollectionNFTs,getArtSale).then(function (){
                 //Borra la información del autor y colección
                 document.querySelectorAll(".infoArt").forEach(el => el.remove())});
         }
+        //Muestra las opciones del customer
     }else{
         getDataArts(document.getElementById("cardNftCatologue"),dataCollectionNFTs,getBuyBtn).then(function (){
             //Borra la información del autor y colección

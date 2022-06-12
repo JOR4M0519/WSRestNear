@@ -10,6 +10,8 @@ public class Art {
     private long price;
     private String email;
 
+    private int counter;
+
     private boolean forSale;
 
     public Art(){
@@ -17,13 +19,14 @@ public class Art {
     }
 
 
-    public Art(String id, String collection, String title, String author, long price, String email, boolean forSale) {
+    public Art(String id, String collection, String title, String author, long price, String email, int counter, boolean forSale) {
         this.id = id;
         this.collection = collection;
         this.title = title;
         this.author = author;
         this.price = price;
         this.email = email;
+        this.counter = counter;
         this.forSale = forSale;
     }
 
@@ -75,6 +78,14 @@ public class Art {
 
     public void setForSale(boolean forSale) {
         this.forSale = forSale;
+    }
+
+    public int getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
     }
 
     @Override

@@ -62,6 +62,10 @@ const getArtDataSection = async ()=>{
     * Catalogo de Artes Resientes
     */
     const dataRecents = await fetch("./api/arts").then(response => response.json());
+
+    dataRecents.sort(function (a, b) {
+        return a.counter-b.counter;
+    });
     //invierte la lista tomando los últimos creados
     dataRecents.reverse();
 
