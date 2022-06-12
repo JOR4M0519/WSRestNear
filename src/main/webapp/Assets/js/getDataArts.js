@@ -249,18 +249,8 @@ function getBtnNotEnable(){
 </div>`;
 }
 
-// const getDataCollection = async (dataCollection,enableEdit) =>   {
-//     var imagesCol = document.getElementById("cardcol")
+ const getDataCollection = async (dataCollection,enableEdit) =>   {
 
-/*    if (window.location.toString().includes("artistAccount")) {
-        dataCollection = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
-    } else if(window.location.toString().includes("filterArts")){
-        dataCollection = await fetch(`./api/collections/filter?data=${params.filter}`).then(response => response.json());
-    } else{
-        dataCollection = await fetch("./api/collections").then(response => response.json());
-    }*/
-
-    const getDataCollection = async () => {
         var imagesCol = document.getElementById("cardcol")
 
         if (window.location.toString().includes("artistAccount")) {
@@ -316,7 +306,7 @@ function getBtnNotEnable(){
 
                 imagesCol.innerHTML += `
        <div class="col-md-4 card-position">
-    <div class="card mb-4 shadow-sm card-dimensions" id="modalNFTs" onclick="getDataModal('${collection.toString()}','${username.toString()}',${true})"  data-toggle="modal" data-target=".bd-example-modal-lg">
+    <div class="card mb-4 shadow-sm card-dimensions" id="modalNFTs" onclick="getDataModal('${collection.toString()}','${username.toString()}',${enableEdit})"  data-toggle="modal" data-target=".bd-example-modal-lg">
         <div class="imgBx collectionCatalogue">
             ${imgsArts}
         </div>
