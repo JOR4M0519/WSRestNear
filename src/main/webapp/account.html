@@ -48,43 +48,12 @@
 
 </body>
 <script>
-     $('#createCollection').click(
-      function () {
-        document.getElementById('frame').src = "./createCollection.html";
-        document.getElementById('home').style.backgroundColor = "#040410";
-      }
-    );
-    $('#createNFT').click(
-      function () {
-        document.getElementById('frame').src = "./createNFT.html";
-        document.getElementById('home').style.backgroundColor = "#BA2737";
-      }
-    );
-    $('#account').click(
-      function () {
-        document.getElementById('frame').src = "./myaccount.html";
-        document.getElementById('home').style.backgroundColor = "#E4E9F7";
-      }
-    );
-     $('#publicaciones').click(
-         function () {
-             document.getElementById('frame').src = "./artistAccount.html";
-             document.getElementById('home').style.backgroundColor = "#E4E9F7";
-         }
-     );
-     $('#favoritos').click(
-         function () {
-             document.getElementById('frame').src = "./artistAccount2.html";
-             document.getElementById('home').style.backgroundColor = "#E4E9F7";
-         }
-     );
 
-</script>
-<script>
+    var listSideBar ="";
 
 if(localStorage.getItem('role')=="Artista"){
 
-    var text = 
+    listSideBar = 
 `
      <li>
                 <a id="account" href="#Cuenta">
@@ -131,18 +100,57 @@ if(localStorage.getItem('role')=="Artista"){
                 </a>
                 <span class="tooltip">Wallet</span>
             </li>
-  `;          
+  `;
+            
 
-  document.getElementById('nav-list').innerHTML = text;
-
-
-    window.addEventListener("DOMContentLoaded", getDataCollection());   
+}else{
 
 
+    
 }
+
+  document.getElementById('nav-list').innerHTML = listSideBar;
+
+
+
+
 
 
 </script>
+<script>
+     $('#createCollection').click(
+      function () {
+        document.getElementById('frame').src = "./createCollection.html";
+        document.getElementById('home').style.backgroundColor = "#040410";
+      }
+    );
+    $('#createNFT').click(
+      function () {
+        document.getElementById('frame').src = "./createNFT.html";
+        document.getElementById('home').style.backgroundColor = "#BA2737";
+      }
+    );
+    $('#account').click(
+      function () {
+        document.getElementById('frame').src = "./myaccount.html";
+        document.getElementById('home').style.backgroundColor = "#E4E9F7";
+      }
+    );
+     $('#publicaciones').click(
+         function () {
+             document.getElementById('frame').src = "./artistAccount.html";
+             document.getElementById('home').style.backgroundColor = "#E4E9F7";
+         }
+     );
+     $('#favoritos').click(
+         function () {
+             document.getElementById('frame').src = "./artistAccount2.html";
+             document.getElementById('home').style.backgroundColor = "#E4E9F7";
+         }
+     );
+
+</script>
+
 
 <script src="Assets/js/account.js"></script>
 
