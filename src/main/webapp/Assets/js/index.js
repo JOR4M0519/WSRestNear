@@ -73,16 +73,28 @@ const getArtDataSection = async ()=>{
     dataRecents.map(function(element) {
         element.id = "NFTS\\"+element.id;
     })
-    getDataArts(document.getElementById("card"),dataRecents)
 
     /*
     * Catalogo de TopLikes
     */
     const dataTopLikes = await fetch("./api/arts/likes").then(response => response.json());
-    getDataArts(document.getElementById("card_LikesRanking"), dataTopLikes, getBuyBtn());
+
+
+    if(localStorage.getItem("role") === "Artista"){
+
+        getDataArts(document.getElementById("card"),dataRecents,getArtSale)
+        getDataArts(document.getElementById("card_LikesRanking"), dataTopLikes, getArtSale);
+    }else{
+        getDataArts(document.getElementById("card"),dataRecents,getBuyBtn)
+        getDataArts(document.getElementById("card_LikesRanking"), dataTopLikes, getBuyBtn);
+    }
+
+    const dataCollection = await fetch("./api/collections").then(response => response.json());
+    //enableEdit False al estar en index
+    getDataCollection(dataCollection,false)
 }
 
 window.addEventListener("DOMContentLoaded",
-    getArtDataSection(), getDataCollection(), getArtistsData());
+    getArtDataSection(), getArtistsData());
 
 

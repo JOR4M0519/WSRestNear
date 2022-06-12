@@ -61,8 +61,16 @@
     <!-- BOOTSTRAP SCRIPTS -->
     <script src="Assets/js/sumarLikes.js"></script>
     <script src="Assets/js/getDataArts.js"></script>
-    <script>    
-        window.addEventListener("DOMContentLoaded", getDataCollection());
+    <script>
+
+        async function loadData() {
+            const dataCollection = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
+            console.log(dataCollection)
+            //enableEdit true ya que se encuentra en las colecciones del artista
+            getDataCollection(dataCollection,true)
+        }
+
+        window.addEventListener("DOMContentLoaded", this.loadData);
     </script>
     <script src="./Assets/js/botonDeshabilitar.js"></script>
 

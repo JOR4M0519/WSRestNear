@@ -7,7 +7,6 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
     let styleClassCardTopRankLikes = "";
 
 
-    let url = window.location.href
     //Realiza el llamado fetch de las artes dependiendo de la ubicación de la pagina
 
     //puesto
@@ -64,7 +63,7 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
 
     //Recorre cada arte
     for (const data1 of data) {
-        const {id, collection, title, author, price, forSale} = data1;
+        const {id, collection, title, author, price, forSale,email} = data1;
         let idNFT = id.toString().split("\\")[1];
         let type = "";
 
@@ -100,7 +99,7 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
 
         <div class="content card-content">
             <h3 class="card-text" id="item1">Titulo: ${title}</h3>
-            <p class="card-text" id="item1">
+            <p class="card-text infoArt" id="item1">
             Autor: ${author}
             <br>
             Colección: ${collection}
@@ -118,6 +117,7 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
         let ownerArt = listArtsOwner.filter(art => art.id === id);
         ownerArt = (ownerArt.length != 0);
 
+/*
         //No agrega los botones de compra y carrito de compras
         if (url.includes("customerAccount") && (artsDiv.id === "cardOwner") || url.includes("artistAccount")) {
 
@@ -140,53 +140,125 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
         //Agrega los botones de compra y carrito de compras
         else {
             innerhtml += `
-      <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Comprar" onclick="btnBuy(this,'buy')">     
-      <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Añadir al Carro" onclick="btnBuy(this,'add')">        
-  
+      <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Comprar" onclick="btnBuy(this,'buy')">
+      <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Añadir al Carro" onclick="btnBuy(this,'add')">
+
       </div>
     </div>
 </div>`;
+        }*/
+        if(localStorage.getItem("role") === "Artista"){
+            innerhtml += getBtnCallBack(data1,forSale,ownerArt,email)
+        } else{
+            innerhtml += getBtnCallBack(data1,forSale,ownerArt)
         }
-        if (localStorage.getItem("role") === "Artista") {
-            getBtnCallBack(data1, habilitar)
-        } else {
-            getBtnCallBack(data1, habilitar)
-        }
-        artsDiv.innerHTML += innerhtml;
+    }
+    artsDiv.innerHTML += innerhtml;
+}
+
+function getArtSale(dataArt,selling,owner,email){
+    let description = "En venta"
+    let sellStatus = "btnSell";
+
+    //Muestra
+    if(!selling){
+        return getBtnNotEnable();
     }
 
-    const groupBtnsArts = async () => {
-
+    //Si no es propietario del arte y fue su creador carga el estilo del boton vendido
+    if(!owner && (email == localStorage.getItem("username"))){
+        description = "Vendida!";
+        sellStatus = "btnSold";
     }
-
-    function getArtSale(dataArt, sellStatus) {
-
-        if () {
-        }
-        return `
-            <input class="btn btn-sm btn-outline-secondary item1" value="${sellStatus}" >
+          return `
+            <input class="btn btn-sm item1" id="${sellStatus}" value="${description}" disabled >
       </div>
     </div>
 </div>`;
     }
 
-    function getEnableArtBtn(dataArt, enable) {
+//Funcion Artista habilitar/Deshabilitar
+function getEnableArtBtn(dataArt,selling,owner,email){
+    let enable;
+
+    if (selling) {enable = "Deshabilitar";}
+            else {enable = "Habilitar";}
+
+    //Si es propietario del arte y fue su creador carga el boton de habilitar compra del arte
+    if(owner && (email == localStorage.getItem("username"))){
         return `
-            <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btn-outline-secondary item1" value="${enable} Compra" onclick="btnDeshabilitar(this)">
-            <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">
+            <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btnEdit" value="${enable} Compra" onclick="btnDeshabilitar(this)">
+            <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btnEdit" style="box-shadow: 0px 2px 5px 2px #3f3f3f;" value="Editar" onclick="">
       </div>
     </div>
 </div>`;
+    }
+    return getArtSale(dataArt,true,owner,email);
+
+}
+
+
+//Funciones del Customer
+function getBuyBtn(dataArt, selling, owner) {
+    if(!selling){
+        return getBtnNotEnable();
     }
 
-    function getBuyBtn(dataArt, innecesary) {
+    if (owner) {
+        return`
+        <input class="btn btn-sm btn-outline-secondary item1" id="btnSold" value="Este NFT es tuyo" disabled    >
+        </div>
+    </div>
+</div>`;
+    } else {
+
         return `
-      <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btn-outline-secondary" value="Comprar" onclick="btnBuy(this,'buy')">     
-      <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btn-outline-secondary" value="Añadir al Carro" onclick="btnBuy(this,'add')">        
+      <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btnSell" value="Comprar" onclick="btnBuy(this,'buy')" >     
+      <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btnSell" style="box-shadow: 0px 2px 5px 2px #313830;" value="Añadir al Carro" onclick="btnBuy(this,'add')">        
       </div>
     </div>
 </div>`;
     }
+}
+
+//Funcion customer habilitar/Deshabilitar
+function getEnableArtBtn(dataArt,selling,owner){
+    let enable;
+
+    if (selling) {enable = "Deshabilitar";}
+    else {enable = "Habilitar";}
+
+    //Si es propietario del arte y fue su creador carga el boton de habilitar compra del arte
+    if(owner){
+        return `
+            <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btnEdit" value="${enable} Compra" onclick="btnDeshabilitar(this)">
+            <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btnEdit" style="box-shadow: 0px 2px 5px 2px #3f3f3f;" value="Editar" onclick="">
+      </div>
+    </div>
+</div>`;
+    }
+    return getArtSale(dataArt,true,owner,email);
+
+}
+
+function getBtnNotEnable(){
+    return`
+        <input class="btn btn-sm btn-outline-secondary item1" id="btnSold" value="No esta en Venta" disabled    >
+        </div>
+    </div>
+</div>`;
+}
+
+const getDataCollection = async (dataCollection,enableEdit) =>   {
+    var imagesCol = document.getElementById("cardcol")
+
+/*    if (window.location.toString().includes("artistAccount")) {
+        dataCollection = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
+    } else if(window.location.toString().includes("filterArts")){
+        dataCollection = await fetch(`./api/collections/filter?data=${params.filter}`).then(response => response.json());
+    } else{
+        dataCollection = await fetch("./api/collections").then(response => response.json());
+    }*/
 
     const getDataCollection = async () => {
         var imagesCol = document.getElementById("cardcol")
@@ -243,7 +315,7 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
 
                 imagesCol.innerHTML += `
        <div class="col-md-4 card-position">
-    <div class="card mb-4 shadow-sm card-dimensions" id="modalNFTs" onclick="getDataModal('${collection.toString()}','${username.toString()}')"  data-toggle="modal" data-target=".bd-example-modal-lg">
+    <div class="card mb-4 shadow-sm card-dimensions" id="modalNFTs" onclick="getDataModal('${collection.toString()}','${username.toString()}',${enableEdit})"  data-toggle="modal" data-target=".bd-example-modal-lg">
         <div class="imgBx collectionCatalogue">
             ${imgsArts}
         </div>
@@ -260,9 +332,9 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
         }
     };
 
-    const getDataModal = async (collection, username) => {
-        //Ventana emrgente modal
-        var imagesModal = document.getElementById("cardsCollection");
+const getDataModal = async (collection,username,enableEdit) => {
+    //Ventana emrgente modal
+    var imagesModal = document.getElementById("cardsCollection");
 
 
         //llama la lista de colecciones
@@ -288,11 +360,40 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
               </section>
             </div>`;
 
+    
+/*
+    let dataLikes = null;
+    const listTotalLikes = await fetch("./api/arts/likes/list").then(response => response.json());
+    const listTotalLikesByUser = await fetch(`./api/users/${localStorage.getItem('username')}/likes`).then(response => response.json());
+    const listArtsOwner = await fetch(`./api/owners/${localStorage.getItem('username')}/arts`).then(response => response.json());
+    var cardNftCatalogue =
+*/
 
-        let dataLikes = null;
-        const listTotalLikes = await fetch("./api/arts/likes/list").then(response => response.json());
-        const listTotalLikesByUser = await fetch(`./api/users/${localStorage.getItem('username')}/likes`).then(response => response.json());
-        const listArtsOwner = await fetch(`./api/owners/${localStorage.getItem('username')}/arts`).then(response => response.json());
+    if(localStorage.getItem("role") === "Artista"){
+        //Ingresa a la opción de editar del artista
+        if(enableEdit){
+            getDataArts(document.getElementById("cardNftCatologue"),dataCollectionNFTs,getEnableArtBtn).then(function (){
+                //Borra la información del autor y colección
+                document.querySelectorAll(".infoArt").forEach(el => el.remove())});
+        }
+        //Muestra solo las artes
+        else{
+
+            getDataArts(document.getElementById("cardNftCatologue"),dataCollectionNFTs,getArtSale).then(function (){
+                //Borra la información del autor y colección
+                document.querySelectorAll(".infoArt").forEach(el => el.remove())});
+        }
+    }else{
+        getDataArts(document.getElementById("cardNftCatologue"),dataCollectionNFTs,getBuyBtn).then(function (){
+            //Borra la información del autor y colección
+            document.querySelectorAll(".infoArt").forEach(el => el.remove());
+        })
+    }
+
+
+
+    /*for (const dataCollectionNFTs1 of dataCollectionNFTs) {
+        const {id, title, author, price, forSale} = dataCollectionNFTs1;
 
 
         for (const dataCollectionNFTs1 of dataCollectionNFTs) {
@@ -379,8 +480,8 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
         </div>
                     `;
 
-        }
-    }
+    }*/
+}
 
     const btnBuy = async (input, condition) => {
 
@@ -445,4 +546,5 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
 const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
+
   
