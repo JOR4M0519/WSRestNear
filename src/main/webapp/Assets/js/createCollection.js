@@ -17,7 +17,7 @@ form.onsubmit = async (e) => {
         let resultData = await responseData.json();
 
 
-        if (resultData.collection != collection ) {
+        if (resultData.collection != collection) {
 
 
             let response = await fetch(`./api/users/${autor}/collections` , {

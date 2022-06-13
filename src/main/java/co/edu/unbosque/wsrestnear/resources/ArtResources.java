@@ -62,6 +62,38 @@ public class ArtResources {
         return Response.ok().entity(nfts).build();
     }
 
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateArt(Art art) {
+        Connection conn = null;
+        Art updateArt = null;
+
+        try {
+
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            ArtServices artServices = new ArtServices(conn);
+            updateArt = artServices.updateArt(art);
+
+            conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return Response.ok()
+                .entity(updateArt)
+                .build();
+    }
+
 
     @GET
     @Path("/filter")
