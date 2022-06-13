@@ -361,13 +361,13 @@ const getDataModal = async (collection,username,enableEdit) => {
 
     if(localStorage.getItem("role") === "Artista"){
         //Ingresa a la opción de editar del artista
-        if(enableEdit){
+        if(enableEdit=="artist"){
             getDataArts(document.getElementById("cardNftCatologue"),dataCollectionNFTs,getEnableArtBtnArtist).then(function (){
                 //Borra la información del autor y colección
                 document.querySelectorAll(".infoArt").forEach(el => el.remove())});
         }
         //Muestra solo las artes
-        else{
+        else if(enableEdit=="general" || enableEdit=="filter"){
             getDataArts(document.getElementById("cardNftCatologue"),dataCollectionNFTs,getArtSale).then(function (){
                 //Borra la información del autor y colección
                 document.querySelectorAll(".infoArt").forEach(el => el.remove())});
