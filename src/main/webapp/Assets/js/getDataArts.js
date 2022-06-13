@@ -7,48 +7,6 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
     let styleClassCardTopRankLikes = "";
 
 
-    //Realiza el llamado fetch de las artes dependiendo de la ubicación de la pagina
-
-    //puesto
-    /*if(url.includes("customerAccount")){
-          data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts`).then(response => response.json());
-          if(artsDiv.id != "cardfavorites"){
-              getDataArts(document.getElementById("cardfavorites"));
-          }else{
-              data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());    
-          }
-          //puesto
-      }else*/
-
-    //Puesto
-    /*if(url.includes("filterArts")){
-          data = await fetch(`./api/arts/filter?data=${params.filter}`).then(response => response.json());
-    }
-    else*/
-
-    /*if(url.includes("artistAccount")){
-            //puesto
-          data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
-      } else{*/
-
-    //puesto index
-    /*
-            data = await fetch("./api/arts").then(response => response.json());
-
-            //invierte la lista tomando los últimos creados
-            data.reverse();
-
-            //Toma solo las primeras 6 artes
-           while(data.length>6 ){
-               data.length = data.length - 1;
-           }
-           //modifica el id por la ruta de la imagen
-
-           data.map(function(element) {
-             element.id = "NFTS\\"+element.id;
-           })
-    */
-
     if (artsDiv.id == "card_LikesRanking") {
         styleClassCardTopRankLikes = "cardTopRankLikes card-dimensionsTopLiked";
     }
@@ -63,7 +21,7 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
 
     //Recorre cada arte
     for (const data1 of data) {
-        const {id, collection, title, author, price, forSale,email} = data1;
+        const { id, collection, title, author, price, forSale, email } = data1;
         let idNFT = id.toString().split("\\")[1];
         let type = "";
 
@@ -122,95 +80,64 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
         let ownerArt = listArtsOwner.filter(art => art.id === id);
         ownerArt = (ownerArt.length != 0);
 
-/*
-        //No agrega los botones de compra y carrito de compras
-        if (url.includes("customerAccount") && (artsDiv.id === "cardOwner") || url.includes("artistAccount")) {
-
-
-            if (forSale == true) {
-
-                habilitar = "Deshabilitar";
-
-            } else {
-                habilitar = "Habilitar";
-            }
-
-            innerhtml += `
-            <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary item1" value="${habilitar} Compra" onclick="btnDeshabilitar(this)">
-            <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">
-      </div>
-    </div>
-</div>`;
-        }
-        //Agrega los botones de compra y carrito de compras
-        else {
-            innerhtml += `
-      <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Comprar" onclick="btnBuy(this,'buy')">
-      <input type="submit" id='${JSON.stringify(data1)}'  class="btn btn-sm btn-outline-secondary" value="Añadir al Carro" onclick="btnBuy(this,'add')">
-
-      </div>
-    </div>
-</div>`;
-        }*/
-        if(localStorage.getItem("role") === "Artista"){
-            innerhtml += getBtnCallBack(data1,forSale,ownerArt,email)
-        } else{
-            innerhtml += getBtnCallBack(data1,forSale,ownerArt)
+        if (localStorage.getItem("role") === "Artista") {
+            innerhtml += getBtnCallBack(data1, forSale, ownerArt, email)
+        } else {
+            innerhtml += getBtnCallBack(data1, forSale, ownerArt)
         }
     }
     artsDiv.innerHTML += innerhtml;
 }
 
-function getArtSale(dataArt,selling,owner,email){
+function getArtSale(dataArt, selling, owner, email) {
     let description = "En venta"
     let sellStatus = "btnSell";
 
     //Muestra
-    if(!selling){
+    if (!selling) {
         return getBtnNotEnable();
     }
 
     //Si no es propietario del arte y fue su creador carga el estilo del boton vendido
-    if(!owner && (email == localStorage.getItem("username"))){
+    if (!owner && (email == localStorage.getItem("username"))) {
         description = "Vendida!";
         sellStatus = "btnSold";
     }
-          return `
+    return `
             <input class="btn btn-sm item1" id="${sellStatus}" value="${description}" disabled >
       </div>
     </div>
 </div>`;
-    }
+}
 
 //Funcion Artista habilitar/Deshabilitar
-function getEnableArtBtnArtist(dataArt,selling,owner,email){
+function getEnableArtBtnArtist(dataArt, selling, owner, email) {
     let enable;
 
-    if (selling) {enable = "Deshabilitar";}
-            else {enable = "Habilitar";}
+    if (selling) { enable = "Deshabilitar"; }
+    else { enable = "Habilitar"; }
 
     //Si es propietario del arte y fue su creador carga el boton de habilitar compra del arte
-    if(owner && (email == localStorage.getItem("username"))){
+    if (owner && (email == localStorage.getItem("username"))) {
         return `
             <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btnEdit" value="${enable} Compra" onclick="btnDeshabilitar(this)">
-            <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btnEdit" style="box-shadow: 0px 2px 5px 2px #3f3f3f;" value="Editar" onclick="">
+            <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btnEdit" style="box-shadow: 0px 2px 5px 2px #3f3f3f;" value="Editar" onclick="editArt(this)">
       </div>
     </div>
 </div>`;
     }
-    return getArtSale(dataArt,true,owner,email);
+    return getArtSale(dataArt, true, owner, email);
 
 }
 
-
 //Funciones del Customer
 function getBuyBtn(dataArt, selling, owner) {
-    if(!selling){
+    if (!selling) {
         return getBtnNotEnable();
     }
 
     if (owner) {
-        return`
+        return `
         <input class="btn btn-sm btn-outline-secondary item1" id="btnSold" value="Este NFT es tuyo" disabled    >
         </div>
     </div>
@@ -227,59 +154,51 @@ function getBuyBtn(dataArt, selling, owner) {
 }
 
 //Funcion customer habilitar/Deshabilitar
-function getEnableArtBtnCustomer(dataArt,selling,owner){
+function getEnableArtBtnCustomer(dataArt, selling, owner) {
     let enable;
 
-    if (selling) {enable = "Deshabilitar";}
-    else {enable = "Habilitar";}
+    if (selling) { enable = "Deshabilitar"; }
+    else { enable = "Habilitar"; }
 
     //Si es propietario del arte y fue su creador carga el boton de habilitar compra del arte
-    if(owner){
+    if (owner) {
         return `
             <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btnEdit" value="${enable} Compra" onclick="btnDeshabilitar(this)">
-            <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btnEdit" style="box-shadow: 0px 2px 5px 2px #3f3f3f;" value="Editar" onclick="">
+            <input type="submit" id='${JSON.stringify(dataArt)}'  class="btn btn-sm btnEdit" style="box-shadow: 0px 2px 5px 2px #3f3f3f;" value="Editar" onclick="editArt(this)">
       </div>
     </div>
 </div>`;
     }
-    return getArtSale(dataArt,true,owner,localStorage.getItem('username'));
+    return getArtSale(dataArt, true, owner, localStorage.getItem('username'));
 
 }
 
-function getBtnNotEnable(){
-    return`
+function getBtnNotEnable() {
+    return `
         <input class="btn btn-sm btn-outline-secondary item1" id="btnSold" value="No esta en Venta" disabled    >
         </div>
     </div>
 </div>`;
 }
 
- const getDataCollection = async (dataCollection,enableEdit) =>   {
+const getDataCollection = async (dataCollection, enableEdit) => {
 
-        var imagesCol = document.getElementById("cardcol")
-
-        /*if (enableEdit=="artist") {
-            dataCollection = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
-        } else if (enableEdit=="filter") {
-            dataCollection = await fetch(`./api/collections/filter?data=${params.filter}`).then(response => response.json());
-        } else if (enableEdit=="general"){
-            dataCollection = await fetch("./api/collections").then(response => response.json());
-        }*/
+    var imagesCol = document.getElementById("cardcol")
 
 
-        for (const dataCollection1 of dataCollection) {
-            const {username, collection} = dataCollection1;
+    for (const dataCollection1 of dataCollection) {
+        const { username, collection } = dataCollection1;
 
-            const dataCollectionNFTs = await fetch(`./api/users/${username}/collections/${collection}/arts`).then(response => response.json());
+        const dataCollectionNFTs = await fetch(`./api/users/${username}/collections/${collection}/arts`).then(response => response.json());
 
-            const urlNfts = dataCollectionNFTs.map(collectionNft => ({
-                id: collectionNft.id,
-                author: collectionNft.author
-            }))
+        const urlNfts = dataCollectionNFTs.map(collectionNft => ({
+            id: collectionNft.id,
+            author: collectionNft.author
+        }))
 
 
-            if (urlNfts.length == 0 && true) {
-                imagesCol.innerHTML += `
+        if (urlNfts.length == 0 && true) {
+            imagesCol.innerHTML += `
        <div class="col-md-4 card-position">
         <div class="card mb-4 shadow-sm card-dimensions" style="padding: 50%" id="modalNFTs" onclick="getDataModal('${collection.toString()}')"  data-toggle="modal" data-target=".bd-example-modal-lg">
         <div class="imgBx">
@@ -300,15 +219,15 @@ function getBtnNotEnable(){
     </div>
 </div>
    `;
-            } else {
+        } else {
 
-                //Get number arts from the collection
-                let imgsArts = "";
-                for (let i = 0; i < urlNfts.length && i <= 3; i++) {
-                    imgsArts += `<img class="imageCollection" width="100%" height="100%" src="${urlNfts[i]?.id}" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">`
-                }
+            //Get number arts from the collection
+            let imgsArts = "";
+            for (let i = 0; i < urlNfts.length && i <= 3; i++) {
+                imgsArts += `<img class="imageCollection" width="100%" height="100%" src="${urlNfts[i]?.id}" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">`
+            }
 
-                imagesCol.innerHTML += `
+            imagesCol.innerHTML += `
        <div class="col-md-4 card-position">
     <div class="card mb-4 shadow-sm card-dimensions" id="modalNFTs" onclick="getDataModal('${collection.toString()}','${username.toString()}',${enableEdit})"  data-toggle="modal" data-target=".bd-example-modal-lg">
         <div class="imgBx collectionCatalogue">
@@ -323,23 +242,21 @@ function getBtnNotEnable(){
     </div>
 </div>
    `;
-            }
         }
-    };
+    }
+};
 
-const getDataModal = async (collection,username,enableEdit) => {
+const getDataModal = async (collection, username, enableEdit) => {
     //Ventana emrgente modal
     var imagesModal = document.getElementById("cardsCollection");
 
 
-        //llama la lista de colecciones
-        // const dataCollection = await fetch(`./api/collections`).then(response => response.json());
-        // const username = dataCollection.filter(data => (data.collection === collection));
+    //llama la lista de colecciones
 
-        const dataCollectionNFTs = await fetch(`./api/users/${username}/collections/${collection}/arts`).then(response => response.json());
-        const dataNFTs = dataCollectionNFTs.map(collectionNft => ({author: collectionNft.author}))
+    const dataCollectionNFTs = await fetch(`./api/users/${username}/collections/${collection}/arts`).then(response => response.json());
+    const dataNFTs = dataCollectionNFTs.map(collectionNft => ({ author: collectionNft.author }))
 
-        imagesModal.innerHTML = `
+    imagesModal.innerHTML = `
 
             
             <h2 id="ofertas" class="card_tittle">Colección: ${collection} <p class="text-muted">By: ${dataNFTs[0].author}</p></h2>
@@ -355,191 +272,258 @@ const getDataModal = async (collection,username,enableEdit) => {
               </section>
             </div>`;
 
-    
-/*
-    let dataLikes = null;
-    const listTotalLikes = await fetch("./api/arts/likes/list").then(response => response.json());
-    const listTotalLikesByUser = await fetch(`./api/users/${localStorage.getItem('username')}/likes`).then(response => response.json());
-    const listArtsOwner = await fetch(`./api/owners/${localStorage.getItem('username')}/arts`).then(response => response.json());
-    var cardNftCatalogue =
-*/
 
-    if(localStorage.getItem("role") === "Artista"){
+    if (localStorage.getItem("role") === "Artista") {
         //Ingresa a la opción de editar del artista
-        if(enableEdit){
-            getDataArts(document.getElementById("cardNftCatologue"),dataCollectionNFTs,getEnableArtBtnArtist).then(function (){
+        if (enableEdit) {
+            getDataArts(document.getElementById("cardNftCatologue"), dataCollectionNFTs, getEnableArtBtnArtist).then(function () {
                 //Borra la información del autor y colección
-                document.querySelectorAll(".infoArt").forEach(el => el.remove())});
+                document.querySelectorAll(".infoArt").forEach(el => el.remove())
+            });
         }
         //Muestra solo las artes
-        else if(!enableEdit){
-            getDataArts(document.getElementById("cardNftCatologue"),dataCollectionNFTs,getArtSale).then(function (){
+        else if (!enableEdit) {
+            getDataArts(document.getElementById("cardNftCatologue"), dataCollectionNFTs, getArtSale).then(function () {
                 //Borra la información del autor y colección
-                document.querySelectorAll(".infoArt").forEach(el => el.remove())});
+                document.querySelectorAll(".infoArt").forEach(el => el.remove())
+            });
         }
         //Muestra las opciones del customer
-    }else{
-        getDataArts(document.getElementById("cardNftCatologue"),dataCollectionNFTs,getBuyBtn).then(function (){
+    } else {
+        getDataArts(document.getElementById("cardNftCatologue"), dataCollectionNFTs, getBuyBtn).then(function () {
             //Borra la información del autor y colección
             document.querySelectorAll(".infoArt").forEach(el => el.remove());
         })
     }
 
-
-
-    /*for (const dataCollectionNFTs1 of dataCollectionNFTs) {
-        const {id, title, author, price, forSale} = dataCollectionNFTs1;
-
-
-        for (const dataCollectionNFTs1 of dataCollectionNFTs) {
-            const {id, title, author, price, forSale} = dataCollectionNFTs1;
-
-            let idNFT = id.toString().split("\\")[1];
-            let type = "Modal";
-
-            const artTotalLike = listTotalLikes.filter(data => (data.idImage === idNFT));
-
-            if (artTotalLike.length != 0) {
-                dataLikes = artTotalLike[0].likes;
-            } else {
-                dataLikes = 0;
-            }
-
-            const likeByArt = listTotalLikesByUser.filter(data => (data.idImage === idNFT));
-            if (likeByArt.length != 0) {
-                heartLikesStatus = likeByArt[0].likes;
-            } else {
-                heartLikesStatus = 0;
-            }
-            if (heartLikesStatus === 0) {
-                heartLikesStatus = "Assets/svg/heart-unfill.svg";
-            } else {
-                heartLikesStatus = "Assets/svg/heart-fill.svg";
-            }
-
-            let ownerArt = listArtsOwner.filter(art => art.id === id);
-
-            var buyButtons = "";
-            var habilitar = "";
-
-            if (window.location.toString().includes("artistAccount") && ownerArt.length != 0) {
-
-                if (forSale) {
-                    habilitar = "Deshabilitar";
-
-                } else {
-                    habilitar = "Habilitar";
-                }
-
-                buyButtons = ` 
-            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="${habilitar} Compra" onclick="btnDeshabilitar(this)">
-            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Editar" onclick="">
-            `;
-            } else {
-
-
-                if (forSale == true) {
-                    buyButtons = ` 
- 
-            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Comprar" onclick="btnBuy(this,'buy')">
-            <input type="submit" id='${JSON.stringify(dataCollectionNFTs1)}'  class="btn btn-sm btn-outline-secondary item1" value="Añadir al Carro" onclick="btnBuy(this,'add')">`;
-                } else {
-                    buyButtons = ` 
-            <span class="btn btn-sm btn-outline-secondary item1 d-inline-block" tabindex="0" data-toggle="tooltip" title="El Artista deshabilitó la venta de este arte o ya fue vendida">
-            No Disponible
-            <span>
-            `;
-                }
-            }
-
-            var cardNftCatalogue = document.getElementById("cardNftCatologue");
-
-            cardNftCatalogue.innerHTML += `
-        <div class="col-md-4 card-position "> 
-            <div class="  card mb-4 shadow-sm card-dimensions">
-            <div class="imgBx">
-                <img class="bd-placeholder-img card-img-top" width="100%" height="100%" style="border-radius: 3.5%;" src="${id}" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-            </div>
-
-            <div class="content card-content">
-                <h4 class="card-text" id="item1">Titulo: ${title}</h4>
-                <p class="text-muted" style="">Precio: $${new Intl.NumberFormat().format(price)}</p>
-                <p class="text-muted" style="text-align: center;">Likes:
-                    <button class="btn-like" onclick="btnLike('${idNFT}','${type}')">
-                        <img id="heartStatusModal${idNFT}"" src="${heartLikesStatus}" width="15px">
-                    </button>
-                    <span id="amountLikesModal${idNFT}" aria-valuetext="">${dataLikes}</span>
-                </p>
-               ${buyButtons}    
-            </div>
-        </div>
-                    `;
-
-    }*/
 }
 
-    const btnBuy = async (input, condition) => {
+const btnBuy = async (input, condition) => {
 
-        var cantidad = localStorage.getItem('cantidadCompras');
-        var data = input.id;
-        var dataBuyJSON = JSON.parse(data);
-        var id = dataBuyJSON.id.toString().split("\\")[1];
-        let dataOwner = await fetch(`./api/owners/arts/${id}`).then(response => response.json());
+    var cantidad = localStorage.getItem('cantidadCompras');
+    var data = input.id;
+    var dataBuyJSON = JSON.parse(data);
+    var id = dataBuyJSON.id.toString().split("\\")[1];
+    let dataOwner = await fetch(`./api/owners/arts/${id}`).then(response => response.json());
 
 
-        if (localStorage.getItem('username') != null || localStorage.getItem('username') != undefined) {
-            if (dataOwner.username != localStorage.getItem('username')) {
-                if (cantidad == null) {
+    if (localStorage.getItem('username') != null || localStorage.getItem('username') != undefined) {
+        if (dataOwner.username != localStorage.getItem('username')) {
+            if (cantidad == null) {
 
-                    localStorage.setItem('cantidadCompras', 1);
-                    localStorage.setItem('buy1', data);
+                localStorage.setItem('cantidadCompras', 1);
+                localStorage.setItem('buy1', data);
+                if (condition == 'buy') {
+                    top.location.href = './account.html#shoppingCart';
+                } else {
+                    document.getElementById("numCantCompras").innerHTML = `&nbsp;${localStorage.getItem('cantidadCompras')}`;
+                }
+            } else {
+                let exist = false;
+                for (var i = 1; i <= cantidad && !exist; i++) {
+                    if (localStorage.getItem(`buy${i}`) != data) {
+                    } else {
+                        exist = true;
+                        if (condition == 'buy') {
+                            top.location.href = "./account.html#shoppingCart";
+                        }
+                    }
+                }
+                if (!exist) {
+                    cantidad = parseInt(cantidad) + parseInt(1);
+                    localStorage.setItem(`buy${cantidad}`, data);
+                    localStorage.setItem('cantidadCompras', cantidad);
                     if (condition == 'buy') {
-                        window.location.href = './account.html#shoppingCart';
+                        top.location.href = "./account.html#shoppingCart";
                     } else {
                         document.getElementById("numCantCompras").innerHTML = `&nbsp;${localStorage.getItem('cantidadCompras')}`;
                     }
-                } else {
-                    let exist = false;
-                    for (var i = 1; i <= cantidad && !exist; i++) {
-                        if (localStorage.getItem(`buy${i}`) != data) {
-                        } else {
-                            exist = true;
-                            if (condition == 'buy') {
-                                window.location.href = "./account.html#shoppingCart";
-                            }
-                        }
-                    }
-                    if (!exist) {
-                        cantidad = parseInt(cantidad) + parseInt(1);
-                        localStorage.setItem(`buy${cantidad}`, data);
-                        localStorage.setItem('cantidadCompras', cantidad);
-                        if (condition == 'buy') {
-                            window.location.href = "./account.html#shoppingCart";
-                        } else {
-                            document.getElementById("numCantCompras").innerHTML = `&nbsp;${localStorage.getItem('cantidadCompras')}`;
-                        }
-                    }
-
                 }
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Este NFT ya es tuyo!',
-                })
+
             }
         } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Inicie Sesión para Comprar!',
+                text: 'Este NFT ya es tuyo!',
             })
         }
-
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Inicie Sesión para Comprar!',
+        })
     }
+
+}
+
+const editArt = async (input) => {
+
+
+    const dataCollectionNFTs = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
+    const collectionName = dataCollectionNFTs.map(collectionNft => ({ collection: collectionNft.collection }))
+
+    var id = input.id;
+    var data = JSON.parse(id);
+    let title = data.title;
+    var selectOptions = "";
+    var selected = "";
+
+    for (var i = 0; i < collectionName.length; i++) {
+        if (collectionName[i].collection == data.collection) {
+            selected = "selected"
+        }
+        selectOptions +=
+            `<option style="font-family: 'Abel', sans-serif;" ${selected}>${collectionName[i].collection}</option>`;
+    }
+
+    var olDiv = document.getElementById('cardsCollection').innerHTML;
+
+    document.getElementById('cardsCollection').innerHTML =
+        `<div class="editDataArt" style="width: 100%;">
+        <input type="hidden" id="oldDiv" >
+
+        <div style="padding-top: 3%;  margin-left: 5%;  margin-right: 5%;">
+
+        <div><button style="border-radius: 5px;" onclick="document.getElementById('cardsCollection').innerHTML = document.getElementById('oldDiv').value;"><i class='bx bx-arrow-back'></i></button></div>
+
+            <h2 style="text-align: center;"></h2>
+
+
+            <div class="form-group" style="width: 100%;   display: flex; justify-content: center;" >
+                <img id="imgEditArt" src=${data.id}
+                    alt="${data.title}" style="height: 30vh;">
+
+            </div>
+            <div class="form-group">
+                <label>Título:</label>
+                <input type="text" class="form-control" id="titleEditArt" placeholder="Ingrese el Nuevo Titulo...">
+            </div>
+
+            <div class="form-group">
+                <label for="title">Colección:</label>
+                <select name="collection" class="form-control" id="collectionSelect" aria-describedby="role">
+                ${selectOptions}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Precio:</label>
+                <input type="number" class="form-control" id="priceEditArt" placeholder="Ingrese el Nuevo Precio..."value=${data.price}>
+            </div>
+
+            <input id="btnEditDataArt" type="submit" class="btn btn-primary; btn-box-sign-up"
+            style=" margin-top: 20px; font-family: 'Abel', sans-serif;" value="Editar">
+
+
+
+        </div>
+
+        <div id="imgEditModal" class="modalimgEditArt">
+            <span class="close">&times;</span>
+            <img class="modalimgEditArt-contentEditImg" id="img01">
+            <div id="caption"></div>
+        </div>
+    </div>`;
+
+    document.getElementById('titleEditArt').value = data.title;
+    document.getElementById('oldDiv').value = olDiv;
+
+
+    const getData = async () => {
+        const dataCollectionNFTs = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
+        const collectionName = dataCollectionNFTs.map(collectionNft => ({ collection: collectionNft.collection }))
+
+        for (var i = 0; i < collectionName.length; i++) {
+            document.getElementById("collectionSelect").innerHTML +=
+                `<option style="font-family: 'Abel', sans-serif;">${collectionName[i].collection}</option>`;
+        }
+    
+    }
+
+    window.addEventListener("DOMContentLoaded", getData());
+
+    const actualiza = async () => {
+
+
+        console.log(data.id.split('\\')[1]);
+    
+        if (
+            data.title != document.getElementById('titleEditArt').value ||
+            data.collection != document.getElementById('collectionSelect').value ||
+            data.price != document.getElementById('priceEditArt').value
+        ) {
+    
+            try {
+                //JSON art
+                var art = {
+                    "author": "null",
+                    "collection": document.getElementById('collectionSelect').value,
+                    "email": localStorage.getItem('username'),
+                    "forSale": "null",
+                    "id": data.id.split('\\')[1],
+                    "price": parseFloat(document.getElementById('priceEditArt').value),
+                    "title": document.getElementById('titleEditArt').value
+                };
+    
+                art = JSON.stringify(art);
+                console.log(art);
+    
+                //Se actualiza el arte
+                await fetch(`./api/arts`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: art
+                });
+    
+                Swal.fire('Se generó el cambio exitosamente!').then((result) =>{
+                    if (result.isConfirmed){
+                        location.reload();
+                    }
+                })
+    
+            } catch (err) {
+                console.log(err);
+    
+            }
+        }else{
+            Swal.fire('No realizaste ningún cambio!')
+        }
+    }
+    document.getElementById('btnEditDataArt').addEventListener('click',actualiza)
+
+
+
+    var modal = document.getElementById('imgEditModal');
+
+
+    var img = document.getElementById('imgEditArt');
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+
+
+    var span = document.getElementsByClassName("close")[0];
+
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+}
+
+
+
+
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
-  });
+});
 
-  
+

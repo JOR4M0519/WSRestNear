@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Near</title>
+    <link rel="shortcut icon" href="Assets/img/logo.ico" />
+
+    <!-- BOOTSTRAP CSS -->
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="Assets/Styles/main.css">
+    <style>
+        #imgEditArt {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #imgEditArt:hover {
+            opacity: 0.7;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.9);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content (image) */
+        .modal-contentEditImg {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation */
+        .modal-contentEditImg,
+        #caption {
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0.1)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* The Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 100% Image Width on Smaller Screens */
+        @media only screen and (max-width: 700px) {
+            .modal-contentEditImg {
+                width: 100%;
+            }
+        }
+    </style>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+
+<body>
+
+    <div class="editDataArt" style="width: 100vw;">
+
+        
+        <div style="padding-top: 3%;  margin-left: 5%;  margin-right: 5%;">
+
+            
+            <div><button class="btnBackEdit" style="border-radius: 5px;"><i class='bx bx-arrow-back'></i></button></div>
+
+            <h2 style="text-align: center;"></h2>
+
+
+            <div class="form-group" style="width: 100%;   display: flex; justify-content: center;">
+                <img id="imgEditArt" src="./Assets/img/avatar_driver_people_person_profile_user_icon_123374.png"
+                    alt="Northern Lights, Norway" style="height: 30vh;">
+
+            </div>
+            <div class="form-group">
+                <label>Título:</label>
+                <input type="text" class="form-control" id="titleEditArt" placeholder="Ingrese el Nuevo Titulo...">
+            </div>
+
+            <div class="form-group">
+                <label for="title">Colección:</label>
+                <select name="collection" class="form-control" id="collection" aria-describedby="role">
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Precio:</label>
+                <input type="number" class="form-control" id="priceEditArt" placeholder="Ingrese el Nuevo Precio...">
+            </div>
+
+            <input type="submit" class="btn btn-primary; btn-box-sign-up"
+                style=" margin-top: 20px; font-family: 'Abel', sans-serif;" value="Editar">
+
+
+
+
+        </div>
+
+        <div id="imgEditModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-contentEditImg" id="img01">
+            <div id="caption"></div>
+        </div>
+    </div>
+
+
+    <script>
+        const getData = async () => {
+            const dataCollectionNFTs = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
+            const collectionName = dataCollectionNFTs.map(collectionNft => ({ collection: collectionNft.collection }))
+
+            for (var i = 0; i < collectionName.length; i++) {
+                document.getElementById("collection").innerHTML +=
+                    `<option style="font-family: 'Abel', sans-serif;">${collectionName[i].collection}</option>`;
+            }
+
+        }
+        window.addEventListener("DOMContentLoaded", getData());
+
+        var modal = document.getElementById('imgEditModal');
+
+
+        var img = document.getElementById('imgEditArt');
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        img.onclick = function () {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        }
+
+
+        var span = document.getElementsByClassName("close")[0];
+
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>

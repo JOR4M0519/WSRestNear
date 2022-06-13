@@ -69,7 +69,7 @@ function chargeBtn() {
 
 $('#edit').click(
 
-    function(){
+    function () {
 
         var lastname = "";
         var name = "";
@@ -108,12 +108,12 @@ $('#edit').click(
                 name != document.getElementById('name').innerHTML ||
                 description != document.getElementById('resumeDescripcionPersonal').innerHTML
 
-                
+
             ) {
 
-                
+
                 funcion();
-                
+
             }
         }
 
@@ -122,9 +122,9 @@ $('#edit').click(
 );
 
 
-const funcion = async()=>{
-   
-   
+const funcion = async () => {
+
+
     var lastname = document.getElementById('lastname').innerHTML;
     var name = document.getElementById('name').innerHTML;
     var description = document.getElementById('resumeDescripcionPersonal').innerHTML;
@@ -132,21 +132,21 @@ const funcion = async()=>{
     const username = JSON.stringify({ "username": localStorage.getItem('username').toString(), "password": "null", "name": name, "lastname": lastname, "role": "null", "profileImage": "null", "description": description });
 
 
-                let response = await fetch(`./api/users/update`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: username
+    let response = await fetch(`./api/users/update`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: username
 
-                });
-                let result = await response.json();
-                console.log(result)
-                Swal.fire('Cambio Exitoso!').then((result) => {
-                    if (result.isConfirmed) {
-                        location.reload();
-                    }
-                })
+    });
+    let result = await response.json();
+    console.log(result)
+    Swal.fire('Cambio Exitoso!').then((result) => {
+        if (result.isConfirmed) {
+            location.reload();
+        }
+    })
 }
 
 $(document).ready(function () {
@@ -197,7 +197,7 @@ const getDataAccount = async () => {
     // var divListRole = document.getElementById("listRole");
     var inputFcoins = document.getElementById("amountFcoins");
     var imgProfileImage = document.getElementById("profileImage");
-
+    var textDescription = document.getElementById("resumeDescripcionPersonal");
 
 
 
@@ -215,20 +215,18 @@ const getDataAccount = async () => {
         // divListRole.innerHTML = `${result.role}`;
         imgProfileImage.src = "profileImages/" + result.profileImage;
         document.getElementById('fileName').value = `${result.profileImage}`;
+        textDescription.innerHTML = `${result.description}`;
 
         if (localStorage.getItem("role") == "Comprador") {
 
             let response2 = await fetch(`./api/users/${localStorage.getItem("username")}/wallet/fcoins`);
             let result2 = await response2.json();
             inputFcoins.placeholder = "$" + new Intl.NumberFormat().format(result2.fcoins.toString());
-        } else {
-            var textDescription = document.getElementById("resumeDescripcionPersonal");
-            textDescription.innerHTML = `${result.description}`;
+
 
         }
+
     }
-
-
 };
 
 // const editUser = async () => {
@@ -260,11 +258,11 @@ function logout() {
     localStorage.removeItem("username");
     localStorage.removeItem("role");
     localStorage.removeItem("cantidadCompras");
-    for (let i=1; localStorage.getItem(`buy${i}`) != null;i++){
+    for (let i = 1; localStorage.getItem(`buy${i}`) != null; i++) {
         console.log(localStorage.getItem(`buy${i}`) != null)
     }
 
-    window.location.href= "./index.html";
+    top.location.href = "./index.html";
 }
 
 

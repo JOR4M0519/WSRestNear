@@ -1,4 +1,3 @@
-
 const add = async () =>{
 
     try {
@@ -20,7 +19,8 @@ const add = async () =>{
             body: reloadFcoins
         });
 
-        window.location.href = "./index.html";
+        top.location.href = "./index.html";
+
 
     } catch (err) {
         console.log(err);

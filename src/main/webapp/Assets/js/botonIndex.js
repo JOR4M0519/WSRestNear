@@ -4,12 +4,10 @@ const getButtonAccount = async () => {
     var botonCart = document.getElementById('btnCart');
     var botonNombre = document.getElementById("nameAccount");
     var divBotones = document.getElementById("divbuttons");
-    var supCompras = document.getElementById("numCantCompras");
 
 
-    if(localStorage.getItem('cantidadCompras')>0){
-        supCompras.innerHTML=`&nbsp;${localStorage.getItem('cantidadCompras')}`;
-    }
+
+   
 
     if (localStorage.getItem("username") == null || localStorage.getItem("username") == undefined) {
 
@@ -37,7 +35,7 @@ const getButtonAccount = async () => {
         document.getElementById("dropdown-item1").addEventListener('click',account);
 
         function account(){
-                window.location.href="./account.html#myaccount"
+                top.location.href="./account.html#myaccount"
 
         }
         document.getElementById("dropdown-item2").addEventListener('click',logout);
@@ -53,7 +51,7 @@ const getButtonAccount = async () => {
                 localStorage.removeItem(`buy${i}`);
             }
 
-            window.location.href= "./index.html";
+            top.location.href= "./index.html";
 
         }
         let responseBtn = await fetch(`./api/users/${localStorage.getItem("username")}/wallet/fcoins`);
@@ -61,9 +59,15 @@ const getButtonAccount = async () => {
 
         if (localStorage.getItem('role')=="Comprador"){
 
+            var cantidad = 0;
+
+            if(localStorage.getItem('cantidadCompras')>0){
+                cantidad = localStorage.getItem('cantidadCompras');
+            }
+
             botonCart.innerHTML = `<button class="dropdown show btn" id="dropdown" style="float: left;">
             <a href="./account.html#shoppingCart" style="color: white;"><i class="fa fa-shopping-cart"></i><sup
-                id="numCantCompras">&nbsp0</sup></a>
+                id="numCantCompras">&nbsp;${cantidad}</sup></a>
           </button>`;
 
             botonFCoins.innerHTML = `

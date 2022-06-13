@@ -37,7 +37,7 @@ public class ArtServices {
                     "FROM collection c\n" +
                     "         JOIN art a\n" +
                     "              ON a.\"collection_id\" = c.\"collection_id\"\n" +
-                    "                   AND a.\"forsale\" = true \n"+
+                    "                   AND a.\"forsale\" = true \n" +
                     "         JOIN userapp u\n" +
                     "              ON u.\"user_id\" = c.\"user_id\";";
             ResultSet rs = stmt.executeQuery(sql);
@@ -149,7 +149,7 @@ public class ArtServices {
                     "              ON u.\"user_id\" = c.\"user_id\"\n" +
                     "                  AND a.title ILIKE ?;";
             stmt = this.conn.prepareStatement(sql);
-            stmt.setString(1, ("%"+data+"%"));
+            stmt.setString(1, ("%" + data + "%"));
 
             ResultSet rs = stmt.executeQuery();
 
@@ -182,7 +182,7 @@ public class ArtServices {
         return artList;
     }
 
-    public Art getArt(String image){
+    public Art getArt(String image) {
 
         PreparedStatement stmt = null;
 
@@ -281,7 +281,7 @@ public class ArtServices {
     }
 
 
-    public int getIdCollection (String email, String collection){
+    public int getIdCollection(String email, String collection) {
 
         PreparedStatement stmt = null;
         int collection_id = 0;
@@ -305,7 +305,7 @@ public class ArtServices {
             collection_id = rs.getInt("collection_id");
             rs.close();
             stmt.close();
-        }catch (SQLException se) {
+        } catch (SQLException se) {
             se.printStackTrace();
         } finally {
             // Cleaning-up environment
@@ -316,7 +316,7 @@ public class ArtServices {
             }
         }
 
-    return collection_id;
+        return collection_id;
     }
 
 
@@ -363,31 +363,32 @@ public class ArtServices {
 
         PreparedStatement stmt = null;
 
-       if (art != null){
-           try {
-               stmt = this.conn.prepareStatement("INSERT INTO Art (collection_id, image, title, price)\n" +
-                       "VALUES (?,?,?,?)");
+        if (art != null) {
+            try {
+                stmt = this.conn.prepareStatement("INSERT INTO Art (collection_id, image, title, price)\n" +
+                        "VALUES (?,?,?,?)");
 
-               stmt.setInt(1, getIdCollection(art.getEmail(), art.getCollection()));
-               stmt.setString(2, art.getId());
-               stmt.setString(3, art.getTitle());
-               stmt.setInt(4, (int) art.getPrice());
-               stmt.executeUpdate();
-               stmt.close();
+                stmt.setInt(1, getIdCollection(art.getEmail(), art.getCollection()));
+                stmt.setString(2, art.getId());
+                stmt.setString(3, art.getTitle());
+                stmt.setInt(4, (int) art.getPrice());
+                stmt.executeUpdate();
+                stmt.close();
 
-               new OwnershipServices(conn).creatArtOwner(art.getEmail(), art.getId());
-           } catch(SQLException se){
-               se.printStackTrace();
-           } finally{
-               try {
-                   if (stmt != null) stmt.close();
-               } catch (SQLException se) {
-                   se.printStackTrace();
-               }
-           }
-       }
+                new OwnershipServices(conn).creatArtOwner(art.getEmail(), art.getId());
+            } catch (SQLException se) {
+                se.printStackTrace();
+            } finally {
+                try {
+                    if (stmt != null) stmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }
+            }
+        }
 
     }
+
     public List<Quantity> listTotalLikes() {
         Statement stmt = null;
 
@@ -406,7 +407,7 @@ public class ArtServices {
 
             while (rs.next()) {
 
-                likeList.add(new Quantity(rs.getString("image"),rs.getInt("likes")));
+                likeList.add(new Quantity(rs.getString("image"), rs.getInt("likes")));
             }
 
             rs.close();
@@ -422,5 +423,68 @@ public class ArtServices {
             }
         }
         return likeList;
+    }
+
+    public Art updateArt(Art art) {
+
+        PreparedStatement stmt = null;
+        Art updatedArt = null;
+
+        if (art != null) {
+
+            try {
+
+                stmt = this.conn.prepareStatement("SELECT\n" +
+                        "\tcollection_id\n" +
+                        "FROM\n" +
+                        "\tcollection\n" +
+                        "WHERE \n" +
+                        "\tuser_id = ?\n" +
+                        "\tAND\n" +
+                        "\ttitle = ?;");
+
+                stmt.setString(1, art.getEmail());
+                stmt.setString(2, art.getCollection());
+                ResultSet rs = stmt.executeQuery();
+
+                int collection_id =0;
+
+                rs.next();
+
+                collection_id = rs.getInt("collection_id");
+
+                rs.close();
+
+                stmt = this.conn.prepareStatement("UPDATE art\n" +
+                        "\tSET collection_id=?, title=?, price=?\n" +
+                        "\tWHERE image=?;");
+
+
+                stmt.setInt(1, collection_id);
+                stmt.setString(2, art.getTitle());
+                stmt.setFloat(3,art.getPrice());
+                stmt.setString(4, art.getId());
+
+                stmt.executeUpdate();
+
+
+
+                stmt.close();
+
+                updatedArt = getArt(art.getId());
+
+            } catch (SQLException se) {
+                se.printStackTrace();
+            } finally {
+                try {
+                    if (stmt != null) stmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }
+            }
+            return updatedArt;
+        } else {
+            return null;
+        }
     }
 }
