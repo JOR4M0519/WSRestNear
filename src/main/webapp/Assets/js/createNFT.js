@@ -13,9 +13,11 @@
             body: new FormData(form)
         });
 
-        console.log("Se cargo éxitosamente el NFt");
-
-        document.getElementById('frame').src= "./createNFT.html";
+        Swal.fire(`El NFT: ${document.getElementById('title').value} se subió correctamente!`).then((result) =>{
+            if (result.isConfirmed){
+                window.location.reload();
+            }
+        })
 
     }
     form.addEventListener("submit", uploadNFT);
@@ -26,8 +28,13 @@
               const collectionName = dataCollectionNFTs.map(collectionNft => ({collection: collectionNft.collection}))
 
                   for (var i = 0; i < collectionName.length; i++) {
+                   var selected = "";
+                   
+                    if((i+1)==collectionName.length){
+                        selected = "selected"
+                    }
                       document.getElementById("collection").innerHTML +=
-                          `<option style="font-family: 'Abel', sans-serif;">${collectionName[i].collection}</option>`;
+                          `<option style="font-family: 'Abel', sans-serif;" ${selected}>${collectionName[i].collection}</option>`;
                   }
 
           }

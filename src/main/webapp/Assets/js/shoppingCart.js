@@ -199,7 +199,7 @@ const comprar = async () =>{
 
         Swal.fire('Compra Exitosa!').then((result) =>{
             if (result.isConfirmed){
-                window.location.href="./index.html"
+                top.location.href="./index.html"
             }
         })
 
@@ -241,19 +241,6 @@ function removeItem (idNFT) {
 
 
 }
-document.getElementById("btnBuyAllArts").addEventListener('click',  function () {
-
-   Swal.fire({
-        title: 'Please Wait !',
-        html: 'data uploading',// add html attribute if you want or remove
-        allowOutsideClick: false,
-        onBeforeOpen: () => {
-            Swal.showLoading()
-        },
-    });
-
-    //btnBuy()
-
-    });
+document.getElementById("btnBuyAllArts").addEventListener('click', comprar);
 
 window.addEventListener("DOMContentLoaded", getArtShopping(), addData());

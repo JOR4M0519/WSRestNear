@@ -41,22 +41,34 @@ const getDataArts = async (artsDiv, dataFetch, getBtnCallBack) => {
             heartLikesStatus = "Assets/svg/heart-unfill.svg";
         }
 
+        let divClassColeccion = "";
+        if(artsDiv.id === "cardNftCatologue"){
+            divClassColeccion = "infoArt";
+        }
+
+        /*
+        if (heartLikesStatus === 0) {
+            heartLikesStatus = ;
+        } else {
+            heartLikesStatus = ;
+        }*/
+
         innerhtml += `
-<div class="col-md-4 card-position "> 
-    <div class=" ${styleClassCardTopRankLikes} card mb-4 shadow-sm card-dimensions">
+<div class="" style="display: flex; align-items: center; justify-content: center; border-radius: 2%;"> 
+    <div class=" ${styleClassCardTopRankLikes} card mb-4 shadow-sm card-dimensions" >
         <div class="imgBx">
             <img class="bd-placeholder-img card-img-top" width="100%" height="100%" style="border-radius: 3.5%;" src="${id}" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
         </div>
 
         <div class="content card-content">
-            <h3 class="card-text" id="item1">Titulo: ${title}</h3>
-            <p class="card-text infoArt" id="item1">
+            <h5 class="card-text" id="item1">${title}</h5>
+            <p class="card-text ${divClassColeccion}" id="item1" style="font-size: small;">
             Autor: ${author}
             <br>
             Colección: ${collection}
             </p>
-            <p class="text-muted">Precio: $${new Intl.NumberFormat().format(price)}</p>
-            <p class="text-muted">Likes:
+            <p class="text-muted" style="font-size: small;">Precio: $${new Intl.NumberFormat().format(price)}</p>
+            <p class="text-muted" style="font-size: small;">Likes:
                 <button class="btn-like" onclick="btnLike('${idNFT}','${type}')">
                     <img id="heartStatus${idNFT}"" src="${heartLikesStatus}" width="15px">
                 </button>
@@ -253,7 +265,7 @@ const getDataModal = async (collection, username, enableEdit) => {
               <section class="py-5" style="width: 100%;">
                 <div class="album py-5">
                   <div class="container">
-                    <div class="row" id="cardNftCatologue">
+                    <div class="catalogueIndex" id="cardNftCatologue" style="grid-template-columns: 31% 31% 31%; justify-content: space-between; row-gap: 4%;">
                     </div>
                   </div>
                 </div>
@@ -302,7 +314,7 @@ const btnBuy = async (input, condition) => {
                 localStorage.setItem('cantidadCompras', 1);
                 localStorage.setItem('buy1', data);
                 if (condition == 'buy') {
-                    window.location.href = './account.html#shoppingCart';
+                    top.location.href = './account.html#shoppingCart';
                 } else {
                     document.getElementById("numCantCompras").innerHTML = `&nbsp;${localStorage.getItem('cantidadCompras')}`;
                 }
@@ -313,7 +325,7 @@ const btnBuy = async (input, condition) => {
                     } else {
                         exist = true;
                         if (condition == 'buy') {
-                            window.location.href = "./account.html#shoppingCart";
+                            top.location.href = "./account.html#shoppingCart";
                         }
                     }
                 }
@@ -322,7 +334,7 @@ const btnBuy = async (input, condition) => {
                     localStorage.setItem(`buy${cantidad}`, data);
                     localStorage.setItem('cantidadCompras', cantidad);
                     if (condition == 'buy') {
-                        window.location.href = "./account.html#shoppingCart";
+                        top.location.href = "./account.html#shoppingCart";
                     } else {
                         document.getElementById("numCantCompras").innerHTML = `&nbsp;${localStorage.getItem('cantidadCompras')}`;
                     }

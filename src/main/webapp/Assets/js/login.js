@@ -15,7 +15,7 @@ formElem.onsubmit = async (e) => {
     if (user==result.username && password==result.password && role==result.role){
         localStorage.setItem("username",user);
         localStorage.setItem("role", role)
-        window.location.href = "./index.html";
+        top.location.href = "./index.html";
 
     }else{
         swal({

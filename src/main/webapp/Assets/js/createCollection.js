@@ -31,8 +31,9 @@ form.onsubmit = async (e) => {
             let result = response.json();
 
             sessionStorage.setItem("colletion", result.collection);
-            document.getElementById('frame').src= "./createNFT.html";
-
+            top.location.href= "./account.html#createNFT";
+            top.location.reload();
+            
 
 
         }else {

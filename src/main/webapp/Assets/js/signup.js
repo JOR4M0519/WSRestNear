@@ -23,7 +23,7 @@ form.onsubmit = async (e) => {
 
                 localStorage.setItem("username", result.username);
                 localStorage.setItem("role", result.role);
-                window.location.href = "./index.html";
+                top.location.href = "./index.html";
 
             } catch (err) {
                 console.log(err);
