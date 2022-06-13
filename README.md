@@ -5,8 +5,6 @@ This page is designed so that you can upload NFT images and be able to sell them
 We hope you enjoy it, it was made with a lot of love!
 
 
-
-
 ## Authors
 
 - [Kevin Santiago Garcia Perez](https://www.github.com/Azptmdr)
@@ -21,6 +19,16 @@ This project is used by the following intitutions:
 
 - Universidad El Bosque
 
+
+## JDK
+- Oracle openJDK 17.0.2.
+https://download.oracle.com/java/17/archive/jdk-17.0.2_windows-x64_bin.exe
+
+
+## Server
+
+- WildFly 26.0.1. Preview EE 9.1 Distribution
+https://github.com/wildfly/wildfly/releases/download/26.0.1.Final/wildfly-preview-26.0.1.Final.zip
 
 
 ## Explication
