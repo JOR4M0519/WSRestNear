@@ -253,13 +253,13 @@ function getBtnNotEnable(){
 
         var imagesCol = document.getElementById("cardcol")
 
-        if (enableEdit=="artist") {
+        /*if (enableEdit=="artist") {
             dataCollection = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
         } else if (enableEdit=="filter") {
             dataCollection = await fetch(`./api/collections/filter?data=${params.filter}`).then(response => response.json());
         } else if (enableEdit=="general"){
             dataCollection = await fetch("./api/collections").then(response => response.json());
-        }
+        }*/
 
 
         for (const dataCollection1 of dataCollection) {
@@ -273,7 +273,7 @@ function getBtnNotEnable(){
             }))
 
 
-            if (urlNfts.length == 0 && enableEdit=="artist") {
+            if (urlNfts.length == 0 && true) {
                 imagesCol.innerHTML += `
        <div class="col-md-4 card-position">
         <div class="card mb-4 shadow-sm card-dimensions" style="padding: 50%" id="modalNFTs" onclick="getDataModal('${collection.toString()}')"  data-toggle="modal" data-target=".bd-example-modal-lg">
@@ -367,7 +367,7 @@ const getDataModal = async (collection,username,enableEdit) => {
                 document.querySelectorAll(".infoArt").forEach(el => el.remove())});
         }
         //Muestra solo las artes
-        else{
+        else if(!enableEdit){
             getDataArts(document.getElementById("cardNftCatologue"),dataCollectionNFTs,getArtSale).then(function (){
                 //Borra la información del autor y colección
                 document.querySelectorAll(".infoArt").forEach(el => el.remove())});

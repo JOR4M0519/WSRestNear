@@ -69,8 +69,8 @@ const getArtDataSection = async ()=>{
     //invierte la lista tomando los últimos creados
     dataRecents.reverse();
 
-    //Toma solo las primeras 6 artes
-    while(dataRecents.length>6 ){
+    //Toma solo las primeras 9 artes
+    while(dataRecents.length>9 ){
         dataRecents.length = dataRecents.length - 1;
     }
     //modifica el id por la ruta de la imagen
@@ -95,7 +95,7 @@ const getArtDataSection = async ()=>{
 
     const dataCollection = await fetch("./api/collections").then(response => response.json());
     //enableEdit general al estar en index
-    getDataCollection(dataCollection,"general")
+    getDataCollection(dataCollection,false)
 }
 
 window.addEventListener("DOMContentLoaded",

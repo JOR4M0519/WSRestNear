@@ -24,7 +24,7 @@
 
 
 
-        <section class="contenedor" id="Colecciones">
+        <section class="contenedor" style="margin-left: 3%; margin-top: 2%;" id="Colecciones">
             <h1 class="text">Colecciones</h1>
                 <!-- COLECCIÓN -->
                         <!--Guia js-->
@@ -66,7 +66,7 @@
         async function loadData() {
             const dataCollection = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
             //enableEdit artist ya que se encuentra en las colecciones del artista
-            getDataCollection(dataCollection,"artist")
+            getDataCollection(dataCollection,true)
         }
 
         window.addEventListener("DOMContentLoaded", this.loadData);

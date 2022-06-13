@@ -46,9 +46,9 @@ public class CollectionsIndexResources {
             CollectionServices collectionServices = new CollectionServices(conn);
             collections = collectionServices.listCollections();
             Collections.reverse(collections);
-            if(collections.size()>3){
-                int i=3;
-                    while (collections.size()>3) {
+            if(collections.size()>6){
+                int i=6;
+                    while (collections.size()>6) {
                         collections.remove(i);
                     }
             }

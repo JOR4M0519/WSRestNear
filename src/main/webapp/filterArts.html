@@ -85,7 +85,7 @@
   <!-- COLECCIÓN -->
   <section class="py-3" style="background-color: #cad1e2">
     <div class="cards">
-      <p id="ofertas" class="card_tittle">Últimas Colecciones:</p>
+      <p id="ofertas" class="card_tittle">Colecciones Asociadas:</p>
       <!--Guia js-->
       <div class="card-group contenedor-social" id="socialcard">
         <div class="container">
@@ -158,7 +158,7 @@
 
     const dataCollection = await fetch(`./api/collections/filter?data=${params.filter}`).then(response => response.json());
     //enableEdit filter al estar en index
-    getDataCollection(dataCollection, "filter")
+    getDataCollection(dataCollection, false)
 
   }
   window.addEventListener("DOMContentLoaded", this.loadData);
