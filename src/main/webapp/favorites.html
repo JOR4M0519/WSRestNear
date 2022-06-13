@@ -21,7 +21,7 @@
 <body style="background-color: #E4E9F7;">
 
 
-    <section class="contenedor" id="Favoritos">
+    <section class="contenedor" style="margin-left: 3%; margin-top: 2%;" id="Favoritos">
 
         <h1 class="text">Favoritos</h1>
 
@@ -63,7 +63,6 @@
             getDataArts(document.getElementById("cardfavorites"),dataLikes,getArtSale)
         }else{
             const dataLikes = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
-            console.log(dataLikes)
             getDataArts(document.getElementById("cardfavorites"),dataLikes,getBuyBtn)
         }
     }

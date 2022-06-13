@@ -30,6 +30,7 @@ public class OwnershipServices {
                     "    c.title,\n" +
                     "    u.name,\n" +
                     "    u.lastname,\n" +
+                    "    a.art_id,\n" +
                     "\ta.forsale\n" +
                     "FROM ownership o\n" +
                     "         JOIN art a\n" +
@@ -52,9 +53,10 @@ public class OwnershipServices {
                 int price = rs.getInt(3);
                 String collection = rs.getString(5);
                 String author = rs.getString(6) + " " + rs.getString(7);
-                boolean forSale = rs.getBoolean(8);
+                boolean forSale = rs.getBoolean(9);
+                int counter = rs.getInt(8);
 
-                artList.add(new Art(id, collection, title, author, price, email, forSale));
+                artList.add(new Art(id, collection, title, author, price, email, counter, forSale));
             }
 
             stmt.close();

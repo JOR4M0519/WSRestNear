@@ -112,7 +112,7 @@ public class ArtUserResources {
                     InputStream istream = inputPart.getBody(InputStream.class, null);
 
                     saveFile(istream, fileName, context);
-                    artServices.newArt(new Art(fileName, collection, title, author, price, emailAuthor, true));
+                    artServices.newArt(new Art(fileName, collection, title, author, price, emailAuthor, 0,true));
                     conn.close();
 
                 } catch (IOException e) {

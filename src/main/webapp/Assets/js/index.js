@@ -62,6 +62,10 @@ const getArtDataSection = async ()=>{
     * Catalogo de Artes Resientes
     */
     const dataRecents = await fetch("./api/arts").then(response => response.json());
+
+    dataRecents.sort(function (a, b) {
+        return a.counter-b.counter;
+    });
     //invierte la lista tomando los últimos creados
     dataRecents.reverse();
 
@@ -90,8 +94,8 @@ const getArtDataSection = async ()=>{
     }
 
     const dataCollection = await fetch("./api/collections").then(response => response.json());
-    //enableEdit False al estar en index
-    getDataCollection(dataCollection,false)
+    //enableEdit general al estar en index
+    getDataCollection(dataCollection,"general")
 }
 
 window.addEventListener("DOMContentLoaded",

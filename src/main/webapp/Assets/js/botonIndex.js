@@ -1,11 +1,11 @@
 const getButtonAccount = async () => {
     var botonFCoins = document.getElementById("menusbtn");
     var botonDiv = document.getElementById("dropdown-menu");
+    var botonCart = document.getElementById('btnCart');
     var botonNombre = document.getElementById("nameAccount");
     var divBotones = document.getElementById("divbuttons");
     var supCompras = document.getElementById("numCantCompras");
 
-    divBotones.style.marginLeft="86%";
 
     if(localStorage.getItem('cantidadCompras')>0){
         supCompras.innerHTML=`&nbsp;${localStorage.getItem('cantidadCompras')}`;
@@ -30,15 +30,14 @@ const getButtonAccount = async () => {
          <input type="submit" class="dropdown-item " id="dropdown-item2"  value="Salir">
          
     `;
+    
+        
+        
+    
         document.getElementById("dropdown-item1").addEventListener('click',account);
 
         function account(){
-
-            if(localStorage.getItem("role")=="Artista"){
-                window.location.href="./account.html"
-            }else if (localStorage.getItem("role")=="Comprador"){
-                window.location.href="./customerAccount.html"
-            }
+                window.location.href="./account.html#myaccount"
 
         }
         document.getElementById("dropdown-item2").addEventListener('click',logout);
@@ -57,14 +56,19 @@ const getButtonAccount = async () => {
             window.location.href= "./index.html";
 
         }
-        divBotones.style.marginLeft="73%";
         let responseBtn = await fetch(`./api/users/${localStorage.getItem("username")}/wallet/fcoins`);
         let resultBtn = JSON.parse(await responseBtn.text());
 
         if (localStorage.getItem('role')=="Comprador"){
+
+            botonCart.innerHTML = `<button class="dropdown show btn" id="dropdown" style="float: left;">
+            <a href="./account.html#shoppingCart" style="color: white;"><i class="fa fa-shopping-cart"></i><sup
+                id="numCantCompras">&nbsp0</sup></a>
+          </button>`;
+
             botonFCoins.innerHTML = `
     <div class="dropdown show" style="float: left;">
-        <a class="btn btn-secondary" id="dropdown"  href="./customerAccount.html#FCoins" role="button"  aria-haspopup="true" aria-expanded="false">
+        <a class="btn btn-secondary" id="dropdown"  href="./account.html#wallet" role="button"  aria-haspopup="true" aria-expanded="false">
             <span  id="fcoins"> FCoins: $${new Intl.NumberFormat().format(resultBtn.fcoins)} </span>
         </a>
     </div>

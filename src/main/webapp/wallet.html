@@ -17,10 +17,26 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body style="background-color: #E4E9F7;">
 
+    <section class="contenedor" style="margin-left: 3%; margin-right: 2%;">
+        <h1 class="text"> Mis Fcoins </h1>
+        <div class="info">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend" style="width: 100%; height: 20%;">
+                        <img class="input-group-text" id="basic-addon1" style="width: 8%;justify-content: center;" src="Assets/img/Fcoins_IconB.png" style="height: 20px;">
+                   
+                    <input type="text" id="amountFcoins" name="cantidad" class="form-control form-control-lg" disabled>
+                </div>
+            </div>  
+        </div>
+    </section>
 
-    <section class="contenedor" id="walletHistory">
+    <section class="contenedor" id="FCoins" style="margin-left: 3%; margin-right: 2%;">
+        <!-- JS-INFO -->
+    </section>
+
+    <section class="contenedor"style="margin-left: 3%; margin-top: 2%;" id="walletHistory">
         <h1 class="text">Historial de Actividades</h1>
         <div style="padding: 0 5%" id="walletContent">
         </div>
@@ -29,9 +45,13 @@
 
 </body>
 <!-- BOOTSTRAP SCRIPTS -->
+<script>
 
+</script>
 <script src="Assets/js/walletHistory.js"></script>
 <script src="./Assets/js/botonDeshabilitar.js"></script>
+<script src="./Assets/js/addMoney.js"></script>
+<script src="./Assets/js/sumar.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

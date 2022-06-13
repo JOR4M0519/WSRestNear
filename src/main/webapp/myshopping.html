@@ -23,7 +23,7 @@
 
 <body style="background-color: #E4E9F7;">
 
-        <section class="contenedor" id="Compras">
+        <section style="margin-left: 3%; margin-top: 2%;" class="contenedor" id="Compras">
 
                 <h1 class="text">Compras</h1>
                 <!--Guia js-->
@@ -47,7 +47,7 @@
                 async function loadData() {
                         const dataOwner = await fetch(`./api/owners/${localStorage.getItem("username")}/arts`).then(response => response.json());
                         //const dataLikes = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
-                        getDataArts(document.getElementById("cardOwner"),dataOwner,getEnableArtBtn)
+                        getDataArts(document.getElementById("cardOwner"),dataOwner,getEnableArtBtnCustomer)
                         //getDataArts(document.getElementById("cardfavorites"),dataLikes,getBuyBtn)
                 }
 
