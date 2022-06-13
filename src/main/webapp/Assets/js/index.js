@@ -69,8 +69,8 @@ const getArtDataSection = async ()=>{
     //invierte la lista tomando los últimos creados
     dataRecents.reverse();
 
-    //Toma solo las primeras 12 artes
-    while(dataRecents.length>12 ){
+    //Toma solo las primeras 16 artes
+    while(dataRecents.length>16 ){
         dataRecents.length = dataRecents.length - 1;
     }
     //modifica el id por la ruta de la imagen
