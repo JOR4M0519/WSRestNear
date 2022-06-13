@@ -157,8 +157,8 @@
     }
 
     const dataCollection = await fetch(`./api/collections/filter?data=${params.filter}`).then(response => response.json());
-    //enableEdit False al estar en index
-    getDataCollection(dataCollection, false)
+    //enableEdit filter al estar en index
+    getDataCollection(dataCollection, "filter")
 
   }
   window.addEventListener("DOMContentLoaded", this.loadData);

@@ -94,8 +94,8 @@ const getArtDataSection = async ()=>{
     }
 
     const dataCollection = await fetch("./api/collections").then(response => response.json());
-    //enableEdit False al estar en index
-    getDataCollection(dataCollection,false)
+    //enableEdit general al estar en index
+    getDataCollection(dataCollection,"general")
 }
 
 window.addEventListener("DOMContentLoaded",

@@ -8,16 +8,17 @@
 }
 
 #inputSearchBar {
-  width: 600px;
-  padding-left: 20px;
-
+  width: 70%;
+  padding-left: 10px;
 }
+
 
 #divbuttons{
   display: flex;
+  margin-right: 1%;
   padding-bottom: 0.5%;
   padding-top: 0.2%;
-  margin-left: 74%;
+  justify-content: flex-end;
 }
 
 .dropdown{
@@ -34,10 +35,9 @@
 }
 
 .navbar {
-  position: fixed;
-  display: block;
+
+  background-color: #BA2737;
   box-shadow: 2px 2px 5px #000;
-  opacity: 0.9;
 }
 
 .label-NFT {
@@ -134,8 +134,8 @@
 
 }
 
-#navbarNav {
-  margin-left: 78%;
+.minnavbar{
+  box-shadow: 2px 2px 5px #000;
 }
 
 .btn-mi-cuenta {
@@ -149,6 +149,11 @@
 
 
 #dropdown {
+  background-color: transparent;
+  border-color: #ffffff2a;
+  box-shadow: 4px 4px 2px 1px rgba(2, 2, 0, 0.3);
+}
+#btnShoppingCart{
   background-color: transparent;
   border-color: #ffffff2a;
   box-shadow: 4px 4px 2px 1px rgba(2, 2, 0, 0.3);
@@ -457,7 +462,6 @@
 .btn-primary {
   border: none;
   height: 50px;
-  border-radius: 2%;
   margin-top: 0.5%;
 }
 
@@ -599,6 +603,7 @@ footer{
   position: relative;
   margin: 8px 0;
   list-style: none;
+  
 }
 
 .sidebar li .tooltip {
@@ -678,6 +683,11 @@ footer{
   text-decoration: none;
   transition: all 0.4s ease;
   background: #BA2737;
+
+}
+
+.selectedElement{
+  box-shadow: 4px 4px 2px 1px rgba(2, 2, 0, 0.3);
 }
 
 .sidebar li a:hover {
@@ -1109,3 +1119,4 @@ iframe{
 .image-upload>input {
   display: none;
 }
+

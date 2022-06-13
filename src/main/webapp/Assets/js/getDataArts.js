@@ -253,12 +253,11 @@ function getBtnNotEnable(){
 
         var imagesCol = document.getElementById("cardcol")
 
-        if (window.location.toString().includes("artistAccount")) {
+        if (enableEdit=="artist") {
             dataCollection = await fetch(`./api/users/${localStorage.getItem("username")}/collections`).then(response => response.json());
-            console.log("golaa")
-        } else if (window.location.toString().includes("filterArts")) {
+        } else if (enableEdit=="filter") {
             dataCollection = await fetch(`./api/collections/filter?data=${params.filter}`).then(response => response.json());
-        } else {
+        } else if (enableEdit=="general"){
             dataCollection = await fetch("./api/collections").then(response => response.json());
         }
 
@@ -274,7 +273,7 @@ function getBtnNotEnable(){
             }))
 
 
-            if (urlNfts.length == 0 && window.location.toString().includes("artistAccount")) {
+            if (urlNfts.length == 0 && enableEdit=="artist") {
                 imagesCol.innerHTML += `
        <div class="col-md-4 card-position">
         <div class="card mb-4 shadow-sm card-dimensions" style="padding: 50%" id="modalNFTs" onclick="getDataModal('${collection.toString()}')"  data-toggle="modal" data-target=".bd-example-modal-lg">
@@ -490,7 +489,7 @@ const getDataModal = async (collection,username,enableEdit) => {
                     localStorage.setItem('cantidadCompras', 1);
                     localStorage.setItem('buy1', data);
                     if (condition == 'buy') {
-                        window.location.href = './shoppingCart.html';
+                        window.location.href = './account.html#shoppingCart';
                     } else {
                         document.getElementById("numCantCompras").innerHTML = `&nbsp;${localStorage.getItem('cantidadCompras')}`;
                     }
@@ -501,7 +500,7 @@ const getDataModal = async (collection,username,enableEdit) => {
                         } else {
                             exist = true;
                             if (condition == 'buy') {
-                                window.location.href = "./shoppingCart.html";
+                                window.location.href = "./account.html#shoppingCart";
                             }
                         }
                     }
@@ -510,7 +509,7 @@ const getDataModal = async (collection,username,enableEdit) => {
                         localStorage.setItem(`buy${cantidad}`, data);
                         localStorage.setItem('cantidadCompras', cantidad);
                         if (condition == 'buy') {
-                            window.location.href = "./shoppingCart.html";
+                            window.location.href = "./account.html#shoppingCart";
                         } else {
                             document.getElementById("numCantCompras").innerHTML = `&nbsp;${localStorage.getItem('cantidadCompras')}`;
                         }
