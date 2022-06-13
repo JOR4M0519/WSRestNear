@@ -194,6 +194,14 @@
   background-color: darkgray;
 }
 
+.catalogueIndex{
+  display: grid;
+  width: 100%;
+  grid-template-columns: 25% 25% 25% 25%;
+  column-gap: 2%;
+  row-gap: 2%;
+}
+
 .cresumen{
   margin-top: 2%;
   padding: 0 2% 0 5%;
@@ -410,10 +418,13 @@
 
 .card-dimensions {
   padding: 2%;
-  background-color: #e3e3e3;
-  border-color: grey;
-  border-radius: 5%;
-  height: 50.44vh;
+  box-shadow: 0 0px 6px 6px rgb(0 0 0 / 30%) !important;
+  margin: 0 !important;
+  border: none !important;
+  /* background-color: #e3e3e3; */
+  background-color: transparent;
+  border-radius: 3%;
+  height: 45vh;
   width: 18.75vw;
   align-items: center;
   justify-content: center;
@@ -426,8 +437,14 @@
   border-color: #720000;
 }
 
+#card_LikesRanking{
+  justify-content: space-around
+}
+
 #modalNFTs{
   width: 22vw;
+  background: #ffffffae;
+  margin: 10% 0 !important;
 }
 
 .imageCollection{
